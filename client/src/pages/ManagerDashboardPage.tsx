@@ -41,19 +41,19 @@
          </section>
 
          {/* ----------- actions rapides ----------- */}
-         <div className="quick">
-           <Link to="/manager/create"><button className="btn">+ Créer un compte CAF</button></Link>
-           <Link to="/manager/modules"><button className="btn">📝 Modules</button></Link>
-         </div>
+        <div className="quick">
+          <Link to="/manager/create"><button className="btn">+ Créer un compte CAF</button></Link>
+          <Link to="/manager/modules"><button className="btn">📝 Modules</button></Link>
+        </div>
 
          <h2>Progression globale (Items)</h2>
-         <ResponsiveContainer width="100%" height={240}>
-           <BarChart data={data}>
-             <XAxis dataKey="name"/><YAxis allowDecimals={false}/>
-             <Tooltip/>
-             <Bar dataKey="visited"/>
-           </BarChart>
-         </ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={240}>
+          <BarChart data={data}>
+            <XAxis dataKey="name" /><YAxis allowDecimals={false} />
+            <Tooltip />
+            <Bar dataKey="visited" fill="#008bd2" />
+          </BarChart>
+        </ResponsiveContainer>
 
          <h2>Changer un mot de passe</h2>
          <table>
@@ -95,7 +95,7 @@
      .big{font-size:2rem;font-weight:bold;color:#008BD2;margin-top:.5rem}
    
      /* ---- actions rapides ---- */
-     .quick{display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
+     .quick{display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;justify-content:center}
      .btn{background:#008bd2;color:#fff;border:none;padding:.6rem 1rem;border-radius:4px}
      .btn:hover{background:#006fa1}
    
