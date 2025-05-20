@@ -30,8 +30,17 @@
                   children:  (it.children ?? []).map(ensureDefaults),
                 });
       
-                const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
-                  arr.map((x) => ({ ...fn(x), children: mapItems(x.children ?? [], fn) }));
+// parcours récursif de l'arbre en appliquant fn sur chaque item
+// (prend en compte les éventuelles modifications de `children` retournées
+// par fn avant de descendre d'un niveau)
+const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
+  arr.map((x) => {
+    const mapped = fn(x);                       // résultat de fn(x)
+    return {
+      ...mapped,
+      children: mapItems(mapped.children ?? [], fn),
+    };
+  });
       
                 const filterTree = (arr: IItem[], pred: (x: IItem) => boolean): IItem[] =>
                   arr
