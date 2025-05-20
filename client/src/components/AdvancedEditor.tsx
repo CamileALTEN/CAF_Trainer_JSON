@@ -1,7 +1,7 @@
              /* ------------------------------------------------------------------ */
              /*  AdvancedEditor.tsx – version stabilisée                           */
              /* ------------------------------------------------------------------ */
-             import React, { useRef, useState, useCallback, useMemo } from 'react';
+import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
              import ReactQuill from 'react-quill';
              import 'react-quill/dist/quill.snow\.css';
       
@@ -25,6 +25,8 @@
              const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
                /* 1. Ref Quill ----------------------------------------------------- */
                const quillRef = useRef<any>(null);
+                  const [html, setHtml] = useState(value);
+                  useEffect(() => setHtml(value), [value]);
       
                /* 2. Compteur de mots --------------------------------------------- */
                const [words, setWords] = useState(0);
@@ -82,8 +84,9 @@
                const onEditorChange = useCallback(
                  (html: string, _delta: any, _src: any, editor: any) => {
                    onChange(html);
+                   setHtml(html);
                    const txt = editor.getText().trim();
-                   setWords(txt ? txt.split(/s+/).length : 0);
+                   setWords(txt ? txt.split(/\s+/).length : 0);
                  },
                  [onChange]
                );
@@ -94,7 +97,7 @@
                    <ReactQuill
                      ref={quillRef}
                      theme="snow"
-                     value={value}
+                     value={html}
                      onChange={onEditorChange}
                      modules={modules}
                      formats={formats}
