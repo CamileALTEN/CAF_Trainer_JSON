@@ -29,25 +29,26 @@
 .modules-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
+  gap: 1.5rem;
   margin-top: 1.5rem;
 }
 
 /* ========== carte module ========== */
 .module-card {
   background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border: none;
+  border-radius: var(--radius-lg);
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .05);
-  transition: transform .2s ease;
+  box-shadow: var(--shadow);
+  transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .module-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, .08);
 }
 
 .module-title {
@@ -65,13 +66,13 @@
 /* ========== barre de progression module ========== */
 .module-progress .progress-bar {
   height: 15px;
-  border-radius: 4px;
-  background: #e8eaf5;           /* vert très clair */
+  border-radius: var(--radius);
+  background: #e8eaf5;
   overflow: hidden;
 }
 
 .module-progress .progress {
-  background: #26a69a;           /* vert principal */
+  background: var(--primary-color);
 }
 
 /* ========== bouton d’accès ========== */
@@ -82,12 +83,14 @@
   font-weight: 600;
   font-size: 0.85rem;
   padding: .5rem 1rem;
-  border-radius: 4px;
-  background: #2196f3;
+  border-radius: var(--radius);
+  background: var(--primary-color);
   color: #fff;
-  transition: background .2s ease;
+  box-shadow: var(--shadow);
+  transition: background .2s ease, box-shadow .2s ease;
 }
 
 .module-btn:hover {
-  background: #1976d2;
+  background: var(--primary-dark);
+  box-shadow: 0 6px 12px rgba(0,0,0,.1);
 }

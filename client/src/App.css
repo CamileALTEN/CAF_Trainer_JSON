@@ -2,13 +2,15 @@
 1. Variables de couleur
 --------------------------------------------------------------*/
 :root {
-  --primary-color:   #008BD2;        /* bleu Alten */
-  --primary-dark:    #006fa1;
-  --secondary-color: #043962;        /* bleu foncé */
-  --bg-color:        #f4f6f8;
-  --text-color:      #333333;
+  --primary-color:   #8b5cf6;
+  --primary-dark:    #6d28d9;
+  --secondary-color: #1e1b4b;
+  --bg-color:        #f5f7fb;
+  --text-color:      #2e3058;
   --white:           #ffffff;
-  --radius:          4px;
+  --radius:          8px;
+  --radius-lg:       12px;
+  --shadow:          0 4px 12px rgba(0,0,0,0.07);
   --transition:      0.2s ease;
 
 }
@@ -47,20 +49,21 @@ a:hover    {
 3. Boutons génériques
 --------------------------------------------------------------*/
 button {
-  display:inline-block;        /* largeur auto */
-  max-width:unset;             /* coupe les libellés très longs */
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  display: inline-block;        /* largeur auto */
+  max-width: unset;             /* coupe les libellés très longs */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
-  font-family:inherit;
+  font-family: inherit;
   background: var(--primary-color);
-  color:      var(--white);
-  border:none;
-  border-radius:var(--radius);
-  padding:8px 12px;
-  cursor:pointer;
-  transition: background var(--transition);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  padding: 8px 14px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: background var(--transition), box-shadow var(--transition);
 }
 button:hover { background:var(--primary-dark); }
 
@@ -83,37 +86,39 @@ button:hover { background:var(--primary-dark); }
 }
 
 .main-content {
-  flex:1;
-  display:flex;
-  justify-content:center;      /* centre la zone de contenu */
-  width:100%;
-  overflow:hidden;
-  padding-top: 0px;
+  flex: 1;
+  display: flex;
+  justify-content: center;      /* centre la zone de contenu */
+  width: 100%;
+  overflow: hidden;
+  padding-top: 1rem;
 }
 
 /*--------------------------------------------------------------
 5. Header
 --------------------------------------------------------------*/
 .page-header {
-  width:100%;
-  background: var(--secondary-color);
-  color:      var(--white);
-  padding:16px 24px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  box-shadow:0 2px 4px rgba(0,0,0,0.1);
-  opacity : 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+  color: var(--white);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow);
+  border-bottom-left-radius: var(--radius-lg);
+  border-bottom-right-radius: var(--radius-lg);
+  opacity: 100%;
   z-index: 2000;
-
-
 }
 
 /* boutons du header */
 .page-header button {
-  padding:6px 12px;
-  margin-left:8px;
-  max-width:140px;
+  padding: 6px 14px;
+  margin-left: 8px;
+  max-width: 140px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 /* boutons “haut de page” dans certains écrans */
@@ -150,8 +155,7 @@ button:hover { background:var(--primary-dark); }
 .module-page,
 .prerequis-page,
 .favorites-page,
-.admin-page{
-  /* on force la bordure haute à 0 px */
-  padding-top:0 !important;          /* si la page utilise padding */
-  margin-top:0  !important;          /* si la page utilisait margin */
+.admin-page {
+  padding-top: 0 !important;          /* si la page utilise padding */
+  margin-top: 0 !important;           /* si la page utilisait margin */
 }

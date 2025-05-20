@@ -141,6 +141,6 @@ const Wrapper = styled.div`  padding:2rem; max-width:360px; margin:auto;
       `;
 const Form    = styled.form`  display:flex; flex-direction:column; gap:.75rem;
   input,select{padding:.5rem; border:1px solid #bbb; border-radius:4px;}
-  button{padding:.6rem; background:#008bd2; color:#fff; border:none; border-radius:4px;}
-  button:hover:not(:disabled){background:#006fa1;}
+  button{padding:.6rem; background:#6c5ce7; color:#fff; border:none; border-radius:4px;}
+  button:hover:not(:disabled){background:#4834d4;}
       `;

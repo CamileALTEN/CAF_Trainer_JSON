@@ -18,7 +18,7 @@
 .btn-back {
   background: none;
   border: none;
-  color: #043962;
+  color: #130f40;
   font-size: 1rem;
   cursor: pointer;
   padding: 6px 8px;
@@ -38,11 +38,12 @@
 
 .cards li {
   background: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 10px;
+  border: none;
+  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   transition: transform .15s, box-shadow .15s;
+  box-shadow: var(--shadow);
 }
 
 .cards li:hover {
@@ -91,25 +92,28 @@ footer {
 /* -------- boutons ------------------------------------------------------- */
 .btn-primary,
 .btn-secondary {
-  background: #008bd2;
+  background: var(--primary-color);
   color: #ffffff;
   border: none;
   padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
   font-size: .95rem;
-  transition: background .15s;
+  box-shadow: var(--shadow);
+  transition: background .15s, box-shadow .15s;
 }
 
-.btn-primary:hover   { background: #006fa1; }
+.btn-primary:hover   { background: var(--primary-dark); }
 
 .btn-secondary {
-  background: #043962;
+  background: #130f40;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
-.btn-secondary:hover { background: #032c59; }
+.btn-secondary:hover { background: #0d113c; }
 
 /* …(tout ce qui existait déjà)… */
 
