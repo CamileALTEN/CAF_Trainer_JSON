@@ -32,7 +32,7 @@ ul.sidebar ul   { padding-left:14px; border-left:2px solid rgba(255,255,255,.15)
   transition:background .15s,color .15s;
 }
 .menu-item>button:hover              { background:rgba(255,255,255,.1); }
-.menu-item.active>button             { background:#008bd2; color:#fff; }
+.menu-item.active>button             { background:#6c5ce7; color:#fff; }
 .menu-item.visited>button:not(.active){ opacity:.55; }
 
 /* -------- contenu -------- */
@@ -43,7 +43,7 @@ ul.sidebar ul   { padding-left:14px; border-left:2px solid rgba(255,255,255,.15)
 /* -------- bouton hamburger -------- */
 .toggle-sidebar{
   position:fixed; bottom:24px; left:24px;
-  background:#008bd2; color:#fff; border:none; border-radius:50%;
+  background:#6c5ce7; color:#fff; border:none; border-radius:50%;
   width:48px; height:48px; font-size:1.4rem; cursor:pointer;
   box-shadow:0 2px 6px rgba(0,0,0,.25); z-index:600;
   transition:background .15s;
@@ -65,13 +65,13 @@ ul.sidebar ul   { padding-left:14px; border-left:2px solid rgba(255,255,255,.15)
   border-radius: 50%;
   font-size: 1.4rem;
   cursor: pointer;
-  background: #008bd2;
+  background: #6c5ce7;
   color: #fff;
   box-shadow: 0 2px 6px rgba(0,0,0,.25);
   z-index: 600;
   transition: background .15s;
 }
-.nav-arrow:hover      { background:#006fa1; }
+.nav-arrow:hover      { background:#4834d4; }
 .nav-arrow.prev       { left:  84px;  }   /* 24px + 60px (hamburger) */
 .nav-arrow.next       { right: 24px;  }
 .module-page.open .nav-arrow.prev { left: 24px; } /* quand le panneau est ouvert */

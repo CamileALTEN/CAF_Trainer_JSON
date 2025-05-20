@@ -18,7 +18,7 @@
                    }
                    .item-titles h3 {
                      margin: 4px 0 0;
-                     color: #043962;
+                     color: #130f40;
                      font-weight: normal;
                    }
                    .item-actions {
@@ -51,8 +51,8 @@
                    }
                  /* -------- liens -------- */
                  .item-links          { margin-top: 20px; }
-                 .item-links h3       { margin: 0 0 8px;  font-size: 1rem; color: #043962; }
+                 .item-links h3       { margin: 0 0 8px;  font-size: 1rem; color: #130f40; }
                  .item-links ul       { list-style: none; padding: 0; }
                  .item-links li       { margin: 4px 0;   font-size: .92rem; }
-                 .item-links a        { color: #008BD2;  text-decoration: none; }
+                 .item-links a        { color: #6c5ce7;  text-decoration: none; }
                  .item-links a:hover  { text-decoration: underline; }

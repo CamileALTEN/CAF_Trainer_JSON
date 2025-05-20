@@ -18,7 +18,7 @@
 .btn-back {
   background: none;
   border: none;
-  color: #043962;
+  color: #130f40;
   font-size: 1rem;
   cursor: pointer;
   padding: 6px 8px;
@@ -91,7 +91,7 @@ footer {
 /* -------- boutons ------------------------------------------------------- */
 .btn-primary,
 .btn-secondary {
-  background: #008bd2;
+  background: #6c5ce7;
   color: #ffffff;
   border: none;
   padding: 8px 16px;
@@ -103,13 +103,13 @@ footer {
   transition: background .15s;
 }
 
-.btn-primary:hover   { background: #006fa1; }
+.btn-primary:hover   { background: #4834d4; }
 
 .btn-secondary {
-  background: #043962;
+  background: #130f40;
 }
 
-.btn-secondary:hover { background: #032c59; }
+.btn-secondary:hover { background: #0d113c; }
 
 /* …(tout ce qui existait déjà)… */
 

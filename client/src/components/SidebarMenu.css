@@ -6,5 +6,5 @@ ul.sidebar ul   { padding-left:16px;border-left:2px solid #e0e0e0;margin:4px 0 }
   cursor:pointer;transition:background .15s;
 }
 .menu-item>button:hover             { background:#f0f8ff }
-.menu-item.active>button            { background:#008bd2;color:#fff }
+.menu-item.active>button            { background:#6c5ce7;color:#fff }
 .menu-item.visited>button:not(.active) { opacity:.6 }

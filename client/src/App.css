@@ -2,11 +2,11 @@
 1. Variables de couleur
 --------------------------------------------------------------*/
 :root {
-  --primary-color:   #008BD2;        /* bleu Alten */
-  --primary-dark:    #006fa1;
-  --secondary-color: #043962;        /* bleu foncé */
-  --bg-color:        #f4f6f8;
-  --text-color:      #333333;
+  --primary-color:   #6c5ce7;        /* violet principal */
+  --primary-dark:    #4834d4;
+  --secondary-color: #130f40;        /* bleu nuit foncé */
+  --bg-color:        #f9f9fb;
+  --text-color:      #2d3436;
   --white:           #ffffff;
   --radius:          4px;
   --transition:      0.2s ease;
@@ -96,7 +96,7 @@ button:hover { background:var(--primary-dark); }
 --------------------------------------------------------------*/
 .page-header {
   width:100%;
-  background: var(--secondary-color);
+  background: linear-gradient(90deg,var(--primary-color),var(--primary-dark));
   color:      var(--white);
   padding:16px 24px;
   display:flex;

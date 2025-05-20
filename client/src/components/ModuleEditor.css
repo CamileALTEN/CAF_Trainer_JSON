@@ -13,7 +13,7 @@
       
              .tree-scroll ul     { list-style:none; padding-left:16px; margin:0; }
              .tree-scroll li     { margin:4px 0; }
-             .tree-scroll li.sel>span { background:#008bd2; color:#fff; }
+             .tree-scroll li.sel>span { background:#6c5ce7; color:#fff; }
              .tree-scroll li>span{ cursor:pointer; padding:2px 4px; border-radius:4px;
                                    display:inline-block; transition:background .15s; }
              .tree-scroll li>span:hover
@@ -38,6 +38,6 @@
                                    padding:8px 12px; margin-bottom:12px; }
              legend              { padding:0 6px; }
       
-             button.primary      { background:#008bd2; color:#fff; border:none;
+             button.primary      { background:#6c5ce7; color:#fff; border:none;
                                    padding:8px 16px; border-radius:4px; cursor:pointer; }
-             button.primary:hover{ background:#006fa1; }
+             button.primary:hover{ background:#4834d4; }

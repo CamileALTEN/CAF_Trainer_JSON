@@ -22,7 +22,7 @@
              }
       
              const HeaderBar = styled.header`               display:flex; align-items:center; justify-content:space-between;
-               padding:0.5rem 1rem; background:#043962; color:white;
+               padding:0.5rem 1rem; background:linear-gradient(90deg,var(--primary-color),var(--primary-dark)); color:white;
                button { background:none; border:none; color:white; cursor:pointer; }
                h1 { margin:0; font-size:1.2rem; }
             `;

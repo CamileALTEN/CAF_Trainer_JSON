@@ -21,11 +21,11 @@ const Wrapper = styled.div`  height:100vh;
   button {
     padding:0.5rem 1rem;
     margin-top:1rem;
-    background:#008BD2;
+    background:#6c5ce7;
     color:white;
     border:none;
     border-radius:4px;
     cursor:pointer;
-    &:hover { background:#006fa1; }
+    &:hover { background:#4834d4; }
   }
       `;

@@ -8,10 +8,12 @@
    import { IModule } from '../api/modules';
    import './AdminDashboardPage.css';
 
-   export default function AdminDashboardPage() {
-     const [users, setUsers] = useState<IUser[]>([]);
-     const [modules, setModules] = useState<IModule[]>([]);
-     const [loading, setLoading] = useState(true);
+export default function AdminDashboardPage() {
+  const [users, setUsers] = useState<IUser[]>([]);
+  const [modules, setModules] = useState<IModule[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState('');
+  const [roleFilter, setRoleFilter] = useState('all');
 
      /* ───────── chargement initial ───────── */
      useEffect(() => {
@@ -73,12 +75,17 @@
 
      // Tri des utilisateurs par rôle : admin → manager → caf
      const rolePriority: Record<string, number> = { admin: 0, manager: 1, caf: 2 };
-     const sortedUsers = [...users].sort((a, b) => {
-       const pa = rolePriority[a.role] ?? 3;
-       const pb = rolePriority[b.role] ?? 3;
-       if (pa !== pb) return pa - pb;
-       return a.username.localeCompare(b.username);
-     });
+    const sortedUsers = [...users].sort((a, b) => {
+      const pa = rolePriority[a.role] ?? 3;
+      const pb = rolePriority[b.role] ?? 3;
+      if (pa !== pb) return pa - pb;
+      return a.username.localeCompare(b.username);
+    });
+
+    const filtered = sortedUsers.filter(u =>
+      u.username.toLowerCase().includes(query.toLowerCase()) &&
+      (roleFilter === 'all' || u.role === roleFilter)
+    );
 
      const totalItems = modules.reduce((n, m) => n + (m.items?.length ?? 0), 0);
 
@@ -98,15 +105,29 @@
            <Link to="/admin/notifications"><button>🔔 Notifications</button></Link>
          </div>
 
-         <h2>Comptes</h2>
-         <table>
+        <h2>Comptes</h2>
+        <div className="filters">
+          <input
+            type="text"
+            placeholder="Rechercher..."
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+          />
+          <select value={roleFilter} onChange={e => setRoleFilter(e.target.value)}>
+            <option value="all">Tous</option>
+            <option value="admin">Admin</option>
+            <option value="manager">Manager</option>
+            <option value="caf">CAF</option>
+          </select>
+        </div>
+        <table>
            <thead>
              <tr><th>User</th><th>Rôle</th><th>Site</th><th>Manager</th><th/></tr>
            </thead>
-           <tbody>
-             {sortedUsers.map(u => (
-               <tr key={u.id}>
-                 <td>{u.username}</td>
+          <tbody>
+            {filtered.map(u => (
+              <tr key={u.id}>
+                <td>{u.username}</td>
                  <td>{u.role}</td>
                  <td>{u.site ?? '—'}</td>
                  <td>{u.managerId ? users.find(m => m.id === u.managerId)?.username ?? u.managerId : '—'}</td>

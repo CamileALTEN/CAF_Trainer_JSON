@@ -1,8 +1,8 @@
        .admin-dashboard {
                padding: 1.5rem;
                margin: auto;
-               max-width: 960px;
-             }
+               max-width: 1200px;
+               }
     
              .admin-dashboard h1 {
                text-align: center;
@@ -28,7 +28,7 @@
              .admin-dashboard .big {
                font-size: 2rem;
                font-weight: bold;
-               color: #008BD2;
+               color: #6c5ce7;
                margin-top: .5rem;
              }
     
@@ -42,7 +42,7 @@
              }
     
              .admin-dashboard .quick button {
-               background: #008bd2;
+               background: #6c5ce7;
                color: #fff;
                border: none;
                padding: .5rem 1rem;
@@ -50,13 +50,26 @@
              }
     
              .admin-dashboard .quick button:hover {
-               background: #006fa1;
+               background: #4834d4;
              }
     
-             .admin-dashboard table {
-               width: 100%;
-               border-collapse: collapse;
-             }
+            .admin-dashboard table {
+              width: 100%;
+              border-collapse: collapse;
+            }
+
+            .admin-dashboard .filters {
+              display: flex;
+              justify-content: flex-end;
+              gap: 8px;
+              margin-bottom: 0.75rem;
+            }
+            .admin-dashboard .filters input,
+            .admin-dashboard .filters select {
+              padding: 6px 8px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+            }
     
              .admin-dashboard th,
              .admin-dashboard td {

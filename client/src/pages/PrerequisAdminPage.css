@@ -5,7 +5,7 @@
       }
       .admin-page h1 {
         margin: 16px;
-        color: #043962;
+        color: #130f40;
       }
       .admin-main {
         display: flex;
@@ -74,7 +74,7 @@
         cursor: pointer;
       }
       .save-btn:hover {
-        background-color: #006fa1;
+        background-color: #4834d4;
       }
       /* Ajuste la hauteur minimale de l’éditeur Quill */
       .ql-container {
