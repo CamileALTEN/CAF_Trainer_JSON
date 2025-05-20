@@ -3,22 +3,24 @@
         flex-direction: column;
         height: 100vh;
       }
-      .admin-page h1 {
-        margin: 16px;
-        color: #043962;
-      }
+        .admin-page h1 {
+          margin: 16px;
+          color: var(--accent-color);
+        }
       .admin-main {
         display: flex;
         flex: 1;
         overflow: hidden;
       }
-      .admin-tree {
-        width: 280px;
-        background: #f0f4f8;
-        padding: 16px;
-        overflow-y: auto;
-        border-right: 1px solid #ccc;
-        display: flex;
+        .admin-tree {
+          width: 280px;
+          background: rgba(0,0,0,0.3);
+          padding: 16px;
+          overflow-y: auto;
+          border-right: 1px solid rgba(255,255,255,0.1);
+          display: flex;
+          flex-direction: column;
+        }
         flex-direction: column;
       }
       .admin-tree > button {
@@ -74,7 +76,7 @@
         cursor: pointer;
       }
       .save-btn:hover {
-        background-color: #006fa1;
+        background-color: #4834d4;
       }
       /* Ajuste la hauteur minimale de l’éditeur Quill */
       .ql-container {

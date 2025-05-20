@@ -5,18 +5,19 @@
              .module-editor      { display:flex; height:calc(100vh - 80px); }
       
              /* ----------------- panneau latéral ----------------- */
-             .tree-pane          { width:320px; border-right:1px solid #ddd;
-                                   display:flex; flex-direction:column; background:#fafafa; }
-             .tree-pane header   { padding:12px; border-bottom:1px solid #eee;
+             .tree-pane          { width:320px; border-right:1px solid rgba(255,255,255,0.1);
+                                   display:flex; flex-direction:column; background:rgba(0,0,0,0.3); color:var(--text-color); }
+             .tree-pane header   { padding:12px; background:rgba(0,0,0,0.4); border-bottom:1px solid rgba(255,255,255,0.1);
                                    display:flex; justify-content:space-between; align-items:center; }
              .tree-scroll        { flex:1; overflow-y:auto; padding:8px 12px; }
       
              .tree-scroll ul     { list-style:none; padding-left:16px; margin:0; }
              .tree-scroll li     { margin:4px 0; }
-             .tree-scroll li.sel>span { background:#008bd2; color:#fff; }
-             .tree-scroll li>span{ cursor:pointer; padding:2px 4px; border-radius:4px;
+             .tree-scroll li.sel>span { background:linear-gradient(90deg,var(--primary-color),var(--primary-dark)); color:#fff; }
+             .tree-scroll li>span{ cursor:pointer; padding:2px 4px; border-radius:var(--radius);
                                    display:inline-block; transition:background .15s; }
              .tree-scroll li>span:hover
+                               { background:rgba(255,255,255,.1); }
       
              .item-acts          { display:inline-flex; gap:4px; margin-left:6px; }
              .item-acts button   { background:none; border:none; cursor:pointer; padding:0 2px;
@@ -24,20 +25,20 @@
              .item-acts button:hover { color:#000; }
       
              /* ----------------- zone formulaire ----------------- */
-             .editor             { flex:1; overflow-y:auto; padding:24px; }
+             .editor             { flex:1; overflow-y:auto; padding:24px; color:var(--text-color); }
              .editor h2          { margin-top:0; }
              .editor input,
-             .editor textarea    { width:100%; padding:6px 8px; border:1px solid #bbb;
-                                   border-radius:4px; font-family:inherit; margin-bottom:12px; }
+             .editor textarea    { width:100%; padding:6px 8px; border:1px solid rgba(255,255,255,0.3);
+                                   border-radius:var(--radius); font-family:inherit; margin-bottom:12px; background:rgba(0,0,0,0.2); color:var(--text-color); }
              .editor textarea    { resize:vertical; min-height:60px; }
              .inline-row         { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
       
              .prof-select        { margin:12px 0; display:flex; gap:12px; align-items:center; }
       
-             fieldset            { border:1px solid #ccc; border-radius:6px;
+             fieldset            { border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius);
                                    padding:8px 12px; margin-bottom:12px; }
              legend              { padding:0 6px; }
       
-             button.primary      { background:#008bd2; color:#fff; border:none;
-                                   padding:8px 16px; border-radius:4px; cursor:pointer; }
-             button.primary:hover{ background:#006fa1; }
+             button.primary      { background:linear-gradient(90deg,var(--primary-color),var(--primary-dark)); color:#fff; border:none;
+                                   padding:8px 16px; border-radius:var(--radius); cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,.25); }
+             button.primary:hover{ background:linear-gradient(90deg,var(--primary-dark),var(--primary-color)); }

@@ -1,5 +1,6 @@
-\* { box-sizing:border-box; margin:0; padding:0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  font-family:'Metropolis',Arial,sans-serif;
-  background:#f5f5f5; color:#043962;
+  font-family: 'Poppins', Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  color: var(--text-color);
 }

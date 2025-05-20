@@ -140,7 +140,7 @@ export default function RegisterUserPage() {
 const Wrapper = styled.div`  padding:2rem; max-width:360px; margin:auto;
       `;
 const Form    = styled.form`  display:flex; flex-direction:column; gap:.75rem;
-  input,select{padding:.5rem; border:1px solid #bbb; border-radius:4px;}
-  button{padding:.6rem; background:#008bd2; color:#fff; border:none; border-radius:4px;}
-  button:hover:not(:disabled){background:#006fa1;}
+  input,select{padding:.5rem; border:1px solid rgba(255,255,255,0.3); border-radius:var(--radius); background:rgba(0,0,0,0.2); color:var(--text-color);}
+  button{padding:.6rem; background:linear-gradient(90deg,var(--primary-color),var(--primary-dark)); color:#fff; border:none; border-radius:var(--radius); box-shadow:0 2px 4px rgba(0,0,0,.25);}
+  button:hover:not(:disabled){background:linear-gradient(90deg,var(--primary-dark),var(--primary-color));}
       `;

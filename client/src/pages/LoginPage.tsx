@@ -70,7 +70,7 @@ export default function LoginPage() {
           <button
             type="button"
             style={{
-              background:'none', border:'none', color:'#008bd2',
+              background:'none', border:'none', color:'var(--accent-color)',
               cursor:'pointer', textDecoration:'underline', fontSize:'.85rem',
             }}
             onClick={forgotPwd}

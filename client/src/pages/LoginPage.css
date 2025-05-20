@@ -1,17 +1,28 @@
 /* client/src/pages/LoginPage.css */
 .login-container{
-    position:fixed; inset:0;               /* couvre tout l’écran */
-    display:flex; justify-content:center; align-items:center;
-    background:#2a2b38;
-  }
-  .login-card{
-    background:#fff; padding:2rem; border-radius:8px;
-    width:100%; max-width:320px; text-align:center;
-    box-shadow:0 4px 12px rgba(0,0,0,.15);
-  }
-  .login-title{margin-bottom:1.5rem;font-size:1.6rem;color:#043962}
-  .login-field{margin-bottom:1rem;text-align:left}
-  .login-field label{display:block;margin-bottom:.25rem;font-weight:bold;color:#333}
-  .login-field input{width:100%;padding:.5rem;border:1px solid #bbb;border-radius:4px}
-  .login-submit{width:100%;padding:.6rem;margin-top:.5rem;text-transform:uppercase}
-  .login-error{margin-top:1rem;color:#ff6b6b;font-size:.9rem}
+  position:fixed; inset:0;
+  display:flex; justify-content:center; align-items:center;
+  background:linear-gradient(120deg,var(--primary-dark),var(--primary-color));
+}
+.login-card{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+  padding:2rem;
+  border-radius:var(--radius);
+  width:100%; max-width:320px; text-align:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);
+  border:1px solid rgba(255,255,255,0.2);
+}
+.login-title{margin-bottom:1.5rem;font-size:1.6rem;color:var(--accent-color)}
+.login-field{margin-bottom:1rem;text-align:left}
+.login-field label{display:block;margin-bottom:.25rem;font-weight:bold;color:var(--text-color)}
+.login-field input{
+  width:100%;
+  padding:.5rem;
+  border:1px solid rgba(255,255,255,0.3);
+  border-radius:var(--radius);
+  background:rgba(0,0,0,0.2);
+  color:var(--text-color);
+}
+.login-submit{width:100%;padding:.6rem;margin-top:.5rem;text-transform:uppercase}
+.login-error{margin-top:1rem;color:#ff6b6b;font-size:.9rem}

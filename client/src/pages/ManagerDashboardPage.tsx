@@ -90,14 +90,14 @@
 
    const Wrapper = styled.div`     padding:1.5rem; max-width:960px; margin:auto;
      .cards{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem}
-     .card{flex:1 1 180px;background:#f9f9f9;padding:1rem;border-radius:8px;
-           text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-     .big{font-size:2rem;font-weight:bold;color:#008BD2;margin-top:.5rem}
+     .card{flex:1 1 180px;background:rgba(255,255,255,0.08);padding:1rem;border-radius:var(--radius);
+           text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+     .big{font-size:2rem;font-weight:bold;color:var(--accent-color);margin-top:.5rem}
    
      /* ---- actions rapides ---- */
      .quick{display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
-     .btn{background:#008bd2;color:#fff;border:none;padding:.6rem 1rem;border-radius:4px}
-     .btn:hover{background:#006fa1}
+     .btn{background:linear-gradient(90deg,var(--primary-color),var(--primary-dark));color:#fff;border:none;padding:.6rem 1rem;border-radius:var(--radius);box-shadow:0 2px 4px rgba(0,0,0,.25)}
+     .btn:hover{background:linear-gradient(90deg,var(--primary-dark),var(--primary-color))}
    
      table{width:100%;border-collapse:collapse;margin-top:1rem}
      th,td{border-bottom:1px solid #e0e0e0;padding:.5rem .75rem}

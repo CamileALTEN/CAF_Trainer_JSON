@@ -1,10 +1,11 @@
-             .item-content {
-                     padding: 16px;
-                     background: #fff;
-                     border-radius: 8px;
-                     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                     margin: 16px 0;
-                   }
+            .item-content {
+                    padding: 16px;
+                    background: rgba(255,255,255,0.08);
+                    border-radius: var(--radius);
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                    margin: 16px 0;
+                    color: var(--text-color);
+                  }
                    .item-header {
                      display: flex;
                      justify-content: space-between;
@@ -18,7 +19,7 @@
                    }
                    .item-titles h3 {
                      margin: 4px 0 0;
-                     color: #043962;
+                     color: var(--accent-color);
                      font-weight: normal;
                    }
                    .item-actions {
@@ -33,7 +34,7 @@
                      padding: 4px;
                      display: flex;
                      align-items: center;
-                     color: #0870e7;
+                     color: var(--accent-color);
                    }
                    .check-button svg {
                      font-size: 24px;
@@ -51,8 +52,8 @@
                    }
                  /* -------- liens -------- */
                  .item-links          { margin-top: 20px; }
-                 .item-links h3       { margin: 0 0 8px;  font-size: 1rem; color: #043962; }
+                 .item-links h3       { margin: 0 0 8px;  font-size: 1rem; color: var(--accent-color); }
                  .item-links ul       { list-style: none; padding: 0; }
                  .item-links li       { margin: 4px 0;   font-size: .92rem; }
-                 .item-links a        { color: #008BD2;  text-decoration: none; }
+                 .item-links a        { color: var(--accent-color);  text-decoration: none; }
                  .item-links a:hover  { text-decoration: underline; }
