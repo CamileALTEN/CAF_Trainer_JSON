@@ -1,0 +1,36 @@
+.advanced-editor {
+  position: relative;
+}
+
+.advanced-editor.fullscreen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg, #fff);
+  z-index: 2000;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.advanced-editor.dark .ql-editor {
+  background: #1e1e1e;
+  color: #f0f0f0;
+}
+
+.advanced-editor.dark .ql-toolbar {
+  background: #333;
+  border-color: #444;
+}
+
+.editor-toolbar {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.editor-toolbar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+}

@@ -1,9 +1,17 @@
              /* ------------------------------------------------------------------ */
              /*  AdvancedEditor.tsx – version stabilisée                           */
              /* ------------------------------------------------------------------ */
-import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
-             import ReactQuill from 'react-quill';
-             import 'react-quill/dist/quill.snow\.css';
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+} from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import clsx from 'clsx';
+import './AdvancedEditor.css';
       
              import hljs from 'highlight.js';
              import 'highlight.js/styles/github.css';
@@ -17,16 +25,42 @@ import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react'
              });
       
              /* -------------------------------------------------------------------- */
-             export interface AdvancedEditorProps {
-               value: string;
-               onChange: (html: string) => void;
-             }
-      
-             const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
+export interface AdvancedEditorProps {
+  value: string;
+  onChange: (html: string) => void;
+  storageKey?: string;
+}
+
+const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange, storageKey = 'editorContent' }) => {
                /* 1. Ref Quill ----------------------------------------------------- */
-               const quillRef = useRef<any>(null);
-                  const [html, setHtml] = useState(value);
-                  useEffect(() => setHtml(value), [value]);
+                const quillRef = useRef<any>(null);
+                   const [html, setHtml] = useState(value);
+                   useEffect(() => setHtml(value), [value]);
+
+                // charge depuis le stockage local
+                useEffect(() => {
+                  if (storageKey) {
+                    const saved = localStorage.getItem(storageKey);
+                    if (saved) {
+                      setHtml(saved);
+                      onChange(saved);
+                    }
+                  }
+                }, [storageKey]);
+
+                // sauvegarde dans le stockage local
+                useEffect(() => {
+                  if (storageKey) {
+                    localStorage.setItem(storageKey, html);
+                  }
+                }, [html, storageKey]);
+
+                const [dark, setDark] = useState(() => localStorage.getItem('editor_dark') === '1');
+                useEffect(() => {
+                  localStorage.setItem('editor_dark', dark ? '1' : '0');
+                }, [dark]);
+
+                const [full, setFull] = useState(false);
       
                /* 2. Compteur de mots --------------------------------------------- */
                const [words, setWords] = useState(0);
@@ -93,7 +127,19 @@ import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react'
       
                /* 6. Rendu --------------------------------------------------------- */
                return (
-                 <div className="advanced-editor">
+                 <div className={clsx('advanced-editor', { dark, fullscreen: full })}>
+                   <div className="editor-toolbar">
+                     <button onClick={() => setDark(d => !d)} title="Mode sombre">🌙</button>
+                     <button onClick={() => setFull(f => !f)} title="Plein écran">⛶</button>
+                     <button
+                       onClick={() => {
+                         setHtml('');
+                         onChange('');
+                         if (storageKey) localStorage.removeItem(storageKey);
+                       }}
+                       title="Effacer"
+                     >🗑️</button>
+                   </div>
                    <ReactQuill
                      ref={quillRef}
                      theme="snow"
@@ -103,7 +149,7 @@ import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react'
                      formats={formats}
                      placeholder="Commencez à écrire…"
                    />
-      
+
                    <div style={{ textAlign: 'right', fontSize: 12, marginTop: 4, color: '#666' }}>
                      {words} mot{words > 1 ? 's' : ''}
                    </div>

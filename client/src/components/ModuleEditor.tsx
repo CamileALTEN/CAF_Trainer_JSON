@@ -226,6 +226,7 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
                               <AdvancedEditor
                                  value={current.content}
                                  onChange={html => patchItem({ content: html })}
+                                 storageKey={current.id}
                                />
       
                             </label>
