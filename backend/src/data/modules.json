@@ -1,25 +1,19 @@
 [
   {
     "id": "module-1",
-    "title": "Introduction au CAF",
+    "title": "Prérequis CAF",
     "description": "<p>...</p>",
     "items": [
       {
         "id": "item-1",
-        "title": "Qu'est-ce que le CAF",
-        "subtitle": "Définitions clés 123",
-        "content": "<p>Test 123 <strong>TEST <u>TEST </u>  </strong></p><p><br></p><p>retour à la ligne</p><p><br></p><h1>heading 1  </h1><p><br></p> <p><br></p><ol><li>oui</li><li>non</li></ol><ul><li>bulet point 1</li><li>12</li></ul>",
-        "links": [
-          {
-            "title": "Site officiel",
-            "url": "https://www.google.com",
-            "label": "Google"
-          }
-        ],
+        "title": "Accueil consultant",
+        "subtitle": "",
+        "content": "<p>Bienvenue chez ALTEN !</p><p><br></p><p>Dans cette partie tu vas découvrir les points clés que doit connaître un consultant ALTEN pour AIRBUS ATLANTIC, qui occupe le poste de chargé d'affaire outillage (CAF).</p>",
+        "links": [],
         "images": [
           {
-            "src": "https://freefrontend.com//assets/img/css-sidebar-menus/thumb.png",
-            "width": 25,
+            "src": "https://st4.depositphotos.com/1010735/20860/v/450/depositphotos_208603374-stock-illustration-welcome-poster-spectrum-brush-strokes.jpg",
+            "width": 30,
             "align": "center"
           }
         ],
@@ -32,13 +26,41 @@
         "children": [
           {
             "id": "60f65965-ef9e-4541-8086-2569210ddab2",
-            "title": "test2",
+            "title": "Livret d'accueil",
             "subtitle": "",
-            "content": "",
+            "content": "<p>a</p>",
             "links": [
               {
-                "label": "Livret d'accueil",
+                "label": "Livret d'accueil Nantes",
                 "url": "https://www.google.com"
+              },
+              {
+                "label": "Livret d'accueil Montoir",
+                "url": "https://www.google.com"
+              }
+            ],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "children": []
+          },
+          {
+            "id": "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
+            "title": "Présentation d'accueil",
+            "subtitle": "",
+            "content": "<p>Le jour de ton arrivée, le Team Leader (TL) a fait une présentation pour t'introduire ton environnement de travail.</p><p>Tu peux la retrouver ci-dessous.</p>",
+            "links": [
+              {
+                "label": "Présentation accueil Nantes",
+                "url": "https://"
+              },
+              {
+                "label": "Présentation accueil Montoir",
+                "url": "https://"
               }
             ],
             "images": [],
@@ -63,7 +85,7 @@
       }
     ],
     "enabled": true,
-    "summary": "Ceci est une description"
+    "summary": "Ce module a pour objectif de faire découvrir l'environnement de travail d'un CAF."
   },
   {
     "id": "1746553317746",
