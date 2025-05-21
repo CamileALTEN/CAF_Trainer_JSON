@@ -26,14 +26,14 @@
         "children": [
           {
             "id": "823615c7-a15f-464f-bd9c-369efe9e5660",
-            "title": "CAF Trainer",
+            "title": "Outil d'intégration : CAF Trainer & Plan d'intégration",
             "subtitle": "",
-            "content": "<h1>Présentation de CAF Trainer</h1><p><br></p><h2>Contexte</h2><p>CAF Trainer est un logiciel d'intégration. Il accompagne les Newcomer dans leur prise de poste et lors des première missions.</p><p><br></p><p>On retrouve toutes les informations utiles concernant :</p><ul><li>Alten ;</li><li>Airbus ;</li><li>Les outils numériques ;</li><li>Les bâtis et outillages ;</li><li>Le métier CAF tel que le process ;</li><li>etc.</li></ul><p><br></p><h2>Utilisation</h2><p>CAF Trainer est divisé en plusieurs modules :</p><ul><li>Prérequis CAF</li><li>Métier CAF</li><li>Montée en compétences (en cours de développement)</li></ul><p><br></p><p>Au sein de chaque module, on retrouve des items, à toi de les parcourir, d'assimiler les notions, réaliser les tests si disponibles, puis valide le module pour mettre à jour ta progression.</p><p><br></p><p><em><u>Note </u>: CAF Trainer est une interface et par soucis de confidentialité, les documents contenants des informations sensibles sont présents sous forme de lien.</em></p>",
+            "content": "<h1>Présentation de CAF Trainer</h1><p><br></p><h2>Contexte</h2><p>CAF Trainer est un logiciel d'intégration. Il accompagne les Newcomer dans leur prise de poste et lors des première missions.</p><p><br></p><p>On retrouve toutes les informations utiles concernant :</p><ul><li>Alten ;</li><li>Airbus ;</li><li>Les outils numériques ;</li><li>Les bâtis et outillages ;</li><li>Le métier CAF tel que le process ;</li><li>etc.</li></ul><p><br></p><h2>Utilisation</h2><p>CAF Trainer est divisé en plusieurs modules :</p><ul><li>Prérequis CAF</li><li>Métier CAF</li><li>Montée en compétences (en cours de développement)</li></ul><p><br></p><p>Au sein de chaque module, on retrouve des items, à toi de les parcourir, d'assimiler les notions, réaliser les tests si disponibles, puis valide le module pour mettre à jour ta progression.</p><p><br></p><p><em><u>Note </u>: CAF Trainer est une interface et par soucis de confidentialité, les documents contenants des informations sensibles sont présents sous forme de lien (stockés sur Google).</em></p><p><br></p><p><br></p><h1>Plan d'intégration</h1><p><br></p>",
             "links": [],
             "images": [
               {
                 "src": "https://img.freepik.com/vecteurs-premium/progression-du-debut-au-succes-developpement-defi-amelioration-pour-progresser-gagner-taches-competition-achevement-pour-terminer-projet-homme-affaires-etape-liste-controle-pour-progresser-vers-objectif_940574-344.jpg",
-                "width": 20,
+                "width": 40,
                 "align": "center"
               }
             ],
@@ -97,14 +97,20 @@
             "id": "14468455-a676-4a55-9bcc-22ae3bad8966",
             "title": "Liste des acronymes",
             "subtitle": "",
-            "content": "<p><br></p>",
+            "content": "<p>En entreprise, les acronymes sont partout. Il peut être difficile de les comprendre en tant que Newcomer.</p><p><br></p><p>ALTEN et AIRBUS n'échappent pas à la règle !</p><p><br></p><p>Pour te faciliter la compréhension des acronymes, un glossaire est disponible ci-dessous.</p><p><em>N'hésite pas à en ajouter si il en manque.</em></p><p><br></p><p>A toi de les assimiler et de les réutiliser 😊 !</p>",
             "links": [
               {
                 "label": "Liste des acronymes",
                 "url": "https://docs.google.com.rproxy.goskope.com/spreadsheets/d/1yFwq7XGG-JWTgU_yLF0UMtVj9TxNSbcXRK6j7UiZXuc/edit?usp=sharing"
               }
             ],
-            "images": [],
+            "images": [
+              {
+                "src": "https://thumbs.dreamstime.com/b/mot-d-acronymes-des-blocs-en-bois-avec-lettres-l-utilisation-de-dans-les-al%C3%A9atoires-concept-abr%C3%A9viation-du-monde-moderne-autour-207641529.jpg",
+                "width": 25,
+                "align": "center"
+              }
+            ],
             "videos": [],
             "profiles": [
               "Nantes",
@@ -123,7 +129,7 @@
         "links": [
           {
             "label": "Alten & l'agence de Saint-Herblain",
-            "url": "file:///C:/Users/cledeux/Downloads/pr%C3%A9sentation%20agence%20(1).html"
+            "url": ""
           }
         ],
         "images": [
@@ -329,71 +335,11 @@
         "id": "e9637576-9917-4f30-b317-c155bd17757d",
         "title": "Sensibilisation",
         "subtitle": "",
-        "content": "<p>En tant que consultant Alten en mission pour Airbus, tu dois réaliser des e-learning. Certains sont mandatory, il faut donc les réaliser avant de commencer ta première affaire.</p><p>Quand tu les as réaliser, n'oublie pas de les cocher dans ton plan d'intégration systématiquement !</p><p><br></p><p><em>Note : Si les liens ne fonctionnent plus, tu peux aller dans HRWay --&gt; Menu --&gt; Catalogue de formation --&gt; Recherche le nom de la formation souhaitée.</em></p>",
+        "content": "<p>En tant que consultant Alten en mission pour Airbus, tu dois réaliser des e-learning. Certains sont mandatory, il faut donc les réaliser avant de commencer ta première affaire.</p><p>Quand tu les as réaliser, n'oublie pas de les cocher dans ton plan d'intégration systématiquement !</p><p><br></p><p><em>Note : Si les liens ne fonctionnent plus, tu peux aller dans HRWay --&gt; Menu --&gt; Catalogue de formation --&gt; Recherche le nom de la formation souhaitée.</em></p><p><br></p><p>Mandatory :</p><ul><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1178\" rel=\"noopener noreferrer\" target=\"_blank\">Airbus - Ethics and compliance awareness</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1184\" rel=\"noopener noreferrer\" target=\"_blank\">Export Control (Engineers)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1179\" rel=\"noopener noreferrer\" target=\"_blank\">FOD prevention awareness</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2073940\" rel=\"noopener noreferrer\" target=\"_blank\">Artificial intelligence awarness program (A3) - for Engineers</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074138\" rel=\"noopener noreferrer\" target=\"_blank\">Bienvenue dans le groupe ALTEN (ING)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074654\" rel=\"noopener noreferrer\" target=\"_blank\">Gestion des risques professionnels (ingénieur)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074828\" rel=\"noopener noreferrer\" target=\"_blank\">La protection des données personnelles (RGPD - Ingénieur) (r.2023)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075005\" rel=\"noopener noreferrer\" target=\"_blank\">Ecomobilité : enjeux &amp; solutions</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2307566\" rel=\"noopener noreferrer\" target=\"_blank\">Contrôle des exportations (ingénieur)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1106\" rel=\"noopener noreferrer\" target=\"_blank\">Counterfeits prevention awarness</a></li></ul><p><br></p><p>Facultatif : </p><ul><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075182\" rel=\"noopener noreferrer\" target=\"_blank\">Impact environnemental et éco-gestes : tous acteurs !</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075359\" rel=\"noopener noreferrer\" target=\"_blank\">Prévenir et lutter contre les agissements sexistes et le harcèlement sexuel</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075536\" rel=\"noopener noreferrer\" target=\"_blank\">Sensiblisation au handicap en entreprise</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074312\" rel=\"noopener noreferrer\" target=\"_blank\">Sureté &amp; Sécurité</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074483\" rel=\"noopener noreferrer\" target=\"_blank\">Prévenir la corruption</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/147\" rel=\"noopener noreferrer\" target=\"_blank\">Débuter la gestion de projet</a></li></ul>",
         "links": [
           {
-            "label": "Airbus - Ethics and compliance awareness (Mandatory !)",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1178"
-          },
-          {
-            "label": "Export Control (Engineers) (Mandatory !)",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1184"
-          },
-          {
-            "label": "FOD prevention awareness (Mandatory !)",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1179"
-          },
-          {
-            "label": "Artificial intelligence awarness program (A3) - for Engineers (Mandatory !)",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2073940"
-          },
-          {
-            "label": "Bienvenue dans le groupe ALTEN (ING) (Mandatory !)",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074138"
-          },
-          {
-            "label": "Gestion des risques professionnels (ingénieur) (Mandatory !)",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074654"
-          },
-          {
-            "label": "La protection des données personnelles (RGPD - Ingénieur) (r.2023) (Mandatory !)",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074828"
-          },
-          {
-            "label": "Ecomobilité : enjeux & solutions (Mandatory !)",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075005"
-          },
-          {
-            "label": "Contrôle des exportations (ingénieur) (Mandatory !)",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2307566"
-          },
-          {
-            "label": "Counterfeits prevention awarness (Mandatory !)",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1106"
-          },
-          {
-            "label": "Impact environnemental et éco-gestes : tous acteurs !",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075182"
-          },
-          {
-            "label": "Prévenir et lutter contre les agissements sexistes et le harcèlement sexuel",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075359"
-          },
-          {
-            "label": "Sensiblisation au handicap en entreprise",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075536"
-          },
-          {
-            "label": "Sureté & Sécurité",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074312"
-          },
-          {
-            "label": "Prévenir la corruption",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074483"
-          },
-          {
-            "label": "Débuter la gestion de projet",
-            "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/147"
+            "label": "Catalogue de formation HRWay",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/"
           }
         ],
         "images": [
