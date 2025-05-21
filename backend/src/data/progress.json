@@ -2,21 +2,21 @@
   {
     "username": "logan",
     "moduleId": "module-1",
-    "visited": [
-      "823615c7-a15f-464f-bd9c-369efe9e5660",
-      "601a451a-7e40-4004-b7d9-4d32baca0031"
-    ]
+    "states": {
+      "823615c7-a15f-464f-bd9c-369efe9e5660": "finished",
+      "601a451a-7e40-4004-b7d9-4d32baca0031": "finished"
+    }
   },
   {
     "username": "user",
     "moduleId": "module-1",
-    "visited": [
-      "item-1"
-    ]
+    "states": {
+      "item-1": "finished"
+    }
   },
   {
     "username": "logan",
     "moduleId": "1746639040310",
-    "visited": []
+    "states": {}
   }
 ]

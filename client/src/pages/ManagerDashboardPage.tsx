@@ -23,9 +23,10 @@
      },[user]);
 
      /* regroupe par utilisateur */
-     const data = caf.map(c => {
+  const data = caf.map(c => {
        const rows = prog.filter(r=>r.username===c.username);
-       const totalVisited = rows.reduce((n,r)=>n+r.visited.length,0);
+       const totalVisited = rows.reduce((n,r)=>
+         n + Object.values(r.states).filter(st=>st==='finished' || st==='validated').length,0);
        return { name:c.username, visited:totalVisited };
      });
 

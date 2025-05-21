@@ -1,5 +1,5 @@
 import React from 'react';
-import { IItem } from '../api/modules';
+import { IItem, ProgressState } from '../api/modules';
 import './SidebarMenu.css';
 
 /* ------------------------------------------------------------------ */
@@ -12,8 +12,8 @@ export interface SidebarMenuProps {
   selected: string;
   /** Callback lorsqu’on choisit un item */
   onSelect: (id: string) => void;
-  /** Liste des IDs déjà visités (pour griser / cocher) */
-  visited:  string[];
+  /** États des items */
+  states: Record<string, ProgressState>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -21,7 +21,7 @@ export interface SidebarMenuProps {
 /*  niveau récursif ; on stocke selected / onSelect / visited ici      */
 /* ------------------------------------------------------------------ */
 const CTX = React.createContext<
-  Pick<SidebarMenuProps, 'selected' | 'onSelect' | 'visited'> | null
+  Pick<SidebarMenuProps, 'selected' | 'onSelect' | 'states'> | null
 >(null);
 
 /* ------------------------------------------------------------------ */
@@ -29,19 +29,24 @@ const CTX = React.createContext<
 /* ------------------------------------------------------------------ */
 function Branch({ branch }: { branch: IItem[] }) {
   const ctx = React.useContext(CTX)!;        // le “!” car toujours défini ici
-  const { selected, onSelect, visited } = ctx;
+  const { selected, onSelect, states } = ctx;
 
   return (
     <ul className="sidebar">
       {branch.map((it) => {
+        const st  = states[it.id] ?? 'not_started';
+        const visited = st === 'finished' || st === 'validated';
+        const icons: Record<ProgressState,string> = {
+          not_started:'⭕', in_progress:'▶️', stuck:'❗', checking:'🕵️', validated:'✅', finished:'🏁'
+        };
         const cls =
           `menu-item${it.id === selected ? ' active' : ''}` +
-          `${visited.includes(it.id) ? ' visited' : ''}`;
+          `${visited ? ' visited' : ''}`;
 
         return (
           <li key={it.id} className={cls}>
             <button type="button" onClick={() => onSelect(it.id)}>
-              {it.title}
+              {icons[st]} {it.title}
             </button>
 
             {/* ------------- Récursion sur les enfants, s’il y en a ------------- */}
@@ -59,10 +64,10 @@ function Branch({ branch }: { branch: IItem[] }) {
 /*  Composant principal exporté                                        */
 /* ------------------------------------------------------------------ */
 export default function SidebarMenu(props: SidebarMenuProps) {
-  const { items, selected, onSelect, visited } = props;
+  const { items, selected, onSelect, states } = props;
 
   return (
-    <CTX.Provider value={{ selected, onSelect, visited }}>
+    <CTX.Provider value={{ selected, onSelect, states }}>
       <nav>
         <Branch branch={items} />
       </nav>

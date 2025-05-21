@@ -13,7 +13,7 @@ import ItemContent     from '../components/ItemContent';
 import ProgressBar     from '../components/ProgressBar';
 import Loader          from '../components/Loader';
 
-import { getModule, IItem, IModule, IQuiz } from '../api/modules';
+import { getModule, IItem, IModule, IQuiz, IProgress, ProgressState } from '../api/modules';
 import { flatten }     from '../utils/items';
 import { useAuth }     from '../context/AuthContext';
 import './ModulePage.css';
@@ -44,7 +44,7 @@ export default function ModulePage() {
   const [mod,      setMod]  = useState<IModule | null>(null);
   const [items,    setIt]   = useState<IItem[]>([]);
   const [selected, setSel]  = useState('');
-  const [visited,  setVis]  = useState<string[]>([]);
+  const [states,   setStates] = useState<Record<string, ProgressState>>({});
   const [busy,     setBusy] = useState(true);
   const [open,     setOpen] = useState(false);
   const [quizPassed, setQuizPassed] = useState<Record<string, boolean>>({});
@@ -77,18 +77,22 @@ export default function ModulePage() {
   useEffect(() => {
     if (!moduleId) return;
     setBusy(true);
-    getModule(moduleId)
-      .then((m) => {
+    Promise.all([
+      getModule(moduleId),
+      username ? fetch(`/api/progress/${username}`).then(r=>r.json()) : Promise.resolve([])
+    ])
+      .then(([m, prog]) => {
         const filtered = filterBySite(m.items, site);
         setMod({ ...m, items: filtered });
         setIt(filtered);
         setSel(filtered[0]?.id ?? '');
-        setVis(JSON.parse(localStorage.getItem(`visited_${moduleId}`) ?? '[]'));
+        const row = (prog as IProgress[]).find(p=>p.moduleId===moduleId);
+        setStates(row?.states ?? {});
         setQuizPassed(JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}'));
       })
       .catch(() => navigate('/'))
       .finally(() => setTimeout(() => setBusy(false), 450)); // petit délai pour le loader
-  }, [moduleId, site, navigate]);
+  }, [moduleId, site, username, navigate]);
 
   /* ---------------- indexation rapide ---------------- */
   const find = useMemo(() => {
@@ -108,23 +112,31 @@ export default function ModulePage() {
   const prevId   = curIndex > 0 ? flat[curIndex - 1].id : null;
   const nextId   = curIndex !== -1 && curIndex < flat.length - 1 ? flat[curIndex + 1].id : null;
 
-  /* ---------------- visite toggle ---------------- */
-  const toggleVisited = (id: string) =>
-    setVis((prev) => {
+  useEffect(() => {
+    const st = states[selected];
+    if (selected && (!st || st === 'not_started')) {
+      changeState(selected, 'in_progress');
+    }
+  }, [selected]);
+
+  /* ---------------- changement d'état ---------------- */
+  const changeState = (id: string, st: ProgressState) =>
+    setStates(prev => {
       const item = find(id)!;
-      if (item.quiz?.enabled && !quizPassed[id]) {
+      let nextState = st;
+      if (st === 'validated' && !item.quiz?.enabled) {
+        nextState = 'finished';
+      }
+      if (st === 'validated' && item.quiz?.enabled && !quizPassed[id]) {
         alert('Vous devez réussir le quiz avant de valider cet item.');
         return prev;
       }
-      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-      localStorage.setItem(`visited_${moduleId}`, JSON.stringify(next));
-
-      /* push au backend pour suivi manager */
+      const next = { ...prev, [id]: nextState };
       if (username) {
         fetch('/api/progress', {
-          method:  'PATCH',
+          method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ username, moduleId, visited: next }),
+          body: JSON.stringify({ username, moduleId, itemId: id, state: nextState }),
         }).catch(console.error);
       }
       return next;
@@ -146,7 +158,9 @@ export default function ModulePage() {
 
   const item      = find(selected)!;
   const total     = flat.length;
-  const completed = visited.filter((id) => flat.some((x) => x.id === id)).length;
+  const completed = Object.entries(states)
+    .filter(([id, st]) => (st === 'finished' || st === 'validated') && flat.some(x => x.id === id))
+    .length;
   const cls       = `module-page${open ? ' open' : ''}`;
 
   return (
@@ -163,7 +177,7 @@ export default function ModulePage() {
           items={items}
           selected={selected}
           onSelect={(id) => { setSel(id); setOpen(false); }}
-          visited={visited}
+          states={states}
         />
       </aside>
 
@@ -210,8 +224,8 @@ export default function ModulePage() {
           quiz={item.quiz}
           quizPassed={quizPassed[item.id]}
           onQuizPassed={() => markQuizPassed(item.id)}
-          isVisited={visited.includes(item.id)}
-          onToggleVisited={() => toggleVisited(item.id)}
+          state={states[item.id] ?? 'not_started'}
+          onChangeState={(st) => changeState(item.id, st)}
           isFav={favs.includes(item.id)}
           onToggleFav={() => toggleFav(item.id)}
         />

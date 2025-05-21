@@ -49,10 +49,18 @@ export interface IModule {
   enabled:  boolean;
   items:    IItem[];
 }
+export type ProgressState =
+  | 'not_started'
+  | 'in_progress'
+  | 'stuck'
+  | 'checking'
+  | 'validated'
+  | 'finished';
+
 export interface IProgress {
   username: string;          // CAF
   moduleId: string;
-  visited:  string[];        // ids d’items complétés
+  states:   Record<string, ProgressState>;
 }
       
       

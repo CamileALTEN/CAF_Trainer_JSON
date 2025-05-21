@@ -5,7 +5,7 @@ import React from 'react';
 import FavoriteButton from './FavoriteButton';
 import Quiz from './Quiz';
 import './ItemContent.css';
-import { IImage, ILink, IQuiz } from '../api/modules';
+import { IImage, ILink, IQuiz, ProgressState } from '../api/modules';
       
 export interface ItemContentProps {
   /* ─── contenu ─── */
@@ -20,9 +20,9 @@ export interface ItemContentProps {
   quizPassed?: boolean;
   onQuizPassed?: () => void;
       
-                  /* ─── progression ─── */
-                  isVisited:        boolean;
-                  onToggleVisited:  () => void;
+  /* ─── progression ─── */
+  state:          ProgressState;
+  onChangeState:  (s: ProgressState) => void;
       
                   /* ─── favoris ─── */
                   isFav:       boolean;
@@ -35,7 +35,7 @@ export interface ItemContentProps {
   const {
     title, subtitle, description, links = [], images, videos,
     quiz, quizPassed, onQuizPassed,
-    isVisited, onToggleVisited,
+    state, onChangeState,
     isFav,     onToggleFav,
   } = props;
       
@@ -49,15 +49,17 @@ export interface ItemContentProps {
         </div>
       
                         <div className="item-actions">
-                          {/* coche “vu” */}
-                          <button
-                            type="button"
-                            className="check-button"
-                            onClick={onToggleVisited}
-                            aria-label={isVisited ? 'Marquer non visité' : 'Marquer visité'}
+                          <select
+                            value={state}
+                            onChange={e => onChangeState(e.target.value as ProgressState)}
                           >
-                            {isVisited ? '✅' : '⭕'}
-                          </button>
+                            <option value="not_started">⭕ Non commencé</option>
+                            <option value="in_progress">▶️ En cours</option>
+                            <option value="stuck">❗ En difficulté</option>
+                            <option value="checking">🕵️ Vérification</option>
+                            <option value="validated">✅ Validé</option>
+                            <option value="finished">🏁 Fini</option>
+                          </select>
       
                           {/* étoile favoris */}
                           <FavoriteButton isFav={isFav} onClick={onToggleFav} />
