@@ -6,7 +6,7 @@
    import { IUser }     from '../api/auth';
    import { IProgress } from '../api/modules';
    import { Link }      from 'react-router-dom';
-   import { Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart } from 'recharts';
+import { Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart } from 'recharts';
 
    export default function ManagerDashboardPage() {
      const { user } = useAuth();               // rôle == manager
@@ -23,11 +23,19 @@
      },[user]);
 
      /* regroupe par utilisateur */
-     const data = caf.map(c => {
-       const rows = prog.filter(r=>r.username===c.username);
-       const totalVisited = rows.reduce((n,r)=>n+r.visited.length,0);
-       return { name:c.username, visited:totalVisited };
-     });
+  const data = caf.map(c => {
+    const rows = prog.filter(r=>r.username===c.username);
+    const totalVisited = rows.reduce((n,r)=>n+r.visited.length,0);
+    return { name:c.username, visited:totalVisited };
+  });
+
+  const statuses = ['validé','en cours','non compris','difficulté','demande aide'];
+  const statusRows = caf.map(c => {
+    const rows = prog.filter(r=>r.username===c.username);
+    const all  = rows.flatMap(r => Object.values(r.status ?? {}));
+    const counts = statuses.map(st => all.filter(s => s===st).length);
+    return { name:c.username, counts };
+  });
 
      if(loading) return <p style={{padding:'2rem'}}>Chargement…</p>;
 
@@ -44,6 +52,7 @@
         <div className="quick">
           <Link to="/manager/create"><button className="btn">+ Créer un compte CAF</button></Link>
           <Link to="/manager/modules"><button className="btn">📝 Modules</button></Link>
+          <Link to="/manager/notifications"><button className="btn">🔔 Notifications</button></Link>
         </div>
 
          <h2>Progression globale (Items)</h2>
@@ -55,8 +64,26 @@
           </BarChart>
         </ResponsiveContainer>
 
-         <h2>Changer un mot de passe</h2>
-         <table>
+        <h2>Statut des items</h2>
+        <table className="status">
+          <thead>
+            <tr>
+              <th>Utilisateur</th>
+              {statuses.map(st => <th key={st}>{st}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {statusRows.map(r => (
+              <tr key={r.name}>
+                <td>{r.name}</td>
+                {r.counts.map((c,i)=>(<td key={i}>{c}</td>))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h2>Changer un mot de passe</h2>
+        <table>
            <thead><tr><th>Utilisateur</th><th>Site</th><th>Réinit. MDP</th></tr></thead>
            <tbody>
              {caf.map(c=>(
@@ -88,17 +115,18 @@
      <div className="card"><h3>{label}</h3><p className="big">{value}</p></div>
    );
 
-   const Wrapper = styled.div`     padding:1.5rem; max-width:960px; margin:auto;
-     .cards{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem}
-     .card{flex:1 1 180px;background:#f9f9f9;padding:1rem;border-radius:8px;
-           text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-     .big{font-size:2rem;font-weight:bold;color:#008BD2;margin-top:.5rem}
+  const Wrapper = styled.div`     padding:1.5rem; max-width:960px; margin:auto;
+    .cards{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem}
+    .card{flex:1 1 180px;background:#f9f9f9;padding:1rem;border-radius:8px;
+          text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+    .big{font-size:2rem;font-weight:bold;color:#008BD2;margin-top:.5rem}
    
      /* ---- actions rapides ---- */
      .quick{display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;justify-content:center}
      .btn{background:#008bd2;color:#fff;border:none;padding:.6rem 1rem;border-radius:4px}
      .btn:hover{background:#006fa1}
    
-     table{width:100%;border-collapse:collapse;margin-top:1rem}
-     th,td{border-bottom:1px solid #e0e0e0;padding:.5rem .75rem}
+    table{width:100%;border-collapse:collapse;margin-top:1rem}
+    th,td{border-bottom:1px solid #e0e0e0;padding:.5rem .75rem}
+    table.status th{background:#f0f0f0}
   `;

@@ -132,27 +132,37 @@ export default function ModulePage() {
     });
 
   const setStatus = (itemId: string, status: string) => {
-    setStatusMap(prev => {
-      const next = { ...prev, [itemId]: status };
-      localStorage.setItem(`status_${moduleId}`, JSON.stringify(next));
+    const nextMap = { ...statusMap, [itemId]: status };
+    setStatusMap(nextMap);
+    localStorage.setItem(`status_${moduleId}`, JSON.stringify(nextMap));
 
-      if (username) {
-        fetch('/api/progress', {
-          method:'PATCH',
+    let nextVisited = [...visited];
+    if (status === 'validé' && !visited.includes(itemId)) {
+      nextVisited = [...visited, itemId];
+      setVis(nextVisited);
+      localStorage.setItem(`visited_${moduleId}`, JSON.stringify(nextVisited));
+    }
+    if (status !== 'validé' && visited.includes(itemId)) {
+      nextVisited = visited.filter(v => v !== itemId);
+      setVis(nextVisited);
+      localStorage.setItem(`visited_${moduleId}`, JSON.stringify(nextVisited));
+    }
+
+    if (username) {
+      fetch('/api/progress', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, moduleId, visited: nextVisited, status: nextMap })
+      }).catch(console.error);
+
+      if(['non compris','difficulté','demande aide'].includes(status)){
+        fetch('/api/notifications',{
+          method:'POST',
           headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({ username, moduleId, visited, status: next })
+          body:JSON.stringify({ username, date:new Date().toISOString(), message:`Besoin aide sur ${itemId}` })
         }).catch(console.error);
-
-        if(['non compris','difficulté','demande aide'].includes(status)){
-          fetch('/api/notifications',{
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({ username, date:new Date().toISOString(), message:`Besoin aide sur ${itemId}` })
-          }).catch(console.error);
-        }
       }
-      return next;
-    });
+    }
   };
 
   /* ---------------- états spéciaux ---------------- */

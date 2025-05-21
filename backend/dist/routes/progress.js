@@ -9,17 +9,21 @@ router.get('/:username', (req, res) => {
     const rows = (0, dataStore_1.read)(TABLE).filter(p => p.username === req.params.username);
     res.json(rows);
 });
-/* PATCH /api/progress   body:{ username,moduleId,visited } – MAJ 1 module */
+/* PATCH /api/progress   body:{ username,moduleId,visited,status } – MAJ 1 module */
 router.patch('/', (req, res) => {
-    const { username, moduleId, visited } = req.body;
+    const { username, moduleId, visited, status } = req.body;
     if (!username || !moduleId)
         return res.status(400).json({ error: 'Données manquantes' });
     const list = (0, dataStore_1.read)(TABLE);
     const idx = list.findIndex(p => p.username === username && p.moduleId === moduleId);
     if (idx === -1)
-        list.push({ username, moduleId, visited });
-    else
-        list[idx].visited = visited;
+        list.push({ username, moduleId, visited: visited ?? [], status: status ?? {} });
+    else {
+        if (visited)
+            list[idx].visited = visited;
+        if (status)
+            list[idx].status = status;
+    }
     (0, dataStore_1.write)(TABLE, list);
     res.json({ ok: true });
 });

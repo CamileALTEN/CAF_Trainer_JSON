@@ -12,7 +12,7 @@ const mailer_1 = require("../utils/mailer");
 const router = (0, express_1.Router)();
 const USERS = 'users';
 const NOTIFS = 'notifications';
-const mailRx = /^[a-z]+.[a-z][+@alten.com]$/i;
+const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 /* ───────────────────────── LOGIN ───────────────────────── */
 router.post('/login', (req, res) => {
     const { username, password } = req.body;
