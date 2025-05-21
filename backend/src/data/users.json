@@ -5,7 +5,7 @@
     "password": "$2b$08$S1UuW2Cv98yFwiT7HruPxOC/qxloCEgDmbQHKozx0ZOXwQrfpUypq",
     "role": "caf",
     "site": "Nantes",
-    "managerId": "1746634331825"
+    "managerId": "1747838393929"
   },
   {
     "id": "1746634331825",
@@ -21,12 +21,6 @@
     "role": "caf",
     "site": "Nantes",
     "managerId": "1746634331825"
-  },
-  {
-    "id": "1746787691930",
-    "username": "camile.briard@alten.com",
-    "password": "$2b$08$5ai3PYOJNejC8IIRBB347uDQce71PL5R.yCogTVapU4GKEZ22gR12",
-    "role": "admin"
   },
   {
     "id": "1747039012242",
@@ -47,5 +41,12 @@
     "role": "caf",
     "site": "Montoir",
     "managerId": "1746634331825"
+  },
+  {
+    "id": "1747838393929",
+    "username": "camile.briard@alten.com",
+    "password": "$2b$08$4clko9P2EA/CR4iujAzuquIRxCZcK0mdaCyZ3DbUFenVY.AoQYVsa",
+    "role": "manager",
+    "site": "Nantes"
   }
 ]
