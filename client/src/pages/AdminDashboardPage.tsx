@@ -1,8 +1,9 @@
 /* AdminDashboardPage – gestion complète des comptes
    ───────────────────────────────────────────────── */
 
-   import React, { useEffect, useState } from 'react';
-   import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 
    import { IUser } from '../api/auth';
    import { IModule } from '../api/modules';
@@ -80,17 +81,38 @@
        return a.username.localeCompare(b.username);
      });
 
-     const totalItems = modules.reduce((n, m) => n + (m.items?.length ?? 0), 0);
+    const totalItems = modules.reduce((n, m) => n + (m.items?.length ?? 0), 0);
+
+    // distribution des rôles pour le graphique
+    const roleData = [
+      { name: 'admin',   value: users.filter(u => u.role === 'admin').length },
+      { name: 'manager', value: users.filter(u => u.role === 'manager').length },
+      { name: 'caf',     value: users.filter(u => u.role === 'caf').length },
+    ];
+    const COLORS = ['#043962', '#008bd2', '#00c49f'];
 
      return (
        <div className="admin-dashboard">
          <h1>Tableau de bord admin</h1>
 
-         <section className="cards">
-           <Stat label="Comptes" value={users.length} />
-           <Stat label="Modules" value={modules.length} />
-           <Stat label="Items" value={totalItems} />
-         </section>
+        <section className="cards">
+          <Stat label="Comptes" value={users.length} />
+          <Stat label="Modules" value={modules.length} />
+          <Stat label="Items" value={totalItems} />
+        </section>
+
+        <section className="chart-area">
+          <ResponsiveContainer width="100%" height={220}>
+            <PieChart>
+              <Pie data={roleData} dataKey="value" nameKey="name" outerRadius={80}>
+                {roleData.map((_, i) => (
+                  <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                ))}
+              </Pie>
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </section>
 
          <div className="quick">
            <Link to="/admin/create"><button>+ Créer un compte</button></Link>
