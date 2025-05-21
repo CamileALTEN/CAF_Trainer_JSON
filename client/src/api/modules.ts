@@ -23,6 +23,7 @@ export interface IItem  {
   links:     ILink[];
   images:    IImage[];    // ← anciennement string[]
   videos:    string[];
+  quiz?:     boolean;
   profiles:  string[];
   enabled:   boolean;
       

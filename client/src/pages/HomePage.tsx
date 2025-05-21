@@ -3,10 +3,11 @@
    import React, { useEffect, useState } from 'react';
    import { Link } from 'react-router-dom';
 
-   import ProgressBar        from '../components/ProgressBar';
-   import { getModules,
+import ProgressBar        from '../components/ProgressBar';
+import { getModules,
             IModule,
             IItem }          from '../api/modules';
+import { getProgress, IProgress } from '../api/progress';
    import { flatten }        from '../utils/items';
    import { useAuth }        from '../context/AuthContext';
    import './HomePage.css';
@@ -26,13 +27,14 @@
      const { user } = useAuth();           // ← on connaît le site du CAF
      const site = user?.site;              // « Nantes » | « Montoir » | undefined
 
-     const [modules, setModules] = useState<IModule[]>([]);
-     const [loading, setLoading] = useState(true);
-     const [error,   setError]   = useState('');
+    const [modules, setModules] = useState<IModule[]>([]);
+    const [progress, setProgress] = useState<IProgress[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error,   setError]   = useState('');
 
      /* charge la liste une seule fois */
-     useEffect(() => {
-       getModules()
+    useEffect(() => {
+      getModules()
          .then((mods) => {
            if (!Array.isArray(mods)) throw new Error('Réponse inattendue du serveur');
 
@@ -45,8 +47,13 @@
            setModules(filtered);
          })
          .catch((e) => setError(e.message ?? 'Erreur réseau'))
-         .finally(() => setLoading(false));
-     }, [site]);
+        .finally(() => setLoading(false));
+    }, [site]);
+
+    useEffect(() => {
+      if (!user) return;
+      getProgress(user.username).then(setProgress).catch(console.error);
+    }, [user]);
 
      /* états spéciaux */
      if (loading) return <p style={{ padding: '2rem' }}>Chargement…</p>;
@@ -59,11 +66,15 @@
        (n, m) => n + flatten(m.items).length,
        0,
      );
-     const totalVisited = modules.reduce((n, m) => {
-       const vis = JSON.parse(localStorage.getItem(`visited_${m.id}`) ?? '[]') as string[];
-       /* seuls les IDs encore présents comptent */
-       return n + vis.filter(id => flatten(m.items).some(it => it.id === id)).length;
-     }, 0);
+    const totalVisited = modules.reduce((n, m) => {
+      const row = progress.find(p => p.moduleId === m.id);
+      const st  = row?.states ?? {};
+      const done = flatten(m.items).filter(it => {
+        const s = st[it.id];
+        return s === 'finished' || s === 'validated';
+      }).length;
+      return n + done;
+    }, 0);
 
      /* rendu normal */
      return (
@@ -76,10 +87,14 @@
          </div>
 
          <div className="modules-grid">
-           {modules.map((m) => {
-             const flat = flatten(m.items);
-             const vis  = JSON.parse(localStorage.getItem(`visited_${m.id}`) ?? '[]') as string[];
-             const current = vis.filter(id => flat.some(it => it.id === id)).length;
+          {modules.map((m) => {
+            const flat = flatten(m.items);
+            const row  = progress.find(p => p.moduleId === m.id);
+            const st   = row?.states ?? {};
+            const current = flat.filter(it => {
+              const s = st[it.id];
+              return s === 'finished' || s === 'validated';
+            }).length;
 
              return (
                <div key={m.id} className="module-card">

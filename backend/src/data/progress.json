@@ -2,20 +2,20 @@
   {
     "username": "logan",
     "moduleId": "module-1",
-    "visited": [
-      "item-1"
-    ]
+    "states": {
+      "item-1": "finished"
+    }
   },
   {
     "username": "user",
     "moduleId": "module-1",
-    "visited": [
-      "item-1"
-    ]
+    "states": {
+      "item-1": "finished"
+    }
   },
   {
     "username": "logan",
     "moduleId": "1746639040310",
-    "visited": []
+    "states": {}
   }
 ]

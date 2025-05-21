@@ -4,7 +4,8 @@
                 import React from 'react';
                 import FavoriteButton from './FavoriteButton';
                 import './ItemContent.css';
-                import { IImage, ILink } from '../api/modules';
+import { IImage, ILink } from '../api/modules';
+import { ProgressState } from '../api/progress';
       
 export interface ItemContentProps {
   /* ─── contenu ─── */
@@ -14,10 +15,11 @@ export interface ItemContentProps {
   links?:      ILink[];
   images?:     (string | IImage)[];
   videos?:     string[];
-      
-                  /* ─── progression ─── */
-                  isVisited:        boolean;
-                  onToggleVisited:  () => void;
+
+  /* ─── progression ─── */
+  state:          ProgressState;
+  onChangeState:  (st: ProgressState) => void;
+  hasQuiz?:       boolean;
       
                   /* ─── favoris ─── */
                   isFav:       boolean;
@@ -29,8 +31,8 @@ export interface ItemContentProps {
                 export default function ItemContent(props: ItemContentProps) {
   const {
     title, subtitle, description, links = [], images, videos,
-    isVisited, onToggleVisited,
-    isFav,     onToggleFav,
+    state, onChangeState, hasQuiz,
+    isFav, onToggleFav,
   } = props;
       
                   return (
@@ -43,15 +45,31 @@ export interface ItemContentProps {
         </div>
       
                         <div className="item-actions">
-                          {/* coche “vu” */}
-                          <button
-                            type="button"
-                            className="check-button"
-                            onClick={onToggleVisited}
-                            aria-label={isVisited ? 'Marquer non visité' : 'Marquer visité'}
-                          >
-                            {isVisited ? '✅' : '⭕'}
-                          </button>
+                          {/* état de progression */}
+                          {state === 'not-started' && (
+                            <button
+                              type="button"
+                              className="check-button"
+                              onClick={() => onChangeState('in-progress')}
+                            >
+                              ▶ Démarrer
+                            </button>
+                          )}
+                          {state !== 'not-started' && (
+                            <select
+                              value={state}
+                              onChange={e => onChangeState(e.target.value as any)}
+                            >
+                              <option value="not-started">⭕ Non commencé</option>
+                              <option value="in-progress">🚧 En cours</option>
+                              <option value="struggling">❗ En difficulté</option>
+                              <option value="checking">🔎 Vérification</option>
+                              {hasQuiz && (
+                                <option value="validated">✅ Validé</option>
+                              )}
+                              <option value="finished">🏁 Fini</option>
+                            </select>
+                          )}
       
                           {/* étoile favoris */}
                           <FavoriteButton isFav={isFav} onClick={onToggleFav} />
@@ -112,3 +130,4 @@ export interface ItemContentProps {
                     </div>
                   );
                 }
+

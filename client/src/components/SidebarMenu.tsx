@@ -1,5 +1,6 @@
 import React from 'react';
 import { IItem } from '../api/modules';
+import { ProgressState } from '../api/progress';
 import './SidebarMenu.css';
 
 /* ------------------------------------------------------------------ */
@@ -12,16 +13,16 @@ export interface SidebarMenuProps {
   selected: string;
   /** Callback lorsqu’on choisit un item */
   onSelect: (id: string) => void;
-  /** Liste des IDs déjà visités (pour griser / cocher) */
-  visited:  string[];
+  /** États des items */
+  states: Record<string, ProgressState>;
 }
 
 /* ------------------------------------------------------------------ */
 /*  Contexte interne : on évite de “passer” trois props à chaque       */
-/*  niveau récursif ; on stocke selected / onSelect / visited ici      */
+/*  niveau récursif ; on stocke selected / onSelect / states ici       */
 /* ------------------------------------------------------------------ */
 const CTX = React.createContext<
-  Pick<SidebarMenuProps, 'selected' | 'onSelect' | 'visited'> | null
+  Pick<SidebarMenuProps, 'selected' | 'onSelect' | 'states'> | null
 >(null);
 
 /* ------------------------------------------------------------------ */
@@ -29,14 +30,16 @@ const CTX = React.createContext<
 /* ------------------------------------------------------------------ */
 function Branch({ branch }: { branch: IItem[] }) {
   const ctx = React.useContext(CTX)!;        // le “!” car toujours défini ici
-  const { selected, onSelect, visited } = ctx;
+  const { selected, onSelect, states } = ctx;
 
   return (
     <ul className="sidebar">
       {branch.map((it) => {
+        const st = states[it.id];
+        const done = st === 'finished' || st === 'validated';
         const cls =
           `menu-item${it.id === selected ? ' active' : ''}` +
-          `${visited.includes(it.id) ? ' visited' : ''}`;
+          `${done ? ' visited' : ''}`;
 
         return (
           <li key={it.id} className={cls}>
@@ -59,10 +62,10 @@ function Branch({ branch }: { branch: IItem[] }) {
 /*  Composant principal exporté                                        */
 /* ------------------------------------------------------------------ */
 export default function SidebarMenu(props: SidebarMenuProps) {
-  const { items, selected, onSelect, visited } = props;
+  const { items, selected, onSelect, states } = props;
 
   return (
-    <CTX.Provider value={{ selected, onSelect, visited }}>
+    <CTX.Provider value={{ selected, onSelect, states }}>
       <nav>
         <Branch branch={items} />
       </nav>

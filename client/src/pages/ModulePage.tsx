@@ -12,6 +12,7 @@ import SidebarMenu     from '../components/SidebarMenu';
 import ItemContent     from '../components/ItemContent';
 import ProgressBar     from '../components/ProgressBar';
 import Loader          from '../components/Loader';
+import { getProgress, updateItemState, ProgressState } from '../api/progress';
 
 import { getModule, IItem, IModule } from '../api/modules';
 import { flatten }     from '../utils/items';
@@ -44,7 +45,7 @@ export default function ModulePage() {
   const [mod,      setMod]  = useState<IModule | null>(null);
   const [items,    setIt]   = useState<IItem[]>([]);
   const [selected, setSel]  = useState('');
-  const [visited,  setVis]  = useState<string[]>([]);
+  const [states,   setStates] = useState<Record<string, ProgressState>>({});
   const [busy,     setBusy] = useState(true);
   const [open,     setOpen] = useState(false);
 
@@ -76,13 +77,14 @@ export default function ModulePage() {
   useEffect(() => {
     if (!moduleId) return;
     setBusy(true);
-    getModule(moduleId)
-      .then((m) => {
+    Promise.all([getModule(moduleId), username ? getProgress(username) : Promise.resolve([])])
+      .then(([m, prog]) => {
         const filtered = filterBySite(m.items, site);
         setMod({ ...m, items: filtered });
         setIt(filtered);
         setSel(filtered[0]?.id ?? '');
-        setVis(JSON.parse(localStorage.getItem(`visited_${moduleId}`) ?? '[]'));
+        const row = prog.find(p => p.moduleId === moduleId);
+        setStates(row?.states ?? {});
       })
       .catch(() => navigate('/'))
       .finally(() => setTimeout(() => setBusy(false), 450)); // petit délai pour le loader
@@ -106,22 +108,15 @@ export default function ModulePage() {
   const prevId   = curIndex > 0 ? flat[curIndex - 1].id : null;
   const nextId   = curIndex !== -1 && curIndex < flat.length - 1 ? flat[curIndex + 1].id : null;
 
-  /* ---------------- visite toggle ---------------- */
-  const toggleVisited = (id: string) =>
-    setVis((prev) => {
-      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-      localStorage.setItem(`visited_${moduleId}`, JSON.stringify(next));
-
-      /* push au backend pour suivi manager */
-      if (username) {
-        fetch('/api/progress', {
-          method:  'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ username, moduleId, visited: next }),
-        }).catch(console.error);
-      }
-      return next;
-    });
+/* ---------------- mise à jour état ---------------- */
+const setItemState = (id: string, st: ProgressState) =>
+  setStates((prev) => {
+    const next = { ...prev, [id]: st };
+    if (username) {
+      updateItemState(username, moduleId, id, st).catch(console.error);
+    }
+    return next;
+  });
 
   /* ---------------- états spéciaux ---------------- */
   if (busy)      return <Loader />;
@@ -131,7 +126,10 @@ export default function ModulePage() {
 
   const item      = find(selected)!;
   const total     = flat.length;
-  const completed = visited.filter((id) => flat.some((x) => x.id === id)).length;
+  const completed = flat.filter(it => {
+    const st = states[it.id];
+    return st === 'finished' || st === 'validated';
+  }).length;
   const cls       = `module-page${open ? ' open' : ''}`;
 
   return (
@@ -148,7 +146,7 @@ export default function ModulePage() {
           items={items}
           selected={selected}
           onSelect={(id) => { setSel(id); setOpen(false); }}
-          visited={visited}
+          states={states}
         />
       </aside>
 
@@ -192,8 +190,9 @@ export default function ModulePage() {
           links={item.links}
 
           videos={item.videos}
-          isVisited={visited.includes(item.id)}
-          onToggleVisited={() => toggleVisited(item.id)}
+          state={states[item.id] ?? 'not-started'}
+          onChangeState={(st) => setItemState(item.id, st)}
+          hasQuiz={item.quiz}
           isFav={favs.includes(item.id)}
           onToggleFav={() => toggleFav(item.id)}
         />
