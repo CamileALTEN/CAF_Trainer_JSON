@@ -10,11 +10,21 @@
       
                 /* ═════════════════════════ HELPERS GÉNÉRIAUX ═════════════════════════ */
       
-                const defaultImg = (i: Partial<IImage>): IImage => ({
-                  src:   i.src   ?? '',
-                  width: i.width ?? 100,
-                  align: i.align ?? 'left',
-                });
+const defaultImg = (i: Partial<IImage>): IImage => ({
+  src:   i.src   ?? '',
+  width: i.width ?? 100,
+  align: i.align ?? 'left',
+});
+
+// valeur par défaut d’un quiz
+const defaultQuiz = (
+  q: Partial<NonNullable<IItem['quiz']>> = {}
+): NonNullable<IItem['quiz']> => ({
+  enabled: q.enabled ?? false,
+  question: q.question ?? '',
+  options: q.options ?? [''],
+  correct: q.correct ?? [],
+});
       
 const ensureDefaults = (it: Partial<IItem>): IItem => ({
                   id:        it.id        ?? crypto.randomUUID(),
@@ -25,9 +35,9 @@ const ensureDefaults = (it: Partial<IItem>): IItem => ({
                   images:    (it.images   ?? []).map((img: any) =>
                                typeof img === 'string' ? defaultImg({ src: img }) : defaultImg(img)),
                   videos:    it.videos    ?? [],
-                  profiles:  it.profiles  ?? [],
+  profiles:  it.profiles  ?? [],
   enabled:   it.enabled   ?? true,
-  quiz:      it.quiz      ?? { enabled:false, question:'', options:[''], correct:[] },
+  quiz:      defaultQuiz(it.quiz ?? {}),
   children:  (it.children ?? []).map(ensureDefaults),
 });
       
@@ -116,6 +126,7 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
                     return null;
                   };
                   const current = useMemo(() => find(edit.items, curId), [edit.items, curId]);
+                  const quiz: NonNullable<IItem['quiz']> = current?.quiz ?? defaultQuiz();
       
                   /* liens -------------------------------------------------- */
                   const addLink = () =>
@@ -333,47 +344,61 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
                             <label className="inline-row">
                               <input
                                 type="checkbox"
-                                checked={current.quiz?.enabled ?? false}
-                                onChange={e => patchItem({ quiz:{...current.quiz, enabled:e.target.checked} })}
+                                checked={quiz.enabled}
+                                onChange={e =>
+                                  patchItem({
+                                    quiz: {
+                                      ...quiz,
+                                      enabled: e.target.checked,
+                                    },
+                                  })
+                                }
                               /> Activer le quiz
                             </label>
 
-                            {current.quiz?.enabled && (
+                            {quiz.enabled && (
                               <div className="quiz-editor">
                                 <input
-                                  value={current.quiz.question}
+                                  value={quiz.question}
                                   placeholder="Question"
-                                  onChange={e=>patchItem({quiz:{...current.quiz, question:e.target.value}})}
+                                  onChange={e =>
+                                    patchItem({
+                                      quiz: {
+                                        ...quiz,
+                                        question: e.target.value,
+                                      },
+                                    })
+                                  }
                                   style={{width:'100%'}}
                                 />
-                                {current.quiz.options.map((opt,i)=>(
+                                {quiz.options.map((opt,i)=>(
                                   <div key={i} className="inline-row">
                                     <input
                                       value={opt}
                                       onChange={e=>{
-                                        const opts=[...current.quiz!.options];
+                                        const opts=[...quiz.options];
                                         opts[i]=e.target.value;
-                                        patchItem({quiz:{...current.quiz!, options:opts}});
+                                        patchItem({quiz:{...quiz, options:opts}});
                                       }}
                                       style={{flex:1}}
                                     />
                                     <label>
                                       <input
                                         type="checkbox"
-                                        checked={current.quiz!.correct.includes(i)}
+                                        checked={quiz.correct.includes(i)}
                                         onChange={e=>{
-                                          const set=new Set(current.quiz!.correct);
+                                          const set=new Set(quiz.correct);
                                           e.target.checked?set.add(i):set.delete(i);
-                                          patchItem({quiz:{...current.quiz!, correct:Array.from(set)}});
+                                          patchItem({quiz:{...quiz, correct:Array.from(set)}});
                                         }}
                                       /> bonne
                                     </label>
                                     <button onClick={()=>{
-                                      patchItem({quiz:{...current.quiz!, options:current.quiz!.options.filter((_o,k)=>k!==i), correct:current.quiz!.correct.filter(c=>c!==i)}});
+                                      patchItem({quiz:{...quiz, options:quiz.options.filter((_o,k)=>k!==i), correct:quiz.correct.filter(c=>c!==i)}});
                                     }}>🗑️</button>
                                   </div>
                                 ))}
-                                <button onClick={()=>patchItem({quiz:{...current.quiz!, options:[...current.quiz!.options,''], correct:current.quiz!.correct}})}>＋ option</button>
+                                <button onClick={()=>patchItem({quiz:{...quiz, options:[...quiz.options,''], correct:quiz.correct}})}>＋ option</button>
                               </div>
                             )}
                           </fieldset>
