@@ -1,7 +1,7 @@
              /* client/src/components/ModuleEditor.tsx
                 ─────────────────────────────────────── */
-                import React, { useMemo, useState } from 'react';
-                import AdvancedEditor                  from './AdvancedEditor';
+import React, { useMemo, useState } from 'react';
+import AdvancedEditor                  from './AdvancedEditor';
       
                 import {
                   IModule, IItem, ILink, IImage,
@@ -60,7 +60,8 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
                     ...module,
                     items: module.items.map(ensureDefaults),
                   }));
-                  const [curId, setCurId] = useState<string>('');
+  const [curId, setCurId] = useState<string>('');
+  const [useAdv, setUseAdv] = useState(true);
       
                   /* MAJ ciblée d’un item ----------------------------------- */
                   const patchItem = (patch: Partial<IItem>) =>
@@ -216,13 +217,29 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
                               onChange={(e) => patchItem({ title: e.target.value })}
                             />
       
+                            <label className="inline-row" style={{marginBottom:4}}>
+                              <input
+                                type="checkbox"
+                                checked={useAdv}
+                                onChange={e => setUseAdv(e.target.checked)}
+                              />{' '}
+                              Utiliser l'éditeur avancé
+                            </label>
                             <label>
                               Description (HTML enrichi)
-                              <AdvancedEditor
-                                 value={current.content}
-                                 onChange={html => patchItem({ content: html })}
-                               />
-      
+                              {useAdv ? (
+                                <AdvancedEditor
+                                   value={current.content}
+                                   onChange={html => patchItem({ content: html })}
+                                 />
+                              ) : (
+                                <textarea
+                                  value={current.content}
+                                  placeholder="Collez ici le code HTML"
+                                  onChange={e => patchItem({ content: e.target.value })}
+                                  style={{ minHeight: 200 }}
+                                />
+                              )}
                             </label>
       
                             {/* profils */}
