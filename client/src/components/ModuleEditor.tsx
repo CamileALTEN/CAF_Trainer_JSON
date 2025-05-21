@@ -215,11 +215,6 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
                               placeholder="Titre"
                               onChange={(e) => patchItem({ title: e.target.value })}
                             />
-                            <input
-                              value={current.subtitle}
-                              placeholder="Sous‑titre"
-                              onChange={(e) => patchItem({ subtitle: e.target.value })}
-                            />
       
                             <label>
                               Description (HTML enrichi)

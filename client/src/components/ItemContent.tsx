@@ -6,13 +6,14 @@
                 import './ItemContent.css';
                 import { IImage, ILink } from '../api/modules';
       
-                export interface ItemContentProps {
-                  /* ─── contenu ─── */
-                  title:       string;
-                  description: string;
-                  links?:      ILink[];
-                  images?:     (string | IImage)[];
-                  videos?:     string[];
+export interface ItemContentProps {
+  /* ─── contenu ─── */
+  title:       string;
+  subtitle?:   string;
+  description: string;
+  links?:      ILink[];
+  images?:     (string | IImage)[];
+  videos?:     string[];
       
                   /* ─── progression ─── */
                   isVisited:        boolean;
@@ -26,19 +27,20 @@
                 /* ════════════════════════════════════════════════════════════════════ */
       
                 export default function ItemContent(props: ItemContentProps) {
-                  const {
-                    title, description, links = [], images, videos,
-                    isVisited, onToggleVisited,
-                    isFav,     onToggleFav,
-                  } = props;
+  const {
+    title, subtitle, description, links = [], images, videos,
+    isVisited, onToggleVisited,
+    isFav,     onToggleFav,
+  } = props;
       
                   return (
                     <div className="item-content">
                       {/* -------- entête -------- */}
                       <div className="item-header">
-                        <div className="item-titles">
-                          <h1>{title}</h1>
-                        </div>
+        <div className="item-titles">
+          <h1>{title}</h1>
+          {subtitle ? <h3>{subtitle}</h3> : null}
+        </div>
       
                         <div className="item-actions">
                           {/* coche “vu” */}
@@ -65,7 +67,7 @@
                       {/* -------- liens -------- */}
                       {links.length > 0 && (
                         <div className="item-links">
-                          <h3>Liens</h3>
+                          <h3>Lien(s)</h3>
                           <ul>
                             {links.map((l, i) => (
                               <li key={i} className="item-link">
