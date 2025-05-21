@@ -13,7 +13,7 @@ import ItemContent     from '../components/ItemContent';
 import ProgressBar     from '../components/ProgressBar';
 import Loader          from '../components/Loader';
 
-import { getModule, IItem, IModule } from '../api/modules';
+import { getModule, IItem, IModule, IQuiz } from '../api/modules';
 import { flatten }     from '../utils/items';
 import { useAuth }     from '../context/AuthContext';
 import './ModulePage.css';
@@ -47,6 +47,7 @@ export default function ModulePage() {
   const [visited,  setVis]  = useState<string[]>([]);
   const [busy,     setBusy] = useState(true);
   const [open,     setOpen] = useState(false);
+  const [quizPassed, setQuizPassed] = useState<Record<string, boolean>>({});
 
   /* ---------------- favoris ---------------- */
   const favKey = `favs_${username}`;
@@ -83,6 +84,7 @@ export default function ModulePage() {
         setIt(filtered);
         setSel(filtered[0]?.id ?? '');
         setVis(JSON.parse(localStorage.getItem(`visited_${moduleId}`) ?? '[]'));
+        setQuizPassed(JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}'));
       })
       .catch(() => navigate('/'))
       .finally(() => setTimeout(() => setBusy(false), 450)); // petit délai pour le loader
@@ -109,6 +111,11 @@ export default function ModulePage() {
   /* ---------------- visite toggle ---------------- */
   const toggleVisited = (id: string) =>
     setVis((prev) => {
+      const item = find(id)!;
+      if (item.quiz?.enabled && !quizPassed[id]) {
+        alert('Vous devez réussir le quiz avant de valider cet item.');
+        return prev;
+      }
       const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
       localStorage.setItem(`visited_${moduleId}`, JSON.stringify(next));
 
@@ -122,6 +129,14 @@ export default function ModulePage() {
       }
       return next;
     });
+
+  const markQuizPassed = (id: string) => {
+    setQuizPassed(prev => {
+      const next = { ...prev, [id]: true };
+      localStorage.setItem(`quiz_${moduleId}`, JSON.stringify(next));
+      return next;
+    });
+  };
 
   /* ---------------- états spéciaux ---------------- */
   if (busy)      return <Loader />;
@@ -192,6 +207,9 @@ export default function ModulePage() {
           links={item.links}
 
           videos={item.videos}
+          quiz={item.quiz}
+          quizPassed={quizPassed[item.id]}
+          onQuizPassed={() => markQuizPassed(item.id)}
           isVisited={visited.includes(item.id)}
           onToggleVisited={() => toggleVisited(item.id)}
           isFav={favs.includes(item.id)}

@@ -3,9 +3,9 @@
 import React, { useMemo, useState } from 'react';
 import AdvancedEditor                  from './AdvancedEditor';
       
-                import {
-                  IModule, IItem, ILink, IImage,
-                } from '../api/modules';
+import {
+  IModule, IItem, ILink, IImage, IQuiz,
+} from '../api/modules';
                 import './ModuleEditor.css';
       
                 /* ═════════════════════════ HELPERS GÉNÉRIAUX ═════════════════════════ */
@@ -27,6 +27,7 @@ import AdvancedEditor                  from './AdvancedEditor';
                   videos:    it.videos    ?? [],
                   profiles:  it.profiles  ?? [],
                   enabled:   it.enabled   ?? true,
+                  quiz:      it.quiz      ?? { enabled: false, questions: [] },
                   children:  (it.children ?? []).map(ensureDefaults),
                 });
       
@@ -70,6 +71,11 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
                       items: mapItems(prev.items, (it) =>
                         it.id === curId ? { ...it, ...patch } : it),
                     }));
+
+  const patchQuiz = (quizPatch: Partial<IQuiz>) => {
+    const q = { enabled: false, questions: [], ...(current?.quiz ?? {}) };
+    patchItem({ quiz: { ...q, ...quizPatch } });
+  };
       
                   /* CRUD items --------------------------------------------- */
                   const addItem = (parent?: IItem) => {
@@ -327,8 +333,83 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
                                   <button onClick={() => delImage(i)}>🗑️</button>
                                 </div>
                               ))}
-                              <button onClick={addImage}>＋ ajouter une image</button>
-                            </fieldset>
+                            <button onClick={addImage}>＋ ajouter une image</button>
+                          </fieldset>
+
+                          {/* quiz ------------------------------------------- */}
+                          <fieldset>
+                            <legend>Quiz</legend>
+                            <label className="inline-row">
+                              <input
+                                type="checkbox"
+                                checked={current.quiz?.enabled ?? false}
+                                onChange={e => patchQuiz({ enabled: e.target.checked })}
+                              />{' '}
+                              Activer le quiz
+                            </label>
+
+                            {current.quiz?.enabled && (
+                              <div style={{ marginTop: 8 }}>
+                                {current.quiz.questions.map((q, qi) => (
+                                  <div key={qi} style={{ marginBottom: 12 }}>
+                                    <input
+                                      value={q.question}
+                                      placeholder={`Question ${qi + 1}`}
+                                      onChange={e => {
+                                        const qs = [...current.quiz!.questions];
+                                        qs[qi] = { ...qs[qi], question: e.target.value };
+                                        patchQuiz({ questions: qs });
+                                      }}
+                                      style={{ width: '100%', marginBottom: 4 }}
+                                    />
+                                    {q.options.map((opt, oi) => (
+                                      <div key={oi} className="inline-row">
+                                        <input
+                                          value={opt}
+                                          placeholder={`Réponse ${oi + 1}`}
+                                          onChange={e => {
+                                            const qs = [...current.quiz!.questions];
+                                            const opts = [...qs[qi].options];
+                                            opts[oi] = e.target.value;
+                                            qs[qi] = { ...qs[qi], options: opts };
+                                            patchQuiz({ questions: qs });
+                                          }}
+                                          style={{ flex: 1 }}
+                                        />
+                                        <label>
+                                          <input
+                                            type="checkbox"
+                                            checked={q.correct.includes(oi)}
+                                            onChange={e => {
+                                              const qs = [...current.quiz!.questions];
+                                              const set = new Set(qs[qi].correct);
+                                              e.target.checked ? set.add(oi) : set.delete(oi);
+                                              qs[qi] = { ...qs[qi], correct: Array.from(set) };
+                                              patchQuiz({ questions: qs });
+                                            }}
+                                          />{' '}
+                                          Bonne réponse
+                                        </label>
+                                        <button onClick={() => {
+                                          const qs = [...current.quiz!.questions];
+                                          qs[qi].options.splice(oi,1);
+                                          qs[qi].correct = qs[qi].correct.filter(x => x !== oi).map(x => x > oi ? x-1 : x);
+                                          patchQuiz({ questions: qs });
+                                        }}>🗑️</button>
+                                      </div>
+                                    ))}
+                                    <button onClick={() => {
+                                      const qs = [...current.quiz!.questions];
+                                      qs[qi].options.push('');
+                                      patchQuiz({ questions: qs });
+                                    }}>＋ réponse</button>
+                                    <hr />
+                                  </div>
+                                ))}
+                                <button onClick={() => patchQuiz({ questions: [...(current.quiz?.questions ?? []), { question: '', options: ['',''], correct: [] }] })}>＋ ajouter une question</button>
+                              </div>
+                            )}
+                          </fieldset>
       
                             <label className="inline-row">
                               <input

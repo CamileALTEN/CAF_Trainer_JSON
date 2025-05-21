@@ -13,7 +13,18 @@ export interface IImage {
   width?: number;         // %  (10 – 100)
   align?: 'left' | 'center' | 'right';
 }
-      
+
+export interface IQuizQuestion {
+  question: string;
+  options: string[];
+  correct: number[];
+}
+
+export interface IQuiz {
+  enabled: boolean;
+  questions: IQuizQuestion[];
+}
+
 export interface IItem  {
   id:        string;
   title:     string;
@@ -25,7 +36,9 @@ export interface IItem  {
   videos:    string[];
   profiles:  string[];
   enabled:   boolean;
-      
+
+  quiz?: IQuiz;
+
   children?: IItem[];
 }
       

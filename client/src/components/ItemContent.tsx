@@ -1,10 +1,11 @@
              /* client/src/components/ItemContent.tsx
                 ───────────────────────────────────── */
       
-                import React from 'react';
-                import FavoriteButton from './FavoriteButton';
-                import './ItemContent.css';
-                import { IImage, ILink } from '../api/modules';
+import React from 'react';
+import FavoriteButton from './FavoriteButton';
+import Quiz from './Quiz';
+import './ItemContent.css';
+import { IImage, ILink, IQuiz } from '../api/modules';
       
 export interface ItemContentProps {
   /* ─── contenu ─── */
@@ -14,6 +15,10 @@ export interface ItemContentProps {
   links?:      ILink[];
   images?:     (string | IImage)[];
   videos?:     string[];
+
+  quiz?:       IQuiz;
+  quizPassed?: boolean;
+  onQuizPassed?: () => void;
       
                   /* ─── progression ─── */
                   isVisited:        boolean;
@@ -29,6 +34,7 @@ export interface ItemContentProps {
                 export default function ItemContent(props: ItemContentProps) {
   const {
     title, subtitle, description, links = [], images, videos,
+    quiz, quizPassed, onQuizPassed,
     isVisited, onToggleVisited,
     isFav,     onToggleFav,
   } = props;
@@ -109,6 +115,10 @@ export interface ItemContentProps {
                           ))}
                         </div>
                       ) : null}
+
+                      {quiz && quiz.enabled && (
+                        <Quiz quiz={quiz} onSuccess={onQuizPassed ?? (()=>{})} passed={quizPassed ?? false} />
+                      )}
                     </div>
                   );
                 }

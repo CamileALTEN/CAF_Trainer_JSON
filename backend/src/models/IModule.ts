@@ -8,6 +8,17 @@ width?: number;
 align?: 'left' | 'center' | 'right';
 }
 
+export interface IQuizQuestion {
+  question: string;
+  options: string[];
+  correct: number[]; // indexes of good answers
+}
+
+export interface IQuiz {
+  enabled: boolean;
+  questions: IQuizQuestion[];
+}
+
 export interface IItem  {
 id:        string;
 title:     string;
@@ -17,10 +28,12 @@ content:   string;
 links:     ILink[];
 images:    IImage[];
 videos:    string[];
-profiles:  string[];
-enabled:   boolean;
+  profiles:  string[];
+  enabled:   boolean;
 
-children?: IItem[];
+  quiz?: IQuiz;
+
+  children?: IItem[];
 }
 
 export interface IModule {
