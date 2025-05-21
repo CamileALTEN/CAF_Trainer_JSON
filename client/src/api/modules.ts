@@ -25,6 +25,13 @@ export interface IItem  {
   videos:    string[];
   profiles:  string[];
   enabled:   boolean;
+
+  quiz?: {
+    enabled: boolean;
+    question: string;
+    options: string[];
+    correct: number[];
+  };
       
   children?: IItem[];
 }
@@ -40,6 +47,7 @@ export interface IProgress {
   username: string;          // CAF
   moduleId: string;
   visited:  string[];        // ids d’items complétés
+  status?: Record<string,string>; // itemId -> statut
 }
       
       

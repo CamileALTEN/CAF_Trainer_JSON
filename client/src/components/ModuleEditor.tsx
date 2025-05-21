@@ -16,7 +16,7 @@
                   align: i.align ?? 'left',
                 });
       
-                const ensureDefaults = (it: Partial<IItem>): IItem => ({
+const ensureDefaults = (it: Partial<IItem>): IItem => ({
                   id:        it.id        ?? crypto.randomUUID(),
                   title:     it.title     ?? '',
                   subtitle:  it.subtitle  ?? '',
@@ -26,9 +26,10 @@
                                typeof img === 'string' ? defaultImg({ src: img }) : defaultImg(img)),
                   videos:    it.videos    ?? [],
                   profiles:  it.profiles  ?? [],
-                  enabled:   it.enabled   ?? true,
-                  children:  (it.children ?? []).map(ensureDefaults),
-                });
+  enabled:   it.enabled   ?? true,
+  quiz:      it.quiz      ?? { enabled:false, question:'', options:[''], correct:[] },
+  children:  (it.children ?? []).map(ensureDefaults),
+});
       
 // parcours récursif de l'arbre en appliquant fn sur chaque item
 // (prend en compte les éventuelles modifications de `children` retournées
@@ -56,11 +57,12 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
       
                 export default function ModuleEditor({ module, onChange }: Props) {
                   /* état local --------------------------------------------- */
-                  const [edit, setEdit] = useState<IModule>(() => ({
-                    ...module,
-                    items: module.items.map(ensureDefaults),
-                  }));
-                  const [curId, setCurId] = useState<string>('');
+  const [edit, setEdit] = useState<IModule>(() => ({
+    ...module,
+    items: module.items.map(ensureDefaults),
+  }));
+  const [curId, setCurId] = useState<string>('');
+  const [useAdv, setUseAdv] = useState(true);
       
                   /* MAJ ciblée d’un item ----------------------------------- */
                   const patchItem = (patch: Partial<IItem>) =>
@@ -217,12 +219,24 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
                             />
       
                             <label>
-                              Description (HTML enrichi)
-                              <AdvancedEditor
-                                 value={current.content}
-                                 onChange={html => patchItem({ content: html })}
-                               />
-      
+                              Description {useAdv ? '(HTML enrichi)' : '(coller HTML)'}
+                              <div style={{ marginBottom: 4 }}>
+                                <label className="inline-row">
+                                  <input type="checkbox" checked={useAdv} onChange={e=>setUseAdv(e.target.checked)} /> Utiliser l'éditeur avancé
+                                </label>
+                              </div>
+                              {useAdv ? (
+                                <AdvancedEditor
+                                  value={current.content}
+                                  onChange={html => patchItem({ content: html })}
+                                />
+                              ) : (
+                                <textarea
+                                  value={current.content}
+                                  onChange={e=>patchItem({content:e.target.value})}
+                                  style={{width:'100%',height:200}}
+                                />
+                              )}
                             </label>
       
                             {/* profils */}
@@ -310,8 +324,59 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
                                   <button onClick={() => delImage(i)}>🗑️</button>
                                 </div>
                               ))}
-                              <button onClick={addImage}>＋ ajouter une image</button>
-                            </fieldset>
+                            <button onClick={addImage}>＋ ajouter une image</button>
+                          </fieldset>
+
+                          {/* quiz ----------------------------------------- */}
+                          <fieldset>
+                            <legend>Quiz</legend>
+                            <label className="inline-row">
+                              <input
+                                type="checkbox"
+                                checked={current.quiz?.enabled ?? false}
+                                onChange={e => patchItem({ quiz:{...current.quiz, enabled:e.target.checked} })}
+                              /> Activer le quiz
+                            </label>
+
+                            {current.quiz?.enabled && (
+                              <div className="quiz-editor">
+                                <input
+                                  value={current.quiz.question}
+                                  placeholder="Question"
+                                  onChange={e=>patchItem({quiz:{...current.quiz, question:e.target.value}})}
+                                  style={{width:'100%'}}
+                                />
+                                {current.quiz.options.map((opt,i)=>(
+                                  <div key={i} className="inline-row">
+                                    <input
+                                      value={opt}
+                                      onChange={e=>{
+                                        const opts=[...current.quiz!.options];
+                                        opts[i]=e.target.value;
+                                        patchItem({quiz:{...current.quiz!, options:opts}});
+                                      }}
+                                      style={{flex:1}}
+                                    />
+                                    <label>
+                                      <input
+                                        type="checkbox"
+                                        checked={current.quiz!.correct.includes(i)}
+                                        onChange={e=>{
+                                          const set=new Set(current.quiz!.correct);
+                                          e.target.checked?set.add(i):set.delete(i);
+                                          patchItem({quiz:{...current.quiz!, correct:Array.from(set)}});
+                                        }}
+                                      /> bonne
+                                    </label>
+                                    <button onClick={()=>{
+                                      patchItem({quiz:{...current.quiz!, options:current.quiz!.options.filter((_o,k)=>k!==i), correct:current.quiz!.correct.filter(c=>c!==i)}});
+                                    }}>🗑️</button>
+                                  </div>
+                                ))}
+                                <button onClick={()=>patchItem({quiz:{...current.quiz!, options:[...current.quiz!.options,''], correct:current.quiz!.correct}})}>＋ option</button>
+                              </div>
+                            )}
+                          </fieldset>
       
                             <label className="inline-row">
                               <input

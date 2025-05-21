@@ -45,6 +45,12 @@ export default function ModulePage() {
   const [items,    setIt]   = useState<IItem[]>([]);
   const [selected, setSel]  = useState('');
   const [visited,  setVis]  = useState<string[]>([]);
+  const [quizDone, setQuizDone] = useState<Record<string,boolean>>(
+    () => JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}')
+  );
+  const [statusMap, setStatusMap] = useState<Record<string,string>>(
+    () => JSON.parse(localStorage.getItem(`status_${moduleId}`) ?? '{}')
+  );
   const [busy,     setBusy] = useState(true);
   const [open,     setOpen] = useState(false);
 
@@ -83,6 +89,8 @@ export default function ModulePage() {
         setIt(filtered);
         setSel(filtered[0]?.id ?? '');
         setVis(JSON.parse(localStorage.getItem(`visited_${moduleId}`) ?? '[]'));
+        setQuizDone(JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}'));
+        setStatusMap(JSON.parse(localStorage.getItem(`status_${moduleId}`) ?? '{}'));
       })
       .catch(() => navigate('/'))
       .finally(() => setTimeout(() => setBusy(false), 450)); // petit délai pour le loader
@@ -117,11 +125,35 @@ export default function ModulePage() {
         fetch('/api/progress', {
           method:  'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ username, moduleId, visited: next }),
+          body:    JSON.stringify({ username, moduleId, visited: next, status: statusMap }),
         }).catch(console.error);
       }
       return next;
     });
+
+  const setStatus = (itemId: string, status: string) => {
+    setStatusMap(prev => {
+      const next = { ...prev, [itemId]: status };
+      localStorage.setItem(`status_${moduleId}`, JSON.stringify(next));
+
+      if (username) {
+        fetch('/api/progress', {
+          method:'PATCH',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({ username, moduleId, visited, status: next })
+        }).catch(console.error);
+
+        if(['non compris','difficulté','demande aide'].includes(status)){
+          fetch('/api/notifications',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({ username, date:new Date().toISOString(), message:`Besoin aide sur ${itemId}` })
+          }).catch(console.error);
+        }
+      }
+      return next;
+    });
+  };
 
   /* ---------------- états spéciaux ---------------- */
   if (busy)      return <Loader />;
@@ -197,6 +229,42 @@ export default function ModulePage() {
           isFav={favs.includes(item.id)}
           onToggleFav={() => toggleFav(item.id)}
         />
+
+        {/* quiz */}
+        {item.quiz?.enabled && !quizDone[item.id] && (
+          <div className="item-quiz" style={{marginTop:20}}>
+            <p><strong>{item.quiz.question}</strong></p>
+            {item.quiz.options.map((o,i)=>(
+              <label key={i} style={{display:'block'}}>
+                <input type="checkbox" value={i} /> {o}
+              </label>
+            ))}
+            <button onClick={() => {
+              const inputs=Array.from(document.querySelectorAll('.item-quiz input[type="checkbox"]')) as HTMLInputElement[];
+              const checked=inputs.map((el,i)=>el.checked?i:-1).filter(i=>i!==-1);
+              const good=item.quiz!.correct;
+              const score=checked.filter(c=>good.includes(c)).length / good.length *100;
+              if(score>=80){
+                setQuizDone(prev=>{const n={...prev,[item.id]:true};localStorage.setItem(`quiz_${moduleId}`,JSON.stringify(n));return n;});
+                toggleVisited(item.id);
+              } else alert('Score insuffisant');
+            }}>Valider</button>
+          </div>
+        )}
+
+        {/* statut */}
+        <div style={{marginTop:20}}>
+          <label>Statut :{' '}
+            <select value={statusMap[item.id]||''} onChange={e=>setStatus(item.id,e.target.value)}>
+              <option value="">non commencé</option>
+              <option value="en cours">en cours</option>
+              <option value="validé">validé</option>
+              <option value="non compris">non compris</option>
+              <option value="difficulté">item compris mais difficulté d'exécution</option>
+              <option value="demande aide">demande aide</option>
+            </select>
+          </label>
+        </div>
       </main>
 
       {/* bouton hamburger */}

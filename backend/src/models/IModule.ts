@@ -16,11 +16,18 @@ content:   string;
 
 links:     ILink[];
 images:    IImage[];
-videos:    string[];
-profiles:  string[];
-enabled:   boolean;
+  videos:    string[];
+  profiles:  string[];
+  enabled:   boolean;
 
-children?: IItem[];
+  quiz?: {
+    enabled: boolean;
+    question: string;
+    options: string[];
+    correct: number[]; // index(es) des bonnes réponses
+  };
+
+  children?: IItem[];
 }
 
 export interface IModule {
