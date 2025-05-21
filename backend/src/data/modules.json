@@ -23,6 +23,10 @@
           "Montoir"
         ],
         "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
         "children": [
           {
             "id": "823615c7-a15f-464f-bd9c-369efe9e5660",
@@ -43,6 +47,10 @@
               "Montoir"
             ],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           },
           {
@@ -67,6 +75,10 @@
               "Montoir"
             ],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           },
           {
@@ -91,6 +103,10 @@
               "Montoir"
             ],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           },
           {
@@ -117,6 +133,10 @@
               "Montoir"
             ],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           }
         ]
@@ -145,6 +165,10 @@
           "Montoir"
         ],
         "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
         "children": [
           {
             "id": "ffe016dd-3970-45b1-a898-3e3651461058",
@@ -159,6 +183,10 @@
               "Montoir"
             ],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           },
           {
@@ -174,6 +202,10 @@
               "Montoir"
             ],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           },
           {
@@ -195,6 +227,10 @@
               "Montoir"
             ],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           }
         ]
@@ -227,6 +263,10 @@
           "Montoir"
         ],
         "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
         "children": [
           {
             "id": "412c45d2-63ba-48d3-a79a-b5681ba72604",
@@ -255,6 +295,10 @@
               "Nantes"
             ],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           },
           {
@@ -284,6 +328,10 @@
               "Montoir"
             ],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           },
           {
@@ -313,6 +361,10 @@
               "Nantes"
             ],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           },
           {
@@ -327,6 +379,10 @@
               "Montoir"
             ],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           }
         ]
@@ -355,6 +411,10 @@
           "Nantes"
         ],
         "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
         "children": []
       },
       {
@@ -380,6 +440,10 @@
           "Nantes"
         ],
         "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
         "children": []
       },
       {
@@ -417,6 +481,10 @@
           "Montoir"
         ],
         "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
         "children": []
       },
       {
@@ -438,6 +506,10 @@
           "Montoir"
         ],
         "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
         "children": [
           {
             "id": "0ef78fbe-7242-47c1-80e9-5399492ca837",
@@ -458,6 +530,10 @@
               "Montoir"
             ],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           },
           {
@@ -476,6 +552,10 @@
             "videos": [],
             "profiles": [],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           },
           {
@@ -494,6 +574,10 @@
             "videos": [],
             "profiles": [],
             "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
             "children": []
           },
           {
@@ -512,6 +596,21 @@
             "videos": [],
             "profiles": [],
             "enabled": true,
+            "quiz": {
+              "enabled": true,
+              "questions": [
+                {
+                  "question": "ee",
+                  "options": [
+                    "e",
+                    "z"
+                  ],
+                  "correct": [
+                    1
+                  ]
+                }
+              ]
+            },
             "children": []
           }
         ]
@@ -529,6 +628,31 @@
           "Nantes"
         ],
         "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": [
+            {
+              "question": "\"\"\"\"",
+              "options": [
+                "es",
+                "ui"
+              ],
+              "correct": [
+                1
+              ]
+            },
+            {
+              "question": "a",
+              "options": [
+                "dez",
+                "ui"
+              ],
+              "correct": [
+                0
+              ]
+            }
+          ]
+        },
         "children": []
       }
     ],
