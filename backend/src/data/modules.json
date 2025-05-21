@@ -13,7 +13,7 @@
         "images": [
           {
             "src": "https://st4.depositphotos.com/1010735/20860/v/450/depositphotos_208603374-stock-illustration-welcome-poster-spectrum-brush-strokes.jpg",
-            "width": 30,
+            "width": 40,
             "align": "center"
           }
         ],
@@ -25,10 +25,31 @@
         "enabled": true,
         "children": [
           {
+            "id": "823615c7-a15f-464f-bd9c-369efe9e5660",
+            "title": "CAF Trainer",
+            "subtitle": "",
+            "content": "<h1>Présentation de CAF Trainer</h1><p><br></p><h2>Contexte</h2><p>CAF Trainer est un logiciel d'intégration. Il accompagne les Newcomer dans leur prise de poste et lors des première missions.</p><p><br></p><p>On retrouve toutes les informations utiles concernant :</p><ul><li>Alten ;</li><li>Airbus ;</li><li>Les outils numériques ;</li><li>Les bâtis et outillages ;</li><li>Le métier CAF tel que le process ;</li><li>etc.</li></ul><p><br></p><h2>Utilisation</h2><p>CAF Trainer est divisé en plusieurs modules :</p><ul><li>Prérequis CAF</li><li>Métier CAF</li><li>Montée en compétences (en cours de développement)</li></ul><p><br></p><p>Au sein de chaque module, on retrouve des items, à toi de les parcourir, d'assimiler les notions, réaliser les tests si disponibles, puis valide le module pour mettre à jour ta progression.</p><p><br></p><p><em><u>Note </u>: CAF Trainer est une interface et par soucis de confidentialité, les documents contenants des informations sensibles sont présents sous forme de lien.</em></p>",
+            "links": [],
+            "images": [
+              {
+                "src": "https://img.freepik.com/vecteurs-premium/progression-du-debut-au-succes-developpement-defi-amelioration-pour-progresser-gagner-taches-competition-achevement-pour-terminer-projet-homme-affaires-etape-liste-controle-pour-progresser-vers-objectif_940574-344.jpg",
+                "width": 20,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "children": []
+          },
+          {
             "id": "60f65965-ef9e-4541-8086-2569210ddab2",
             "title": "Livret d'accueil",
             "subtitle": "",
-            "content": "<p>a</p>",
+            "content": "<p>Afin de connaître les règles ALTEN, tu peux lire le livret d'accueil consultant.</p>",
             "links": [
               {
                 "label": "Livret d'accueil Nantes",
@@ -65,7 +86,30 @@
             ],
             "images": [],
             "videos": [],
-            "profiles": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "children": []
+          },
+          {
+            "id": "14468455-a676-4a55-9bcc-22ae3bad8966",
+            "title": "Liste des acronymes",
+            "subtitle": "",
+            "content": "<p><br></p>",
+            "links": [
+              {
+                "label": "Liste des acronymes",
+                "url": "https://docs.google.com.rproxy.goskope.com/spreadsheets/d/1yFwq7XGG-JWTgU_yLF0UMtVj9TxNSbcXRK6j7UiZXuc/edit?usp=sharing"
+              }
+            ],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
             "enabled": true,
             "children": []
           }
@@ -73,15 +117,458 @@
       },
       {
         "id": "1746552185431",
-        "title": "Test",
+        "title": "ALTEN",
         "subtitle": "",
-        "content": "",
-        "links": [],
-        "images": [],
+        "content": "<p><br></p>",
+        "links": [
+          {
+            "label": "Alten & l'agence de Saint-Herblain",
+            "url": "file:///C:/Users/cledeux/Downloads/pr%C3%A9sentation%20agence%20(1).html"
+          }
+        ],
+        "images": [
+          {
+            "src": "https://www.je-recrute.com/storage/2024/11/Offre-demploi-2024-11-11T205958.639.webp",
+            "width": 50,
+            "align": "center"
+          }
+        ],
         "videos": [],
-        "profiles": [],
+        "profiles": [
+          "Nantes",
+          "Montoir"
+        ],
+        "enabled": true,
+        "children": [
+          {
+            "id": "ffe016dd-3970-45b1-a898-3e3651461058",
+            "title": "Contact",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "children": []
+          },
+          {
+            "id": "7926dfda-1785-401b-b8e6-ce25e7ebaceb",
+            "title": "Organigramme équipe",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "children": []
+          },
+          {
+            "id": "1fef12c5-1512-4be2-81a8-ba21dd036931",
+            "title": "Outil Alten :  VISION et SMART",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [
+              {
+                "src": "https://www.altengt.com/images/vision_mission_value_bg.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "c8aa9ab3-8d46-469c-847a-91f465f730e5",
+        "title": "AIRBUS",
+        "subtitle": "",
+        "content": "<p>Dans ce module, tu vas découvrir l'entreprise AIRBUS et AIRBUS ATLANTIC.</p>",
+        "links": [
+          {
+            "label": "Présentation Airbus (vu Newcomer)",
+            "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1ZSc0CCl77gH0QPVgNzpyCTluj2UMKktDY2Pvghg0-dw/present?usp=sharing"
+          },
+          {
+            "label": "Présentation Airbus (édition)",
+            "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1ZSc0CCl77gH0QPVgNzpyCTluj2UMKktDY2Pvghg0-dw/edit?usp=sharing"
+          }
+        ],
+        "images": [
+          {
+            "src": "https://logo-marque.com/wp-content/uploads/2021/09/Airbus-Logo.png",
+            "width": 50,
+            "align": "center"
+          }
+        ],
+        "videos": [],
+        "profiles": [
+          "Nantes",
+          "Montoir"
+        ],
+        "enabled": true,
+        "children": [
+          {
+            "id": "412c45d2-63ba-48d3-a79a-b5681ba72604",
+            "title": "Airbus Nantes",
+            "subtitle": "",
+            "content": "<p><br></p>",
+            "links": [
+              {
+                "label": "Présentation Airbus Nantes (vu Newcomer)",
+                "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1SJTqkSAnXLOd5Otnf7_d-W-XwVrcJ_o8XRo68nEebZg/present?usp=sharing"
+              },
+              {
+                "label": "Présentation Airbus Nantes (édition)",
+                "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1SJTqkSAnXLOd5Otnf7_d-W-XwVrcJ_o8XRo68nEebZg/edit?usp=sharing"
+              }
+            ],
+            "images": [
+              {
+                "src": "https://media.ouest-france.fr/v1/pictures/MjAxOTA1MTg1YWUzNmE0MmQwYWU3ZmU5MzMxM2E4Yzk3ZTdlMDY?width=1260&height=708&focuspoint=50%2C25&cropresize=1&client_id=bpeditorial&sign=634d1f0d5d02918b71d590107174c936c00096dabb76a06ed0b113bbce9bbd68",
+                "width": 50,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "children": []
+          },
+          {
+            "id": "7ef3df4d-0861-42cb-880e-abca4e12e8d5",
+            "title": "Airbus Montoir",
+            "subtitle": "",
+            "content": "<p>Le site d'Airbus Montoir est considéré comme une pré-FAL (pré-Final Assembly Line). On y assemble et implante les systèmes des tronçons avant et centraux de plusieurs programmes avions.</p>",
+            "links": [
+              {
+                "label": "Présentation Airbus Montoir de Bretagne (vu Newcomer)",
+                "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1FD5YcfyH95WYulS6DotETaEnBmdT7uD6JpBPWuBnFVg/present?usp=sharing"
+              },
+              {
+                "label": "Présentation Airbus Montoir de Bretagne (édition)",
+                "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1FD5YcfyH95WYulS6DotETaEnBmdT7uD6JpBPWuBnFVg/edit?usp=sharing"
+              }
+            ],
+            "images": [
+              {
+                "src": "https://www.informateurjudiciaire.fr/wp-content/uploads/sites/10/2022/01/AirbusAtlantic-MontoirdeBretagne-copyrightAirbus-scaled-760x396-c-default.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [
+              "Montoir"
+            ],
+            "enabled": true,
+            "children": []
+          },
+          {
+            "id": "adbed355-edcb-45f5-86d1-b7079b24b923",
+            "title": "Organisation des métiers Airbus et Jigs & Tools",
+            "subtitle": "",
+            "content": "",
+            "links": [
+              {
+                "label": "Vue Newcomer",
+                "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1eLc65pRX2dW5ZxLBVjl0DUK1c-5js0rO2vsC3M-no0M/present?usp=sharing"
+              },
+              {
+                "label": "Format édition",
+                "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1eLc65pRX2dW5ZxLBVjl0DUK1c-5js0rO2vsC3M-no0M/edit?usp=sharing"
+              }
+            ],
+            "images": [
+              {
+                "src": "https://agence-api.ouest-france.fr/uploads/article/418fe087246fe0aeb5ed152ba12e8bf99efad297.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "children": []
+          },
+          {
+            "id": "4910213a-6050-44cd-98c7-05583929a2e9",
+            "title": "Organisation des métiers Airbus et Jigs & Tools",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Montoir"
+            ],
+            "enabled": true,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "e9637576-9917-4f30-b317-c155bd17757d",
+        "title": "Sensibilisation",
+        "subtitle": "",
+        "content": "<p>En tant que consultant Alten en mission pour Airbus, tu dois réaliser des e-learning. Certains sont mandatory, il faut donc les réaliser avant de commencer ta première affaire.</p><p>Quand tu les as réaliser, n'oublie pas de les cocher dans ton plan d'intégration systématiquement !</p><p><br></p><p><em>Note : Si les liens ne fonctionnent plus, tu peux aller dans HRWay --&gt; Menu --&gt; Catalogue de formation --&gt; Recherche le nom de la formation souhaitée.</em></p>",
+        "links": [
+          {
+            "label": "Airbus - Ethics and compliance awareness (Mandatory !)",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1178"
+          },
+          {
+            "label": "Export Control (Engineers) (Mandatory !)",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1184"
+          },
+          {
+            "label": "FOD prevention awareness (Mandatory !)",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1179"
+          },
+          {
+            "label": "Artificial intelligence awarness program (A3) - for Engineers (Mandatory !)",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2073940"
+          },
+          {
+            "label": "Bienvenue dans le groupe ALTEN (ING) (Mandatory !)",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074138"
+          },
+          {
+            "label": "Gestion des risques professionnels (ingénieur) (Mandatory !)",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074654"
+          },
+          {
+            "label": "La protection des données personnelles (RGPD - Ingénieur) (r.2023) (Mandatory !)",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074828"
+          },
+          {
+            "label": "Ecomobilité : enjeux & solutions (Mandatory !)",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075005"
+          },
+          {
+            "label": "Contrôle des exportations (ingénieur) (Mandatory !)",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2307566"
+          },
+          {
+            "label": "Counterfeits prevention awarness (Mandatory !)",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1106"
+          },
+          {
+            "label": "Impact environnemental et éco-gestes : tous acteurs !",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075182"
+          },
+          {
+            "label": "Prévenir et lutter contre les agissements sexistes et le harcèlement sexuel",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075359"
+          },
+          {
+            "label": "Sensiblisation au handicap en entreprise",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075536"
+          },
+          {
+            "label": "Sureté & Sécurité",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074312"
+          },
+          {
+            "label": "Prévenir la corruption",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074483"
+          },
+          {
+            "label": "Débuter la gestion de projet",
+            "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/147"
+          }
+        ],
+        "images": [
+          {
+            "src": "https://www.upandgo.fr/wp-content/uploads/2023/06/E-learning-formateur.jpg",
+            "width": 50,
+            "align": "center"
+          }
+        ],
+        "videos": [],
+        "profiles": [
+          "Montoir",
+          "Nantes"
+        ],
         "enabled": true,
         "children": []
+      },
+      {
+        "id": "7be21bb4-9a97-4d92-a850-bb9fe4ef6673",
+        "title": "Sécurité",
+        "subtitle": "",
+        "content": "<h1>Prévention</h1><p>La sécurité en entreprise est primordial surtout dans un environnement industriel où le risque est présent tout autour de nous.</p><p>Afin de connaître et d'appliquer les règles de prévention tu dois :</p><ul><li>Lire le plan de prévention puis le signer ;</li><li>Réaliser ton accueil sécurité.</li></ul><p><br></p><p>A Nantes, tu dois réaliser ton accueil sécurité au plus vite puis refaire la formation tous les ans.</p><p>Des créneaux sont disponibles tous les lundis de 14h à 15h30 et les mercredis de 11h à 12h30. Le Team Leader doit t'inscrire à un créneau.</p>",
+        "links": [
+          {
+            "label": "Plan de prévention Nantes",
+            "url": "https://drive.google.com/drive/folders/1PlFqgb9qlMefgu95NQkJMWWdCZa6miSU?usp=drive_link"
+          }
+        ],
+        "images": [
+          {
+            "src": "https://www.francetravail.fr/files/live/sites/PE/files/employeur/Bien-gerer-RH/Prevention-sante-travail-850.jpg",
+            "width": 50,
+            "align": "center"
+          }
+        ],
+        "videos": [],
+        "profiles": [
+          "Nantes"
+        ],
+        "enabled": true,
+        "children": []
+      },
+      {
+        "id": "ef2be627-7ab7-42fb-a5aa-bcea0cd04bfb",
+        "title": "Sécurité",
+        "subtitle": "",
+        "content": "<h1>Prévention</h1><p>La sécurité en entreprise est primordial surtout dans un environnement industriel où le risque est présent tout autour de nous.</p><p>Afin de connaître et d'appliquer les règles de prévention tu dois :</p><ul><li>Lire le plan de prévention puis le signer ;</li><li>Réaliser ton accueil sécurité (il se fait en ligne et doit être réaliser avant ton arrivée sur site) ;</li><li>Réaliser ton accueil au poste puis le signer.</li></ul>",
+        "links": [
+          {
+            "label": "Accueil sécurité",
+            "url": "https://drive.google.com/file/d/1TDwI4ejSmhIHKYm013P_jWgJBoHJZOBv/view?usp=sharing"
+          },
+          {
+            "label": "Présentation accueil au poste",
+            "url": "https://docs.google.com/presentation/d/1wRsU1pE0yN-e2raTIaS93fSs1hY8T99ZJWobgGFI43s/edit?usp=sharing"
+          },
+          {
+            "label": "Plan de prévention Montoir",
+            "url": "https://"
+          },
+          {
+            "label": "Lien utile : Portail Santé Sécurité Airbus",
+            "url": "https://sites.google.com/airbus.com/portail-sse-nz/documentation"
+          }
+        ],
+        "images": [
+          {
+            "src": "https://www.francetravail.fr/files/live/sites/PE/files/employeur/Bien-gerer-RH/Prevention-sante-travail-850.jpg",
+            "width": 50,
+            "align": "center"
+          }
+        ],
+        "videos": [],
+        "profiles": [
+          "Montoir"
+        ],
+        "enabled": true,
+        "children": []
+      },
+      {
+        "id": "de2e76e7-368f-4acf-ad07-cbbc804c4797",
+        "title": "Pour aller plus loin",
+        "subtitle": "",
+        "content": "<p><br></p>",
+        "links": [],
+        "images": [
+          {
+            "src": "https://media.licdn.com/dms/image/v2/C4E12AQF9Ic5u_eq75w/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1557819804871?e=2147483647&v=beta&t=w1FeFlhDpQ7XS-sluEKhtXP5B6AZsNcg7R18anYHanI",
+            "width": 50,
+            "align": "center"
+          }
+        ],
+        "videos": [],
+        "profiles": [
+          "Nantes",
+          "Montoir"
+        ],
+        "enabled": true,
+        "children": [
+          {
+            "id": "0ef78fbe-7242-47c1-80e9-5399492ca837",
+            "title": "Aéronautique",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [
+              {
+                "src": "https://www.journal-aviation.com/t_media/2025/05/Famille_Airbus.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "children": []
+          },
+          {
+            "id": "28430088-5437-4272-ab34-70edfab1f354",
+            "title": "Lecture de plan",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [
+              {
+                "src": "https://gscad.fr/images/fond/fond_gscad_a.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [],
+            "enabled": true,
+            "children": []
+          },
+          {
+            "id": "1fac3148-0d9e-4003-86e9-abbf34963b1d",
+            "title": "Éléctricité",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [
+              {
+                "src": "https://www.courant.fr/upload/media/actualite/1122-installationlectrique.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [],
+            "enabled": true,
+            "children": []
+          },
+          {
+            "id": "b83a25cb-12ac-4e4c-ad6b-6a1a4e324a8a",
+            "title": "Process et Machine",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [
+              {
+                "src": "https://www.indevagroup.fr/wp-content/uploads/2021/12/Airbus-Helicopter-Manipulators7.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [],
+            "enabled": true,
+            "children": []
+          }
+        ]
       }
     ],
     "enabled": true,
@@ -102,7 +589,8 @@
         "images": [],
         "videos": [],
         "profiles": [
-          "Nantes"
+          "Nantes",
+          "Montoir"
         ],
         "enabled": true,
         "children": []
