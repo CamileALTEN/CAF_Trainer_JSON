@@ -66,11 +66,12 @@
            />
 
            {item && (
-             <ItemContent
-               title={item.title}
-               images={item.images}
-               description={item.content}
-               links={item.links}
+            <ItemContent
+              title={item.title}
+              subtitle={item.subtitle}
+              images={item.images}
+              description={item.content}
+              links={item.links}
 
                videos={item.videos}
                isVisited={visitedIds.includes(item.id)}

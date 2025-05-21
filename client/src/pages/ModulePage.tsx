@@ -154,6 +154,7 @@ export default function ModulePage() {
 
       {/* -------- contenu -------- */}
       <main className="module-content">
+        <button className="btn-back" onClick={() => navigate('/')}>← Retour</button>
         {/* barre recherche + suggestions */}
         <input
           type="search"
@@ -185,6 +186,7 @@ export default function ModulePage() {
 
         <ItemContent
           title={item.title}
+          subtitle={item.subtitle}
           images={item.images}
           description={item.content}
           links={item.links}

@@ -42,13 +42,14 @@
                    .check-button svg.unchecked { opacity: .5; }
                    .check-button:hover svg,
                    .check-button svg.checked { opacity: 1; }
-                   .item-body {
-                     margin-top: 16px;
-                   }
-                   .item-html p {
-                     line-height: 1.5;
-                     color: #333;
-                   }
+.item-body {
+  margin-top: 16px;
+}
+.item-body ul { padding-left: 20px; }
+.item-html p {
+  line-height: 1.5;
+  color: #333;
+}
                  /* -------- liens -------- */
                  .item-links          { margin-top: 20px; }
                  .item-links h3       { margin: 0 0 8px;  font-size: 1rem; color: #043962; }
