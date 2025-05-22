@@ -114,11 +114,12 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
           </ResponsiveContainer>
         </section>
 
-         <div className="quick">
-           <Link to="/admin/create"><button>+ Créer un compte</button></Link>
-           <Link to="/admin/modules"><button>📝 Modules</button></Link>
-           <Link to="/admin/notifications"><button>🔔 Notifications</button></Link>
-         </div>
+        <div className="quick">
+          <Link to="/admin/create"><button>+ Créer un compte</button></Link>
+          <Link to="/admin/modules"><button>📝 Modules</button></Link>
+          <Link to="/admin/notifications"><button>🔔 Notifications</button></Link>
+          <Link to="/admin/tickets"><button>📋 Tickets</button></Link>
+        </div>
 
          <h2>Comptes</h2>
          <table>
