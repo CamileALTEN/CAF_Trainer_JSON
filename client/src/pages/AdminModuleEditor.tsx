@@ -1,16 +1,17 @@
 /*  AdminModuleEditor – conserve le header et intègre ModuleEditor v2 */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { getModule, updateModule, IModule } from '../api/modules';
-import ModuleEditor from '../components/ModuleEditor';
+import ModuleEditor, { ModuleEditorHandle } from '../components/ModuleEditor';
 
 export default function AdminModuleEditor() {
   const { moduleId } = useParams<{ moduleId: string }>();
   const navigate = useNavigate();
   const [mod, setMod] = useState<IModule | null>(null);
   const [dirty, setDirty] = useState(false);
+  const editorRef = useRef<ModuleEditorHandle>(null);
 
   /* chargement */
   useEffect(() => {
@@ -61,18 +62,21 @@ export default function AdminModuleEditor() {
         style={{ position : 'sticky', justifyContent: 'space-between', padding: '8px 24px'}}
       >
         <h2>Admin › Modules › {mod.title || '(nouveau)'}</h2>
-        <button
-          onClick={() => {
-            if (!dirty || window.confirm('Quitter sans sauvegarder ?')) {
-              navigate('/admin/modules');
-            }
-          }}
-        >
-          ← Retour modules
-        </button>
+        <div style={{ display:'flex', gap:8 }}>
+          <button
+            onClick={() => {
+              if (!dirty || window.confirm('Quitter sans sauvegarder ?')) {
+                navigate('/admin/modules');
+              }
+            }}
+          >
+            ← Retour modules
+          </button>
+          <button onClick={() => editorRef.current?.save()}>💾 Sauvegarder</button>
+        </div>
       </header>
 
-      <ModuleEditor module={mod} onChange={save} onDirtyChange={setDirty} />
+      <ModuleEditor ref={editorRef} module={mod} onChange={save} onDirtyChange={setDirty} hideSaveButton />
     </div>
   );
 }

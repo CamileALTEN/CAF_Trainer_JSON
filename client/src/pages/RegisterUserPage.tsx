@@ -1,12 +1,14 @@
 //  \client\src\pages\RegisterUserPage.tsx
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { Role, IUser } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
 
 export default function RegisterUserPage() {
   const { user } = useAuth();                     // admin ou manager
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -73,6 +75,7 @@ export default function RegisterUserPage() {
   return (
     <Wrapper>
       {loading && <Loader />}
+      <button className="btn-back" onClick={() => navigate(-1)}>← Retour</button>
       <h2>Créer un compte</h2>
 
       <Form onSubmit={submit}>
@@ -138,6 +141,8 @@ export default function RegisterUserPage() {
 
 /* ───────── styles ───────── */
 const Wrapper = styled.div`  padding:2rem; max-width:360px; margin:auto;
+  .btn-back{background:none;border:none;color:#043962;font-size:1rem;cursor:pointer;padding:6px 8px;border-radius:4px;transition:background .15s;}
+  .btn-back:hover{background:#e9f2ff;}
       `;
 const Form    = styled.form`  display:flex; flex-direction:column; gap:.75rem;
   input,select{padding:.5rem; border:1px solid #bbb; border-radius:4px;}
