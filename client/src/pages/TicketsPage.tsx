@@ -9,7 +9,9 @@ export default function TicketsPage() {
   const [tickets, setTickets] = useState<ITicket[]>([]);
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
-  const [message, setMessage] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('Général');
+  const [priority, setPriority] = useState<'low' | 'normal' | 'high'>('normal');
   const [target, setTarget] = useState<'admin' | 'manager' | 'both'>('manager');
 
   useEffect(() => {
@@ -29,13 +31,15 @@ export default function TicketsPage() {
         username: user.username,
         target,
         title,
-        message,
+        description,
+        category,
+        priority,
       }),
     });
     const data = await res.json();
     setTickets(prev => [...prev, data]);
     setTitle('');
-    setMessage('');
+    setDescription('');
   };
 
   const changeStatus = async (id: string, status: TicketStatus) => {
@@ -61,11 +65,22 @@ export default function TicketsPage() {
             required
           />
           <textarea
-            value={message}
-            onChange={e => setMessage(e.target.value)}
+            value={description}
+            onChange={e => setDescription(e.target.value)}
             placeholder="Message"
             required
           />
+          <input
+            value={category}
+            onChange={e => setCategory(e.target.value)}
+            placeholder="Catégorie"
+            required
+          />
+          <select value={priority} onChange={e => setPriority(e.target.value as any)}>
+            <option value="low">Faible</option>
+            <option value="normal">Normal</option>
+            <option value="high">Élevé</option>
+          </select>
           <select value={target} onChange={e => setTarget(e.target.value as any)}>
             <option value="manager">Manager</option>
             <option value="admin">Admin</option>
@@ -83,11 +98,16 @@ export default function TicketsPage() {
                 {t.username} – {new Date(t.date).toLocaleString()} – {t.status}
               </span>
             </div>
-            <p>{t.message}</p>
+            <p>{t.description}</p>
+            <p>
+              <em>Catégorie: {t.category} – Priorité: {t.priority}</em>
+            </p>
             {(user?.role === 'manager' || user?.role === 'admin') && (
               <div className="actions">
                 <button onClick={() => changeStatus(t.id, 'open')}>Ouvrir</button>
                 <button onClick={() => changeStatus(t.id, 'pending')}>En attente</button>
+                <button onClick={() => changeStatus(t.id, 'in_progress')}>En cours</button>
+                <button onClick={() => changeStatus(t.id, 'resolved')}>Résolu</button>
                 <button onClick={() => changeStatus(t.id, 'closed')}>Clore</button>
               </div>
             )}

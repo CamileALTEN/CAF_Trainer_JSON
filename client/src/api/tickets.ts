@@ -1,4 +1,9 @@
-export type TicketStatus = 'open' | 'pending' | 'closed';
+export type TicketStatus =
+  | 'open'
+  | 'pending'
+  | 'in_progress'
+  | 'resolved'
+  | 'closed';
 
 export interface ITicket {
   id: string;
@@ -6,7 +11,11 @@ export interface ITicket {
   managerId?: string;
   target: 'admin' | 'manager' | 'both';
   title: string;
-  message: string;
+  description: string;
+  category: string;
+  priority: 'low' | 'normal' | 'high';
+  assignedTo?: string;
+  attachments?: string[];
   status: TicketStatus;
   date: string;
 }

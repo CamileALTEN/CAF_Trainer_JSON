@@ -12,8 +12,8 @@ router.get('/', (_req, res) => {
     res.json(load());
 });
 router.post('/', (req, res) => {
-    const { username, target, title, message } = req.body;
-    if (!username || !target || !title || !message)
+    const { username, target, title, description, category, priority, attachments, assignedTo, } = req.body;
+    if (!username || !target || !title || !description)
         return res.status(400).json({ error: 'Données manquantes' });
     const users = (0, dataStore_1.read)('users');
     const author = users.find(u => u.username === username);
@@ -23,7 +23,11 @@ router.post('/', (req, res) => {
         managerId: author?.managerId,
         target: target,
         title,
-        message,
+        description,
+        category: category ?? 'Général',
+        priority: priority ?? 'normal',
+        assignedTo,
+        attachments,
         status: 'open',
         date: new Date().toISOString(),
     };
@@ -44,15 +48,16 @@ router.post('/', (req, res) => {
     (0, notifier_1.notify)({
         username,
         category: 'ticket',
-        message: `Nouveau ticket: ${title}`,
+        message: `Nouveau ticket de ${username} intitulé "${title}" : ${description}.`,
         to,
     }).catch(err => console.error('[TICKET]', err.message));
     res.status(201).json(ticket);
 });
 router.patch('/:id', (req, res) => {
     const { status } = req.body;
-    if (!status)
-        return res.status(400).json({ error: 'Statut manquant' });
+    const allowed = ['open', 'pending', 'in_progress', 'resolved', 'closed'];
+    if (!status || !allowed.includes(status))
+        return res.status(400).json({ error: 'Statut invalide' });
     const list = load();
     const idx = list.findIndex(t => t.id === req.params.id);
     if (idx === -1)

@@ -16,8 +16,18 @@ router.get('/', (_req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const { username, target, title, message } = req.body as Partial<ITicket>;
-  if (!username || !target || !title || !message)
+  const {
+    username,
+    target,
+    title,
+    description,
+    category,
+    priority,
+    attachments,
+    assignedTo,
+  } = req.body as Partial<ITicket>;
+
+  if (!username || !target || !title || !description)
     return res.status(400).json({ error: 'Données manquantes' });
 
   const users = read<IUser>('users');
@@ -29,7 +39,11 @@ router.post('/', (req, res) => {
     managerId: author?.managerId,
     target: target as any,
     title,
-    message,
+    description,
+    category: category ?? 'Général',
+    priority: priority ?? 'normal',
+    assignedTo,
+    attachments,
     status: 'open',
     date: new Date().toISOString(),
   };
@@ -51,7 +65,7 @@ router.post('/', (req, res) => {
   notify({
     username,
     category: 'ticket',
-    message: `Nouveau ticket de ${username} intitulé "${title}" :       ${message}.`,
+    message: `Nouveau ticket de ${username} intitulé "${title}" : ${description}.`,
     to,
   }).catch(err => console.error('[TICKET]', (err as Error).message));
 
@@ -60,7 +74,9 @@ router.post('/', (req, res) => {
 
 router.patch('/:id', (req, res) => {
   const { status } = req.body as { status: TicketStatus };
-  if (!status) return res.status(400).json({ error: 'Statut manquant' });
+  const allowed: TicketStatus[] = ['open', 'pending', 'in_progress', 'resolved', 'closed'];
+  if (!status || !allowed.includes(status))
+    return res.status(400).json({ error: 'Statut invalide' });
 
   const list = load();
   const idx = list.findIndex(t => t.id === req.params.id);
