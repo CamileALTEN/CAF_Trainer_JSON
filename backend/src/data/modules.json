@@ -32,8 +32,13 @@
             "id": "823615c7-a15f-464f-bd9c-369efe9e5660",
             "title": "Outil d'intégration : CAF Trainer & Plan d'intégration",
             "subtitle": "",
-            "content": "<h1>Présentation de CAF Trainer</h1><p><br></p><h2>Contexte</h2><p>CAF Trainer est un logiciel d'intégration. Il accompagne les Newcomer dans leur prise de poste et lors des première missions.</p><p><br></p><p>On retrouve toutes les informations utiles concernant :</p><ul><li>Alten ;</li><li>Airbus ;</li><li>Les outils numériques ;</li><li>Les bâtis et outillages ;</li><li>Le métier CAF tel que le process ;</li><li>etc.</li></ul><p><br></p><h2>Utilisation</h2><p>CAF Trainer est divisé en plusieurs modules :</p><ul><li>Prérequis CAF</li><li>Métier CAF</li><li>Montée en compétences (en cours de développement)</li></ul><p><br></p><p>Au sein de chaque module, on retrouve des items, à toi de les parcourir, d'assimiler les notions, réaliser les tests si disponibles, puis valide le module pour mettre à jour ta progression.</p><p><br></p><p><em><u>Note </u>: CAF Trainer est une interface et par soucis de confidentialité, les documents contenants des informations sensibles sont présents sous forme de lien (stockés sur Google).</em></p><p><br></p><p><br></p><h1>Plan d'intégration</h1><p><br></p>",
-            "links": [],
+            "content": "<h1>Présentation de CAF Trainer</h1><p><br></p><h2>Contexte</h2><p>CAF Trainer est un logiciel d'intégration. Il accompagne les Newcomer dans leur prise de poste et lors des première missions.</p><p><br></p><p>On retrouve toutes les informations utiles concernant :</p><ul><li>Alten ;</li><li>Airbus ;</li><li>Les outils numériques ;</li><li>Les bâtis et outillages ;</li><li>Le métier CAF tel que le process ;</li><li>etc.</li></ul><p><br></p><h2>Utilisation</h2><p>CAF Trainer est divisé en plusieurs modules :</p><ul><li>Prérequis CAF</li><li>Métier CAF</li><li>Montée en compétences (en cours de développement)</li></ul><p><br></p><p>Au sein de chaque module, on retrouve des items, à toi de les parcourir, d'assimiler les notions, réaliser les tests si disponibles, puis valide le module pour mettre à jour ta progression.</p><p><br></p><p><em><u>Note </u>: CAF Trainer est une interface et par soucis de confidentialité, les documents contenants des informations sensibles sont présents sous forme de lien (stockés sur Google).</em></p><p><br></p><p><br></p><h1>Plan d'intégration</h1><p><br></p><p>Afin de suivre ton intégration, une checklist et un calendrier sont disponibles sur le Drive. En parallèle de CAF Trainer, tu peux la compléter pour suivre ton avancé et vérifier que tu as parcouru tous les modules.</p>",
+            "links": [
+              {
+                "label": "Plan d'intégration",
+                "url": "https://docs.google.com.rproxy.goskope.com/spreadsheets/d/1RrXARXw9xUqRBTwobeezDzWRv8qRf56yLRA4jpTNGMA/edit?usp=sharing"
+              }
+            ],
             "images": [
               {
                 "src": "https://img.freepik.com/vecteurs-premium/progression-du-debut-au-succes-developpement-defi-amelioration-pour-progresser-gagner-taches-competition-achevement-pour-terminer-projet-homme-affaires-etape-liste-controle-pour-progresser-vers-objectif_940574-344.jpg",
@@ -194,8 +199,23 @@
             "title": "Organigramme équipe",
             "subtitle": "",
             "content": "",
-            "links": [],
-            "images": [],
+            "links": [
+              {
+                "label": "Nantes",
+                "url": "https://"
+              },
+              {
+                "label": "Montoir",
+                "url": "https://"
+              }
+            ],
+            "images": [
+              {
+                "src": "https://cdn-icons-png.flaticon.com/512/12885/12885439.png",
+                "width": 50,
+                "align": "center"
+              }
+            ],
             "videos": [],
             "profiles": [
               "Nantes",
@@ -210,10 +230,15 @@
           },
           {
             "id": "1fef12c5-1512-4be2-81a8-ba21dd036931",
-            "title": "Outil Alten :  VISION et SMART",
+            "title": "Outil Alten :  VISION & SMART",
             "subtitle": "",
-            "content": "",
-            "links": [],
+            "content": "<h1>VISION</h1><p><br></p><p>VISION est un outil interne ALTEN qui permet à l'entreprise de suivre ton activité.</p><p>Cette outil est indispensable dans ton quotidien. Tu as accès à :</p><ul><li>la saisie du CRA \"Compte Rendu d'Activité\" (à faire au moins une fois par semaine) ;</li><li>La saisie d'une demande d'absence ;</li><li>La saisie d'une note de frais.</li></ul><p><br></p><p><br></p><h1>SMART</h1><p><br></p><p>abc</p>",
+            "links": [
+              {
+                "label": "E-learning VISION ",
+                "url": "https://visionportal-learning-fr.altengroup.com/#/"
+              }
+            ],
             "images": [
               {
                 "src": "https://www.altengt.com/images/vision_mission_value_bg.jpg",
@@ -242,7 +267,7 @@
         "content": "<p>Dans ce module, tu vas découvrir l'entreprise AIRBUS et AIRBUS ATLANTIC.</p>",
         "links": [
           {
-            "label": "Présentation Airbus (vu Newcomer)",
+            "label": "Présentation Airbus (vue Newcomer)",
             "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1ZSc0CCl77gH0QPVgNzpyCTluj2UMKktDY2Pvghg0-dw/present?usp=sharing"
           },
           {
@@ -272,14 +297,14 @@
             "id": "412c45d2-63ba-48d3-a79a-b5681ba72604",
             "title": "Airbus Nantes",
             "subtitle": "",
-            "content": "<p><br></p>",
+            "content": "<p>Airbus Nantes usine et assemble des pièces élémentaires des programmes avions. Elles sont ensuite envoyées en pré-FAL ou FAL (Final Assembly Design).</p><p><br></p><p>Dans ce module, tu vas découvrir :</p><ul><li>le site de Nantes ;</li><li>les pièces élémentaires usinées et assemblées ;</li><li>les secteurs d'activités.</li></ul>",
             "links": [
               {
-                "label": "Présentation Airbus Nantes (vu Newcomer)",
+                "label": "vue Newcomer",
                 "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1SJTqkSAnXLOd5Otnf7_d-W-XwVrcJ_o8XRo68nEebZg/present?usp=sharing"
               },
               {
-                "label": "Présentation Airbus Nantes (édition)",
+                "label": "édition",
                 "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1SJTqkSAnXLOd5Otnf7_d-W-XwVrcJ_o8XRo68nEebZg/edit?usp=sharing"
               }
             ],
@@ -305,14 +330,14 @@
             "id": "7ef3df4d-0861-42cb-880e-abca4e12e8d5",
             "title": "Airbus Montoir",
             "subtitle": "",
-            "content": "<p>Le site d'Airbus Montoir est considéré comme une pré-FAL (pré-Final Assembly Line). On y assemble et implante les systèmes des tronçons avant et centraux de plusieurs programmes avions.</p>",
+            "content": "<p>Le site d'Airbus Montoir est considéré comme une pré-FAL (pré-Final Assembly Line). On y assemble et implante les systèmes des tronçons avant et centraux de plusieurs programmes avions.</p><p><br></p><p>Dans ce module, tu vas découvrir :</p><ul><li>le site de Montoir ;</li><li>les process ;</li><li>les secteurs d'activités.</li></ul>",
             "links": [
               {
-                "label": "Présentation Airbus Montoir de Bretagne (vu Newcomer)",
+                "label": "vue Newcomer",
                 "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1FD5YcfyH95WYulS6DotETaEnBmdT7uD6JpBPWuBnFVg/present?usp=sharing"
               },
               {
-                "label": "Présentation Airbus Montoir de Bretagne (édition)",
+                "label": "édition",
                 "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1FD5YcfyH95WYulS6DotETaEnBmdT7uD6JpBPWuBnFVg/edit?usp=sharing"
               }
             ],
@@ -338,7 +363,7 @@
             "id": "adbed355-edcb-45f5-86d1-b7079b24b923",
             "title": "Organisation des métiers Airbus et Jigs & Tools",
             "subtitle": "",
-            "content": "",
+            "content": "<p>Airbus Atlantic est une entreprise majeur de l'industrie, c'est pourquoi il est important qu'elle soit bien structurée.</p><p><br></p><p>Dans ce module, tu vas découvrir:</p><ul><li>son organisation ;</li><li>ses métiers ;</li><li>l'organisation du plateau Jigs &amp; Tools ;</li><li>la structure d'un projet.</li></ul>",
             "links": [
               {
                 "label": "Vue Newcomer",
@@ -371,7 +396,7 @@
             "id": "4910213a-6050-44cd-98c7-05583929a2e9",
             "title": "Organisation des métiers Airbus et Jigs & Tools",
             "subtitle": "",
-            "content": "",
+            "content": "<p><br></p>",
             "links": [],
             "images": [],
             "videos": [],
@@ -391,7 +416,7 @@
         "id": "e9637576-9917-4f30-b317-c155bd17757d",
         "title": "Sensibilisation",
         "subtitle": "",
-        "content": "<p>En tant que consultant Alten en mission pour Airbus, tu dois réaliser des e-learning. Certains sont mandatory, il faut donc les réaliser avant de commencer ta première affaire.</p><p>Quand tu les as réaliser, n'oublie pas de les cocher dans ton plan d'intégration systématiquement !</p><p><br></p><p><em>Note : Si les liens ne fonctionnent plus, tu peux aller dans HRWay --&gt; Menu --&gt; Catalogue de formation --&gt; Recherche le nom de la formation souhaitée.</em></p><p><br></p><p>Mandatory :</p><ul><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1178\" rel=\"noopener noreferrer\" target=\"_blank\">Airbus - Ethics and compliance awareness</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1184\" rel=\"noopener noreferrer\" target=\"_blank\">Export Control (Engineers)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1179\" rel=\"noopener noreferrer\" target=\"_blank\">FOD prevention awareness</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2073940\" rel=\"noopener noreferrer\" target=\"_blank\">Artificial intelligence awarness program (A3) - for Engineers</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074138\" rel=\"noopener noreferrer\" target=\"_blank\">Bienvenue dans le groupe ALTEN (ING)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074654\" rel=\"noopener noreferrer\" target=\"_blank\">Gestion des risques professionnels (ingénieur)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074828\" rel=\"noopener noreferrer\" target=\"_blank\">La protection des données personnelles (RGPD - Ingénieur) (r.2023)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075005\" rel=\"noopener noreferrer\" target=\"_blank\">Ecomobilité : enjeux &amp; solutions</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2307566\" rel=\"noopener noreferrer\" target=\"_blank\">Contrôle des exportations (ingénieur)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1106\" rel=\"noopener noreferrer\" target=\"_blank\">Counterfeits prevention awarness</a></li></ul><p><br></p><p>Facultatif : </p><ul><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075182\" rel=\"noopener noreferrer\" target=\"_blank\">Impact environnemental et éco-gestes : tous acteurs !</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075359\" rel=\"noopener noreferrer\" target=\"_blank\">Prévenir et lutter contre les agissements sexistes et le harcèlement sexuel</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075536\" rel=\"noopener noreferrer\" target=\"_blank\">Sensiblisation au handicap en entreprise</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074312\" rel=\"noopener noreferrer\" target=\"_blank\">Sureté &amp; Sécurité</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074483\" rel=\"noopener noreferrer\" target=\"_blank\">Prévenir la corruption</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/147\" rel=\"noopener noreferrer\" target=\"_blank\">Débuter la gestion de projet</a></li></ul>",
+        "content": "<p>En tant que consultant Alten en mission pour Airbus, tu dois réaliser des <strong>e-learning</strong>. Certains sont <strong>mandatory</strong>, il faut donc les réaliser avant de commencer ta première affaire.</p><p>Quand tu les as réaliser, n'oublie pas de les cocher dans ton plan d'intégration systématiquement !</p><p><br></p><p><em>Note : Si les liens ne fonctionnent plus, tu peux aller dans HRWay --&gt; Menu --&gt; Catalogue de formation --&gt; Recherche le nom de la formation souhaitée.</em></p><p><br></p><p><strong><u>Mandatory :</u></strong></p><ul><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1178\" rel=\"noopener noreferrer\" target=\"_blank\">Airbus - Ethics and compliance awareness</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1184\" rel=\"noopener noreferrer\" target=\"_blank\">Export Control (Engineers)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1179\" rel=\"noopener noreferrer\" target=\"_blank\">FOD prevention awareness</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2073940\" rel=\"noopener noreferrer\" target=\"_blank\">Artificial intelligence awarness program (A3) - for Engineers</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074138\" rel=\"noopener noreferrer\" target=\"_blank\">Bienvenue dans le groupe ALTEN (ING)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074654\" rel=\"noopener noreferrer\" target=\"_blank\">Gestion des risques professionnels (ingénieur)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074828\" rel=\"noopener noreferrer\" target=\"_blank\">La protection des données personnelles (RGPD - Ingénieur) (r.2023)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075005\" rel=\"noopener noreferrer\" target=\"_blank\">Ecomobilité : enjeux &amp; solutions</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2307566\" rel=\"noopener noreferrer\" target=\"_blank\">Contrôle des exportations (ingénieur)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1106\" rel=\"noopener noreferrer\" target=\"_blank\">Counterfeits prevention awarness</a></li></ul><p><br></p><p><strong><u>Facultatifs :</u></strong></p><ul><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075182\" rel=\"noopener noreferrer\" target=\"_blank\">Impact environnemental et éco-gestes : tous acteurs !</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075359\" rel=\"noopener noreferrer\" target=\"_blank\">Prévenir et lutter contre les agissements sexistes et le harcèlement sexuel</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075536\" rel=\"noopener noreferrer\" target=\"_blank\">Sensiblisation au handicap en entreprise</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074312\" rel=\"noopener noreferrer\" target=\"_blank\">Sureté &amp; Sécurité</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074483\" rel=\"noopener noreferrer\" target=\"_blank\">Prévenir la corruption</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/147\" rel=\"noopener noreferrer\" target=\"_blank\">Débuter la gestion de projet</a></li></ul>",
         "links": [
           {
             "label": "Catalogue de formation HRWay",
@@ -421,7 +446,7 @@
         "id": "7be21bb4-9a97-4d92-a850-bb9fe4ef6673",
         "title": "Sécurité",
         "subtitle": "",
-        "content": "<h1>Prévention</h1><p>La sécurité en entreprise est primordial surtout dans un environnement industriel où le risque est présent tout autour de nous.</p><p>Afin de connaître et d'appliquer les règles de prévention tu dois :</p><ul><li>Lire le plan de prévention puis le signer ;</li><li>Réaliser ton accueil sécurité.</li></ul><p><br></p><p>A Nantes, tu dois réaliser ton accueil sécurité au plus vite puis refaire la formation tous les ans.</p><p>Des créneaux sont disponibles tous les lundis de 14h à 15h30 et les mercredis de 11h à 12h30. Le Team Leader doit t'inscrire à un créneau.</p>",
+        "content": "<h1>Prévention</h1><p>La sécurité en entreprise est primordial surtout dans un environnement industriel où le <strong>risque </strong>est présent tout autour de nous.</p><p>Afin de connaître et d'appliquer les <strong>règles de prévention</strong> tu dois :</p><ul><li><strong><u>Lire le plan de prévention</u></strong> puis le signer ;</li><li><strong><u>Réaliser ton accueil sécurité</u></strong>.</li></ul><p><br></p><p>À Nantes, tu dois réaliser ton accueil sécurité au plus vite puis refaire la formation<strong> tous les ans</strong>.</p><p>Des créneaux sont disponibles tous les lundis de 14h à 15h30 et les mercredis de 11h à 12h30. Le Team Leader doit t'inscrire à un créneau.</p>",
         "links": [
           {
             "label": "Plan de prévention Nantes",
@@ -450,7 +475,7 @@
         "id": "ef2be627-7ab7-42fb-a5aa-bcea0cd04bfb",
         "title": "Sécurité",
         "subtitle": "",
-        "content": "<h1>Prévention</h1><p>La sécurité en entreprise est primordial surtout dans un environnement industriel où le risque est présent tout autour de nous.</p><p>Afin de connaître et d'appliquer les règles de prévention tu dois :</p><ul><li>Lire le plan de prévention puis le signer ;</li><li>Réaliser ton accueil sécurité (il se fait en ligne et doit être réaliser avant ton arrivée sur site) ;</li><li>Réaliser ton accueil au poste puis le signer.</li></ul>",
+        "content": "<h1>Prévention</h1><p>La sécurité en entreprise est primordial surtout dans un environnement industriel où le <strong>risque </strong>est présent tout autour de nous.</p><p>Afin de connaître et d'appliquer les<strong> règles de prévention </strong>tu dois :</p><ul><li><strong><u>Lire le plan de prévention</u></strong> puis le signer ;</li><li><strong><u>Réaliser ton accueil sécurité</u></strong> (il se fait en ligne et doit être réaliser avant ton arrivée sur site) ;</li><li><strong><u>Réaliser ton accueil au poste</u></strong> puis le signer.</li></ul>",
         "links": [
           {
             "label": "Accueil sécurité",
@@ -491,7 +516,7 @@
         "id": "de2e76e7-368f-4acf-ad07-cbbc804c4797",
         "title": "Pour aller plus loin",
         "subtitle": "",
-        "content": "<p><br></p>",
+        "content": "<p>Tu veux en apprendre plus sur ton environnement, le module \"Pour aller plus loin\" va te permettre d'approfondir tes connaissances !</p>",
         "links": [],
         "images": [
           {
@@ -597,63 +622,12 @@
             "profiles": [],
             "enabled": true,
             "quiz": {
-              "enabled": true,
-              "questions": [
-                {
-                  "question": "ee",
-                  "options": [
-                    "e",
-                    "z"
-                  ],
-                  "correct": [
-                    1
-                  ]
-                }
-              ]
+              "enabled": false,
+              "questions": []
             },
             "children": []
           }
         ]
-      },
-      {
-        "id": "67b46b38-6eaa-48e8-95b1-92fb4b4ba774",
-        "title": "test",
-        "subtitle": "",
-        "content": "<!DOCTYPE html>\n<html lang=\"fr\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>ALTEN & Airbus – Détails & Métiers</title>\n  <style>\n    /* Charte graphique ALTEN */\n    :root {\n      --primary: #0055A5; /* Alten Blue */\n      --secondary: #00AFEF; /* Alten Cyan */\n      --background: #FFFFFF;\n      --surface: #F6F9FC;\n      --text: #333333;\n      --font-family: 'Helvetica Neue', Arial, sans-serif;\n      --radius: 8px;\n      --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);\n    }\n    * { margin: 0; padding: 0; box-sizing: border-box; }\n\t\n    body {\n      font-family: var(--font-family);\n      color: var(--text);\n      background: var(--surface);\n      line-height: 1.6;\n      padding: 20px;\n      position: relative;\n      padding-top: 4px;   \n    }\n   \n    #reading-progress {\n      position: fixed;\n      top: 0; left: 0;\n      height: 10px;\n      width: 0%;\n      background: var(--secondary);\n      z-index: 1000;\n      transition: width 0.1s ease-out;\n    }\n\n\n    .container {\n      max-width: 1200px;\n      margin: auto;\n      padding: 20px;\n      display: flex;\n      flex-direction: column;\n      gap: 40px;\n    }\n\n\n    header {\n      text-align: center;\n      padding-bottom: 20px;\n      border-bottom: 2px solid var(--primary);\n    }\n    header img {\n      height: 100px;\n    }\n    header h1 {\n      margin-top: 10px;\n      font-size: 3rem;\n      color: var(--primary);\n    }\n    section {\n      background: var(--background);\n      border-radius: var(--radius);\n      box-shadow: var(--shadow);\n      padding: 30px;\n    }\n    section h2 {\n      color: var(--primary);\n      font-size: 2.2rem;\n      margin-bottom: 15px;\n      border-bottom: 3px solid var(--secondary);\n      padding-bottom: 5px;\n    }\n    .text-block {\n      margin-bottom: 20px;\n    }\n    .video-block {\n      text-align: center;\n      margin: 2em 0;\n    }\n    .cards {\n      display: grid;\n      gap: 20px;\n    }\n    .grid-3 {\n      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\n    }\n    .grid-2 {\n      grid-template-columns: 1fr 1fr;\n    }\n    .card {\n      background: var(--surface);\n      border-radius: var(--radius);\n      overflow: hidden;\n      box-shadow: var(--shadow);\n      transition: transform 0.2s;\n    }\n    .card:hover {\n      transform: translateY(-3px);\n    }\n    .card img {\n      width: 80px;\n      height: 80px;\n      object-fit: contain;\n      margin-bottom: 10px;\n    }\n    .card-content {\n      padding: 20px;\n    }\n    .card-content h3 {\n      color: var(--secondary);\n      font-size: 1.25rem;\n      margin-bottom: 10px;\n    }\n    .card-content p, .card-content ul {\n      font-size: 0.95rem;\n      color: var(--text);\n    }\n    .card-content ul {\n      list-style-type: disc;\n      margin-left: 20px;\n    }\n    .roles ul {\n      list-style: none;\n      display: grid;\n      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n      gap: 20px;\n      margin-top: 20px;\n    }\n    .roles li {\n      background: var(--surface);\n      padding: 20px;\n      border-radius: var(--radius);\n      box-shadow: var(--shadow);\n    }\n    .roles h3 {\n      color: var(--secondary);\n      font-size: 1.1rem;\n      margin-bottom: 8px;\n    }\n    .roles p {\n      font-size: 0.9rem;\n      color: var(--text);\n    }\n    a {\n      color: var(--primary);\n      text-decoration: none;\n    }\n    a:hover {\n      text-decoration: underline;\n    }\n    footer {\n      text-align: center;\n      font-size: 0.85rem;\n      color: #777;\n      padding-top: 20px;\n      border-top: 1px solid var(--surface);\n    }\n    /* Barre de progression verticale */\n    #progress-container {\n      position: fixed;\n      top: 0;\n      right: 0;\n      width: 6px;\n      height: 100%;\n      background: var(--surface);\n      z-index: 1000;\n    }\n    #progress-bar {\n      width: 100%;\n      height: 0;\n      background: var(--primary);\n    }\n  </style>\n</head>\n<body>\n  <!-- Barre de progression -->\n  <div id=\"reading-progress\"></div>\n\n  <div class=\"container\">\n    <header>\n      <img src=\"https://www.alten.com/wp-content/uploads/2019/03/LOGO_Alten_Couleurs_Black.png\" alt=\"Logo ALTEN\">\n      <h1>ALTEN & Airbus – Détails & Métiers à l'agence de Saint-Herblain (Nantes)</h1>\n    </header>\n\n\t<section>\n\t  <h2>Présentation d’ALTEN</h2>\n\t  <div class=\"text-block\">\n\t\t<p>\n\t\t  <strong>ALTEN</strong>, fondé en 1988 à Boulogne-Billancourt, est aujourd’hui un leader européen de l’ingénierie et du conseil en technologies. Le groupe accompagne les grandes entreprises dans leur stratégie d’innovation, de R&D et de transformation digitale. Né de la volonté de ses trois cofondateurs – Simon Azoulay, Laurent Schwarz et Thierry Woog – ALTEN s’est construit sur un modèle d’expertise technique et de proximité client.\n\t\t</p>\n\t\t<p>\n\t\t  Le groupe intervient sur l’ensemble du cycle de vie des projets technologiques, de la phase de conception à la mise en production, dans des secteurs stratégiques tels que l’aéronautique, l’automobile, le ferroviaire, l’énergie, les télécommunications, la santé, le spatial, la finance ou encore la défense.\n\t\t</p>\n\t\t<p>\n\t\t  Grâce à sa croissance continue et à une forte politique d’internationalisation, ALTEN est devenu un acteur global de la transformation industrielle, combinant excellence opérationnelle, innovation technologique et responsabilité sociétale.\n\t\t</p>\n\t  </div>\n\n\t  <div class=\"video-block\" style=\"text-align: center; margin: 2em 0;\">\n\t\t<iframe \n\t\t  src=\"https://player.vimeo.com/video/995029702?h=07fed0a3e7\" \n\t\t  width=\"640\" \n\t\t  height=\"360\" \n\t\t  frameborder=\"0\" \n\t\t  allow=\"autoplay; fullscreen; picture-in-picture\" \n\t\t  allowfullscreen \n\t\t  style=\"border-radius: 16px; max-width: 100%;\">\n\t\t</iframe>\n\t\t<p style=\"font-size: 0.9em; color: #555; margin-top: 0.5em;\">\n\t\t  Vidéo institutionnelle présentant la mission, les engagements et les expertises du Groupe ALTEN.\n\t\t</p>\n\t  </div>\n\n\t  <div class=\"cards grid-2\">\n\t\t<div class=\"card\">\n\t\t  <img src=\"https://www.alten.com/wp-content/uploads/2023/02/innovation-visual.jpg\" alt=\"Innovation ALTEN\">\n\t\t  <div class=\"card-content\">\n\t\t\t<h3>Missions & Valeurs</h3>\n\t\t\t<ul>\n\t\t\t  <li><strong>Excellence opérationnelle :</strong> garantir la qualité, la rigueur et la performance sur tous les projets confiés.</li>\n\t\t\t  <li><strong>Esprit d’équipe & Agilité :</strong> promouvoir la collaboration, l'adaptabilité et la réactivité au sein des équipes projets.</li>\n\t\t\t  <li><strong>Engagement responsable :</strong> intégrer les enjeux sociétaux et environnementaux dans l'ensemble des missions réalisées.</li>\n\t\t\t</ul>\n\t\t  </div>\n\t\t</div>\n\t\t<div class=\"card\">\n\t\t  <img src=\"https://www.alten.com/wp-content/uploads/2023/02/global-network.jpg\" alt=\"Réseau mondial ALTEN\">\n\t\t  <div class=\"card-content\">\n\t\t\t<h3>Présence internationale</h3>\n\t\t\t<p>\n\t\t\t  ALTEN est implanté dans plus de 30 pays à travers l’Europe, l’Amérique, l’Asie et l’Afrique, avec plus de <strong>57 700 collaborateurs</strong> dont 90 % sont ingénieurs. Le groupe accompagne plus de <strong>6 500 clients</strong>, parmi lesquels figurent les plus grands donneurs d’ordre industriels et technologiques.\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t  Cette dimension internationale permet à ALTEN d'intervenir dans des projets d’envergure mondiale, tout en valorisant les expertises locales au service de l’innovation.\n\t\t\t</p>\n\t\t  </div>\n\t\t</div>\n\t  </div>\n\t</section>\n\n\n\n\t<section>\n\t  <h2>Chiffres clés & Développement</h2>\n\t  <div class=\"cards grid-2\">\n\t\t<div class=\"card\">\n\t\t  <img src=\"https://www.alten.com/wp-content/uploads/2024/05/Featured_Financial-publication.jpg\" alt=\"Performances financières ALTEN 2024\" style=\"width: 500px; height: auto; border-radius: 20px; display: block; margin: 0 auto;\">\n\t\t  <div class=\"card-content\">\n\t\t\t<h3>Performances 2024</h3>\n\t\t\t<p>\n\t\t\t  En 2024, ALTEN confirme sa dynamique de croissance avec un chiffre d’affaires consolidé de <strong>4,143 milliards d’euros</strong>, en hausse par rapport aux exercices précédents.\n\t\t\t  Cette performance est portée par une stratégie d’internationalisation maîtrisée, une forte demande sur les marchés de l’ingénierie, et un positionnement de référence dans les secteurs technologiques de pointe.\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t  Le groupe compte aujourd’hui <strong>57 700 collaborateurs</strong> à travers le monde, dont <strong>plus de 50 900 ingénieurs</strong>, ce qui témoigne de sa capacité à mobiliser une expertise technique de haut niveau au service de ses clients.\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t  Cette croissance soutenue repose également sur un équilibre stratégique entre croissance organique et acquisitions ciblées, en ligne avec les grands enjeux de transformation industrielle (digitalisation, transition énergétique, mobilité durable, cybersécurité...).\n\t\t\t</p>\n\t\t  </div>\n\t\t</div>\n\n\t\t<div class=\"card\">\n\t\t  <img src=\"https://www.lembarque.com/fichiers/cms/image/Alten%202024.png\" alt=\"Carte des implantations ALTEN France\" style=\"width: 500px; height: auto; border-radius: 10px; display: block; margin: 0 auto;\">\n\t\t  <div class=\"card-content\">\n\t\t\t<h3>Implantations & Stratégie Régionale</h3>\n\t\t\t<p>\n\t\t\t  ALTEN est présent dans <strong>plus de 30 pays</strong>, avec un maillage dense en France autour de <strong>13 directions régionales</strong>, renforcées par plus de 40 agences techniques réparties sur l’ensemble du territoire.\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t  Cette organisation décentralisée permet une <strong>proximité opérationnelle avec les grands donneurs d’ordre industriels</strong> et un accompagnement sur mesure des projets clients, de l’avant-vente à la phase de livraison.\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t  En 2024, le groupe poursuit une stratégie d’expansion sélective, avec pour objectif de renforcer son ancrage dans des régions à fort potentiel (Pays de la Loire, Auvergne-Rhône-Alpes, Occitanie...) en misant sur des <strong>écosystèmes d’innovation locaux</strong> (technopoles, clusters, laboratoires de recherche) et des partenariats industriels de long terme.\n\t\t\t</p>\n\t\t  </div>\n\t\t</div>\n\t  </div>\n\t</section>\n\n\n    <section>\n      <h2>Gouvernance</h2>\n      <div class=\"cards grid-2\">\n        <div>\n          <div class=\"card-content\">\n            <h3>Leadership</h3>\n            <p><strong>CEO :</strong> Simon Azoulay (15 % du capital), soutenu par un comité exécutif multi-expertises.</p>\n            <h3>Conseil d'administration</h3>\n              <p>Le Conseil d’administration détermine les orientations stratégiques d’ALTEN et veille à leur mise en œuvre conformément à son intérêt social, en prenant en considération les enjeux sociaux et environnementaux de son activité. Il contrôle la gestion tant sur les aspects financiers qu’extra-financiers et veille à la qualité des informations fournies aux actionnaires et au marché. </p>\n\n          </div>\n        </div>\n        <div>\n          <img src=\"https://www.alten.com/wp-content/uploads/2024/05/Portrait-Quote.png\" alt=\"Simon Azoulay\" style=\"width: 300px; height: auto; border-radius: 20px; display: block; margin: 0 auto;\">\n        </div>\n      </div>\n    </section>\n\n\t<section>\n\t  <h2>📍 Agence ALTEN de Saint-Herblain (Nantes)</h2>\n\t  <div class=\"cards grid-2\">\n\t\t<div>\n\t\t  <img src=\"https://lh3.googleusercontent.com/p/AF1QipN3IvPP7epeics6o790TsmuV-nvOYWyMQ4Svhi1=s1360-w1360-h1020\" alt=\"Bâtiment Saint-Herblain\" style=\"width: 500px; height: auto; border-radius: 20px; display: block; margin: 0 auto;\">\n\t\t</div>\n\t\t<div class=\"card-content\">\n\t\t  <p><strong>Adresse :</strong><br>\n\t\t\t13 impasse Serge Reggiani – Armor III<br>\n\t\t\t44800 Saint-Herblain, France<br>\n\t\t\t<strong>Téléphone :</strong> +33 (0)2 51 77 40 50\n\t\t  </p>\n\t\t  <p><strong>Une équipe d’experts au cœur de l’innovation</strong><br>\n\t\t\tL’agence ALTEN de Saint-Herblain regroupe <strong>120 ingénieurs et consultants</strong> spécialisés en ingénierie systèmes, télécommunications, R&D industrielle et digitalisation des processus métiers. Elle constitue un hub technologique pour les projets à fort enjeu de la région Ouest.\n\t\t  </p>\n\t\t  <p><strong>Projets emblématiques</strong><br>\n\t\t\t• Portail IoT pour utilities : plateforme de gestion intelligente de réseaux (eau, gaz, électricité) via objets connectés.<br>\n\t\t\t• Systèmes embarqués pour drones : développement de logiciels critiques et architectures temps réel pour drones civils et défense.<br>\n\t\t\t• Optimisation PLM : refonte de systèmes de gestion du cycle de vie produit pour l’industrie lourde et les transports.\n\t\t  </p>\n\t\t  <p><strong>Une dynamique d’innovation locale</strong><br>\n\t\t\tIntégrée dans un écosystème régional d’excellence, l’agence contribue à des projets de transformation numérique et de co-innovation avec des partenaires industriels, académiques et institutionnels.\n\t\t  </p>\n\t\t</div>\n\t  </div>\n\t</section>\n\n\n\t<section>\n\t  <h2>Activités chez Airbus</h2>\n\t  <div class=\"cards grid-3\">\n\t\t\n\t\t<div class=\"card\">\n\t\t  <img src=\"https://france3-regions.francetvinfo.fr/image/6BG8LLcT-xQ1BSNg_z6sPZcC65c/3626x2529/regions/2023/02/15/63ed17251789b_a321-front-fuselage-section.jpg\" alt=\"Assemblage A320\" style=\"width: 300px; height: auto; border-radius: 20px; display: block; margin: 0 auto;\">\n\t\t  <div class=\"card-content\">\n\t\t\t<h3>Structures & Production</h3>\n\t\t\t<p>\n\t\t\t  ALTEN accompagne Airbus dans la conception et l’industrialisation de composants clés de l’aviation civile, notamment les radomes et caissons centraux de la famille A320 et A350. \n\t\t\t  Les équipes interviennent sur l’ensemble du cycle de développement : définition des architectures mécaniques, études de dimensionnement, calculs par éléments finis, industrialisation et suivi de fabrication.\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t  En parallèle, des initiatives Lean Manufacturing et des projets de réduction du cycle CQA (Conformité Qualité Avion) sont déployés afin d’améliorer la productivité et la traçabilité dans les ateliers.\n\t\t\t</p>\n\t\t  </div>\n\t\t</div>\n\n\t\t<div class=\"card\">\n\t\t  <img src=\"https://datascientest.com/wp-content/uploads/2024/06/systemes-embarques-datascientest-1024x585.jpg\" alt=\"Systèmes embarqués\" style=\"width: 350px; height: auto; border-radius: 20px; display: block; margin: 0 auto;\">\n\t\t  <div class=\"card-content\">\n\t\t\t<h3>Systèmes Embarqués</h3>\n\t\t\t<p>\n\t\t\t  Les ingénieurs ALTEN participent activement au développement, à l’intégration et à la validation des systèmes embarqués critiques, au cœur des architectures avioniques d’Airbus.\n\t\t\t  Cela comprend les tests HIL (Hardware-in-the-Loop) et SIL (Software-in-the-Loop), ainsi que l’intégration logicielle et matérielle des composants du <em>Core Avionics System</em>.\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t  Ces activités sont menées dans un environnement contraint, où la certification, la sûreté de fonctionnement (safety) et la cyber-résilience jouent un rôle majeur.\n\t\t\t</p>\n\t\t  </div>\n\t\t</div>\n\n\t\t<div class=\"card\">\n\t\t  <img src=\"https://www.incenteev.com/wp-content/uploads/2021/01/Transformation_Digitale.png\" alt=\"Transformation Digitale\" style=\"width: 350px; height: auto; border-radius: 20px; display: block; margin: 0 auto;\">\n\t\t  <div class=\"card-content\">\n\t\t\t<h3>Digitalisation & PLM</h3>\n\t\t\t<p>\n\t\t\t  ALTEN est également un partenaire clé dans la transformation numérique des processus industriels chez Airbus. \n\t\t\t  Les projets s’articulent autour de la mise en œuvre du développement de <strong>jumeaux numériques</strong>, et de l’exploitation de <strong>data lakes IoT</strong> pour l’optimisation en temps réel de la production.\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t  Ces initiatives visent à renforcer la performance opérationnelle, la collaboration multi-métier et la traçabilité dans les usines du futur.\n\t\t\t</p>\n\t\t  </div>\n\t\t</div>\n\n\t  </div>\n\t</section>\n\n\n\t<section>\n\t  <h2>Service Jigs & Tools</h2>\n\t  <div class=\"cards grid-3\">\n\n\t\t<div class=\"card\">\n\t\t  <img src=\"https://i.ytimg.com/vi/eY2XMEaqYdM/maxresdefault.jpg\" alt=\"Conception outillage\" style=\"width: 350px; height: auto; border-radius: 20px; display: block; margin: 0 auto;\">\n\t\t  <div class=\"card-content\">\n\t\t\t<h3>Conception & Fabrication</h3>\n\t\t\t<p>\n\t\t\t  Le service « Jigs & Tools » d’ALTEN intervient dès l’expression du besoin fonctionnel en outillage. Les équipes rédigent les cahiers des charges, modélisent les outils sur <strong>CATIA V5</strong>, et assurent les études mécaniques détaillées.\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t  Grâce à une maîtrise des procédés de <strong>prototypage rapide</strong> et de <strong>fabrication série</strong> (usinage, impression 3D, assemblage multi-matériaux), ALTEN garantit la livraison d’outils robustes et adaptés à l’environnement industriel d’Airbus.\n\t\t\t</p>\n\t\t  </div>\n\t\t</div>\n\n\t\t<div class=\"card\">\n\t\t  <img src=\"https://www.usinenouvelle.com/expo/img/bati-de-transport-entree-d-air-airbus-et-boeing-hls-industrie-016434954-product_zoom.jpg\" alt=\"Validation outillage\" style=\"width: 350px; height: auto; border-radius: 20px; display: block; margin: 0 auto;\">\n\t\t  <div class=\"card-content\">\n\t\t\t<h3>Validation & Intégration</h3>\n\t\t\t<p>\n\t\t\t  Une fois conçus, les outillages passent par une phase rigoureuse de validation fonctionnelle sur site ou en laboratoire : <strong>essais mécaniques, tests de cinématique, vérification d’ergonomie</strong>.\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t  ALTEN accompagne également l’intégration en ligne de production, via la <strong>calibration des équipements</strong>, la formation des opérateurs, et un support technique réactif (<strong>24/7</strong>) en cas d’incident ou de demande d’évolution.\n\t\t\t</p>\n\t\t  </div>\n\t\t</div>\n\n\t\t<div class=\"card\">\n\t\t  <img src=\"https://www.blog-qhse.com/hubfs/gantt.jpg\" alt=\"Suivi projet\" style=\"width: 350px; height: auto; border-radius: 20px; display: block; margin: 0 auto;\">\n\t\t  <div class=\"card-content\">\n\t\t\t<h3>Gestion de Projet</h3>\n\t\t\t<p>\n\t\t\t  Le pilotage des projets outillage est assuré selon les standards industriels, avec des outils tels que <strong>Microsoft Project</strong> pour la planification, le suivi budgétaire et le jalonnement des livrables.\n\t\t\t</p>\n\t\t\t<p>\n\t\t\t  ALTEN anime les comités de pilotage, assure la <strong>coordination fournisseurs</strong> (mécanique, automatisme, contrôle), et garantit la conformité des livrables vis-à-vis des exigences qualité d’Airbus.\n\t\t\t</p>\n\t\t  </div>\n\t\t</div>\n\n\t  </div>\n\t</section>\n\n\n\t<section class=\"roles\">\n\t  <h2>Corps de métiers mobilisés</h2>\n\t  <ul>\n\t\t<li>\n\t\t  <h3>Chargé d’affaires</h3>\n\t\t  <p>\n\t\t\tInterlocuteur principal client, il réalise l’étude de faisabilité, rédige le cahier des charges fonctionnel et technique, établit les budgets et planning.\n\t\t\tIl sélectionne et négocie avec les fournisseurs (mécanique, outillage, automatisme), formalise les contrats et assure le suivi contractuel jusqu’à la livraison.\n\t\t  </p>\n\t\t</li>\n\t\t<li>\n\t\t  <h3>Préparateur Méthode</h3>\n\t\t  <p>\n\t\t\tSpécialiste des process de production, il rédige les gammes opératoires et instructions de travail dans <strong>CATIA V5</strong> et <strong>SAP</strong>.\n\t\t\tIl définit les flux, optimise les postes en ligne, participe aux analyses de non-conformité et propose des actions d’amélioration continue.\n\t\t  </p>\n\t\t</li>\n\t\t<li>\n\t\t  <h3>Team Leader</h3>\n\t\t  <p>\n\t\t\tResponsable hiérarchique de l’équipe ALTEN, il coordonne les consultants, répartit les tâches selon les compétences et veille à la montée en compétences.\n\t\t\tIl assure un rôle d’expert technique, anime les points d’avancement et remonte le reporting au chef de projet.\n\t\t  </p>\n\t\t</li>\n\t\t<li>\n\t\t  <h3>Chef de Projet</h3>\n\t\t  <p>\n\t\t\tPilote transverse du projet, il planifie les jalons, suit budget et indicateurs de risques, et coordonne les ressources multi-sites (R&D, production, qualité).\n\t\t\tIl prépare et anime les revues de projet (COPRO, COMEX), valide les phases clés (Gates) et garantit le respect des délais et de la qualité.\n\t\t  </p>\n\t\t</li>\n\t\t<li>\n\t\t  <h3>Business Manager</h3>\n\t\t  <p>\n\t\t\tEn charge du développement commercial auprès d’Airbus, il identifie les opportunités, joue le rôle de prescripteur et pilote le staffing des équipes.\n\t\t\tIl gère la relation client, suit les KPI RH (taux d’occupation, turnover) et optimise la marge et la rentabilité des projets.\n\t\t  </p>\n\t\t</li>\n\t  </ul>\n\t</section>\n\n\n    <footer>\n      © 2025 ALTEN – Présentation agence Saint-Herblain\n    </footer>\n  </div>\n\n  <script>\n    // Mise à jour de la largeur de la barre au scroll\n    window.addEventListener('scroll', () => {\n      const scrollTop = window.scrollY;\n      const docHeight = document.documentElement.scrollHeight - window.innerHeight;\n      const percent = (scrollTop / docHeight) * 100;\n      document.getElementById('reading-progress').style.width = percent + '%';\n    });\n  </script>\n</body>\n</html>",
-        "links": [],
-        "images": [],
-        "videos": [],
-        "profiles": [
-          "Montoir",
-          "Nantes"
-        ],
-        "enabled": true,
-        "quiz": {
-          "enabled": false,
-          "questions": [
-            {
-              "question": "\"\"\"\"",
-              "options": [
-                "es",
-                "ui"
-              ],
-              "correct": [
-                1
-              ]
-            },
-            {
-              "question": "a",
-              "options": [
-                "dez",
-                "ui"
-              ],
-              "correct": [
-                0
-              ]
-            }
-          ]
-        },
-        "children": []
       }
     ],
     "enabled": true,
@@ -662,22 +636,468 @@
   {
     "id": "1746553317746",
     "title": "Métier CAf",
-    "summary": "",
+    "summary": "Ce module vise à introduire toutes les notions nécessaires à la réalisation d'une affaire Jigs & Tools : \n- Sur le métier de CAF ;\n- Sur le Process ;\n- Sur les outils Airbus ;\n- Un entraînement avec la réalisation d'une affaire type.",
     "enabled": true,
     "items": [
       {
-        "id": "95a19b03-e421-432b-a6ff-75a9d3691787",
-        "title": "test",
+        "id": "607743e6-b7fa-46f2-aff4-097954ed01c2",
+        "title": "CAF Jigs & Tools",
         "subtitle": "",
         "content": "",
         "links": [],
         "images": [],
+        "videos": [],
+        "profiles": [],
+        "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
+        "children": [
+          {
+            "id": "40df64ab-94ee-4527-81b0-2898f2de7618",
+            "title": "Métier CAF",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "7d856688-6867-4ffd-a1f7-a8aa17a3b12c",
+            "title": "Bâtis & Outillages",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "5a81047d-208e-4614-931f-11c4e29b4ce3",
+            "title": "Sensibilisation",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": [
+              {
+                "id": "1baabd86-0ccd-4b68-96f7-007a05b52666",
+                "title": "Off-Shore",
+                "subtitle": "",
+                "content": "",
+                "links": [],
+                "images": [],
+                "videos": [],
+                "profiles": [],
+                "enabled": true,
+                "quiz": {
+                  "enabled": false,
+                  "questions": []
+                },
+                "children": []
+              },
+              {
+                "id": "e5b02cce-d345-4a9a-b995-eb83ccb09ebd",
+                "title": "Skill Matrix",
+                "subtitle": "",
+                "content": "",
+                "links": [],
+                "images": [],
+                "videos": [],
+                "profiles": [],
+                "enabled": true,
+                "quiz": {
+                  "enabled": false,
+                  "questions": []
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "601f4248-2455-4b43-ac3a-d7d858699478",
+        "title": "Process",
+        "subtitle": "",
+        "content": "",
+        "links": [],
+        "images": [],
+        "videos": [],
+        "profiles": [],
+        "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
+        "children": [
+          {
+            "id": "3a303ff7-5543-470f-8f04-6881d45951e1",
+            "title": "Le process Jigs & Tools",
+            "subtitle": "",
+            "content": "<h1>Le process Airbus Atlantic</h1><p><br></p><p>Afin de valider les exigences et contraintes qualités Airbus et de garantir le succès des affaires Jigs &amp; Tools, il est indispensable de respecter le process et tous ses jalons. En effet, le CAF est responsable de TOUS les jalons dans SAP même ceux sur lesquels il n'est pas acteur.</p><p><br></p><p>Dans les présentations ci-dessous du process tu vas retrouver :</p><ul><li><strong>Le process macro</strong> et les jalons avec leur définition ;</li><li><strong>Chaque jalon expliqués</strong> avec les points de vigilances à avoir.</li></ul><p><br></p><p>Process du site de :</p><ul><li><a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/19YIyNy1d0sMZOUusvEZ1P2wvpeQVURBnyO8GMm5To-M/present?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Nantes</a></li><li><a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1c6wh4bo3nIDbtkrufLtSTSM6ZqtnLAsNdty0nrlyhzs/present?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Montoir</a></li></ul><p><br></p><p><br></p><h1>Change Proposal (CP)</h1><p><br></p><p>Si au cours d'une affaire la solution proposée <strong>ne respecte pas le besoin ou si ce dernier évolue</strong>, on réalise ce qu'on appel un <strong>change proposal</strong> (CP). Cela est un document contractuel qui <strong>modifie le CDC</strong> et peut amener à une modification (augmentation ou diminution) du coût et à un retard planning. Il correspond à un avenant.</p><p>C'est pourquoi il est primordial de <strong><u>bien définir le besoin</u></strong> et de vérifier que toutes les fonctions souhaitées sont présentes dans le CDC. </p><p><br></p><p>Dans ce guide de <a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1ApGNa0oNbA67SD87sOTDrAmFcrYSmH0H/edit?usp=sharing&amp;ouid=107998684615309133819&amp;rtpof=true&amp;sd=true\" rel=\"noopener noreferrer\" target=\"_blank\">rédaction d'une CP</a>, on retrouve : </p><ul><li>Qu'est ce qu'une CP ;</li><li>Comment la rédiger.</li></ul><p><br></p><p><br></p><h1>Gestion des LOP</h1><p><br></p><p>abc</p><p><br></p><h1>RUS et examen d'adéquation</h1><p><br></p><p>abc</p><p><br></p><h1>Suivi de chantier</h1><p><br></p><p>abc</p>",
+            "links": [],
+            "images": [
+              {
+                "src": "https://media.ouest-france.fr/v1/pictures/MjAxNTA4M2JjNzI4YTJlZTFmNTg4OTk3MTEzNTNhODA4OWI5ZGQ?width=1260&height=708&focuspoint=50%2C25&cropresize=1&client_id=bpeditorial&sign=0d5d2438d0ea2999744d42b388aeb43f72abbfda890d9103bac6047528c8221f",
+                "width": 50,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "7b9b9123-1d18-44fe-ac58-0e9cc148598a",
+            "title": "Outils de suivi d'affaires",
+            "subtitle": "",
+            "content": "<p><br></p>",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "f3d0be8c-14a1-4537-bbc1-00dab35fcfc1",
+            "title": "Outils de suivi d'affaires",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Montoir"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "ebf893bb-494d-4bce-8902-cff881e8e9e1",
+            "title": "Normes et exigences Airbus",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "818bf6d2-1330-4492-94da-f742f9156bbd",
+            "title": "Normes et exigences Airbus",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Montoir"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "0661b482-8676-4e4d-a91f-9fc967d964ce",
+        "title": "Outils Airbus",
+        "subtitle": "",
+        "content": "<p>Pour faciliter la gestion et le succès des affaires, Airbus utilise des outils numériques.</p>",
+        "links": [],
+        "images": [
+          {
+            "src": "https://vesoul2.circo70.ac-besancon.fr/wp-content/uploads/sites/2/2020/04/Teaser_digitales_lernen-formatkey-jpg-default-672x320.jpg",
+            "width": 50,
+            "align": "center"
+          }
+        ],
         "videos": [],
         "profiles": [
           "Nantes",
           "Montoir"
         ],
         "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
+        "children": [
+          {
+            "id": "506d35b9-9718-4277-9958-6c5188e0e197",
+            "title": "SAP",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Montoir",
+              "Nantes"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "30d2e7b6-bc0c-4838-b893-a2d606038dbc",
+            "title": "FTS +",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "4ed124fb-6fbb-4b27-8f4e-e074110fd8b7",
+            "title": "CATIA",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "c1c9b73c-5353-4932-87ee-0377cfc03a08",
+            "title": "Outils génériques (Airbus Sign & NOMAD)",
+            "subtitle": "",
+            "content": "<h1>Airbus Sign </h1><p><br></p><p>abc</p><p><br></p><h1>NOMAD</h1><p><br></p><p>abc</p>",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "30cf2249-0124-428c-933d-12153fc1c769",
+            "title": "ADOC & MyDoc",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "97958f90-4973-46ac-846f-f746b20c1109",
+            "title": "MDM-R",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Montoir"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "a99b1bdd-c95b-4e24-939b-2e9bd3a01225",
+            "title": "Click'n Buy",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "556cdfea-2df9-4b08-b4d2-18010406579c",
+            "title": "NormMaster",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "8bf004aa-beb3-4c5d-8cd3-8f5fcb6452bd",
+            "title": "Monitoring Tool",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "0b6fd1ac-6ece-4a72-8627-7cb95d0998dd",
+            "title": "CKI-CKOI",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "c4a1baf4-bb96-4798-9df9-32dd49cb08d8",
+            "title": "GEMAVICC",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "fb9750b8-cde3-4b2c-9bb5-8ba06d47461b",
+        "title": "Affaire type - Exercice",
+        "subtitle": "",
+        "content": "",
+        "links": [],
+        "images": [],
+        "videos": [],
+        "profiles": [
+          "Nantes"
+        ],
+        "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
         "children": []
       }
     ]
@@ -685,7 +1105,7 @@
   {
     "id": "1746639040310",
     "title": "Montée en compétences",
-    "summary": "",
+    "summary": "Ce module est en parallèle de la Skill Matrix disponible sur MUSE.",
     "enabled": false,
     "items": [
       {
@@ -700,6 +1120,10 @@
           "Nantes"
         ],
         "enabled": true,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
         "children": []
       }
     ]
