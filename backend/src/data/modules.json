@@ -8,7 +8,7 @@
         "id": "item-1",
         "title": "Accueil consultant",
         "subtitle": "",
-        "content": "<h1>Bienvenue chez ALTEN !</h1><p><br></p><p>Dans cette partie tu vas découvrir les points clés que doit connaître un consultant ALTEN pour AIRBUS ATLANTIC, qui occupe le poste de chargé d'affaire outillage (CAF).</p><p><br></p><h1>Bagage du NewComer </h1><p><br></p><p>Pour commencer et faciliter ton intégration, il est primordiale que tu ais accès ou créer les éléments ci dessous :</p><ul><li><br></li></ul>",
+        "content": "<h1>Bienvenue chez ALTEN !</h1><p><br></p><p>Dans cette partie tu vas découvrir les points clés que doit connaître un consultant ALTEN pour AIRBUS ATLANTIC, qui occupe le poste de chargé d'affaire outillage (CAF).</p><p><br></p><h1>Bagage du NewComer</h1><p><br></p><p>Pour commencer et faciliter ton intégration, il est primordiale que tu ais accès ou créer les éléments ci dessous :</p><ul><li>Le Drive Jigs &amp; Tools </li><li>Chevalet : à éditer et placer sur le bureau </li><li><a href=\"https://docs.google.com.rproxy.goskope.com/document/d/125Od-g903gwHCMtrpnMkfSDpux13rzifxIZFgqgyqec/edit?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Signature mail</a> : à adapter et copier sur Gmail &amp; Outlook</li></ul>",
         "links": [],
         "images": [
           {
@@ -177,11 +177,22 @@
         "children": [
           {
             "id": "ffe016dd-3970-45b1-a898-3e3651461058",
-            "title": "Contact",
+            "title": "Qui contacter - Pour quoi ?",
             "subtitle": "",
-            "content": "",
-            "links": [],
-            "images": [],
+            "content": "<p><br></p>",
+            "links": [
+              {
+                "label": "Qui contacter",
+                "url": "https://docs.google.com.rproxy.goskope.com/document/d/1f1TbJHDrvLwPhYAtrVfVIrIfR045VaW5yu6ln-57hG8/edit?usp=sharing"
+              }
+            ],
+            "images": [
+              {
+                "src": "https://img.over-blog-kiwi.com/1/63/01/78/20161102/ob_5b0327_contact.jpg",
+                "width": 50,
+                "align": "left"
+              }
+            ],
             "videos": [],
             "profiles": [
               "Nantes",
@@ -198,7 +209,7 @@
             "id": "7926dfda-1785-401b-b8e6-ce25e7ebaceb",
             "title": "Organigramme équipe",
             "subtitle": "",
-            "content": "",
+            "content": "<p>Les équipes ALTEN du plateau outillage sont réparties selon le process (NZ) ou les pièces avions travaillées (NS).</p><p>Tu trouvera ci-dessous l'organigramme des équipes.</p>",
             "links": [
               {
                 "label": "Nantes",
@@ -264,7 +275,7 @@
         "id": "c8aa9ab3-8d46-469c-847a-91f465f730e5",
         "title": "AIRBUS",
         "subtitle": "",
-        "content": "<p>Dans ce module, tu vas découvrir l'entreprise AIRBUS et AIRBUS ATLANTIC.</p>",
+        "content": "<p>Dans ce module, tu vas découvrir l'entreprise AIRBUS et AIRBUS ATLANTIC.</p><p><br></p><p>Tu retrouves sur la présentation ci-dessous : </p><ul><li>les informations sur Airbus Corp</li></ul>",
         "links": [
           {
             "label": "Présentation Airbus (vue Newcomer)",
@@ -631,12 +642,12 @@
       }
     ],
     "enabled": true,
-    "summary": "Ce module a pour objectif de faire découvrir l'environnement de travail d'un CAF."
+    "summary": "<p>Ce module a pour objectif de faire découvrir l'environnement de travail d'un CAF.</p>"
   },
   {
     "id": "1746553317746",
     "title": "Métier CAf",
-    "summary": "Ce module vise à introduire toutes les notions nécessaires à la réalisation d'une affaire Jigs & Tools : \n- Sur le métier de CAF ;\n- Sur le Process ;\n- Sur les outils Airbus ;\n- Un entraînement avec la réalisation d'une affaire type.",
+    "summary": "<p>Ce module vise à introduire toutes les notions nécessaires à la réalisation d'une affaire Jigs &amp; Tools :</p><p>- Sur le métier de CAF ;</p><p>- Sur le Process ;</p><p>- Sur les outils Airbus ;</p><p>- Un entraînement avec la réalisation d'une affaire type.</p>",
     "enabled": true,
     "items": [
       {
