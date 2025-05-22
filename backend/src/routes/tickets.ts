@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
   notify({
     username,
     category: 'ticket',
-    message: `Nouveau ticket: ${title}`,
+    message: `Nouveau ticket de ${username} intitulé "${title}" :       ${message}.`,
     to,
   }).catch(err => console.error('[TICKET]', (err as Error).message));
 
