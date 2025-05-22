@@ -2,9 +2,11 @@ import { Router } from 'express';
 import { read, write } from '../config/dataStore';
 import { ITicket, TicketStatus } from '../models/ITicket';
 import { IUser } from '../models/IUser';
+import { notify } from '../utils/notifier';
 
 const router = Router();
 const TABLE = 'tickets';
+const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 
 function load() { return read<ITicket>(TABLE); }
 function save(list: ITicket[]) { write(TABLE, list); }
@@ -35,6 +37,24 @@ router.post('/', (req, res) => {
   const list = load();
   list.push(ticket);
   save(list);
+  const admins = users
+    .filter(u => u.role === 'admin' && mailRx.test(u.username))
+    .map(u => u.username);
+  const managerMail = ticket.managerId
+    ? users.find(u => u.id === ticket.managerId)?.username
+    : undefined;
+
+  const to: string[] = [];
+  if (ticket.target === 'admin' || ticket.target === 'both') to.push(...admins);
+  if ((ticket.target === 'manager' || ticket.target === 'both') && managerMail && mailRx.test(managerMail)) to.push(managerMail);
+
+  notify({
+    username,
+    category: 'ticket',
+    message: `Nouveau ticket: ${title}`,
+    to,
+  }).catch(err => console.error('[TICKET]', (err as Error).message));
+
   res.status(201).json(ticket);
 });
 
@@ -48,7 +68,17 @@ router.patch('/:id', (req, res) => {
 
   list[idx].status = status;
   save(list);
-  res.json(list[idx]);
+  const ticket = list[idx];
+  const to: string[] = mailRx.test(ticket.username) ? [ticket.username] : [];
+
+  notify({
+    username: ticket.username,
+    category: 'ticket',
+    message: `Mise à jour du ticket "${ticket.title}" : ${status}`,
+    to,
+  }).catch(err => console.error('[TICKET]', (err as Error).message));
+
+  res.json(ticket);
 });
 
 export default router;

@@ -5,11 +5,11 @@ import { Router }        from 'express';
 import bcrypt            from 'bcrypt';
 import { read, write }   from '../config/dataStore';
 import { IUser }         from '../models/IUser';
-import { sendMail }      from '../utils/mailer';
+import { notify }        from '../utils/notifier';
+import { NotificationCategory } from '../models/INotification';
 
 const router   = Router();
 const USERS    = 'users';
-const NOTIFS   = 'notifications';
 const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 
 
@@ -69,46 +69,37 @@ router.post('/forgot', (req, res) => {
     const user  = users.find(u => u.username === username);
     if (!user)  return res.status(404).json({ error: 'Compte introuvable' });
 
-    /* log notification */
-    const notifs = read<any>(NOTIFS);
-    notifs.push({
-    id: Date.now().toString(),
-    username,
-    date: new Date().toISOString(),
-    message: 'Demande de réinitialisation de mot de passe',
-    });
-    write(NOTIFS, notifs);
+    const message = 'Demande de réinitialisation de mot de passe';
 
     /* destinataires : tous les admins possédant une adresse valide + manager référent éventuel */
     const admins      = users
-    .filter(u => u.role === 'admin' && mailRx.test(u.username))
-    .map(u => u.username);
+      .filter(u => u.role === 'admin' && mailRx.test(u.username))
+      .map(u => u.username);
     const managerMail = user.managerId
-    ? users.find(u => u.id === user.managerId)?.username
-    : undefined;
+      ? users.find(u => u.id === user.managerId)?.username
+      : undefined;
 
     const to = [
-    ...admins,
-    ...(managerMail && mailRx.test(managerMail) ? [managerMail] : []),
+      ...admins,
+      ...(managerMail && mailRx.test(managerMail) ? [managerMail] : []),
     ];
 
     if (to.length === 0) {
-    console.error('[FORGOT] Aucun destinataire e‑mail valide');
-    return res.status(500).json({ error: 'Aucun destinataire e‑mail valide' });
+      console.error('[FORGOT] Aucun destinataire e‑mail valide');
+      return res.status(500).json({ error: 'Aucun destinataire e‑mail valide' });
     }
 
-    /* envoi */
-    sendMail(
-    to,
-    'CAF‑Trainer : mot de passe oublié',
-    `<p>L’utilisateur <strong>${username}</strong> demande une réinitialisation de son mot de passe.</p>
-        <p>Merci de traiter la demande dans l’interface d’administration.</p>`,
-    )
-    .then(() => res.json({ ok: true }))
-    .catch(err => {
+    notify({
+      username,
+      category: 'password',
+      message,
+      to,
+    })
+      .then(() => res.json({ ok: true }))
+      .catch(err => {
         console.error('[FORGOT]', (err as Error).message);
         res.status(500).json({ error: 'Envoi e‑mail impossible' });
-    });
+      });
 });
 
 export default router;

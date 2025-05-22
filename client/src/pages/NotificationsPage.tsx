@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-interface INotification {         /* ← typage local */
+interface INotification {
   id: string;
   username: string;
   date: string;
+  category: string;
   message?: string;
 }
 
@@ -23,7 +24,7 @@ export default function NotificationsPage() {
   return (
     <Wrapper>
       <button className="btn-back" onClick={() => navigate(-1)}>← Retour</button>
-      <h2>Demandes de mot de passe oublié</h2>
+      <h2>Notifications</h2>
       {notifs.length === 0
         ? <p>Aucune notification.</p>
         : (
@@ -31,6 +32,7 @@ export default function NotificationsPage() {
             {notifs.map(n => (
               <li key={n.id}>
                 {n.username} – {new Date(n.date).toLocaleString()}
+                {n.message ? ` – ${n.message}` : ''}
               </li>
             ))}
           </ul>

@@ -8,11 +8,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const dataStore_1 = require("../config/dataStore");
-const mailer_1 = require("../utils/mailer");
+const notifier_1 = require("../utils/notifier");
 const router = (0, express_1.Router)();
 const USERS = 'users';
-const NOTIFS = 'notifications';
-const mailRx = /^[a-z]+.[a-z][+@alten.com]$/i;
+const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 /* ───────────────────────── LOGIN ───────────────────────── */
 router.post('/login', (req, res) => {
     const { username, password } = req.body;
@@ -63,15 +62,7 @@ router.post('/forgot', (req, res) => {
     const user = users.find(u => u.username === username);
     if (!user)
         return res.status(404).json({ error: 'Compte introuvable' });
-    /* log notification */
-    const notifs = (0, dataStore_1.read)(NOTIFS);
-    notifs.push({
-        id: Date.now().toString(),
-        username,
-        date: new Date().toISOString(),
-        message: 'Demande de réinitialisation de mot de passe',
-    });
-    (0, dataStore_1.write)(NOTIFS, notifs);
+    const message = 'Demande de réinitialisation de mot de passe';
     /* destinataires : tous les admins possédant une adresse valide + manager référent éventuel */
     const admins = users
         .filter(u => u.role === 'admin' && mailRx.test(u.username))
@@ -87,9 +78,12 @@ router.post('/forgot', (req, res) => {
         console.error('[FORGOT] Aucun destinataire e‑mail valide');
         return res.status(500).json({ error: 'Aucun destinataire e‑mail valide' });
     }
-    /* envoi */
-    (0, mailer_1.sendMail)(to, 'CAF‑Trainer : mot de passe oublié', `<p>L’utilisateur <strong>${username}</strong> demande une réinitialisation de son mot de passe.</p>
-        <p>Merci de traiter la demande dans l’interface d’administration.</p>`)
+    (0, notifier_1.notify)({
+        username,
+        category: 'password',
+        message,
+        to,
+    })
         .then(() => res.json({ ok: true }))
         .catch(err => {
         console.error('[FORGOT]', err.message);
