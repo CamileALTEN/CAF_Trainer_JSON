@@ -7,7 +7,11 @@
     "title": "CAF Trainer bug",
     "message": "Je ne retrouve pas le lien pour acceder au site",
     "status": "closed",
-    "date": "2025-05-22T13:10:08.709Z"
+    "date": "2025-05-22T13:10:08.709Z",
+    "category": "Autre",
+    "priority": "normal",
+    "replies": [],
+    "archived": false
   },
   {
     "id": "1747926340182",
@@ -17,7 +21,11 @@
     "title": "test",
     "message": "test 123",
     "status": "open",
-    "date": "2025-05-22T15:05:40.182Z"
+    "date": "2025-05-22T15:05:40.182Z",
+    "category": "Autre",
+    "priority": "normal",
+    "replies": [],
+    "archived": false
   },
   {
     "id": "1747926552130",
@@ -27,6 +35,10 @@
     "title": "Test 2",
     "message": "azertyuiop, juezlohfz 5245636",
     "status": "pending",
-    "date": "2025-05-22T15:09:12.130Z"
+    "date": "2025-05-22T15:09:12.130Z",
+    "category": "Autre",
+    "priority": "normal",
+    "replies": [],
+    "archived": false
   }
 ]
