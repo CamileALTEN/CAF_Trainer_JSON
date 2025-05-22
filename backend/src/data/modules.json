@@ -8,7 +8,7 @@
         "id": "item-1",
         "title": "Accueil consultant",
         "subtitle": "",
-        "content": "<h1>Bienvenue chez ALTEN !</h1><p><br></p><p>Dans cette partie tu vas découvrir les points clés que doit connaître un consultant ALTEN pour AIRBUS ATLANTIC, qui occupe le poste de chargé d'affaire outillage (CAF).</p><p><br></p><h1>Bagage du NewComer</h1><p><br></p><p>Pour commencer et faciliter ton intégration, il est primordiale que tu ais accès ou créer les éléments ci dessous :</p><ul><li>Le Drive Jigs &amp; Tools </li><li>Chevalet : à éditer et placer sur le bureau </li><li><a href=\"https://docs.google.com.rproxy.goskope.com/document/d/125Od-g903gwHCMtrpnMkfSDpux13rzifxIZFgqgyqec/edit?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Signature mail</a> : à adapter et copier sur Gmail &amp; Outlook</li></ul>",
+        "content": "<h1>Bienvenue chez ALTEN !</h1><p><br></p><p>Dans cette partie tu vas découvrir les points clés que doit connaître un consultant ALTEN pour AIRBUS ATLANTIC, qui occupe le poste de chargé d'affaire outillage (CAF).</p><p><br></p><h1>Bagage du NewComer</h1><p><br></p><p>Pour commencer et faciliter ton intégration, il est primordiale que tu ais accès ou créer les éléments ci dessous :</p><ul><li>Le Drive Jigs &amp; Tools</li><li>Chevalet : à éditer et placer sur le bureau</li><li><a href=\"https://docs.google.com.rproxy.goskope.com/document/d/125Od-g903gwHCMtrpnMkfSDpux13rzifxIZFgqgyqec/edit?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Signature mail</a> : à adapter et copier sur Gmail &amp; Outlook</li></ul>",
         "links": [],
         "images": [
           {
@@ -101,7 +101,13 @@
                 "url": "https://"
               }
             ],
-            "images": [],
+            "images": [
+              {
+                "src": "https://www.alten.com/wp-content/uploads/2024/02/Aeronautics.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
             "videos": [],
             "profiles": [
               "Nantes",
@@ -128,7 +134,7 @@
             "images": [
               {
                 "src": "https://thumbs.dreamstime.com/b/mot-d-acronymes-des-blocs-en-bois-avec-lettres-l-utilisation-de-dans-les-al%C3%A9atoires-concept-abr%C3%A9viation-du-monde-moderne-autour-207641529.jpg",
-                "width": 25,
+                "width": 35,
                 "align": "center"
               }
             ],
@@ -159,8 +165,8 @@
         ],
         "images": [
           {
-            "src": "https://www.je-recrute.com/storage/2024/11/Offre-demploi-2024-11-11T205958.639.webp",
-            "width": 50,
+            "src": "https://aerocontact.b-cdn.net/actualite-aeronautique-spatiale/diapos/AERO20230619135245.jpg",
+            "width": 100,
             "align": "center"
           }
         ],
@@ -190,7 +196,7 @@
               {
                 "src": "https://img.over-blog-kiwi.com/1/63/01/78/20161102/ob_5b0327_contact.jpg",
                 "width": 50,
-                "align": "left"
+                "align": "center"
               }
             ],
             "videos": [],
@@ -275,7 +281,7 @@
         "id": "c8aa9ab3-8d46-469c-847a-91f465f730e5",
         "title": "AIRBUS",
         "subtitle": "",
-        "content": "<p>Dans ce module, tu vas découvrir l'entreprise AIRBUS et AIRBUS ATLANTIC.</p><p><br></p><p>Tu retrouves sur la présentation ci-dessous : </p><ul><li>les informations sur Airbus Corp</li></ul>",
+        "content": "<p>Dans ce module, tu vas découvrir l'entreprise AIRBUS et AIRBUS ATLANTIC.</p><p><br></p><p>Tu retrouves sur la présentation ci-dessous :</p><ul><li>les informations sur Airbus Corp ;</li><li>Les programmes avions Airbus ;</li><li>L'organisation des sites et de la production.</li></ul>",
         "links": [
           {
             "label": "Présentation Airbus (vue Newcomer)",
@@ -322,7 +328,7 @@
             "images": [
               {
                 "src": "https://media.ouest-france.fr/v1/pictures/MjAxOTA1MTg1YWUzNmE0MmQwYWU3ZmU5MzMxM2E4Yzk3ZTdlMDY?width=1260&height=708&focuspoint=50%2C25&cropresize=1&client_id=bpeditorial&sign=634d1f0d5d02918b71d590107174c936c00096dabb76a06ed0b113bbce9bbd68",
-                "width": 50,
+                "width": 80,
                 "align": "center"
               }
             ],
@@ -355,7 +361,7 @@
             "images": [
               {
                 "src": "https://www.informateurjudiciaire.fr/wp-content/uploads/sites/10/2022/01/AirbusAtlantic-MontoirdeBretagne-copyrightAirbus-scaled-760x396-c-default.jpg",
-                "width": 50,
+                "width": 80,
                 "align": "center"
               }
             ],
@@ -398,8 +404,24 @@
             ],
             "enabled": true,
             "quiz": {
-              "enabled": false,
-              "questions": []
+              "enabled": true,
+              "questions": [
+                {
+                  "question": "Quels sont les abréviations des 4 secteurs d'activités des CAF ?",
+                  "options": [
+                    "ZINL",
+                    "ZINC",
+                    "ZINO",
+                    "ZINS"
+                  ],
+                  "correct": [
+                    0,
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              ]
             },
             "children": []
           },
@@ -407,9 +429,20 @@
             "id": "4910213a-6050-44cd-98c7-05583929a2e9",
             "title": "Organisation des métiers Airbus et Jigs & Tools",
             "subtitle": "",
-            "content": "<p><br></p>",
-            "links": [],
-            "images": [],
+            "content": "<p>Airbus Atlantic est une entreprise majeur de l'industrie, c'est pourquoi il est important qu'elle soit bien structurée.</p><p><br></p><p>Dans ce module, tu vas découvrir:</p><ul><li>son organisation ;</li><li>ses métiers ;</li><li>l'organisation du plateau Jigs &amp; Tools ;</li><li>la structure d'un projet.</li></ul>",
+            "links": [
+              {
+                "label": "Présentation Métier Airbus Montoir",
+                "url": "https://"
+              }
+            ],
+            "images": [
+              {
+                "src": "https://media.lesechos.com/api/v1/images/view/6691491e44cd110ac85f80ae/1280x720/01102774658461-web-tete.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
             "videos": [],
             "profiles": [
               "Montoir"
@@ -646,7 +679,7 @@
   },
   {
     "id": "1746553317746",
-    "title": "Métier CAf",
+    "title": "Métier CAF",
     "summary": "<p>Ce module vise à introduire toutes les notions nécessaires à la réalisation d'une affaire Jigs &amp; Tools :</p><p>- Sur le métier de CAF ;</p><p>- Sur le Process ;</p><p>- Sur les outils Airbus ;</p><p>- Un entraînement avec la réalisation d'une affaire type.</p>",
     "enabled": true,
     "items": [
@@ -654,11 +687,20 @@
         "id": "607743e6-b7fa-46f2-aff4-097954ed01c2",
         "title": "CAF Jigs & Tools",
         "subtitle": "",
-        "content": "",
+        "content": "<p>Te voilà prêt à commencer le module métier CAF !</p><p><br></p><p>Dans ces items, tu vas découvrir ce que signifie être un chargé d'affaires bâtis et outillages ALTEN en mission pour Airbus Atlantic.</p><p><br></p><p>À la fin de ce module, tu pourras prendre en main ta première affaire outillage ; mais n'oublie pas, tes collègues CAF sont présent pour t'accompagner lors de tes débuts et répondre à tes questions.</p>",
         "links": [],
-        "images": [],
+        "images": [
+          {
+            "src": "https://www.alten.com/wp-content/uploads/2024/03/Industrial-Automation.jpg",
+            "width": 50,
+            "align": "center"
+          }
+        ],
         "videos": [],
-        "profiles": [],
+        "profiles": [
+          "Nantes",
+          "Montoir"
+        ],
         "enabled": true,
         "quiz": {
           "enabled": false,
@@ -669,11 +711,20 @@
             "id": "40df64ab-94ee-4527-81b0-2898f2de7618",
             "title": "Métier CAF",
             "subtitle": "",
-            "content": "",
+            "content": "<h1>#Insérer une \"fiche métier\"</h1><p><br></p><p>En tant que prestataire Airbus, le CAF a un rôle du support dans la gestion d’une affaire outillage.&nbsp;</p><p><br></p><p>Il est le garant de ses affaires et doit s’assurer que la solution technique de l’outillage soit fonctionnelle et respecte les contraintes. Il est aussi garant du respect du délais / planning.&nbsp;</p><p><br></p><p>------------------------------------------</p><p><strong>Identification du métier</strong> : en quoi consiste l’emploi cité ? Quelle est la définition du métier ?</p><ul><li>Chargé d’affaire Bâtis et Outillages (CAF)</li></ul><p><br></p><p>Le CAF est responsable du déroulé d’une affaire d’outillage. Il doit respecter les contraintes et normes du client. Il est le garant de TOUS les jalons SAP du process client.</p><p><strong>Les principales responsabilités et activités</strong> : quelles sont les tâches et les réalisations de la fonction ? Quelles sont les missions quotidiennes ?</p><p><strong>Les conditions d’exercice</strong> : dans quels environnements se pratique le métier ? Est-il associé à des secteurs d’activités particuliers ? Quel est le rythme de travail, avec quels horaires ?&nbsp;</p><p><strong>Les compétences et qualités</strong> :</p><p><br></p><p><strong>Description du métier / rôle</strong></p><p><strong>Positionnement à avoir</strong></p><p><strong>Parties prenantes d'une affaire / implication /valeur ajoutée</strong></p>",
             "links": [],
-            "images": [],
+            "images": [
+              {
+                "src": "https://f.hellowork.com/obs-static-images/seo/ObsJob/charge-daffaires-en-industrie.jpg",
+                "width": 50,
+                "align": "left"
+              }
+            ],
             "videos": [],
-            "profiles": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
             "enabled": true,
             "quiz": {
               "enabled": false,
@@ -685,9 +736,15 @@
             "id": "7d856688-6867-4ffd-a1f7-a8aa17a3b12c",
             "title": "Bâtis & Outillages",
             "subtitle": "",
-            "content": "",
+            "content": "<p><br></p>",
             "links": [],
-            "images": [],
+            "images": [
+              {
+                "src": "https://cini.fr/wp-content/uploads/2020/09/Grille-percage-outillage-production.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
             "videos": [],
             "profiles": [],
             "enabled": true,
@@ -767,7 +824,7 @@
             "id": "3a303ff7-5543-470f-8f04-6881d45951e1",
             "title": "Le process Jigs & Tools",
             "subtitle": "",
-            "content": "<h1>Le process Airbus Atlantic</h1><p><br></p><p>Afin de valider les exigences et contraintes qualités Airbus et de garantir le succès des affaires Jigs &amp; Tools, il est indispensable de respecter le process et tous ses jalons. En effet, le CAF est responsable de TOUS les jalons dans SAP même ceux sur lesquels il n'est pas acteur.</p><p><br></p><p>Dans les présentations ci-dessous du process tu vas retrouver :</p><ul><li><strong>Le process macro</strong> et les jalons avec leur définition ;</li><li><strong>Chaque jalon expliqués</strong> avec les points de vigilances à avoir.</li></ul><p><br></p><p>Process du site de :</p><ul><li><a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/19YIyNy1d0sMZOUusvEZ1P2wvpeQVURBnyO8GMm5To-M/present?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Nantes</a></li><li><a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1c6wh4bo3nIDbtkrufLtSTSM6ZqtnLAsNdty0nrlyhzs/present?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Montoir</a></li></ul><p><br></p><p><br></p><h1>Change Proposal (CP)</h1><p><br></p><p>Si au cours d'une affaire la solution proposée <strong>ne respecte pas le besoin ou si ce dernier évolue</strong>, on réalise ce qu'on appel un <strong>change proposal</strong> (CP). Cela est un document contractuel qui <strong>modifie le CDC</strong> et peut amener à une modification (augmentation ou diminution) du coût et à un retard planning. Il correspond à un avenant.</p><p>C'est pourquoi il est primordial de <strong><u>bien définir le besoin</u></strong> et de vérifier que toutes les fonctions souhaitées sont présentes dans le CDC. </p><p><br></p><p>Dans ce guide de <a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1ApGNa0oNbA67SD87sOTDrAmFcrYSmH0H/edit?usp=sharing&amp;ouid=107998684615309133819&amp;rtpof=true&amp;sd=true\" rel=\"noopener noreferrer\" target=\"_blank\">rédaction d'une CP</a>, on retrouve : </p><ul><li>Qu'est ce qu'une CP ;</li><li>Comment la rédiger.</li></ul><p><br></p><p><br></p><h1>Gestion des LOP</h1><p><br></p><p>abc</p><p><br></p><h1>RUS et examen d'adéquation</h1><p><br></p><p>abc</p><p><br></p><h1>Suivi de chantier</h1><p><br></p><p>abc</p>",
+            "content": "<h1>Le process Airbus Atlantic</h1><p><br></p><p>Afin de valider les exigences et contraintes qualités Airbus et de garantir le succès des affaires Jigs &amp; Tools, il est indispensable de respecter le process et tous ses jalons. En effet, le CAF est responsable de TOUS les jalons dans SAP même ceux sur lesquels il n'est pas acteur.</p><p><br></p><p>Dans les présentations ci-dessous du process tu vas retrouver :</p><ul><li><strong>Le process macro</strong> et les jalons avec leur définition ;</li><li><strong>Chaque jalon expliqués</strong> avec les points de vigilances à avoir.</li></ul><p><br></p><p>Process du site de :</p><ul><li><a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/19YIyNy1d0sMZOUusvEZ1P2wvpeQVURBnyO8GMm5To-M/present?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Nantes</a></li><li><a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1c6wh4bo3nIDbtkrufLtSTSM6ZqtnLAsNdty0nrlyhzs/present?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Montoir</a></li></ul><p><br></p><p><br></p><h1>Change Proposal (CP)</h1><p><br></p><p>Si au cours d'une affaire la solution proposée <strong>ne respecte pas le besoin ou si ce dernier évolue</strong>, on réalise ce qu'on appel un <strong>change proposal</strong> (CP). Cela est un document contractuel qui <strong>modifie le CDC</strong> et peut amener à une modification (augmentation ou diminution) du coût et à un retard planning. Il correspond à un avenant.</p><p>C'est pourquoi il est primordial de <strong><u>bien définir le besoin</u></strong> et de vérifier que toutes les fonctions souhaitées sont présentes dans le CDC.</p><p><br></p><p>Dans ce guide de <a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1ApGNa0oNbA67SD87sOTDrAmFcrYSmH0H/edit?usp=sharing&amp;ouid=107998684615309133819&amp;rtpof=true&amp;sd=true\" rel=\"noopener noreferrer\" target=\"_blank\">rédaction d'une CP</a>, on retrouve :</p><ul><li>Qu'est ce qu'une CP ;</li><li>Comment la rédiger.</li></ul><p><br></p><p><br></p><h1>Gestion des LOP</h1><p><br></p><p>abc</p><p><br></p><h1>RUS et examen d'adéquation</h1><p><br></p><p>abc</p><p><br></p><h1>Suivi de chantier</h1><p><br></p><p>abc</p>",
             "links": [],
             "images": [
               {
