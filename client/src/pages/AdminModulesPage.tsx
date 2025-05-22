@@ -72,7 +72,10 @@ export default function AdminModulesPage() {
               </div>
             </div>
 
-            <p className="summary">{m.summary || '—'}</p>
+            <p
+              className="summary"
+              dangerouslySetInnerHTML={{ __html: m.summary || '—' }}
+            />
 
             <footer>
               <Link to={`${basePath}/modules/${m.id}`} className="btn-secondary">

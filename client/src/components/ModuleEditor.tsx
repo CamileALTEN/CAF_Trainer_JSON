@@ -1,6 +1,6 @@
              /* client/src/components/ModuleEditor.tsx
                 ─────────────────────────────────────── */
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import AdvancedEditor                  from './AdvancedEditor';
       
 import {
@@ -50,19 +50,41 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
       
                 /* ═════════════════════════ COMPONENT ════════════════════════════════ */
       
-                interface Props {
-                  module:   IModule;
-                  onChange: (m: IModule) => void;
-                }
+interface Props {
+  module:   IModule;
+  onChange: (m: IModule) => void;
+  onDirtyChange?: (dirty: boolean) => void;
+}
       
-                export default function ModuleEditor({ module, onChange }: Props) {
+export default function ModuleEditor({ module, onChange, onDirtyChange }: Props) {
                   /* état local --------------------------------------------- */
-                  const [edit, setEdit] = useState<IModule>(() => ({
-                    ...module,
-                    items: module.items.map(ensureDefaults),
-                  }));
+  const [edit, setEdit] = useState<IModule>(() => ({
+    ...module,
+    items: module.items.map(ensureDefaults),
+  }));
   const [curId, setCurId] = useState<string>('');
   const [useAdv, setUseAdv] = useState(true);
+  const [dirty, setDirty] = useState(false);
+
+  useEffect(() => {
+    setDirty(JSON.stringify(edit) !== JSON.stringify(module));
+    onDirtyChange?.(JSON.stringify(edit) !== JSON.stringify(module));
+  }, [edit, module, onDirtyChange]);
+
+  useEffect(() => {
+    const handler = (e: BeforeUnloadEvent) => {
+      if (dirty) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    };
+    window.addEventListener('beforeunload', handler);
+    return () => window.removeEventListener('beforeunload', handler);
+  }, [dirty]);
+
+  useEffect(() => {
+    setEdit({ ...module, items: module.items.map(ensureDefaults) });
+  }, [module]);
       
                   /* MAJ ciblée d’un item ----------------------------------- */
                   const patchItem = (patch: Partial<IItem>) =>
@@ -198,10 +220,9 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
                             placeholder="Titre du module"
                             onChange={(e) => setEdit({ ...edit, title: e.target.value })}
                           />
-                          <textarea
+                          <AdvancedEditor
                             value={edit.summary}
-                            placeholder="Description courte"
-                            onChange={(e) => setEdit({ ...edit, summary: e.target.value })}
+                            onChange={(html) => setEdit({ ...edit, summary: html })}
                           />
                           <label className="inline-row">
                             <input

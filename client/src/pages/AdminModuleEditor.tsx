@@ -10,6 +10,7 @@ export default function AdminModuleEditor() {
   const { moduleId } = useParams<{ moduleId: string }>();
   const navigate = useNavigate();
   const [mod, setMod] = useState<IModule | null>(null);
+  const [dirty, setDirty] = useState(false);
 
   /* chargement */
   useEffect(() => {
@@ -60,10 +61,18 @@ export default function AdminModuleEditor() {
         style={{ position : 'sticky', justifyContent: 'space-between', padding: '8px 24px'}}
       >
         <h2>Admin › Modules › {mod.title || '(nouveau)'}</h2>
-        <button onClick={() => navigate('/admin/modules')}>← Retour modules</button>
+        <button
+          onClick={() => {
+            if (!dirty || window.confirm('Quitter sans sauvegarder ?')) {
+              navigate('/admin/modules');
+            }
+          }}
+        >
+          ← Retour modules
+        </button>
       </header>
 
-      <ModuleEditor module={mod} onChange={save} />
+      <ModuleEditor module={mod} onChange={save} onDirtyChange={setDirty} />
     </div>
   );
 }
