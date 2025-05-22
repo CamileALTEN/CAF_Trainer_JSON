@@ -11,7 +11,7 @@ import {
   getTickets,
   exportTicket,
 } from '../api/tickets';
-
+import AdvancedEditor                  from '../components/AdvancedEditor';
 export default function TicketsListPage() {
   const { user } = useAuth();
   const [tickets, setTickets] = useState<ITicket[]>([]);

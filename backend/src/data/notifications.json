@@ -348,5 +348,61 @@
     "date": "2025-05-22T15:11:40.831Z",
     "category": "ticket",
     "message": "Mise à jour du ticket \"test\" : open"
+  },
+  {
+    "id": "1747935963450",
+    "username": "camile.briard@alten.com",
+    "date": "2025-05-22T17:46:03.450Z",
+    "category": "ticket",
+    "message": "Nouvelle réponse au ticket \"CAF Trainer bug\""
+  },
+  {
+    "id": "1747935989946",
+    "username": "logan",
+    "date": "2025-05-22T17:46:29.946Z",
+    "category": "ticket",
+    "message": "Mise à jour du ticket \"CAF Trainer bug\""
+  },
+  {
+    "id": "1747936013642",
+    "username": "logan",
+    "date": "2025-05-22T17:46:53.642Z",
+    "category": "ticket",
+    "message": "Nouveau ticket de logan intitulé \"test1245\" :       <p>test1254</p>."
+  },
+  {
+    "id": "1747936059841",
+    "username": "logan",
+    "date": "2025-05-22T17:47:39.841Z",
+    "category": "ticket",
+    "message": "Mise à jour du ticket \"CAF Trainer bug\""
+  },
+  {
+    "id": "1747936060738",
+    "username": "logan",
+    "date": "2025-05-22T17:47:40.738Z",
+    "category": "ticket",
+    "message": "Mise à jour du ticket \"CAF Trainer bug\""
+  },
+  {
+    "id": "1747936062370",
+    "username": "logan",
+    "date": "2025-05-22T17:47:42.370Z",
+    "category": "ticket",
+    "message": "Mise à jour du ticket \"CAF Trainer bug\""
+  },
+  {
+    "id": "1747936075872",
+    "username": "logan",
+    "date": "2025-05-22T17:47:55.872Z",
+    "category": "ticket",
+    "message": "Mise à jour du ticket \"Test 2\""
+  },
+  {
+    "id": "1747936095671",
+    "username": "logan",
+    "date": "2025-05-22T17:48:15.671Z",
+    "category": "ticket",
+    "message": "Mise à jour du ticket \"test1245\""
   }
 ]

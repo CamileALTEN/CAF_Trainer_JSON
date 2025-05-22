@@ -5,13 +5,20 @@
     "managerId": "1746634331825",
     "target": "both",
     "title": "CAF Trainer bug",
-    "message": "Je ne retrouve pas le lien pour acceder au site",
+    "message": "<p>Je ne retrouve pas le lien pour acceder au site</p>",
     "status": "closed",
     "date": "2025-05-22T13:10:08.709Z",
     "category": "Autre",
     "priority": "normal",
-    "replies": [],
-    "archived": false
+    "replies": [
+      {
+        "author": "camile.briard@alten.com",
+        "role": "manager",
+        "message": "ok",
+        "date": "2025-05-22T17:46:03.448Z"
+      }
+    ],
+    "archived": true
   },
   {
     "id": "1747926340182",
@@ -34,10 +41,24 @@
     "target": "manager",
     "title": "Test 2",
     "message": "azertyuiop, juezlohfz 5245636",
-    "status": "pending",
+    "status": "closed",
     "date": "2025-05-22T15:09:12.130Z",
     "category": "Autre",
     "priority": "normal",
+    "replies": [],
+    "archived": false
+  },
+  {
+    "id": "1747936013638",
+    "username": "logan",
+    "managerId": "1747838393929",
+    "target": "manager",
+    "category": "",
+    "priority": "high",
+    "title": "test1245",
+    "message": "<p>test1254</p>",
+    "status": "pending",
+    "date": "2025-05-22T17:46:53.638Z",
     "replies": [],
     "archived": false
   }
