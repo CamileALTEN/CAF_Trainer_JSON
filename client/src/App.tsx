@@ -22,6 +22,7 @@ import ManagerDashboardPage from './pages/ManagerDashboardPage';
 import RegisterUserPage     from './pages/RegisterUserPage';
 import NotificationsPage    from './pages/NotificationsPage';
 import TicketsPage          from './pages/TicketsPage';
+import TicketCreatePage     from './pages/TicketCreatePage';
 
 import Footer from './components/Footer';
 
@@ -53,6 +54,7 @@ function RoleRoutes() {
         <Route path="/manager/modules"             element={<AdminModulesPage />} />
         <Route path="/manager/modules/:moduleId"   element={<AdminModuleEditor />} />
         <Route path="/manager/tickets"            element={<TicketsPage />} />
+        <Route path="/manager/tickets/new"        element={<TicketCreatePage />} />
         <Route path="/admin/*"                     element={<Navigate to="/manager" replace />} />
         <Route path="*"                            element={<Navigate to="/manager" replace />} />
       </Routes>
@@ -69,6 +71,7 @@ function RoleRoutes() {
         <Route path="/admin/prerequis"             element={<PrerequisAdminPage />} />
         <Route path="/admin/notifications"         element={<NotificationsPage />} />
         <Route path="/admin/tickets"               element={<TicketsPage />} />
+        <Route path="/admin/tickets/new"           element={<TicketCreatePage />} />
         <Route path="/admin/create"                element={<RegisterUserPage />} />
 
         <Route path="/"   element={<Navigate to="/admin" replace />} />
@@ -84,6 +87,7 @@ function RoleRoutes() {
       <Route path="/modules/:moduleId"  element={<ModulePage />} />
       <Route path="/favoris"            element={<FavoritesPage />} />
       <Route path="/tickets"            element={<TicketsPage />} />
+      <Route path="/tickets/new"        element={<TicketCreatePage />} />
       <Route path="*"                   element={<Navigate to="/" replace />} />
     </Routes>
   );

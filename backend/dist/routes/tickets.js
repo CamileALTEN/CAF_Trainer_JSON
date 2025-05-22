@@ -12,7 +12,7 @@ router.get('/', (_req, res) => {
     res.json(load());
 });
 router.post('/', (req, res) => {
-    const { username, target, title, message } = req.body;
+    const { username, target, title, message, category, priority, attachment } = req.body;
     if (!username || !target || !title || !message)
         return res.status(400).json({ error: 'Données manquantes' });
     const users = (0, dataStore_1.read)('users');
@@ -22,10 +22,14 @@ router.post('/', (req, res) => {
         username,
         managerId: author?.managerId,
         target: target,
+        category,
+        priority: priority || 'normal',
+        attachment,
         title,
         message,
         status: 'open',
         date: new Date().toISOString(),
+        replies: [],
     };
     const list = load();
     list.push(ticket);
@@ -44,27 +48,61 @@ router.post('/', (req, res) => {
     (0, notifier_1.notify)({
         username,
         category: 'ticket',
-        message: `Nouveau ticket: ${title}`,
+        message: `Nouveau ticket de ${username} intitulé "${title}" :       ${message}.`,
         to,
     }).catch(err => console.error('[TICKET]', err.message));
     res.status(201).json(ticket);
 });
+router.post('/:id/reply', (req, res) => {
+    const { author, role, message } = req.body;
+    if (!author || !role || !message)
+        return res.status(400).json({ error: 'Données manquantes' });
+    const list = load();
+    const ticket = list.find(t => t.id === req.params.id);
+    if (!ticket)
+        return res.status(404).json({ error: 'Introuvable' });
+    const reply = { author, role, message, date: new Date().toISOString() };
+    ticket.replies.push(reply);
+    save(list);
+    const to = mailRx.test(ticket.username) ? [ticket.username] : [];
+    (0, notifier_1.notify)({
+        username: author,
+        category: 'ticket',
+        message: `Nouvelle réponse au ticket "${ticket.title}"`,
+        to,
+    }).catch(err => console.error('[TICKET]', err.message));
+    res.status(201).json(reply);
+});
 router.patch('/:id', (req, res) => {
-    const { status } = req.body;
-    if (!status)
-        return res.status(400).json({ error: 'Statut manquant' });
+    const { status, title, message, category, priority, attachment } = req.body;
+    if (!status && !title && !message && !category && !priority && attachment === undefined)
+        return res.status(400).json({ error: 'Aucune donnée à mettre à jour' });
     const list = load();
     const idx = list.findIndex(t => t.id === req.params.id);
     if (idx === -1)
         return res.status(404).json({ error: 'Introuvable' });
-    list[idx].status = status;
-    save(list);
     const ticket = list[idx];
+    if (status)
+        ticket.status = status;
+    if (title !== undefined)
+        ticket.title = title;
+    if (message !== undefined)
+        ticket.message = message;
+    if (category !== undefined)
+        ticket.category = category;
+    if (priority)
+        ticket.priority = priority;
+    if (attachment !== undefined)
+        ticket.attachment = attachment;
+    save(list);
+    const msg = status
+        ? `Mise à jour du ticket "${ticket.title}" : ${status}`
+        : `Modification du ticket "${ticket.title}"`;
     const to = mailRx.test(ticket.username) ? [ticket.username] : [];
     (0, notifier_1.notify)({
         username: ticket.username,
         category: 'ticket',
-        message: `Mise à jour du ticket "${ticket.title}" : ${status}`,
+        message: msg,
         to,
     }).catch(err => console.error('[TICKET]', err.message));
     res.json(ticket);
