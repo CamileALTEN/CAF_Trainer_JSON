@@ -1,6 +1,6 @@
              /* client/src/components/ModuleEditor.tsx
                 ─────────────────────────────────────── */
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import AdvancedEditor                  from './AdvancedEditor';
       
 import {
@@ -50,13 +50,17 @@ const mapItems = (arr: IItem[], fn: (x: IItem) => IItem): IItem[] =>
       
                 /* ═════════════════════════ COMPONENT ════════════════════════════════ */
       
+export interface ModuleEditorHandle { save: () => void; }
+
 interface Props {
   module:   IModule;
   onChange: (m: IModule) => void;
   onDirtyChange?: (dirty: boolean) => void;
+  hideSaveButton?: boolean;
 }
-      
-export default function ModuleEditor({ module, onChange, onDirtyChange }: Props) {
+
+const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
+({ module, onChange, onDirtyChange, hideSaveButton }, ref) => {
                   /* état local --------------------------------------------- */
   const [edit, setEdit] = useState<IModule>(() => ({
     ...module,
@@ -177,6 +181,7 @@ export default function ModuleEditor({ module, onChange, onDirtyChange }: Props)
       
                   /* push au parent ----------------------------------------- */
                   const save = () => onChange(edit);
+                  useImperativeHandle(ref, () => ({ save }));
       
                   /* rendu récursif de l’arbre ------------------------------ */
                   const renderTree = (branch: IItem[]) => (
@@ -445,11 +450,17 @@ export default function ModuleEditor({ module, onChange, onDirtyChange }: Props)
                           <p>Sélectionnez un item dans l’arborescence…</p>
                         )}
       
-                        <hr style={{ margin: '10px 0' }} />
-                        <button className="primary" onClick={save} style = {{margin : '2px auto 60px 0px'}}>
-                          💾 Sauvegarder tout le module
-                        </button>
+                        {!hideSaveButton && (
+                          <>
+                            <hr style={{ margin: '10px 0' }} />
+                            <button className="primary" onClick={save} style={{ margin:'2px auto 60px 0px' }}>
+                              💾 Sauvegarder tout le module
+                            </button>
+                          </>
+                        )}
                       </main>
                     </div>
                   );
-                }
+                });
+
+export default ModuleEditor;

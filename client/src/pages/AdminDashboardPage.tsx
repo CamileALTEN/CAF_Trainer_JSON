@@ -49,8 +49,8 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
      };
 
      const editUser = async (u: IUser) => {
-       const username = prompt('Email (prenom.nom@alten.com) :', u.username) ?? u.username;
-       if (!/^[a-z]+.[a-z][+@alten.com]$/i.test(username)) return alert('Email invalide');
+      const username = prompt('Email (prenom.nom@alten.com) :', u.username) ?? u.username;
+      if (!/^[a-z]+\.[a-z]+@alten\.com$/i.test(username)) return alert('Email invalide');
 
        const role = prompt('Rôle (admin|manager|caf) :', u.role) ?? u.role;
        const site = role === 'caf'

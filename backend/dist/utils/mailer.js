@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendMail = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
 /* ---------- variables d’env. ---------- */
-const { MAIL_USER = '', // ex. [services@conforea.fr](mailto:services@conforea.fr)
+const { MAIL_USER = '', // ex. services@conforea.fr
 MAIL_PASS = '', // ex. Test2025!
 MAIL_HOST = 'ns0.ovh.net', // hôte SMTP OVH
  } = process.env;

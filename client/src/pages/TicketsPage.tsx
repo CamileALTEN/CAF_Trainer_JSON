@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { ITicket, TicketStatus } from '../api/tickets';
 
 export default function TicketsPage() {
   const { user } = useAuth();
   const [tickets, setTickets] = useState<ITicket[]>([]);
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [target, setTarget] = useState<'admin' | 'manager' | 'both'>('manager');
@@ -48,6 +50,7 @@ export default function TicketsPage() {
 
   return (
     <Wrapper>
+      <button className="btn-back" onClick={() => navigate(-1)}>← Retour</button>
       <h2>Tickets</h2>
       {user?.role === 'caf' && (
         <form className="new-ticket" onSubmit={submit}>
@@ -99,6 +102,9 @@ const Wrapper = styled.div`
   padding: 1rem;
   max-width: 800px;
   margin: auto;
+
+  .btn-back{background:none;border:none;color:#043962;font-size:1rem;cursor:pointer;padding:6px 8px;border-radius:4px;transition:background .15s;}
+  .btn-back:hover{background:#e9f2ff;}
 
   .new-ticket input,
   .new-ticket textarea,

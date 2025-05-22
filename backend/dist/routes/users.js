@@ -9,7 +9,7 @@ const dataStore_1 = require("../config/dataStore");
 const router = (0, express_1.Router)();
 const TABLE = 'users';
 const hash = (pwd) => bcrypt_1.default.hashSync(pwd, 8);
-const mailRx = /^[a-z]+.[a-z][+@alten.com]$/i;
+const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 /* ───────────── GET liste complète ───────────── */
 router.get('/', (_req, res) => {
     const { managerId } = _req.query;
