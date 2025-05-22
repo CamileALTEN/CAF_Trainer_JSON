@@ -39,7 +39,17 @@ export async function createTicket(data: Omit<ITicket, 'id' | 'status' | 'date' 
   return res.json();
 }
 
-export async function updateTicket(id: string, data: { status?: TicketStatus; archived?: boolean }): Promise<ITicket> {
+export async function updateTicket(
+  id: string,
+  data: {
+    status?: TicketStatus;
+    archived?: boolean;
+    title?: string;
+    message?: string;
+    category?: string;
+    priority?: TicketPriority;
+  }
+): Promise<ITicket> {
   const res = await fetch(`/api/tickets/${id}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },

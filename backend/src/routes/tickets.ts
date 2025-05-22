@@ -106,11 +106,25 @@ router.get('/:id/export', (req, res) => {
 });
 
 router.patch('/:id', (req, res) => {
-  const { status, archived } = req.body as {
+  const {
+    status,
+    archived,
+    title,
+    message,
+    category,
+    priority,
+  } = req.body as Partial<ITicket> & {
     status?: TicketStatus;
     archived?: boolean;
   };
-  if (status === undefined && archived === undefined)
+  if (
+    status === undefined &&
+    archived === undefined &&
+    title === undefined &&
+    message === undefined &&
+    category === undefined &&
+    priority === undefined
+  )
     return res.status(400).json({ error: 'Données manquantes' });
 
   const list = load();
@@ -119,6 +133,10 @@ router.patch('/:id', (req, res) => {
 
   if (status !== undefined) list[idx].status = status;
   if (archived !== undefined) list[idx].archived = archived;
+  if (title !== undefined) list[idx].title = title;
+  if (message !== undefined) list[idx].message = message;
+  if (category !== undefined) list[idx].category = category;
+  if (priority !== undefined) list[idx].priority = priority as TicketPriority;
   save(list);
   const ticket = list[idx];
   const to: string[] = mailRx.test(ticket.username) ? [ticket.username] : [];
