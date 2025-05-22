@@ -36,6 +36,18 @@
                               ⭐ Favoris
                             </Link>
                           )}
+                          <Link
+                            className="header-favs"
+                            to={
+                              user.role === 'admin'
+                                ? '/admin/tickets'
+                                : user.role === 'manager'
+                                ? '/manager/tickets'
+                                : '/tickets'
+                            }
+                          >
+                            📋 Tickets
+                          </Link>
       
                           <span className="header-user">{user.username}</span>
                           <button

@@ -12,6 +12,7 @@ import usersRouter from './routes/users';
 import modulesRouter from './routes/modules';
 import notifsRouter from './routes/notifications';
 import progressRouter from './routes/progress';
+import ticketsRouter from './routes/tickets';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,6 +25,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/modules', modulesRouter);
 app.use('/api/notifications', notifsRouter);
 app.use('/api/progress', progressRouter);
+app.use('/api/tickets', ticketsRouter);
 
 app.get('/', (_req, res) => {
 res.send('🚀 Backend TS démarré !');
