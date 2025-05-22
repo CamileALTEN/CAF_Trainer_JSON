@@ -86,7 +86,12 @@
                  <h2 className="module-title">{m.title}</h2>
 
                  {/* résumé / description si présent */}
-                 {m.summary && <p className="summary">{m.summary}</p>}
+                 {m.summary && (
+                   <p
+                     className="summary"
+                     dangerouslySetInnerHTML={{ __html: m.summary }}
+                   />
+                 )}
 
                  {/* ───────── barre du module ───────── */}
                  <div className="module-progress.progress">
