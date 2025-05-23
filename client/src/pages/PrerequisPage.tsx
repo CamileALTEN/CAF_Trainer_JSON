@@ -38,12 +38,6 @@ import { ItemStatus, updateItemStatus, sendHelpRequest } from '../api/userProgre
      }, []);
 
      /* ---------- helpers ---------- */
-     const toggleVisited = (id: string) =>
-       setVisited((prev) => {
-         const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-         localStorage.setItem(`visited_${MODULE_ID}`, JSON.stringify(next));
-         return next;
-       });
 
     const toggleFav = (id: string) =>
       setFavs((prev) => {
@@ -85,7 +79,7 @@ import { ItemStatus, updateItemStatus, sendHelpRequest } from '../api/userProgre
 
          <main className="content-area">
            <ProgressBar
-             current={visitedIds.length}
+             current={Object.values(statuses).filter(s => s === 'terminé' || s === 'validé').length}
              total={flatten(mod.items).length}
            />
 
@@ -100,8 +94,6 @@ import { ItemStatus, updateItemStatus, sendHelpRequest } from '../api/userProgre
                videos={item.videos}
               requiresValidation={item.requiresValidation}
               validationMode={item.validationMode}
-              isVisited={visitedIds.includes(item.id)}
-              onToggleVisited={() => toggleVisited(item.id)}
               isFav={favs.includes(item.id)}
               onToggleFav={() => toggleFav(item.id)}
               status={statuses[item.id] ?? 'non_commencé'}
