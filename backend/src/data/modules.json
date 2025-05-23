@@ -249,11 +249,15 @@
             "id": "1fef12c5-1512-4be2-81a8-ba21dd036931",
             "title": "Outil Alten :  VISION & SMART",
             "subtitle": "",
-            "content": "<h1>VISION</h1><p><br></p><p>VISION est un outil interne ALTEN qui permet à l'entreprise de suivre ton activité.</p><p>Cette outil est indispensable dans ton quotidien. Tu as accès à :</p><ul><li>la saisie du CRA \"Compte Rendu d'Activité\" (à faire au moins une fois par semaine) ;</li><li>La saisie d'une demande d'absence ;</li><li>La saisie d'une note de frais.</li></ul><p><br></p><p><br></p><h1>SMART</h1><p><br></p><p>abc</p>",
+            "content": "<h1>VISION</h1><p><br></p><p>VISION est un outil interne ALTEN qui permet à l'entreprise de <strong>suivre ton activité</strong>.</p><p>Cette outil est indispensable dans ton quotidien. Tu as accès à :</p><ul><li>la saisie du CRA \"Compte Rendu d'Activité\" (à faire au moins une fois par semaine) ;</li><li>La saisie d'une demande d'absence ;</li><li>La saisie d'une note de frais.</li></ul><p><br></p><p>Tu peux réaliser le e-learning ci-dessous pour apprendre à utiliser l'outil.</p><p><br></p><h1>SMART</h1><p><br></p><p>SMART est un outil de <strong>gestion de projet </strong>pour saisir les temps de travail. Il est impératif de les remplir <strong>avant la fin du mois</strong>.</p><p><br></p><p>Tu peux réaliser le e-learning ci-dessous pour apprendre à utiliser l'outil :</p><ul><li>Accéder à l'outil ;</li><li>Régler tes préférences ;</li><li>La feuille de temps ;</li><li>Saisi des temps.</li></ul>",
             "links": [
               {
                 "label": "E-learning VISION ",
                 "url": "https://visionportal-learning-fr.altengroup.com/#/"
+              },
+              {
+                "label": "E-learning SMART",
+                "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/161"
               }
             ],
             "images": [
