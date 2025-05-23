@@ -1,43 +1,65 @@
-             import { Router } from 'express';
-             import { read, write } from '../config/dataStore';
-             import { IProgress }  from '../models/IProgress';
-             import { IUser }      from '../models/IUser';
-      
-             const router = Router();
-             const TABLE  = 'progress';
-      
-             /* GET /api/progress/:username   – lecture complète d’un CAF */
-             router.get('/:username', (req, res) => {
-               const rows = read<IProgress>(TABLE).filter(p => p.username === req.params.username);
-               res.json(rows);
-             });
-      
-             /* PATCH /api/progress   body:{ username,moduleId,visited } – MAJ 1 module */
-             router.patch('/', (req, res) => {
-               const { username, moduleId, visited } = req.body as IProgress;
-               if (!username || !moduleId) return res.status(400).json({error:'Données manquantes'});
-      
-               const list = read<IProgress>(TABLE);
-               const idx  = list.findIndex(p => p.username===username && p.moduleId===moduleId);
-      
-               if (idx === -1) list.push({ username, moduleId, visited });
-               else            list[idx].visited = visited;
-      
-               write(TABLE, list);
-               res.json({ ok:true });
-             });
-      
-             /* GET /api/progress?managerId=… – progression de tous les CAF d’un manager */
-             router.get('/', (req, res) => {
-               const { managerId } = req.query as { managerId?: string };
-               const rows = read<IProgress>(TABLE);
-               const users= read<IUser>('users');
-      
-               if (managerId) {
-                 const cafIds = users.filter(u=>u.managerId===managerId).map(u=>u.username);
-                 return res.json(rows.filter(r=>cafIds.includes(r.username)));
-               }
-               res.json(rows);
-             });
-      
-             export default router;
+import { Router } from 'express';
+import { read } from '../config/dataStore';
+import { IProgress } from '../models/IProgress';
+import { IUser } from '../models/IUser';
+import { IUserProgress } from '../models/IUserProgress';
+import { IModule, IItem } from '../models/IModule';
+
+const router = Router();
+const PROGRESS = 'userProgress';
+const MODULES = 'modules';
+
+function mapItemsToModules(modules: IModule[]): Map<string, string> {
+  const map = new Map<string, string>();
+  const walk = (items: IItem[], moduleId: string) => {
+    items.forEach(it => {
+      map.set(it.id, moduleId);
+      if (it.children) walk(it.children, moduleId);
+    });
+  };
+  modules.forEach(m => walk(m.items, m.id));
+  return map;
+}
+
+function buildProgress(userId: string, username: string): IProgress[] {
+  const modules = read<IModule>(MODULES);
+  const map = mapItemsToModules(modules);
+  const list = read<IUserProgress>(PROGRESS).filter(p => p.userId === userId);
+  const grouped: Record<string, string[]> = {};
+  list.forEach(p => {
+    const mId = map.get(p.itemId);
+    if (!mId) return;
+    if (p.status === 'non_commencé') return;
+    if (!grouped[mId]) grouped[mId] = [];
+    grouped[mId].push(p.itemId);
+  });
+  return Object.entries(grouped).map(([moduleId, visited]) => ({
+    username,
+    moduleId,
+    visited,
+  }));
+}
+
+// GET /api/progress/:username – progression d'un CAF
+router.get('/:username', (req, res) => {
+  const users = read<IUser>('users');
+  const user = users.find(u => u.username === req.params.username);
+  if (!user) return res.status(404).json({ error: 'Utilisateur inconnu' });
+  res.json(buildProgress(user.id, user.username));
+});
+
+// GET /api/progress?managerId=… – progression de tous les CAF d'un manager
+router.get('/', (req, res) => {
+  const { managerId } = req.query as { managerId?: string };
+  const users = read<IUser>('users');
+  const targets = managerId
+    ? users.filter(u => u.managerId === managerId)
+    : users.filter(u => u.role === 'caf');
+  const result: IProgress[] = [];
+  targets.forEach(u => {
+    result.push(...buildProgress(u.id, u.username));
+  });
+  res.json(result);
+});
+
+export default router;
