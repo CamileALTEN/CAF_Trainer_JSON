@@ -63,9 +63,9 @@ import { ItemStatus, updateItemStatus, sendHelpRequest } from '../api/userProgre
       });
     };
 
-    const sendHelp = async (msg: string) => {
+    const sendHelp = async (msg: string, email?: string) => {
       if (!helpItemId || !user) return;
-      await sendHelpRequest(user.id, helpItemId, msg).catch(console.error);
+      await sendHelpRequest(user.id, helpItemId, msg, email).catch(console.error);
       changeStatus(helpItemId, 'besoin_aide');
       setHelpItemId(null);
     };
