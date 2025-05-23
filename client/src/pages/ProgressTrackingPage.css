@@ -1,6 +1,6 @@
 .validations-page{padding:1rem;max-width:900px;margin:auto;}
 .tabs{display:flex;gap:1rem;margin-bottom:1rem;}
-.tabs button{background:none;border:1px solid #ccc;padding:.5rem 1rem;cursor:pointer;}
+.tabs button{background:#008cd25b;border:1px solid #ccc;padding:.5rem 1rem;cursor:pointer;}
 .tabs button.active{background:#008bd2;color:#fff;}
 .list{width:100%;border-collapse:collapse;}
 .list th,.list td{border-bottom:1px solid #ddd;padding:.5rem;}
