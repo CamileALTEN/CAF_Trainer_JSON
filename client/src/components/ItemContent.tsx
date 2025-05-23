@@ -6,6 +6,7 @@ import FavoriteButton from './FavoriteButton';
 import Quiz from './Quiz';
 import './ItemContent.css';
 import { IImage, ILink, IQuiz } from '../api/modules';
+import { ItemStatus } from '../api/userProgress';
       
 export interface ItemContentProps {
   /* ─── contenu ─── */
@@ -19,6 +20,11 @@ export interface ItemContentProps {
   quiz?:       IQuiz;
   quizPassed?: boolean;
   onQuizPassed?: () => void;
+
+  /* ─── statut ─── */
+  status: ItemStatus;
+  onStatusChange: (st: ItemStatus) => void;
+  onHelpRequest: () => void;
       
                   /* ─── progression ─── */
                   isVisited:        boolean;
@@ -37,7 +43,18 @@ export interface ItemContentProps {
     quiz, quizPassed, onQuizPassed,
     isVisited, onToggleVisited,
     isFav,     onToggleFav,
+    status, onStatusChange, onHelpRequest,
   } = props;
+
+  const icons: Record<ItemStatus, string> = {
+    non_commencé: '▶️',
+    en_cours: '🕓',
+    besoin_aide: '🆘',
+    terminé: '🎉',
+    soumis_validation: '📤',
+    en_attente: '⏱️',
+    validé: '✅',
+  };
       
                   return (
                     <div className="item-content">
@@ -61,6 +78,7 @@ export interface ItemContentProps {
       
                           {/* étoile favoris */}
                           <FavoriteButton isFav={isFav} onClick={onToggleFav} />
+                          <span>{icons[status]}</span>
                         </div>
                       </div>
       
@@ -119,6 +137,21 @@ export interface ItemContentProps {
                       {quiz && quiz.enabled && (
                         <Quiz quiz={quiz} onSuccess={onQuizPassed ?? (()=>{})} passed={quizPassed ?? false} />
                       )}
+
+                      {/* -------- actions statut -------- */}
+                      <div style={{ marginTop: 16 }}>
+                        {status === 'non_commencé' && (
+                          <button onClick={() => onStatusChange('en_cours')}>▶️ Démarrer</button>
+                        )}
+                        {status === 'en_cours' && (
+                          <>
+                            <button onClick={() => onStatusChange(quiz ? 'soumis_validation' : 'terminé')}>
+                              {quiz ? '📤 Soumettre' : '✅ Terminer'}
+                            </button>
+                            <button onClick={onHelpRequest} style={{ marginLeft: 8 }}>🆘 Besoin d'aide</button>
+                          </>
+                        )}
+                      </div>
                     </div>
                   );
                 }

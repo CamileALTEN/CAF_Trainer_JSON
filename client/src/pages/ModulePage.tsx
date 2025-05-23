@@ -12,8 +12,10 @@ import SidebarMenu     from '../components/SidebarMenu';
 import ItemContent     from '../components/ItemContent';
 import ProgressBar     from '../components/ProgressBar';
 import Loader          from '../components/Loader';
+import AdvancedHelpEditor from '../components/AdvancedHelpEditor';
 
 import { getModule, IItem, IModule, IQuiz } from '../api/modules';
+import { ItemStatus, updateItemStatus, sendHelpRequest } from '../api/userProgress';
 import { flatten }     from '../utils/items';
 import { useAuth }     from '../context/AuthContext';
 import './ModulePage.css';
@@ -48,6 +50,8 @@ export default function ModulePage() {
   const [busy,     setBusy] = useState(true);
   const [open,     setOpen] = useState(false);
   const [quizPassed, setQuizPassed] = useState<Record<string, boolean>>({});
+  const [statuses, setStatuses] = useState<Record<string, ItemStatus>>({});
+  const [helpItemId, setHelpItemId] = useState<string | null>(null);
 
   /* ---------------- favoris ---------------- */
   const favKey = `favs_${username}`;
@@ -85,10 +89,15 @@ export default function ModulePage() {
         setSel(filtered[0]?.id ?? '');
         setVis(JSON.parse(localStorage.getItem(`visited_${moduleId}`) ?? '[]'));
         setQuizPassed(JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}'));
+        if (user?.id) {
+          setStatuses(
+            JSON.parse(localStorage.getItem(`status_${moduleId}_${user.id}`) ?? '{}')
+          );
+        }
       })
       .catch(() => navigate('/'))
       .finally(() => setTimeout(() => setBusy(false), 450)); // petit délai pour le loader
-  }, [moduleId, site, navigate]);
+  }, [moduleId, site, navigate, user]);
 
   /* ---------------- indexation rapide ---------------- */
   const find = useMemo(() => {
@@ -136,6 +145,24 @@ export default function ModulePage() {
       localStorage.setItem(`quiz_${moduleId}`, JSON.stringify(next));
       return next;
     });
+  };
+
+  const changeStatus = (id: string, st: ItemStatus) => {
+    setStatuses(prev => {
+      const next = { ...prev, [id]: st };
+      if (moduleId && user?.id) {
+        localStorage.setItem(`status_${moduleId}_${user.id}`, JSON.stringify(next));
+        updateItemStatus(user.id, id, st).catch(console.error);
+      }
+      return next;
+    });
+  };
+
+  const sendHelp = async (msg: string) => {
+    if (!helpItemId || !user) return;
+    await sendHelpRequest(user.id, helpItemId, msg).catch(console.error);
+    changeStatus(helpItemId, 'besoin_aide');
+    setHelpItemId(null);
   };
 
   /* ---------------- états spéciaux ---------------- */
@@ -214,6 +241,9 @@ export default function ModulePage() {
           onToggleVisited={() => toggleVisited(item.id)}
           isFav={favs.includes(item.id)}
           onToggleFav={() => toggleFav(item.id)}
+          status={statuses[item.id] ?? 'non_commencé'}
+          onStatusChange={st => changeStatus(item.id, st)}
+          onHelpRequest={() => setHelpItemId(item.id)}
         />
       </main>
 
@@ -229,6 +259,12 @@ export default function ModulePage() {
       {nextId && (
         <button className="nav-arrow next" onClick={() => setSel(nextId)} title="Suivant">→</button>
       )}
+
+      <AdvancedHelpEditor
+        open={helpItemId !== null}
+        onClose={() => setHelpItemId(null)}
+        onSubmit={sendHelp}
+      />
     </div>
   );
 }

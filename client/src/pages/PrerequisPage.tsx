@@ -1,11 +1,13 @@
 /* client/src/pages/PrerequisPage.tsx
    ────────────────────────────────── */
-   import React, { useEffect, useState } from 'react';
-   import SidebarMenu    from '../components/SidebarMenu';
-   import ItemContent    from '../components/ItemContent';
-   import ProgressBar    from '../components/ProgressBar';
+import React, { useEffect, useState } from 'react';
+import SidebarMenu    from '../components/SidebarMenu';
+import ItemContent    from '../components/ItemContent';
+import ProgressBar    from '../components/ProgressBar';
+import AdvancedHelpEditor from '../components/AdvancedHelpEditor';
    import { flatten, findById } from '../utils/items';
-   import { getModule, IItem, IModule } from '../api/modules';
+import { getModule, IItem, IModule } from '../api/modules';
+import { ItemStatus, updateItemStatus, sendHelpRequest } from '../api/userProgress';
    import { useAuth }     from '../context/AuthContext';
    import './PrerequisPage.css';
 
@@ -19,9 +21,13 @@
      const [visitedIds, setVisited] = useState<string[]>(
        () => JSON.parse(localStorage.getItem(`visited_${MODULE_ID}`) ?? '[]'),
      );
-     const [favs, setFavs] = useState<string[]>(
-       () => JSON.parse(localStorage.getItem(favKey) ?? '[]'),
-     );
+    const [favs, setFavs] = useState<string[]>(
+      () => JSON.parse(localStorage.getItem(favKey) ?? '[]'),
+    );
+    const [statuses, setStatuses] = useState<Record<string, ItemStatus>>(() =>
+      JSON.parse(localStorage.getItem(`status_${MODULE_ID}_${user?.id}`) ?? '{}')
+    );
+    const [helpItemId, setHelpItemId] = useState<string | null>(null);
 
      /* ---------- chargement module ---------- */
      useEffect(() => {
@@ -39,12 +45,30 @@
          return next;
        });
 
-     const toggleFav = (id: string) =>
-       setFavs((prev) => {
-         const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-         localStorage.setItem(favKey, JSON.stringify(next));
-         return next;
-       });
+    const toggleFav = (id: string) =>
+      setFavs((prev) => {
+        const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
+        localStorage.setItem(favKey, JSON.stringify(next));
+        return next;
+      });
+
+    const changeStatus = (id: string, st: ItemStatus) => {
+      setStatuses(prev => {
+        const next = { ...prev, [id]: st };
+        if (user?.id) {
+          localStorage.setItem(`status_${MODULE_ID}_${user.id}`, JSON.stringify(next));
+          updateItemStatus(user.id, id, st).catch(console.error);
+        }
+        return next;
+      });
+    };
+
+    const sendHelp = async (msg: string) => {
+      if (!helpItemId || !user) return;
+      await sendHelpRequest(user.id, helpItemId, msg).catch(console.error);
+      changeStatus(helpItemId, 'besoin_aide');
+      setHelpItemId(null);
+    };
 
      /* ---------- rendu ---------- */
      if (!mod) return <p>Chargement…</p>;
@@ -74,13 +98,21 @@
               links={item.links}
 
                videos={item.videos}
-               isVisited={visitedIds.includes(item.id)}
-               onToggleVisited={() => toggleVisited(item.id)}
-               isFav={favs.includes(item.id)}
-               onToggleFav={() => toggleFav(item.id)}
-             />
-           )}
-         </main>
-       </div>
-     );
-   }
+              isVisited={visitedIds.includes(item.id)}
+              onToggleVisited={() => toggleVisited(item.id)}
+              isFav={favs.includes(item.id)}
+              onToggleFav={() => toggleFav(item.id)}
+              status={statuses[item.id] ?? 'non_commencé'}
+              onStatusChange={st => changeStatus(item.id, st)}
+              onHelpRequest={() => setHelpItemId(item.id)}
+            />
+          )}
+        </main>
+        <AdvancedHelpEditor
+          open={helpItemId !== null}
+          onClose={() => setHelpItemId(null)}
+          onSubmit={sendHelp}
+        />
+      </div>
+    );
+  }
