@@ -1,11 +1,13 @@
              /* client/src/components/ItemContent.tsx
                 ───────────────────────────────────── */
       
-import React from 'react';
+import React, { useState } from 'react';
 import FavoriteButton from './FavoriteButton';
 import Quiz from './Quiz';
+import StatusBadge from './StatusBadge';
+import AdvancedEditor from './AdvancedEditor';
 import './ItemContent.css';
-import { IImage, ILink, IQuiz } from '../api/modules';
+import { IImage, ILink, IQuiz, ItemStatus } from '../api/modules';
       
 export interface ItemContentProps {
   /* ─── contenu ─── */
@@ -19,6 +21,15 @@ export interface ItemContentProps {
   quiz?:       IQuiz;
   quizPassed?: boolean;
   onQuizPassed?: () => void;
+
+  status?:      ItemStatus;
+  onStatusChange?: (s: ItemStatus) => void;
+
+  moduleId: string;
+  itemId: string;
+  username?: string;
+  validationRequired?: boolean;
+  validationType?: 'automatic' | 'manual';
       
                   /* ─── progression ─── */
                   isVisited:        boolean;
@@ -35,9 +46,18 @@ export interface ItemContentProps {
   const {
     title, subtitle, description, links = [], images, videos,
     quiz, quizPassed, onQuizPassed,
+    status = 'not_started', onStatusChange,
     isVisited, onToggleVisited,
     isFav,     onToggleFav,
+    moduleId, itemId, username,
+    validationRequired = false,
+    validationType = 'automatic',
   } = props;
+
+  const [helpOpen, setHelpOpen] = useState(false);
+  const [helpNotify, setHelpNotify] = useState(true);
+  const [helpEmail, setHelpEmail] = useState('');
+  const [helpMsg, setHelpMsg] = useState('');
       
                   return (
                     <div className="item-content">
@@ -47,13 +67,30 @@ export interface ItemContentProps {
           <h1>{title}</h1>
           {subtitle ? <h3>{subtitle}</h3> : null}
         </div>
+        <StatusBadge status={status} />
       
                         <div className="item-actions">
                           {/* coche “vu” */}
                           <button
                             type="button"
                             className="check-button"
-                            onClick={onToggleVisited}
+                            onClick={() => {
+                              onToggleVisited();
+                              if (isVisited) {
+                                onStatusChange?.('not_started');
+                              } else if (validationRequired && validationType === 'manual') {
+                                onStatusChange?.('to_validate');
+                                fetch('/api/validations', {
+                                  method: 'POST',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify({ username, moduleId, itemId, itemTitle: title }),
+                                }).catch(console.error);
+                              } else if (quiz && quiz.enabled) {
+                                onStatusChange?.(quizPassed ? 'validated' : 'to_validate');
+                              } else {
+                                onStatusChange?.('auto_done');
+                              }
+                            }}
                             aria-label={isVisited ? 'Marquer non visité' : 'Marquer visité'}
                           >
                             {isVisited ? '✅' : '⭕'}
@@ -61,6 +98,10 @@ export interface ItemContentProps {
       
                           {/* étoile favoris */}
                           <FavoriteButton isFav={isFav} onClick={onToggleFav} />
+
+                          {status === 'in_progress' && (
+                            <button onClick={() => setHelpOpen(true)}>❗ Besoin d'aide</button>
+                          )}
                         </div>
                       </div>
       
@@ -118,6 +159,48 @@ export interface ItemContentProps {
 
                       {quiz && quiz.enabled && (
                         <Quiz quiz={quiz} onSuccess={onQuizPassed ?? (()=>{})} passed={quizPassed ?? false} />
+                      )}
+
+                      {helpOpen && (
+                        <form
+                          className="help-form"
+                          onSubmit={e => {
+                            e.preventDefault();
+                            fetch('/api/help', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({
+                                username,
+                                moduleId,
+                                itemId,
+                                itemTitle: title,
+                                message: helpMsg,
+                                notifyManager: helpNotify,
+                                email: helpEmail || undefined,
+                              }),
+                            })
+                              .then(() => {
+                                setHelpOpen(false);
+                                setHelpMsg('');
+                                onStatusChange?.('need_help');
+                              })
+                              .catch(console.error);
+                          }}
+                        >
+                          <label className="inline-row">
+                            <input type="checkbox" checked={helpNotify} onChange={e => setHelpNotify(e.target.checked)} />{' '}
+                            Notifier le manager
+                          </label>
+                          <input
+                            type="email"
+                            placeholder="Email tiers"
+                            value={helpEmail}
+                            onChange={e => setHelpEmail(e.target.value)}
+                          />
+                          <AdvancedEditor value={helpMsg} onChange={setHelpMsg} />
+                          <button type="submit">Envoyer</button>{' '}
+                          <button type="button" onClick={() => setHelpOpen(false)}>Annuler</button>
+                        </form>
                       )}
                     </div>
                   );

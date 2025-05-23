@@ -13,7 +13,7 @@ import ItemContent     from '../components/ItemContent';
 import ProgressBar     from '../components/ProgressBar';
 import Loader          from '../components/Loader';
 
-import { getModule, IItem, IModule, IQuiz } from '../api/modules';
+import { getModule, IItem, IModule, IQuiz, ItemStatus } from '../api/modules';
 import { flatten }     from '../utils/items';
 import { useAuth }     from '../context/AuthContext';
 import './ModulePage.css';
@@ -45,6 +45,7 @@ export default function ModulePage() {
   const [items,    setIt]   = useState<IItem[]>([]);
   const [selected, setSel]  = useState('');
   const [visited,  setVis]  = useState<string[]>([]);
+  const [statuses, setStatuses] = useState<Record<string, ItemStatus>>({});
   const [busy,     setBusy] = useState(true);
   const [open,     setOpen] = useState(false);
   const [quizPassed, setQuizPassed] = useState<Record<string, boolean>>({});
@@ -85,6 +86,7 @@ export default function ModulePage() {
         setSel(filtered[0]?.id ?? '');
         setVis(JSON.parse(localStorage.getItem(`visited_${moduleId}`) ?? '[]'));
         setQuizPassed(JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}'));
+        setStatuses(JSON.parse(localStorage.getItem(`status_${moduleId}`) ?? '{}'));
       })
       .catch(() => navigate('/'))
       .finally(() => setTimeout(() => setBusy(false), 450)); // petit délai pour le loader
@@ -119,12 +121,11 @@ export default function ModulePage() {
       const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
       localStorage.setItem(`visited_${moduleId}`, JSON.stringify(next));
 
-      /* push au backend pour suivi manager */
       if (username) {
         fetch('/api/progress', {
-          method:  'PATCH',
+          method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ username, moduleId, visited: next }),
+          body: JSON.stringify({ username, moduleId, visited: next, statuses }),
         }).catch(console.error);
       }
       return next;
@@ -135,6 +136,18 @@ export default function ModulePage() {
       const next = { ...prev, [id]: true };
       localStorage.setItem(`quiz_${moduleId}`, JSON.stringify(next));
       return next;
+    });
+    setStatuses(s => {
+      const ns = { ...s, [id]: 'validated' };
+      localStorage.setItem(`status_${moduleId}`, JSON.stringify(ns));
+      if (username) {
+        fetch('/api/progress', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, moduleId, statuses: ns }),
+        }).catch(console.error);
+      }
+      return ns;
     });
   };
 
@@ -210,6 +223,26 @@ export default function ModulePage() {
           quiz={item.quiz}
           quizPassed={quizPassed[item.id]}
           onQuizPassed={() => markQuizPassed(item.id)}
+          status={statuses[item.id] ?? 'not_started'}
+          moduleId={moduleId}
+          itemId={item.id}
+          username={username}
+          validationRequired={item.validationRequired}
+          validationType={item.validationType}
+          onStatusChange={s => {
+            setStatuses(prev => {
+              const ns = { ...prev, [item.id]: s };
+              localStorage.setItem(`status_${moduleId}`, JSON.stringify(ns));
+              if (username) {
+                fetch('/api/progress', {
+                  method: 'PATCH',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ username, moduleId, statuses: ns }),
+                }).catch(console.error);
+              }
+              return ns;
+            });
+          }}
           isVisited={visited.includes(item.id)}
           onToggleVisited={() => toggleVisited(item.id)}
           isFav={favs.includes(item.id)}

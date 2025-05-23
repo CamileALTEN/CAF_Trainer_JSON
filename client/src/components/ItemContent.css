@@ -56,4 +56,8 @@
                  .item-links ul       { list-style: none; padding: 0; }
                  .item-links li       { margin: 4px 0;   font-size: .92rem; }
                  .item-links a        { color: #008BD2;  text-decoration: none; }
-                 .item-links a:hover  { text-decoration: underline; }
+.item-links a:hover  { text-decoration: underline; }
+
+.help-form { margin-top: 1rem; }
+.help-form input[type="email"] { width: 100%; padding: 4px; margin-bottom: 4px; }
+.help-form button { margin-right: 6px; }

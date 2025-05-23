@@ -14,15 +14,19 @@
       
              /* PATCH /api/progress   body:{ username,moduleId,visited } – MAJ 1 module */
              router.patch('/', (req, res) => {
-               const { username, moduleId, visited } = req.body as IProgress;
+               const { username, moduleId, visited, statuses } = req.body as IProgress;
                if (!username || !moduleId) return res.status(400).json({error:'Données manquantes'});
-      
+
                const list = read<IProgress>(TABLE);
                const idx  = list.findIndex(p => p.username===username && p.moduleId===moduleId);
-      
-               if (idx === -1) list.push({ username, moduleId, visited });
-               else            list[idx].visited = visited;
-      
+
+               if (idx === -1) {
+                 list.push({ username, moduleId, visited: visited ?? [], statuses });
+               } else {
+                 if (visited)  list[idx].visited  = visited;
+                 if (statuses) list[idx].statuses = { ...(list[idx].statuses ?? {}), ...statuses };
+               }
+
                write(TABLE, list);
                res.json({ ok:true });
              });

@@ -33,6 +33,9 @@ videos:    string[];
 
   quiz?: IQuiz;
 
+  validationRequired?: boolean;
+  validationType?: 'automatic' | 'manual';
+
   children?: IItem[];
 }
 

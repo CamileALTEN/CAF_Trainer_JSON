@@ -22,14 +22,16 @@ import {
                   subtitle:  it.subtitle  ?? '',
                   content:   it.content   ?? '',
                   links:     it.links     ?? [],
-                  images:    (it.images   ?? []).map((img: any) =>
+  images:    (it.images   ?? []).map((img: any) =>
                                typeof img === 'string' ? defaultImg({ src: img }) : defaultImg(img)),
-                  videos:    it.videos    ?? [],
-                  profiles:  it.profiles  ?? [],
-                  enabled:   it.enabled   ?? true,
-                  quiz:      it.quiz      ?? { enabled: false, questions: [] },
-                  children:  (it.children ?? []).map(ensureDefaults),
-                });
+  videos:    it.videos    ?? [],
+  profiles:  it.profiles  ?? [],
+  enabled:   it.enabled   ?? true,
+  quiz:      it.quiz      ?? { enabled: false, questions: [] },
+  validationRequired: it.validationRequired ?? false,
+  validationType:     it.validationType     ?? 'automatic',
+  children:  (it.children ?? []).map(ensureDefaults),
+});
       
 // parcours récursif de l'arbre en appliquant fn sur chaque item
 // (prend en compte les éventuelles modifications de `children` retournées
@@ -436,11 +438,33 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                               </div>
                             )}
                           </fieldset>
-      
-                            <label className="inline-row">
-                              <input
-                                type="checkbox"
-                                checked={current.enabled}
+
+                          <label className="inline-row">
+                            <input
+                              type="checkbox"
+                              checked={current.validationRequired ?? false}
+                              onChange={e => patchItem({ validationRequired: e.target.checked })}
+                            />{' '}
+                            Validation requise ?
+                          </label>
+
+                          {current.validationRequired && (
+                            <label>
+                              Type de validation :
+                              <select
+                                value={current.validationType ?? 'automatic'}
+                                onChange={e => patchItem({ validationType: e.target.value as any })}
+                              >
+                                <option value="automatic">✅ Automatique (par quiz)</option>
+                                <option value="manual">🧾 Manuelle (requiert action du manager)</option>
+                              </select>
+                            </label>
+                          )}
+
+                          <label className="inline-row">
+                            <input
+                              type="checkbox"
+                              checked={current.enabled}
                                 onChange={(e) => patchItem({ enabled: e.target.checked })}
                               />{' '}
                               Item actif
