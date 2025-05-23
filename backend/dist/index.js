@@ -16,6 +16,7 @@ const notifications_1 = __importDefault(require("./routes/notifications"));
 const progress_1 = __importDefault(require("./routes/progress"));
 const tickets_1 = __importDefault(require("./routes/tickets"));
 const userProgress_1 = __importDefault(require("./routes/userProgress"));
+const validations_1 = __importDefault(require("./routes/validations"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
 app.use((0, cors_1.default)());
@@ -27,6 +28,7 @@ app.use('/api/notifications', notifications_1.default);
 app.use('/api/progress', progress_1.default);
 app.use('/api/tickets', tickets_1.default);
 app.use('/api/user-progress', userProgress_1.default);
+app.use('/api/validations', validations_1.default);
 app.get('/', (_req, res) => {
     res.send('🚀 Backend TS démarré !');
 });

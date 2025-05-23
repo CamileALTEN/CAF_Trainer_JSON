@@ -14,6 +14,7 @@ import notifsRouter from './routes/notifications';
 import progressRouter from './routes/progress';
 import ticketsRouter from './routes/tickets';
 import userProgressRouter from './routes/userProgress';
+import validationsRouter from './routes/validations';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -28,6 +29,7 @@ app.use('/api/notifications', notifsRouter);
 app.use('/api/progress', progressRouter);
 app.use('/api/tickets', ticketsRouter);
 app.use('/api/user-progress', userProgressRouter);
+app.use('/api/validations', validationsRouter);
 
 app.get('/', (_req, res) => {
 res.send('🚀 Backend TS démarré !');
