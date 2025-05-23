@@ -4,8 +4,9 @@
 import React from 'react';
 import FavoriteButton from './FavoriteButton';
 import Quiz from './Quiz';
+import StatusBadge from './StatusBadge';
 import './ItemContent.css';
-import { IImage, ILink, IQuiz } from '../api/modules';
+import { IImage, ILink, IQuiz, ItemStatus } from '../api/modules';
       
 export interface ItemContentProps {
   /* ─── contenu ─── */
@@ -19,10 +20,15 @@ export interface ItemContentProps {
   quiz?:       IQuiz;
   quizPassed?: boolean;
   onQuizPassed?: () => void;
-      
-                  /* ─── progression ─── */
-                  isVisited:        boolean;
-                  onToggleVisited:  () => void;
+
+  validationRequired?: boolean;
+  validationType?: 'auto' | 'manual';
+  onRequestValidation?: () => void;
+  onRequestHelp?: () => void;
+
+  /* ─── progression ─── */
+  status:          ItemStatus;
+  onStatusChange:  (s: ItemStatus) => void;
       
                   /* ─── favoris ─── */
                   isFav:       boolean;
@@ -35,9 +41,13 @@ export interface ItemContentProps {
   const {
     title, subtitle, description, links = [], images, videos,
     quiz, quizPassed, onQuizPassed,
-    isVisited, onToggleVisited,
-    isFav,     onToggleFav,
+    validationRequired, validationType,
+    onRequestValidation, onRequestHelp,
+    status, onStatusChange,
+    isFav, onToggleFav,
   } = props;
+
+  const done = status === 'validated' || status === 'auto_done';
       
                   return (
                     <div className="item-content">
@@ -48,20 +58,30 @@ export interface ItemContentProps {
           {subtitle ? <h3>{subtitle}</h3> : null}
         </div>
       
-                        <div className="item-actions">
-                          {/* coche “vu” */}
-                          <button
-                            type="button"
-                            className="check-button"
-                            onClick={onToggleVisited}
-                            aria-label={isVisited ? 'Marquer non visité' : 'Marquer visité'}
-                          >
-                            {isVisited ? '✅' : '⭕'}
-                          </button>
-      
-                          {/* étoile favoris */}
-                          <FavoriteButton isFav={isFav} onClick={onToggleFav} />
-                        </div>
+        <div className="item-actions">
+          <StatusBadge status={status} />
+          <FavoriteButton isFav={isFav} onClick={onToggleFav} />
+        </div>
+
+        <div className="item-buttons">
+          {status === 'not_started' && (
+            <button onClick={() => onStatusChange('in_progress')}>Démarrer</button>
+          )}
+          {status === 'in_progress' && (
+            <>
+              {!validationRequired && (
+                <button onClick={() => onStatusChange('auto_done')}>
+                  Marquer comme terminé
+                </button>
+              )}
+              {validationRequired && validationType === 'manual' && (
+                <button onClick={onRequestValidation}>Soumettre à validation</button>
+              )}
+              <button onClick={onRequestHelp}>❗ Besoin d'aide</button>
+            </>
+          )}
+          {status === 'to_validate' && <em>En attente de validation…</em>}
+        </div>
                       </div>
       
                       {/* -------- corps HTML (éditeur) -------- */}

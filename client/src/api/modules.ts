@@ -37,6 +37,9 @@ export interface IItem  {
   profiles:  string[];
   enabled:   boolean;
 
+  validationRequired?: boolean;
+  validationType?: 'auto' | 'manual';
+
   quiz?: IQuiz;
 
   children?: IItem[];
@@ -49,10 +52,18 @@ export interface IModule {
   enabled:  boolean;
   items:    IItem[];
 }
+export type ItemStatus =
+  | 'not_started'
+  | 'in_progress'
+  | 'need_help'
+  | 'to_validate'
+  | 'validated'
+  | 'auto_done';
+
 export interface IProgress {
   username: string;          // CAF
   moduleId: string;
-  visited:  string[];        // ids d’items complétés
+  statuses: Record<string, ItemStatus>;
 }
       
       

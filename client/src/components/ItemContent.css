@@ -56,4 +56,14 @@
                  .item-links ul       { list-style: none; padding: 0; }
                  .item-links li       { margin: 4px 0;   font-size: .92rem; }
                  .item-links a        { color: #008BD2;  text-decoration: none; }
-                 .item-links a:hover  { text-decoration: underline; }
+                 .item-links a:hover  { text-decoration: underline; }.item-buttons {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+.item-buttons button {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  cursor: pointer;
+}

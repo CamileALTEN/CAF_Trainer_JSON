@@ -3,9 +3,9 @@
    import React, { useEffect, useState } from 'react';
    import SidebarMenu    from '../components/SidebarMenu';
    import ItemContent    from '../components/ItemContent';
-   import ProgressBar    from '../components/ProgressBar';
-   import { flatten, findById } from '../utils/items';
-   import { getModule, IItem, IModule } from '../api/modules';
+import ProgressBar    from '../components/ProgressBar';
+import { flatten, findById } from '../utils/items';
+import { getModule, IItem, IModule, ItemStatus } from '../api/modules';
    import { useAuth }     from '../context/AuthContext';
    import './PrerequisPage.css';
 
@@ -16,9 +16,9 @@
 
      const [mod, setMod]            = useState<IModule | null>(null);
      const [selectedId, setSelId ]  = useState<string>('');
-     const [visitedIds, setVisited] = useState<string[]>(
-       () => JSON.parse(localStorage.getItem(`visited_${MODULE_ID}`) ?? '[]'),
-     );
+    const [statuses, setStatuses] = useState<Record<string, ItemStatus>>(
+      () => JSON.parse(localStorage.getItem(`status_${MODULE_ID}`) ?? '{}'),
+    );
      const [favs, setFavs] = useState<string[]>(
        () => JSON.parse(localStorage.getItem(favKey) ?? '[]'),
      );
@@ -32,12 +32,38 @@
      }, []);
 
      /* ---------- helpers ---------- */
-     const toggleVisited = (id: string) =>
-       setVisited((prev) => {
-         const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-         localStorage.setItem(`visited_${MODULE_ID}`, JSON.stringify(next));
-         return next;
-       });
+    const updateStatus = (id: string, st: ItemStatus) =>
+      setStatuses(prev => {
+        if (st === 'to_validate') {
+          fetch('/api/validations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: user?.username, moduleId: MODULE_ID, itemId: id }),
+          }).catch(console.error);
+        }
+        const next = { ...prev, [id]: st };
+        localStorage.setItem(`status_${MODULE_ID}`, JSON.stringify(next));
+        return next;
+      });
+
+    const requestValidation = (id: string) => updateStatus(id, 'to_validate');
+
+    const requestHelp = (id: string) => {
+      const message = prompt('Décrivez votre problème :');
+      if (!message) return;
+      fetch('/api/tickets', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: user?.username,
+          target: 'manager',
+          title: `Besoin d'aide sur ${findById(mod!.items, id)?.title}`,
+          message,
+          category: 'help',
+        }),
+      }).catch(console.error);
+      updateStatus(id, 'need_help');
+    };
 
      const toggleFav = (id: string) =>
        setFavs((prev) => {
@@ -56,16 +82,20 @@
            items={mod.items}
            selected={selectedId}
            onSelect={setSelId}
-           visited={visitedIds}
+           visited={Object.keys(statuses).filter(
+             k => statuses[k] === 'validated' || statuses[k] === 'auto_done'
+           )}
          />
 
          <main className="content-area">
            <ProgressBar
-             current={visitedIds.length}
+             current={Object.values(statuses).filter(
+               s => s === 'validated' || s === 'auto_done'
+             ).length}
              total={flatten(mod.items).length}
            />
 
-           {item && (
+          {item && (
             <ItemContent
               title={item.title}
               subtitle={item.subtitle}
@@ -74,12 +104,16 @@
               links={item.links}
 
                videos={item.videos}
-               isVisited={visitedIds.includes(item.id)}
-               onToggleVisited={() => toggleVisited(item.id)}
+               validationRequired={item.validationRequired}
+               validationType={item.validationType}
+               onRequestValidation={() => requestValidation(item.id)}
+               onRequestHelp={() => requestHelp(item.id)}
+               status={statuses[item.id] ?? 'not_started'}
+               onStatusChange={(s) => updateStatus(item.id, s)}
                isFav={favs.includes(item.id)}
                onToggleFav={() => toggleFav(item.id)}
              />
-           )}
+          )}
          </main>
        </div>
      );

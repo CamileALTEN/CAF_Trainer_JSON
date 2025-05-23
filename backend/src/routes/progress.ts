@@ -1,6 +1,6 @@
              import { Router } from 'express';
              import { read, write } from '../config/dataStore';
-             import { IProgress }  from '../models/IProgress';
+import { IProgress }  from '../models/IProgress';
              import { IUser }      from '../models/IUser';
       
              const router = Router();
@@ -12,20 +12,23 @@
                res.json(rows);
              });
       
-             /* PATCH /api/progress   body:{ username,moduleId,visited } – MAJ 1 module */
-             router.patch('/', (req, res) => {
-               const { username, moduleId, visited } = req.body as IProgress;
-               if (!username || !moduleId) return res.status(400).json({error:'Données manquantes'});
-      
-               const list = read<IProgress>(TABLE);
-               const idx  = list.findIndex(p => p.username===username && p.moduleId===moduleId);
-      
-               if (idx === -1) list.push({ username, moduleId, visited });
-               else            list[idx].visited = visited;
-      
-               write(TABLE, list);
-               res.json({ ok:true });
-             });
+/* PATCH /api/progress   body:{ username,moduleId,statuses } – MAJ 1 module */
+router.patch('/', (req, res) => {
+  const { username, moduleId, statuses } = req.body as IProgress;
+  if (!username || !moduleId || !statuses)
+    return res.status(400).json({ error: 'Données manquantes' });
+
+  const list = read<IProgress>(TABLE);
+  const idx = list.findIndex(
+    (p) => p.username === username && p.moduleId === moduleId,
+  );
+
+  if (idx === -1) list.push({ username, moduleId, statuses });
+  else list[idx].statuses = statuses;
+
+  write(TABLE, list);
+  res.json({ ok: true });
+});
       
              /* GET /api/progress?managerId=… – progression de tous les CAF d’un manager */
              router.get('/', (req, res) => {

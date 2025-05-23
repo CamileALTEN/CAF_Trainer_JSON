@@ -23,11 +23,17 @@
      },[user]);
 
      /* regroupe par utilisateur */
-     const data = caf.map(c => {
-       const rows = prog.filter(r=>r.username===c.username);
-       const totalVisited = rows.reduce((n,r)=>n+r.visited.length,0);
-       return { name:c.username, visited:totalVisited };
-     });
+    const data = caf.map(c => {
+      const rows = prog.filter(r => r.username === c.username);
+      const totalVisited = rows.reduce(
+        (n, r) =>
+          n + Object.values(r.statuses).filter(
+            s => s === 'validated' || s === 'auto_done',
+          ).length,
+        0,
+      );
+      return { name: c.username, visited: totalVisited };
+    });
 
      if(loading) return <p style={{padding:'2rem'}}>Chargement…</p>;
 

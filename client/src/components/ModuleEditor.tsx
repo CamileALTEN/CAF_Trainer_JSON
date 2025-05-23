@@ -27,6 +27,8 @@ import {
                   videos:    it.videos    ?? [],
                   profiles:  it.profiles  ?? [],
                   enabled:   it.enabled   ?? true,
+                  validationRequired: it.validationRequired ?? false,
+                  validationType: it.validationType ?? 'auto',
                   quiz:      it.quiz      ?? { enabled: false, questions: [] },
                   children:  (it.children ?? []).map(ensureDefaults),
                 });
@@ -441,10 +443,35 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                               <input
                                 type="checkbox"
                                 checked={current.enabled}
-                                onChange={(e) => patchItem({ enabled: e.target.checked })}
+                                onChange={e => patchItem({ enabled: e.target.checked })}
                               />{' '}
                               Item actif
                             </label>
+
+                            <fieldset>
+                              <legend>Validation</legend>
+                              <label className="inline-row">
+                                <input
+                                  type="checkbox"
+                                  checked={current.validationRequired ?? false}
+                                  onChange={e => patchItem({ validationRequired: e.target.checked })}
+                                />{' '}
+                                Validation requise ?
+                              </label>
+
+                              {current.validationRequired && (
+                                <label>
+                                  Type de validation :
+                                  <select
+                                    value={current.validationType ?? 'auto'}
+                                    onChange={e => patchItem({ validationType: e.target.value as any })}
+                                  >
+                                    <option value="auto">Automatique (par quiz)</option>
+                                    <option value="manual">Manuelle</option>
+                                  </select>
+                                </label>
+                              )}
+                            </fieldset>
                           </>
                         ) : (
                           <p>Sélectionnez un item dans l’arborescence…</p>

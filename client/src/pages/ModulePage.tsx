@@ -13,7 +13,7 @@ import ItemContent     from '../components/ItemContent';
 import ProgressBar     from '../components/ProgressBar';
 import Loader          from '../components/Loader';
 
-import { getModule, IItem, IModule, IQuiz } from '../api/modules';
+import { getModule, IItem, IModule, IQuiz, ItemStatus } from '../api/modules';
 import { flatten }     from '../utils/items';
 import { useAuth }     from '../context/AuthContext';
 import './ModulePage.css';
@@ -44,7 +44,7 @@ export default function ModulePage() {
   const [mod,      setMod]  = useState<IModule | null>(null);
   const [items,    setIt]   = useState<IItem[]>([]);
   const [selected, setSel]  = useState('');
-  const [visited,  setVis]  = useState<string[]>([]);
+  const [statuses, setStatuses] = useState<Record<string, ItemStatus>>({});
   const [busy,     setBusy] = useState(true);
   const [open,     setOpen] = useState(false);
   const [quizPassed, setQuizPassed] = useState<Record<string, boolean>>({});
@@ -83,7 +83,9 @@ export default function ModulePage() {
         setMod({ ...m, items: filtered });
         setIt(filtered);
         setSel(filtered[0]?.id ?? '');
-        setVis(JSON.parse(localStorage.getItem(`visited_${moduleId}`) ?? '[]'));
+        setStatuses(
+          JSON.parse(localStorage.getItem(`status_${moduleId}`) ?? '{}'),
+        );
         setQuizPassed(JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}'));
       })
       .catch(() => navigate('/'))
@@ -108,23 +110,29 @@ export default function ModulePage() {
   const prevId   = curIndex > 0 ? flat[curIndex - 1].id : null;
   const nextId   = curIndex !== -1 && curIndex < flat.length - 1 ? flat[curIndex + 1].id : null;
 
-  /* ---------------- visite toggle ---------------- */
-  const toggleVisited = (id: string) =>
-    setVis((prev) => {
+  /* ---------------- changement statut ---------------- */
+  const updateStatus = (id: string, st: ItemStatus) =>
+    setStatuses((prev) => {
       const item = find(id)!;
-      if (item.quiz?.enabled && !quizPassed[id]) {
+      if (st === 'auto_done' && item.quiz?.enabled && !quizPassed[id]) {
         alert('Vous devez réussir le quiz avant de valider cet item.');
         return prev;
       }
-      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-      localStorage.setItem(`visited_${moduleId}`, JSON.stringify(next));
+      if (st === 'to_validate') {
+        fetch('/api/validations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, moduleId, itemId: id }),
+        }).catch(console.error);
+      }
+      const next = { ...prev, [id]: st };
+      localStorage.setItem(`status_${moduleId}`, JSON.stringify(next));
 
-      /* push au backend pour suivi manager */
       if (username) {
         fetch('/api/progress', {
-          method:  'PATCH',
+          method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ username, moduleId, visited: next }),
+          body: JSON.stringify({ username, moduleId, statuses: next }),
         }).catch(console.error);
       }
       return next;
@@ -136,6 +144,26 @@ export default function ModulePage() {
       localStorage.setItem(`quiz_${moduleId}`, JSON.stringify(next));
       return next;
     });
+    updateStatus(id, 'validated');
+  };
+
+  const requestValidation = (id: string) => updateStatus(id, 'to_validate');
+
+  const requestHelp = (id: string) => {
+    const message = prompt('Décrivez votre problème :');
+    if (!message) return;
+    fetch('/api/tickets', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username,
+        target: 'manager',
+        title: `Besoin d'aide sur ${find(id)?.title}`,
+        message,
+        category: 'help',
+      }),
+    }).catch(console.error);
+    updateStatus(id, 'need_help');
   };
 
   /* ---------------- états spéciaux ---------------- */
@@ -146,7 +174,9 @@ export default function ModulePage() {
 
   const item      = find(selected)!;
   const total     = flat.length;
-  const completed = visited.filter((id) => flat.some((x) => x.id === id)).length;
+  const completed = Object.values(statuses).filter(
+    (s) => s === 'validated' || s === 'auto_done',
+  ).length;
   const cls       = `module-page${open ? ' open' : ''}`;
 
   return (
@@ -162,8 +192,13 @@ export default function ModulePage() {
         <SidebarMenu
           items={items}
           selected={selected}
-          onSelect={(id) => { setSel(id); setOpen(false); }}
-          visited={visited}
+          onSelect={(id) => {
+            setSel(id);
+            setOpen(false);
+          }}
+          visited={Object.keys(statuses).filter(
+            (k) => statuses[k] === 'validated' || statuses[k] === 'auto_done',
+          )}
         />
       </aside>
 
@@ -210,8 +245,12 @@ export default function ModulePage() {
           quiz={item.quiz}
           quizPassed={quizPassed[item.id]}
           onQuizPassed={() => markQuizPassed(item.id)}
-          isVisited={visited.includes(item.id)}
-          onToggleVisited={() => toggleVisited(item.id)}
+          validationRequired={item.validationRequired}
+          validationType={item.validationType}
+          onRequestValidation={() => requestValidation(item.id)}
+          onRequestHelp={() => requestHelp(item.id)}
+          status={statuses[item.id] ?? 'not_started'}
+          onStatusChange={(s) => updateStatus(item.id, s)}
           isFav={favs.includes(item.id)}
           onToggleFav={() => toggleFav(item.id)}
         />

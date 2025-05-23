@@ -3,10 +3,11 @@
    import React, { useEffect, useState } from 'react';
    import { Link } from 'react-router-dom';
 
-   import ProgressBar        from '../components/ProgressBar';
-   import { getModules,
-            IModule,
-            IItem }          from '../api/modules';
+import ProgressBar        from '../components/ProgressBar';
+import { getModules,
+           IModule,
+           IItem,
+           ItemStatus }          from '../api/modules';
    import { flatten }        from '../utils/items';
    import { useAuth }        from '../context/AuthContext';
    import './HomePage.css';
@@ -59,11 +60,15 @@
        (n, m) => n + flatten(m.items).length,
        0,
      );
-     const totalVisited = modules.reduce((n, m) => {
-       const vis = JSON.parse(localStorage.getItem(`visited_${m.id}`) ?? '[]') as string[];
-       /* seuls les IDs encore présents comptent */
-       return n + vis.filter(id => flatten(m.items).some(it => it.id === id)).length;
-     }, 0);
+    const totalVisited = modules.reduce((n, m) => {
+      const st = JSON.parse(localStorage.getItem(`status_${m.id}`) ?? '{}') as Record<string, ItemStatus>;
+      return (
+        n +
+        Object.entries(st)
+          .filter(([k, v]) => (v === 'validated' || v === 'auto_done') && flatten(m.items).some(it => it.id === k))
+          .length
+      );
+    }, 0);
 
      /* rendu normal */
      return (
@@ -76,10 +81,12 @@
          </div>
 
          <div className="modules-grid">
-           {modules.map((m) => {
-             const flat = flatten(m.items);
-             const vis  = JSON.parse(localStorage.getItem(`visited_${m.id}`) ?? '[]') as string[];
-             const current = vis.filter(id => flat.some(it => it.id === id)).length;
+          {modules.map((m) => {
+            const flat = flatten(m.items);
+            const st = JSON.parse(localStorage.getItem(`status_${m.id}`) ?? '{}') as Record<string, ItemStatus>;
+            const current = Object.entries(st).filter(
+              ([k, v]) => (v === 'validated' || v === 'auto_done') && flat.some(it => it.id === k),
+            ).length;
 
              return (
                <div key={m.id} className="module-card">
