@@ -40,4 +40,10 @@
       
              button.primary      { background:#008bd2; color:#fff; border:none;
                                    padding:8px 16px; border-radius:4px; cursor:pointer; }
-             button.primary:hover{ background:#006fa1; }
+button.primary:hover{ background:#006fa1; }
+
+.validation-options {
+  margin: 0 0 8px 24px;
+  display: flex;
+  gap: 16px;
+}

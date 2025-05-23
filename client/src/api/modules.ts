@@ -37,6 +37,9 @@ export interface IItem  {
   profiles:  string[];
   enabled:   boolean;
 
+  requiresValidation?: boolean;
+  validationMode?: 'quiz' | 'manual';
+
   quiz?: IQuiz;
 
   children?: IItem[];

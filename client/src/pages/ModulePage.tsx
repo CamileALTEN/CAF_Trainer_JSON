@@ -121,7 +121,11 @@ export default function ModulePage() {
   const toggleVisited = (id: string) =>
     setVis((prev) => {
       const item = find(id)!;
-      if (item.quiz?.enabled && !quizPassed[id]) {
+      if (
+        item.requiresValidation &&
+        item.validationMode === 'quiz' &&
+        !quizPassed[id]
+      ) {
         alert('Vous devez réussir le quiz avant de valider cet item.');
         return prev;
       }
@@ -143,6 +147,10 @@ export default function ModulePage() {
     setQuizPassed(prev => {
       const next = { ...prev, [id]: true };
       localStorage.setItem(`quiz_${moduleId}`, JSON.stringify(next));
+      const item = find(id)!;
+      if (item.requiresValidation && item.validationMode === 'quiz') {
+        changeStatus(id, 'validé');
+      }
       return next;
     });
   };
@@ -237,6 +245,8 @@ export default function ModulePage() {
           quiz={item.quiz}
           quizPassed={quizPassed[item.id]}
           onQuizPassed={() => markQuizPassed(item.id)}
+          requiresValidation={item.requiresValidation}
+          validationMode={item.validationMode}
           isVisited={visited.includes(item.id)}
           onToggleVisited={() => toggleVisited(item.id)}
           isFav={favs.includes(item.id)}

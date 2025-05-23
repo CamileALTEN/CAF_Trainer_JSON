@@ -21,6 +21,9 @@ export interface ItemContentProps {
   quizPassed?: boolean;
   onQuizPassed?: () => void;
 
+  requiresValidation?: boolean;
+  validationMode?: 'quiz' | 'manual';
+
   /* ─── statut ─── */
   status: ItemStatus;
   onStatusChange: (st: ItemStatus) => void;
@@ -41,6 +44,7 @@ export interface ItemContentProps {
   const {
     title, subtitle, description, links = [], images, videos,
     quiz, quizPassed, onQuizPassed,
+    requiresValidation = false, validationMode = 'manual',
     isVisited, onToggleVisited,
     isFav,     onToggleFav,
     status, onStatusChange, onHelpRequest,
@@ -135,7 +139,16 @@ export interface ItemContentProps {
                       ) : null}
 
                       {quiz && quiz.enabled && (
-                        <Quiz quiz={quiz} onSuccess={onQuizPassed ?? (()=>{})} passed={quizPassed ?? false} />
+                        <Quiz
+                          quiz={quiz}
+                          onSuccess={() => {
+                            onQuizPassed?.();
+                            if (requiresValidation && validationMode === 'quiz') {
+                              onStatusChange('validé');
+                            }
+                          }}
+                          passed={quizPassed ?? false}
+                        />
                       )}
 
                       {/* -------- actions statut -------- */}
@@ -145,9 +158,12 @@ export interface ItemContentProps {
                         )}
                         {status === 'en_cours' && (
                           <>
-                            <button onClick={() => onStatusChange(quiz ? 'soumis_validation' : 'terminé')}>
-                              {quiz ? '📤 Soumettre' : '✅ Terminer'}
-                            </button>
+                            {!requiresValidation && (
+                              <button onClick={() => onStatusChange('terminé')}>✅ Terminer</button>
+                            )}
+                            {requiresValidation && validationMode === 'manual' && (
+                              <button onClick={() => onStatusChange('en_attente')}>📤 Soumettre</button>
+                            )}
                             <button onClick={onHelpRequest} style={{ marginLeft: 8 }}>🆘 Besoin d'aide</button>
                           </>
                         )}

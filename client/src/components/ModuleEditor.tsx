@@ -10,26 +10,28 @@ import {
       
                 /* ═════════════════════════ HELPERS GÉNÉRIAUX ═════════════════════════ */
       
-                const defaultImg = (i: Partial<IImage>): IImage => ({
-                  src:   i.src   ?? '',
-                  width: i.width ?? 100,
-                  align: i.align ?? 'left',
-                });
-      
-                const ensureDefaults = (it: Partial<IItem>): IItem => ({
-                  id:        it.id        ?? crypto.randomUUID(),
-                  title:     it.title     ?? '',
-                  subtitle:  it.subtitle  ?? '',
-                  content:   it.content   ?? '',
-                  links:     it.links     ?? [],
-                  images:    (it.images   ?? []).map((img: any) =>
-                               typeof img === 'string' ? defaultImg({ src: img }) : defaultImg(img)),
-                  videos:    it.videos    ?? [],
-                  profiles:  it.profiles  ?? [],
-                  enabled:   it.enabled   ?? true,
-                  quiz:      it.quiz      ?? { enabled: false, questions: [] },
-                  children:  (it.children ?? []).map(ensureDefaults),
-                });
+  const defaultImg = (i: Partial<IImage>): IImage => ({
+    src:   i.src   ?? '',
+    width: i.width ?? 100,
+    align: i.align ?? 'left',
+  });
+
+  const ensureDefaults = (it: Partial<IItem>): IItem => ({
+    id:        it.id        ?? crypto.randomUUID(),
+    title:     it.title     ?? '',
+    subtitle:  it.subtitle  ?? '',
+    content:   it.content   ?? '',
+    links:     it.links     ?? [],
+    images:    (it.images   ?? []).map((img: any) =>
+                 typeof img === 'string' ? defaultImg({ src: img }) : defaultImg(img)),
+    videos:    it.videos    ?? [],
+    profiles:  it.profiles  ?? [],
+    enabled:   it.enabled   ?? true,
+    requiresValidation: it.requiresValidation ?? false,
+    validationMode:     it.validationMode     ?? 'manual',
+    quiz:      it.quiz      ?? { enabled: false, questions: [] },
+    children:  (it.children ?? []).map(ensureDefaults),
+  });
       
 // parcours récursif de l'arbre en appliquant fn sur chaque item
 // (prend en compte les éventuelles modifications de `children` retournées
@@ -436,12 +438,46 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                               </div>
                             )}
                           </fieldset>
-      
-                            <label className="inline-row">
-                              <input
-                                type="checkbox"
-                                checked={current.enabled}
-                                onChange={(e) => patchItem({ enabled: e.target.checked })}
+
+                          <label className="inline-row">
+                            <input
+                              type="checkbox"
+                              checked={current.requiresValidation ?? false}
+                              onChange={e => patchItem({ requiresValidation: e.target.checked })}
+                            />{' '}
+                            Validation requise ?
+                          </label>
+
+                          {current.requiresValidation && (
+                            <div className="validation-options">
+                              <label>
+                                <input
+                                  type="radio"
+                                  name={`val-${current.id}`}
+                                  value="quiz"
+                                  checked={current.validationMode === 'quiz'}
+                                  onChange={() => patchItem({ validationMode: 'quiz' })}
+                                />{' '}
+                                Par quiz (automatique)
+                              </label>
+                              <label>
+                                <input
+                                  type="radio"
+                                  name={`val-${current.id}`}
+                                  value="manual"
+                                  checked={current.validationMode === 'manual'}
+                                  onChange={() => patchItem({ validationMode: 'manual' })}
+                                />{' '}
+                                Par manager (validation manuelle)
+                              </label>
+                            </div>
+                          )}
+
+                          <label className="inline-row">
+                            <input
+                              type="checkbox"
+                              checked={current.enabled}
+                              onChange={(e) => patchItem({ enabled: e.target.checked })}
                               />{' '}
                               Item actif
                             </label>

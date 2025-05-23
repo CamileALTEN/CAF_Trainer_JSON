@@ -98,6 +98,8 @@ import { ItemStatus, updateItemStatus, sendHelpRequest } from '../api/userProgre
               links={item.links}
 
                videos={item.videos}
+              requiresValidation={item.requiresValidation}
+              validationMode={item.validationMode}
               isVisited={visitedIds.includes(item.id)}
               onToggleVisited={() => toggleVisited(item.id)}
               isFav={favs.includes(item.id)}
