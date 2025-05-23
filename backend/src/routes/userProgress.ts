@@ -10,6 +10,23 @@ const TABLE = 'userProgress';
 const HELP_TABLE = 'helpRequests';
 const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 
+router.get('/', (req, res) => {
+  const { managerId } = req.query as { managerId?: string };
+  const list = read<IUserProgress>(TABLE);
+  if (managerId) {
+    const users = read<IUser>('users');
+    const cafIds = users.filter(u => u.managerId === managerId).map(u => u.id);
+    return res.json(list.filter(p => cafIds.includes(p.userId)));
+  }
+  res.json(list);
+});
+
+router.get('/:userId', (req, res) => {
+  const { userId } = req.params;
+  const list = read<IUserProgress>(TABLE).filter(p => p.userId === userId);
+  res.json(list);
+});
+
 router.patch('/:userId/items/:itemId/status', (req, res) => {
   const { status } = req.body as Partial<IUserProgress>;
   const { userId, itemId } = req.params;

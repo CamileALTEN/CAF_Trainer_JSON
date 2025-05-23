@@ -7,6 +7,21 @@ const router = (0, express_1.Router)();
 const TABLE = 'userProgress';
 const HELP_TABLE = 'helpRequests';
 const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
+router.get('/', (req, res) => {
+    const { managerId } = req.query;
+    const list = (0, dataStore_1.read)(TABLE);
+    if (managerId) {
+        const users = (0, dataStore_1.read)('users');
+        const cafIds = users.filter(u => u.managerId === managerId).map(u => u.id);
+        return res.json(list.filter(p => cafIds.includes(p.userId)));
+    }
+    res.json(list);
+});
+router.get('/:userId', (req, res) => {
+    const { userId } = req.params;
+    const list = (0, dataStore_1.read)(TABLE).filter(p => p.userId === userId);
+    res.json(list);
+});
 router.patch('/:userId/items/:itemId/status', (req, res) => {
     const { status } = req.body;
     const { userId, itemId } = req.params;

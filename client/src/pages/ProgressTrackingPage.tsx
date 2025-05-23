@@ -8,13 +8,14 @@ import {
   sendValidation,
   IUserItem,
 } from '../api/validations';
-import './ValidationsPage.css';
-
-export default function ValidationsPage() {
+import { getUserProgress, IUserProgress } from '../api/userProgress';
+import './ProgressTrackingPage.css';
+export default function ProgressTrackingPage() {
   const { user } = useAuth();
-  const [tab, setTab] = useState<'pending' | 'history'>('pending');
+  const [tab, setTab] = useState<'pending' | 'history' | 'progress'>('pending');
   const [pending, setPending] = useState<IUserItem[]>([]);
   const [completed, setCompleted] = useState<IUserItem[]>([]);
+  const [progress, setProgress] = useState<IUserProgress[]>([]);
   const [userNames, setUserNames] = useState<Record<string, string>>({});
   const [itemTitles, setItemTitles] = useState<Record<string, string>>({});
 
@@ -32,6 +33,9 @@ export default function ValidationsPage() {
 
       const pend = await getPending();
       setPending(pend.filter(p => uMap[p.userId]));
+
+      const prog = await getUserProgress({ managerId: user!.id });
+      setProgress(prog);
     }
     load();
   }, [user]);
@@ -74,13 +78,16 @@ export default function ValidationsPage() {
 
   return (
     <div className="validations-page">
-      <h1>Validations</h1>
+      <h1>Suivi progression</h1>
       <div className="tabs">
         <button className={tab === 'pending' ? 'active' : ''} onClick={() => setTab('pending')}>
           À valider
         </button>
         <button className={tab === 'history' ? 'active' : ''} onClick={() => setTab('history')}>
           Historique &amp; modifications
+        </button>
+        <button className={tab === 'progress' ? 'active' : ''} onClick={() => setTab('progress')}>
+          Par CAF
         </button>
       </div>
 
@@ -146,6 +153,31 @@ export default function ValidationsPage() {
                       <option value="non_commencé">non_commencé</option>
                     </select>
                   </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )
+      )}
+
+      {tab === 'progress' && (
+        progress.length === 0 ? (
+          <p>Aucune donnée</p>
+        ) : (
+          <table className="list">
+            <thead>
+              <tr>
+                <th>CAF</th>
+                <th>Item</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              {progress.map(p => (
+                <tr key={p.userId + '-' + p.itemId}>
+                  <td>{userNames[p.userId] ?? p.userId}</td>
+                  <td>{itemTitles[p.itemId] ?? p.itemId}</td>
+                  <td>{p.status}</td>
                 </tr>
               ))}
             </tbody>

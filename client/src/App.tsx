@@ -23,7 +23,7 @@ import RegisterUserPage     from './pages/RegisterUserPage';
 import NotificationsPage    from './pages/NotificationsPage';
 import TicketsListPage      from './pages/TicketsListPage';
 import CreateTicketPage     from './pages/CreateTicketPage';
-import ValidationsPage      from './pages/ValidationsPage';
+import ProgressTrackingPage from './pages/ProgressTrackingPage';
 
 import Footer from './components/Footer';
 
@@ -56,7 +56,7 @@ function RoleRoutes() {
         <Route path="/manager/modules/:moduleId"   element={<AdminModuleEditor />} />
         <Route path="/manager/tickets"            element={<TicketsListPage />} />
         <Route path="/manager/tickets/new"        element={<CreateTicketPage />} />
-        <Route path="/manager/validations"        element={<ValidationsPage />} />
+        <Route path="/manager/suivi"              element={<ProgressTrackingPage />} />
         <Route path="/admin/*"                     element={<Navigate to="/manager" replace />} />
         <Route path="*"                            element={<Navigate to="/manager" replace />} />
       </Routes>
