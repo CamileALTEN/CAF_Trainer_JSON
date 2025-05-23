@@ -117,31 +117,6 @@ export default function ModulePage() {
   const prevId   = curIndex > 0 ? flat[curIndex - 1].id : null;
   const nextId   = curIndex !== -1 && curIndex < flat.length - 1 ? flat[curIndex + 1].id : null;
 
-  /* ---------------- visite toggle ---------------- */
-  const toggleVisited = (id: string) =>
-    setVis((prev) => {
-      const item = find(id)!;
-      if (
-        item.requiresValidation &&
-        item.validationMode === 'quiz' &&
-        !quizPassed[id]
-      ) {
-        alert('Vous devez réussir le quiz avant de valider cet item.');
-        return prev;
-      }
-      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-      localStorage.setItem(`visited_${moduleId}`, JSON.stringify(next));
-
-      /* push au backend pour suivi manager */
-      if (username) {
-        fetch('/api/progress', {
-          method:  'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ username, moduleId, visited: next }),
-        }).catch(console.error);
-      }
-      return next;
-    });
 
   const markQuizPassed = (id: string) => {
     setQuizPassed(prev => {
@@ -181,7 +156,10 @@ export default function ModulePage() {
 
   const item      = find(selected)!;
   const total     = flat.length;
-  const completed = visited.filter((id) => flat.some((x) => x.id === id)).length;
+  const completed = Object.entries(statuses)
+    .filter(([id, st]) =>
+      (st === 'terminé' || st === 'validé') && flat.some(x => x.id === id)
+    ).length;
   const cls       = `module-page${open ? ' open' : ''}`;
 
   return (
@@ -247,8 +225,6 @@ export default function ModulePage() {
           onQuizPassed={() => markQuizPassed(item.id)}
           requiresValidation={item.requiresValidation}
           validationMode={item.validationMode}
-          isVisited={visited.includes(item.id)}
-          onToggleVisited={() => toggleVisited(item.id)}
           isFav={favs.includes(item.id)}
           onToggleFav={() => toggleFav(item.id)}
           status={statuses[item.id] ?? 'non_commencé'}

@@ -26,22 +26,13 @@
                      align-items: center;
                      gap: 12px;
                    }
-                   .check-button {
-                     background: none;
-                     border: none;
-                     cursor: pointer;
-                     padding: 4px;
-                     display: flex;
-                     align-items: center;
-                     color: #0870e7;
-                   }
-                   .check-button svg {
-                     font-size: 24px;
-                     transition: opacity .2s;
-                   }
-                   .check-button svg.unchecked { opacity: .5; }
-                   .check-button:hover svg,
-                   .check-button svg.checked { opacity: 1; }
+.status-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #0870e7;
+}
 .item-body {
   margin-top: 16px;
 }

@@ -28,10 +28,7 @@ export interface ItemContentProps {
   status: ItemStatus;
   onStatusChange: (st: ItemStatus) => void;
   onHelpRequest: () => void;
-      
-                  /* ─── progression ─── */
-                  isVisited:        boolean;
-                  onToggleVisited:  () => void;
+
       
                   /* ─── favoris ─── */
                   isFav:       boolean;
@@ -45,7 +42,6 @@ export interface ItemContentProps {
     title, subtitle, description, links = [], images, videos,
     quiz, quizPassed, onQuizPassed,
     requiresValidation = false, validationMode = 'manual',
-    isVisited, onToggleVisited,
     isFav,     onToggleFav,
     status, onStatusChange, onHelpRequest,
   } = props;
@@ -59,6 +55,18 @@ export interface ItemContentProps {
     en_attente: '⏱️',
     validé: '✅',
   };
+
+  const handleStatusClick = () => {
+    if (status === 'non_commencé') {
+      onStatusChange('en_cours');
+    } else if (status === 'en_cours') {
+      if (requiresValidation && validationMode === 'manual') {
+        onStatusChange('en_attente');
+      } else if (!requiresValidation) {
+        onStatusChange('terminé');
+      }
+    }
+  };
       
                   return (
                     <div className="item-content">
@@ -70,19 +78,16 @@ export interface ItemContentProps {
         </div>
       
                         <div className="item-actions">
-                          {/* coche “vu” */}
-                          <button
-                            type="button"
-                            className="check-button"
-                            onClick={onToggleVisited}
-                            aria-label={isVisited ? 'Marquer non visité' : 'Marquer visité'}
-                          >
-                            {isVisited ? '✅' : '⭕'}
-                          </button>
-      
                           {/* étoile favoris */}
                           <FavoriteButton isFav={isFav} onClick={onToggleFav} />
-                          <span>{icons[status]}</span>
+                          <button
+                            type="button"
+                            className="status-button"
+                            onClick={handleStatusClick}
+                            aria-label="Changer le statut"
+                          >
+                            {icons[status]}
+                          </button>
                         </div>
                       </div>
       
@@ -153,19 +158,8 @@ export interface ItemContentProps {
 
                       {/* -------- actions statut -------- */}
                       <div style={{ marginTop: 16 }}>
-                        {status === 'non_commencé' && (
-                          <button onClick={() => onStatusChange('en_cours')}>▶️ Démarrer</button>
-                        )}
                         {status === 'en_cours' && (
-                          <>
-                            {!requiresValidation && (
-                              <button onClick={() => onStatusChange('terminé')}>✅ Terminer</button>
-                            )}
-                            {requiresValidation && validationMode === 'manual' && (
-                              <button onClick={() => onStatusChange('en_attente')}>📤 Soumettre</button>
-                            )}
-                            <button onClick={onHelpRequest} style={{ marginLeft: 8 }}>🆘 Besoin d'aide</button>
-                          </>
+                          <button onClick={onHelpRequest}>🆘 Besoin d'aide</button>
                         )}
                       </div>
                     </div>
