@@ -15,7 +15,7 @@ import Loader          from '../components/Loader';
 import AdvancedHelpEditor from '../components/AdvancedHelpEditor';
 
 import { getModule, IItem, IModule, IQuiz } from '../api/modules';
-import { ItemStatus, updateItemStatus, sendHelpRequest } from '../api/userProgress';
+import { ItemStatus, updateItemStatus, sendHelpRequest, getUserProgress } from '../api/userProgress';
 import { flatten }     from '../utils/items';
 import { useAuth }     from '../context/AuthContext';
 import './ModulePage.css';
@@ -82,7 +82,7 @@ export default function ModulePage() {
     if (!moduleId) return;
     setBusy(true);
     getModule(moduleId)
-      .then((m) => {
+      .then(async (m) => {
         const filtered = filterBySite(m.items, site);
         setMod({ ...m, items: filtered });
         setIt(filtered);
@@ -90,9 +90,18 @@ export default function ModulePage() {
         setVis(JSON.parse(localStorage.getItem(`visited_${moduleId}`) ?? '[]'));
         setQuizPassed(JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}'));
         if (user?.id) {
-          setStatuses(
-            JSON.parse(localStorage.getItem(`status_${moduleId}_${user.id}`) ?? '{}')
-          );
+          try {
+            const prog = await getUserProgress({ userId: user.id });
+            const map: Record<string, ItemStatus> = {};
+            prog.forEach(p => { map[p.itemId] = p.status; });
+            setStatuses(map);
+            localStorage.setItem(`status_${moduleId}_${user.id}`, JSON.stringify(map));
+          } catch (err) {
+            console.error(err);
+            setStatuses(
+              JSON.parse(localStorage.getItem(`status_${moduleId}_${user.id}`) ?? '{}')
+            );
+          }
         }
       })
       .catch(() => navigate('/'))

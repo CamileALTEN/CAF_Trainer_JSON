@@ -7,7 +7,7 @@ import ProgressBar    from '../components/ProgressBar';
 import AdvancedHelpEditor from '../components/AdvancedHelpEditor';
    import { flatten, findById } from '../utils/items';
 import { getModule, IItem, IModule } from '../api/modules';
-import { ItemStatus, updateItemStatus, sendHelpRequest } from '../api/userProgress';
+import { ItemStatus, updateItemStatus, sendHelpRequest, getUserProgress } from '../api/userProgress';
    import { useAuth }     from '../context/AuthContext';
    import './PrerequisPage.css';
 
@@ -24,18 +24,32 @@ import { ItemStatus, updateItemStatus, sendHelpRequest } from '../api/userProgre
     const [favs, setFavs] = useState<string[]>(
       () => JSON.parse(localStorage.getItem(favKey) ?? '[]'),
     );
-    const [statuses, setStatuses] = useState<Record<string, ItemStatus>>(() =>
-      JSON.parse(localStorage.getItem(`status_${MODULE_ID}_${user?.id}`) ?? '{}')
-    );
+    const [statuses, setStatuses] = useState<Record<string, ItemStatus>>({});
     const [helpItemId, setHelpItemId] = useState<string | null>(null);
 
      /* ---------- chargement module ---------- */
      useEffect(() => {
-       getModule(MODULE_ID).then((m) => {
+       async function load() {
+         const m = await getModule(MODULE_ID);
          setMod(m);
          setSelId(m.items[0]?.id ?? '');
-       });
-     }, []);
+         if (user?.id) {
+           try {
+             const prog = await getUserProgress({ userId: user.id });
+             const map: Record<string, ItemStatus> = {};
+             prog.forEach(p => { map[p.itemId] = p.status; });
+             setStatuses(map);
+             localStorage.setItem(`status_${MODULE_ID}_${user.id}`, JSON.stringify(map));
+           } catch (err) {
+             console.error(err);
+             setStatuses(
+               JSON.parse(localStorage.getItem(`status_${MODULE_ID}_${user.id}`) ?? '{}')
+             );
+           }
+         }
+       }
+       load();
+     }, [user]);
 
      /* ---------- helpers ---------- */
 
