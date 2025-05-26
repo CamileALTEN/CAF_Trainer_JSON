@@ -27,6 +27,7 @@ import {
                   videos:    it.videos    ?? [],
                   profiles:  it.profiles  ?? [],
                   enabled:   it.enabled   ?? true,
+                  requiresValidation: it.requiresValidation ?? false,
                   quiz:      it.quiz      ?? { enabled: false, questions: [] },
                   children:  (it.children ?? []).map(ensureDefaults),
                 });
@@ -436,11 +437,20 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                               </div>
                             )}
                           </fieldset>
-      
-                            <label className="inline-row">
-                              <input
-                                type="checkbox"
-                                checked={current.enabled}
+
+                          <label className="inline-row">
+                            <input
+                              type="checkbox"
+                              checked={current.requiresValidation ?? false}
+                              onChange={e => patchItem({ requiresValidation: e.target.checked })}
+                            />{' '}
+                            Validation manuelle requise
+                          </label>
+
+                          <label className="inline-row">
+                            <input
+                              type="checkbox"
+                              checked={current.enabled}
                                 onChange={(e) => patchItem({ enabled: e.target.checked })}
                               />{' '}
                               Item actif

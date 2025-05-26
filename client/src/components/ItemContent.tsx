@@ -19,9 +19,12 @@ export interface ItemContentProps {
   quiz?:       IQuiz;
   quizPassed?: boolean;
   onQuizPassed?: () => void;
-      
+
                   /* ─── progression ─── */
                   isVisited:        boolean;
+                  pending?:         boolean;
+                  started:         boolean;
+                  onStart:         () => void;
                   onToggleVisited:  () => void;
       
                   /* ─── favoris ─── */
@@ -35,13 +38,23 @@ export interface ItemContentProps {
   const {
     title, subtitle, description, links = [], images, videos,
     quiz, quizPassed, onQuizPassed,
-    isVisited, onToggleVisited,
+    isVisited, pending, started, onStart, onToggleVisited,
     isFav,     onToggleFav,
   } = props;
+
+  let status = 'À démarrer';
+  if (pending) status = 'En validation';
+  else if (isVisited) status = 'Fini';
+  else if (started) status = 'En cours';
       
-                  return (
-                    <div className="item-content">
-                      {/* -------- entête -------- */}
+  return (
+    <div className="item-content">
+      {!started && (
+        <div className="item-start-overlay">
+          <button className="start-btn" onClick={onStart}>Démarrer l'item</button>
+        </div>
+      )}
+      {/* -------- entête -------- */}
                       <div className="item-header">
         <div className="item-titles">
           <h1>{title}</h1>
@@ -56,7 +69,7 @@ export interface ItemContentProps {
                             onClick={onToggleVisited}
                             aria-label={isVisited ? 'Marquer non visité' : 'Marquer visité'}
                           >
-                            {isVisited ? '✅' : '⭕'}
+                            {pending ? '⏳' : isVisited ? '✅' : started ? '▶️' : '⭕'} {status}
                           </button>
       
                           {/* étoile favoris */}

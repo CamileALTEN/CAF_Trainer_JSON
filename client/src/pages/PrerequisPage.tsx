@@ -16,9 +16,12 @@
 
      const [mod, setMod]            = useState<IModule | null>(null);
      const [selectedId, setSelId ]  = useState<string>('');
-     const [visitedIds, setVisited] = useState<string[]>(
-       () => JSON.parse(localStorage.getItem(`visited_${MODULE_ID}`) ?? '[]'),
-     );
+    const [visitedIds, setVisited] = useState<string[]>(
+      () => JSON.parse(localStorage.getItem(`visited_${MODULE_ID}`) ?? '[]'),
+    );
+    const [startedIds, setStarted] = useState<string[]>(
+      () => JSON.parse(localStorage.getItem(`started_${MODULE_ID}`) ?? '[]'),
+    );
      const [favs, setFavs] = useState<string[]>(
        () => JSON.parse(localStorage.getItem(favKey) ?? '[]'),
      );
@@ -32,12 +35,20 @@
      }, []);
 
      /* ---------- helpers ---------- */
-     const toggleVisited = (id: string) =>
-       setVisited((prev) => {
-         const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-         localStorage.setItem(`visited_${MODULE_ID}`, JSON.stringify(next));
-         return next;
-       });
+    const toggleVisited = (id: string) =>
+      setVisited((prev) => {
+        const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
+        localStorage.setItem(`visited_${MODULE_ID}`, JSON.stringify(next));
+        return next;
+      });
+
+    const startItem = (id: string) =>
+      setStarted(prev => {
+        if (prev.includes(id)) return prev;
+        const next = [...prev, id];
+        localStorage.setItem(`started_${MODULE_ID}`, JSON.stringify(next));
+        return next;
+      });
 
      const toggleFav = (id: string) =>
        setFavs((prev) => {
@@ -66,7 +77,7 @@
            />
 
            {item && (
-            <ItemContent
+           <ItemContent
               title={item.title}
               subtitle={item.subtitle}
               images={item.images}
@@ -75,10 +86,13 @@
 
                videos={item.videos}
                isVisited={visitedIds.includes(item.id)}
+               pending={false}
+               started={startedIds.includes(item.id)}
+               onStart={() => startItem(item.id)}
                onToggleVisited={() => toggleVisited(item.id)}
                isFav={favs.includes(item.id)}
                onToggleFav={() => toggleFav(item.id)}
-             />
+            />
            )}
          </main>
        </div>

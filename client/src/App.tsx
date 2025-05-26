@@ -19,6 +19,7 @@ import AdminModuleEditor    from './pages/AdminModuleEditor';
 import PrerequisAdminPage   from './pages/PrerequisAdminPage';
 
 import ManagerDashboardPage from './pages/ManagerDashboardPage';
+import ManagerValidationPage from './pages/ManagerValidationPage';
 import RegisterUserPage     from './pages/RegisterUserPage';
 import NotificationsPage    from './pages/NotificationsPage';
 import TicketsListPage      from './pages/TicketsListPage';
@@ -53,6 +54,7 @@ function RoleRoutes() {
         <Route path="/manager/create"              element={<RegisterUserPage />} />
         <Route path="/manager/modules"             element={<AdminModulesPage />} />
         <Route path="/manager/modules/:moduleId"   element={<AdminModuleEditor />} />
+        <Route path="/manager/validations"        element={<ManagerValidationPage />} />
         <Route path="/manager/tickets"            element={<TicketsListPage />} />
         <Route path="/manager/tickets/new"        element={<CreateTicketPage />} />
         <Route path="/admin/*"                     element={<Navigate to="/manager" replace />} />

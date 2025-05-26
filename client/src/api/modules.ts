@@ -37,6 +37,8 @@ export interface IItem  {
   profiles:  string[];
   enabled:   boolean;
 
+  requiresValidation?: boolean;
+
   quiz?: IQuiz;
 
   children?: IItem[];
@@ -53,6 +55,17 @@ export interface IProgress {
   username: string;          // CAF
   moduleId: string;
   visited:  string[];        // ids d’items complétés
+}
+
+export interface IValidation {
+  id: string;
+  username: string;
+  managerId?: string;
+  moduleId: string;
+  itemId: string;
+  status: 'pending' | 'approved' | 'rejected';
+  feedback?: string;
+  date: string;
 }
       
       
@@ -85,3 +98,18 @@ export const getModule  = async (id: string): Promise<IModule> =>
       
 export const updateModule = async (m: IModule): Promise<IModule> =>
   (await axios.put(`/api/modules/${m.id}`, m)).data;
+
+export const getValidations = async (params: string): Promise<IValidation[]> => {
+  const res = await axios.get(`/api/validations${params}`);
+  return res.data;
+};
+
+export const createValidation = async (data: Omit<IValidation,'id'|'status'|'date'>): Promise<IValidation> => {
+  const res = await axios.post('/api/validations', data);
+  return res.data;
+};
+
+export const updateValidation = async (id: string, data: Partial<IValidation>): Promise<IValidation> => {
+  const res = await axios.patch(`/api/validations/${id}`, data);
+  return res.data;
+};
