@@ -24,6 +24,7 @@ import NotificationsPage    from './pages/NotificationsPage';
 import TicketsListPage      from './pages/TicketsListPage';
 import CreateTicketPage     from './pages/CreateTicketPage';
 import ProgressTrackingPage from './pages/ProgressTrackingPage';
+import ManagerKanbanPage    from './pages/ManagerKanbanPage';
 
 import Footer from './components/Footer';
 
@@ -57,6 +58,7 @@ function RoleRoutes() {
         <Route path="/manager/tickets"            element={<TicketsListPage />} />
         <Route path="/manager/tickets/new"        element={<CreateTicketPage />} />
         <Route path="/manager/suivi"              element={<ProgressTrackingPage />} />
+        <Route path="/manager/kanban"            element={<ManagerKanbanPage />} />
         <Route path="/admin/*"                     element={<Navigate to="/manager" replace />} />
         <Route path="*"                            element={<Navigate to="/manager" replace />} />
       </Routes>

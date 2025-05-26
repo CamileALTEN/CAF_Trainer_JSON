@@ -1,0 +1,5 @@
+.kanban-page{padding:1rem;max-width:100%;overflow-x:auto;}
+.kanban-board{display:flex;gap:1rem;align-items:flex-start;}
+.kanban-column{flex:1 1 200px;background:#f9f9f9;border-radius:4px;padding:0.5rem;min-width:180px;}
+.kanban-column h3{text-align:center;margin:0.5rem 0;}
+.kanban-card{background:#fff;border:1px solid #ddd;border-radius:4px;padding:0.5rem;margin-bottom:0.5rem;cursor:grab;}
