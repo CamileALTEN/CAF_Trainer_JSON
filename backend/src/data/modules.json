@@ -66,11 +66,11 @@
             "links": [
               {
                 "label": "Livret d'accueil Nantes",
-                "url": "https://www.google.com"
+                "url": "https://docs.google.com.rproxy.goskope.com/document/d/1a51Yat24EKrz9AeQdDnMxfgPhm8G8BFPqsQ9d4aMyWw/edit?usp=sharing"
               },
               {
                 "label": "Livret d'accueil Montoir",
-                "url": "https://www.google.com"
+                "url": "https://docs.google.com.rproxy.goskope.com/document/d/1H0cqSjo9hIxeI9oXmOrw9FaEcS4j5FnQpBqgyHQKJT4/edit?usp=sharing"
               }
             ],
             "images": [],
@@ -90,7 +90,7 @@
             "id": "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
             "title": "Présentation d'accueil",
             "subtitle": "",
-            "content": "<p>Le jour de ton arrivée, le Team Leader (TL) a fait une présentation pour t'introduire ton environnement de travail.</p><p>Tu peux la retrouver ci-dessous.</p>",
+            "content": "<p>Le jour de ton arrivée, le Team Leader (TL) a fait une présentation pour introduire ton environnement de travail.</p><p>Tu peux la retrouver ci-dessous.</p>",
             "links": [
               {
                 "label": "Présentation accueil Nantes",
@@ -185,7 +185,7 @@
             "id": "ffe016dd-3970-45b1-a898-3e3651461058",
             "title": "Qui contacter - Pour quoi ?",
             "subtitle": "",
-            "content": "<p><br></p>",
+            "content": "<h1>Qui contacter ?</h1><p>Si tu as une demande sur un sujet :</p><ul><li>IT ;</li><li>sur les Accès ;</li><li>Administrative ;</li><li>ou un Problème technique ;</li></ul><p>tu peux contacter / consulter une ressource interne ALTEN. Tu trouvera la liste dans le lien ci-dessous.</p><p><br></p><p>Tu peux aussi faire une demande de support de tout type dans le <a href=\"https://alten.service-now.com/mysupport?id=sc_home\" rel=\"noopener noreferrer\" target=\"_blank\">catalogue de Service Now</a>.</p><p><br></p><h1>Correspondance</h1><p>Il peut être difficile de se repérer dans le tableau avec les acronymes.</p><p>Voici un rappel de qui correspond à quel poste :</p><ul><li>Gali : est le service informatique en support de la prod ALTEN. Tu peux les contacter par téléphone au +331 46 08 68 00 ou <a href=\"https://alten.service-now.com/mysupport?id=sc_cat_item&amp;sys_id=9dfc40b0377e6200d29c148543990eea\" rel=\"noopener noreferrer\" target=\"_blank\">déclarer un incident</a> sur My alten.</li><li>RC : le Responsable Commercial est ton responsable lié à la mission.</li><li>RI : le Responsable Ingénieur est la personne qui t'a fait signer ton contrat. Il reste inchangé tout au long de ta carrière chez ALTEN.</li><li>CP : est le Chef de Projet (1 ou 2)</li></ul>",
             "links": [
               {
                 "label": "Qui contacter",
@@ -218,11 +218,11 @@
             "content": "<p>Les équipes ALTEN du plateau outillage sont réparties selon le process (NZ) ou les pièces avions travaillées (NS).</p><p>Tu trouvera ci-dessous l'organigramme des équipes.</p>",
             "links": [
               {
-                "label": "Nantes",
+                "label": "Organigramme Nantes",
                 "url": "https://"
               },
               {
-                "label": "Montoir",
+                "label": "Organigramme Montoir",
                 "url": "https://"
               }
             ],
@@ -247,9 +247,9 @@
           },
           {
             "id": "1fef12c5-1512-4be2-81a8-ba21dd036931",
-            "title": "Outil Alten :  VISION & SMART",
+            "title": "Outils Alten :  VISION & SMART & MyTrip",
             "subtitle": "",
-            "content": "<h1>VISION</h1><p><br></p><p>VISION est un outil interne ALTEN qui permet à l'entreprise de <strong>suivre ton activité</strong>.</p><p>Cette outil est indispensable dans ton quotidien. Tu as accès à :</p><ul><li>la saisie du CRA \"Compte Rendu d'Activité\" (à faire au moins une fois par semaine) ;</li><li>La saisie d'une demande d'absence ;</li><li>La saisie d'une note de frais.</li></ul><p><br></p><p>Tu peux réaliser le e-learning ci-dessous pour apprendre à utiliser l'outil.</p><p><br></p><h1>SMART</h1><p><br></p><p>SMART est un outil de <strong>gestion de projet </strong>pour saisir les temps de travail. Il est impératif de les remplir <strong>avant la fin du mois</strong>.</p><p><br></p><p>Tu peux réaliser le e-learning ci-dessous pour apprendre à utiliser l'outil :</p><ul><li>Accéder à l'outil ;</li><li>Régler tes préférences ;</li><li>La feuille de temps ;</li><li>Saisi des temps.</li></ul>",
+            "content": "<h1>VISION</h1><p><br></p><p>VISION est un outil interne ALTEN qui permet à l'entreprise de <strong>suivre ton activité</strong>.</p><p>Cette outil est indispensable dans ton quotidien. Tu as accès à :</p><ul><li>la saisie du CRA \"Compte Rendu d'Activité\" (à faire au moins une fois par semaine) ;</li><li>La saisie d'une demande d'absence ;</li><li>La saisie d'une note de frais.</li></ul><p><br></p><p>Tu peux réaliser le e-learning ci-dessous pour apprendre à utiliser l'outil.</p><p><br></p><h1>SMART</h1><p><br></p><p>SMART est un outil de <strong>gestion de projet </strong>pour saisir les temps de travail. Il est impératif de les remplir <strong>avant la fin du mois</strong>.</p><p><br></p><p>Tu peux réaliser le e-learning ci-dessous pour apprendre à utiliser l'outil :</p><ul><li>Accéder à l'outil ;</li><li>Régler tes préférences ;</li><li>La feuille de temps ;</li><li>Saisi des temps.</li></ul><p><br></p><h1>MyTrip</h1><p><br></p><p><em>#À écrire par un CAF =&gt; pas accès #</em></p>",
             "links": [
               {
                 "label": "E-learning VISION ",
@@ -258,6 +258,10 @@
               {
                 "label": "E-learning SMART",
                 "url": "https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/161"
+              },
+              {
+                "label": "Guide d'utilisation MyTrip",
+                "url": "https://altengroup.sharepoint.com/sites/france-intranet/Vie%20du%20Salari/Tutoriels/Guide%20utilisateur%20MyTrip/MyTrip-Guide%20Utilisateur.pdf"
               }
             ],
             "images": [
@@ -433,7 +437,7 @@
             "id": "4910213a-6050-44cd-98c7-05583929a2e9",
             "title": "Organisation des métiers Airbus et Jigs & Tools",
             "subtitle": "",
-            "content": "<p>Airbus Atlantic est une entreprise majeur de l'industrie, c'est pourquoi il est important qu'elle soit bien structurée.</p><p><br></p><p>Dans ce module, tu vas découvrir:</p><ul><li>son organisation ;</li><li>ses métiers ;</li><li>l'organisation du plateau Jigs &amp; Tools ;</li><li>la structure d'un projet.</li></ul>",
+            "content": "<p>Airbus Atlantic est une entreprise majeur de l'industrie, c'est pourquoi il est important qu'elle soit bien structurée.</p><p><br></p><p>Dans ce module, tu vas découvrir:</p><ul><li>son organisation ;</li><li>ses métiers ;</li><li>l'organisation du plateau Jigs &amp; Tools.</li></ul>",
             "links": [
               {
                 "label": "Présentation Métier Airbus Montoir",
@@ -464,7 +468,7 @@
         "id": "e9637576-9917-4f30-b317-c155bd17757d",
         "title": "Sensibilisation",
         "subtitle": "",
-        "content": "<p>En tant que consultant Alten en mission pour Airbus, tu dois réaliser des <strong>e-learning</strong>. Certains sont <strong>mandatory</strong>, il faut donc les réaliser avant de commencer ta première affaire.</p><p>Quand tu les as réaliser, n'oublie pas de les cocher dans ton plan d'intégration systématiquement !</p><p><br></p><p><em>Note : Si les liens ne fonctionnent plus, tu peux aller dans HRWay --&gt; Menu --&gt; Catalogue de formation --&gt; Recherche le nom de la formation souhaitée.</em></p><p><br></p><p>Une fois que tu auras effectué tous les e-learning Mandatory, tu peux mettre l'attestation dans <a href=\"https://drive.google.com.rproxy.goskope.com/drive/folders/1V6jksyX1htD_AOy1lz_k-PI4dFeGcB2t?usp=drive_link\" rel=\"noopener noreferrer\" target=\"_blank\">ce dossier Drive</a>. Pour la trouver tu vas dans HRWay --&gt; Menu --&gt; <a href=\"https://alten.talent-soft.com/MyTalentsoft#/TS_MyTS/MonProf.aspx\" rel=\"noopener noreferrer\" target=\"_blank\">MonProfil</a> --&gt; tu cliques sur l'icône \"imprimer mon CV\" --&gt; Ctrl+P --&gt; Enregistrer au format PDF --&gt; Renomme le \"E-learning_Mandatory_NOM_Prénom\".</p><p><br></p><p><strong><u>Mandatory :</u></strong></p><ul><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1178\" rel=\"noopener noreferrer\" target=\"_blank\">Airbus - Ethics and compliance awareness</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1184\" rel=\"noopener noreferrer\" target=\"_blank\">Export Control (Engineers)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1179\" rel=\"noopener noreferrer\" target=\"_blank\">FOD prevention awareness</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2073940\" rel=\"noopener noreferrer\" target=\"_blank\">Artificial intelligence awarness program (A3) - for Engineers</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074138\" rel=\"noopener noreferrer\" target=\"_blank\">Bienvenue dans le groupe ALTEN (ING)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074654\" rel=\"noopener noreferrer\" target=\"_blank\">Gestion des risques professionnels (ingénieur)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074828\" rel=\"noopener noreferrer\" target=\"_blank\">La protection des données personnelles (RGPD - Ingénieur) (r.2023)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075005\" rel=\"noopener noreferrer\" target=\"_blank\">Ecomobilité : enjeux &amp; solutions</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2307566\" rel=\"noopener noreferrer\" target=\"_blank\">Contrôle des exportations (ingénieur)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1106\" rel=\"noopener noreferrer\" target=\"_blank\">Counterfeits prevention awarness</a></li></ul><p><br></p><p><strong><u>Facultatifs :</u></strong></p><ul><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075182\" rel=\"noopener noreferrer\" target=\"_blank\">Impact environnemental et éco-gestes : tous acteurs !</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075359\" rel=\"noopener noreferrer\" target=\"_blank\">Prévenir et lutter contre les agissements sexistes et le harcèlement sexuel</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075536\" rel=\"noopener noreferrer\" target=\"_blank\">Sensiblisation au handicap en entreprise</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074312\" rel=\"noopener noreferrer\" target=\"_blank\">Sureté &amp; Sécurité</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074483\" rel=\"noopener noreferrer\" target=\"_blank\">Prévenir la corruption</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/147\" rel=\"noopener noreferrer\" target=\"_blank\">Débuter la gestion de projet</a></li></ul>",
+        "content": "<h1>Responsabilités</h1><p>En tant que consultant Alten en mission pour Airbus, tu dois réaliser des <strong>e-learning</strong>. Certains sont <strong>mandatory</strong>, il faut donc les réaliser avant de commencer ta première affaire.</p><p>Quand tu les as réaliser, n'oublie pas de <u>les valider dans ton plan d'intégration systématiquement</u> !</p><p><br></p><p><em><u>Note</u> : Si les liens ne fonctionnent plus, tu peux aller dans HRWay --&gt; Menu --&gt; Catalogue de formation --&gt; Recherche le nom de la formation souhaitée.</em></p><p><br></p><p><br></p><h1>Attestation</h1><p>Une fois que tu auras effectué tous les e-learning Mandatory, tu peux mettre l'attestation dans <a href=\"https://drive.google.com.rproxy.goskope.com/drive/folders/1V6jksyX1htD_AOy1lz_k-PI4dFeGcB2t?usp=drive_link\" rel=\"noopener noreferrer\" target=\"_blank\">le dossier Drive \"04 - SENSIBILISATION - Attestation\"</a> . </p><p>Pour la trouver, tu vas dans </p><p>\t► HRWay ; </p><p>\t► Menu ;</p><p>\t► <a href=\"https://alten.talent-soft.com/MyTalentsoft#/TS_MyTS/MonProf.aspx\" rel=\"noopener noreferrer\" target=\"_blank\">MonProfil</a> ;</p><p>\t► tu cliques sur l'icône \"imprimer mon CV\" ;</p><p>\t► Ctrl+P ;</p><p>\t► Enregistrer au format PDF ;</p><p>\t► Renomme le \"E-learning_Mandatory_NOM_Prénom\" ;</p><p>\t► Dépose l'attestation dans l'espace partagé.</p><p><br></p><p><br></p><h1>Formations</h1><h2>Mandatory :</h2><ul><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1178\" rel=\"noopener noreferrer\" target=\"_blank\">Airbus - Ethics and compliance awareness</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1184\" rel=\"noopener noreferrer\" target=\"_blank\">Export Control (Engineers)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1179\" rel=\"noopener noreferrer\" target=\"_blank\">FOD prevention awareness</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2073940\" rel=\"noopener noreferrer\" target=\"_blank\">Artificial intelligence awarness program (A3) - for Engineers</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074138\" rel=\"noopener noreferrer\" target=\"_blank\">Bienvenue dans le groupe ALTEN (ING)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074654\" rel=\"noopener noreferrer\" target=\"_blank\">Gestion des risques professionnels (ingénieur)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074828\" rel=\"noopener noreferrer\" target=\"_blank\">La protection des données personnelles (RGPD - Ingénieur) (r.2023)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075005\" rel=\"noopener noreferrer\" target=\"_blank\">Ecomobilité : enjeux &amp; solutions</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2307566\" rel=\"noopener noreferrer\" target=\"_blank\">Contrôle des exportations (ingénieur)</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/1106\" rel=\"noopener noreferrer\" target=\"_blank\">Counterfeits prevention awarness</a></li></ul><p><br></p><h2>Facultatifs :</h2><ul><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075182\" rel=\"noopener noreferrer\" target=\"_blank\">Impact environnemental et éco-gestes : tous acteurs !</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075359\" rel=\"noopener noreferrer\" target=\"_blank\">Prévenir et lutter contre les agissements sexistes et le harcèlement sexuel</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2075536\" rel=\"noopener noreferrer\" target=\"_blank\">Sensiblisation au handicap en entreprise</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074312\" rel=\"noopener noreferrer\" target=\"_blank\">Sureté &amp; Sécurité</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Me/Widget/Trainings/Tab/Registration/FullSize/2074483\" rel=\"noopener noreferrer\" target=\"_blank\">Prévenir la corruption</a></li><li><a href=\"https://alten.talent-soft.com/MyTalentsoft#/Training/Catalogue/Mine/Action/147\" rel=\"noopener noreferrer\" target=\"_blank\">Débuter la gestion de projet</a></li></ul>",
         "links": [
           {
             "label": "Catalogue de formation HRWay",
@@ -715,7 +719,7 @@
             "id": "40df64ab-94ee-4527-81b0-2898f2de7618",
             "title": "Métier CAF",
             "subtitle": "",
-            "content": "<h1>#Insérer une \"fiche métier\"</h1><p><br></p><p>En tant que prestataire Airbus, le CAF a un rôle du support dans la gestion d’une affaire outillage.&nbsp;</p><p><br></p><p>Il est le garant de ses affaires et doit s’assurer que la solution technique de l’outillage soit fonctionnelle et respecte les contraintes. Il est aussi garant du respect du délais / planning.&nbsp;</p><p><br></p><p>------------------------------------------</p><p><strong>Identification du métier</strong> : en quoi consiste l’emploi cité ? Quelle est la définition du métier ?</p><ul><li>Chargé d’affaire Bâtis et Outillages (CAF)</li></ul><p><br></p><p>Le CAF est responsable du déroulé d’une affaire d’outillage. Il doit respecter les contraintes et normes du client. Il est le garant de TOUS les jalons SAP du process client.</p><p><strong>Les principales responsabilités et activités</strong> : quelles sont les tâches et les réalisations de la fonction ? Quelles sont les missions quotidiennes ?</p><p><strong>Les conditions d’exercice</strong> : dans quels environnements se pratique le métier ? Est-il associé à des secteurs d’activités particuliers ? Quel est le rythme de travail, avec quels horaires ?&nbsp;</p><p><strong>Les compétences et qualités</strong> :</p><p><br></p><p><strong>Description du métier / rôle</strong></p><p><strong>Positionnement à avoir</strong></p><p><strong>Parties prenantes d'une affaire / implication /valeur ajoutée</strong></p>",
+            "content": "<h1>#Insérer une \"fiche métier\"</h1><p><br></p><p>En tant que prestataire Airbus, le CAF a un rôle du support dans la gestion d’une affaire outillage.&nbsp;</p><p><br></p><p>Il est le garant de ses affaires et doit s’assurer que la solution technique de l’outillage soit fonctionnelle et respecte les contraintes. Il est aussi garant du respect du délais / planning.&nbsp;</p><p><br></p><p>------------------------------------------</p><p><strong>Identification du métier</strong> : en quoi consiste l’emploi cité ? Quelle est la définition du métier ?</p><ul><li>Chargé d’affaire Bâtis et Outillages (CAF)</li></ul><p><br></p><p>Le CAF est responsable du déroulé d’une affaire d’outillage. Il doit respecter les contraintes et normes du client. Il est le garant de TOUS les jalons SAP du process client.</p><p><strong>Les principales responsabilités et activités</strong> : quelles sont les tâches et les réalisations de la fonction ? Quelles sont les missions quotidiennes ?</p><p><strong>Les conditions d’exercice</strong> : dans quels environnements se pratique le métier ? Est-il associé à des secteurs d’activités particuliers ? </p><p><strong>Les compétences et qualités</strong> :</p><p><br></p><p><strong>Description du métier / rôle</strong></p><p><strong>Positionnement à avoir</strong></p><p><strong>Parties prenantes d'une affaire / implication /valeur ajoutée</strong></p>",
             "links": [],
             "images": [
               {
@@ -1008,9 +1012,24 @@
             "id": "c1c9b73c-5353-4932-87ee-0377cfc03a08",
             "title": "Outils génériques (Airbus Sign & NOMAD)",
             "subtitle": "",
-            "content": "<h1>Airbus Sign </h1><p><br></p><p>abc</p><p><br></p><h1>NOMAD</h1><p><br></p><p>abc</p>",
-            "links": [],
-            "images": [],
+            "content": "<h1>Airbus Sign</h1><p><br></p><p>Airbus Sign est un outil en ligne permettant de <strong>signer des documents</strong> avec les personnes possédants des <strong>adresses mail Airbus</strong>.</p><p><br></p><p>Dans le tuto \"Signature Digitale\", on retrouve comment : </p><ul><li>Créer un compte ;</li><li>Le paramétrer ;</li><li>Signer un document ;</li><li>Créer un document à faire signer ;</li><li>Changer une signature pendant la phase signature. </li></ul><p><br></p><p><br></p><h1>NOMAD</h1><p><br></p><p>NOMAD est un VPN permettant d'accéder à l'environnement Airbus depuis les agences ALTEN ou depuis le domicile du consultant. Cependant, ce VPN possède des limites et certains logiciels ne sont pas disponible comme CATIA. Il faut donc adapter son travail lorsqu'on n'est pas sur le site du client.</p><p><br></p><p><br></p>",
+            "links": [
+              {
+                "label": "Airbus Sign - Signature digitale",
+                "url": "https://drive.google.com.rproxy.goskope.com/file/d/1yz5zdg9lnYGw4lr5-z8y8vTqYMnO71G2/view?usp=sharing"
+              },
+              {
+                "label": "NOMAD ",
+                "url": "https://drive.google.com.rproxy.goskope.com/file/d/1JJwbkasfBdrYGrbrmcF9SQv0G-dL4lp2/view?usp=sharing"
+              }
+            ],
+            "images": [
+              {
+                "src": "https://www.u-pec.fr/medias/photo/enseigner-en-distanciel-upec_1601998085887-jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
             "videos": [],
             "profiles": [
               "Nantes",
