@@ -13,7 +13,7 @@ import ItemContent     from '../components/ItemContent';
 import ProgressBar     from '../components/ProgressBar';
 import Loader          from '../components/Loader';
 
-import { getModule, IItem, IModule, IQuiz } from '../api/modules';
+import { getModule, IItem, IModule, IQuiz, IValidation, createValidation } from '../api/modules';
 import { flatten }     from '../utils/items';
 import { useAuth }     from '../context/AuthContext';
 import './ModulePage.css';
@@ -48,6 +48,7 @@ export default function ModulePage() {
   const [busy,     setBusy] = useState(true);
   const [open,     setOpen] = useState(false);
   const [quizPassed, setQuizPassed] = useState<Record<string, boolean>>({});
+  const [validations, setValidations] = useState<IValidation[]>([]);
 
   /* ---------------- favoris ---------------- */
   const favKey = `favs_${username}`;
@@ -85,6 +86,16 @@ export default function ModulePage() {
         setSel(filtered[0]?.id ?? '');
         setVis(JSON.parse(localStorage.getItem(`visited_${moduleId}`) ?? '[]'));
         setQuizPassed(JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}'));
+        if (username) {
+          fetch(`/api/validations?username=${username}&moduleId=${moduleId}`)
+            .then(r => r.json())
+            .then((list: IValidation[]) => {
+              setValidations(list);
+              const approved = list.filter((v:IValidation)=>v.status==='approved').map(v=>v.itemId);
+              setVis(prev => Array.from(new Set([...prev, ...approved])));
+            })
+            .catch(()=>{});
+        }
       })
       .catch(() => navigate('/'))
       .finally(() => setTimeout(() => setBusy(false), 450)); // petit délai pour le loader
@@ -109,26 +120,37 @@ export default function ModulePage() {
   const nextId   = curIndex !== -1 && curIndex < flat.length - 1 ? flat[curIndex + 1].id : null;
 
   /* ---------------- visite toggle ---------------- */
-  const toggleVisited = (id: string) =>
-    setVis((prev) => {
-      const item = find(id)!;
-      if (item.quiz?.enabled && !quizPassed[id]) {
-        alert('Vous devez réussir le quiz avant de valider cet item.');
-        return prev;
-      }
-      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-      localStorage.setItem(`visited_${moduleId}`, JSON.stringify(next));
+  const toggleVisited = (id: string) => {
+    const item = find(id)!;
+    if (item.quiz?.enabled && !quizPassed[id]) {
+      alert('Vous devez réussir le quiz avant de valider cet item.');
+      return;
+    }
 
-      /* push au backend pour suivi manager */
+    if (item.requiresValidation && username) {
+      if (validations.some(v => v.itemId===id && v.status==='pending')) {
+        alert('Item déjà soumis à validation.');
+        return;
+      }
+      createValidation({ username, managerId: user?.managerId, moduleId: moduleId!, itemId: id })
+        .then(v => setValidations(prev => [...prev, v]))
+        .catch(()=>alert('Erreur lors de la demande de validation'));
+      return;
+    }
+
+    setVis(prev => {
+      const next = prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id];
+      localStorage.setItem(`visited_${moduleId}`, JSON.stringify(next));
       if (username) {
         fetch('/api/progress', {
-          method:  'PATCH',
+          method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ username, moduleId, visited: next }),
+          body: JSON.stringify({ username, moduleId, visited: next }),
         }).catch(console.error);
       }
       return next;
     });
+  };
 
   const markQuizPassed = (id: string) => {
     setQuizPassed(prev => {
@@ -146,7 +168,9 @@ export default function ModulePage() {
 
   const item      = find(selected)!;
   const total     = flat.length;
-  const completed = visited.filter((id) => flat.some((x) => x.id === id)).length;
+  const approvedIds = validations.filter(v => v.status === 'approved').map(v => v.itemId);
+  const pendingIds  = validations.filter(v => v.status === 'pending').map(v => v.itemId);
+  const completed = Array.from(new Set([...visited, ...approvedIds])).filter(id => flat.some(x => x.id === id)).length;
   const cls       = `module-page${open ? ' open' : ''}`;
 
   return (
@@ -164,6 +188,7 @@ export default function ModulePage() {
           selected={selected}
           onSelect={(id) => { setSel(id); setOpen(false); }}
           visited={visited}
+          pending={pendingIds}
         />
       </aside>
 
@@ -211,6 +236,7 @@ export default function ModulePage() {
           quizPassed={quizPassed[item.id]}
           onQuizPassed={() => markQuizPassed(item.id)}
           isVisited={visited.includes(item.id)}
+          pending={pendingIds.includes(item.id)}
           onToggleVisited={() => toggleVisited(item.id)}
           isFav={favs.includes(item.id)}
           onToggleFav={() => toggleFav(item.id)}

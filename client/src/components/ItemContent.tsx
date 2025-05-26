@@ -19,9 +19,10 @@ export interface ItemContentProps {
   quiz?:       IQuiz;
   quizPassed?: boolean;
   onQuizPassed?: () => void;
-      
+
                   /* ─── progression ─── */
                   isVisited:        boolean;
+                  pending?:         boolean;
                   onToggleVisited:  () => void;
       
                   /* ─── favoris ─── */
@@ -35,7 +36,7 @@ export interface ItemContentProps {
   const {
     title, subtitle, description, links = [], images, videos,
     quiz, quizPassed, onQuizPassed,
-    isVisited, onToggleVisited,
+    isVisited, pending, onToggleVisited,
     isFav,     onToggleFav,
   } = props;
       
@@ -56,7 +57,7 @@ export interface ItemContentProps {
                             onClick={onToggleVisited}
                             aria-label={isVisited ? 'Marquer non visité' : 'Marquer visité'}
                           >
-                            {isVisited ? '✅' : '⭕'}
+                            {pending ? '⏳' : isVisited ? '✅' : '⭕'}
                           </button>
       
                           {/* étoile favoris */}
