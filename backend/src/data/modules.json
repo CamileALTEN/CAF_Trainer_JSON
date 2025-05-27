@@ -719,7 +719,7 @@
             "id": "40df64ab-94ee-4527-81b0-2898f2de7618",
             "title": "Métier CAF",
             "subtitle": "",
-            "content": "<h1>#Insérer une \"fiche métier\"</h1><p><br></p><p>En tant que prestataire Airbus, le CAF a un rôle du support dans la gestion d’une affaire outillage.&nbsp;</p><p><br></p><p>Il est le garant de ses affaires et doit s’assurer que la solution technique de l’outillage soit fonctionnelle et respecte les contraintes. Il est aussi garant du respect du délais / planning.&nbsp;</p><p><br></p><p>------------------------------------------</p><p><strong>Identification du métier</strong> : en quoi consiste l’emploi cité ? Quelle est la définition du métier ?</p><ul><li>Chargé d’affaire Bâtis et Outillages (CAF)</li></ul><p><br></p><p>Le CAF est responsable du déroulé d’une affaire d’outillage. Il doit respecter les contraintes et normes du client. Il est le garant de TOUS les jalons SAP du process client.</p><p><strong>Les principales responsabilités et activités</strong> : quelles sont les tâches et les réalisations de la fonction ? Quelles sont les missions quotidiennes ?</p><p><strong>Les conditions d’exercice</strong> : dans quels environnements se pratique le métier ? Est-il associé à des secteurs d’activités particuliers ? </p><p><strong>Les compétences et qualités</strong> :</p><p><br></p><p><strong>Description du métier / rôle</strong></p><p><strong>Positionnement à avoir</strong></p><p><strong>Parties prenantes d'une affaire / implication /valeur ajoutée</strong></p>",
+            "content": "<h1>#Insérer une \"fiche métier\"</h1><p><br></p><p>En tant que prestataire Airbus, le CAF a un rôle du support dans la gestion d’une affaire outillage.&nbsp;</p><p><br></p><p>Il est le garant de ses affaires et doit s’assurer que la solution technique de l’outillage soit fonctionnelle et respecte les contraintes. Il est aussi garant du respect du délais / planning.&nbsp;</p><p><br></p><p>------------------------------------------</p><p><strong>Identification du métier</strong> : en quoi consiste l’emploi cité ? Quelle est la définition du métier ?</p><ul><li>Chargé d’affaire Bâtis et Outillages (CAF)</li></ul><p><br></p><p>Le CAF est responsable du déroulé d’une affaire d’outillage. Il doit respecter les contraintes et normes du client. Il est le garant de TOUS les jalons SAP du process client.</p><p><strong>Les principales responsabilités et activités</strong> : quelles sont les tâches et les réalisations de la fonction ? Quelles sont les missions quotidiennes ?</p><p><strong>Les conditions d’exercice</strong> : dans quels environnements se pratique le métier ? Est-il associé à des secteurs d’activités particuliers ?</p><p><strong>Les compétences et qualités</strong> :</p><p><br></p><p><strong>Description du métier / rôle</strong></p><p><strong>Positionnement à avoir</strong></p><p><strong>Parties prenantes d'une affaire / implication /valeur ajoutée</strong></p>",
             "links": [],
             "images": [
               {
@@ -754,7 +754,10 @@
               }
             ],
             "videos": [],
-            "profiles": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
             "enabled": true,
             "quiz": {
               "enabled": false,
@@ -766,11 +769,20 @@
             "id": "5a81047d-208e-4614-931f-11c4e29b4ce3",
             "title": "Sensibilisation",
             "subtitle": "",
-            "content": "",
+            "content": "<p>Pour exploiter pleinement les outils et ressources mises à disposition du CAF, il est important que le NewComer y soit sensibilisé.</p><p><br></p><p>Dans cet item, la NewComer va découvrir : </p><ul><li>Les activités et les équipes Off-shore ;</li><li>La Skill Matrix.</li></ul>",
             "links": [],
-            "images": [],
+            "images": [
+              {
+                "src": "https://www.drivecase.fr/img/cms/Photos%20CMS/Iso_Sensibilisation_Ludique-01.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
             "videos": [],
-            "profiles": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
             "enabled": true,
             "quiz": {
               "enabled": false,
@@ -781,11 +793,20 @@
                 "id": "1baabd86-0ccd-4b68-96f7-007a05b52666",
                 "title": "Off-Shore",
                 "subtitle": "",
-                "content": "",
+                "content": "<h1>Les équipes</h1><h2>Présentation</h2><p>À la demande d'Airbus Atlantic d'externaliser des activités, ALTEN a des équipes off-shore en Inde.</p><p><br></p><p>Chaque site Airbus travail en collaboration avec sa propre équipe off-shore. Il y a 4 et 3 indiens à Montoir et Nantes respectivement.</p><p><br></p><h2>Compétences</h2><p>Les indiens sont considérés comme des CAF. Le niveau des compétences attendus sont cependant plus basses.</p><p><br></p><h1>Missions</h1><p>abc</p><p><br></p><h1>Du point de vu NewComer</h1><p>abc</p>",
                 "links": [],
-                "images": [],
+                "images": [
+                  {
+                    "src": "https://www.smallbusinessact.com/wp-content/uploads/2020/10/outsourcing.jpg",
+                    "width": 50,
+                    "align": "center"
+                  }
+                ],
                 "videos": [],
-                "profiles": [],
+                "profiles": [
+                  "Nantes",
+                  "Montoir"
+                ],
                 "enabled": true,
                 "quiz": {
                   "enabled": false,
@@ -797,11 +818,25 @@
                 "id": "e5b02cce-d345-4a9a-b995-eb83ccb09ebd",
                 "title": "Skill Matrix",
                 "subtitle": "",
-                "content": "",
-                "links": [],
-                "images": [],
+                "content": "<h1>Contexte</h1><p>La Skill Matrix (SM) est un outil permettant d'évaluer les compétences des consultants en fonction de leur métier. En tant que CAF, la Skill Matrix associé est \"ME3S - JTMA\" avec le rôle de \"JTMA Mechanical Tooling Manager (CAF)\".</p><p><br></p><p>Plusieurs compétences sont évaluées selon les catégories suivantes :</p><ul><li>Produit (Équipement) ;</li><li>Méthodes et processus ;</li><li>Norme (Standard) ;</li><li>Logiciel (Outil) ;</li><li>Activité (Savoir-Faire) ;</li><li>Savoir être.</li></ul><p>Le CAF est attendu à un niveau pour chaque compétence (de 0 à 4). Si ce n'est pas le cas, un plan d'action est mis en place avec le TL pour faire monter en compétences le CAF.</p><p><br></p><p>Elle est disponible sur l'outil MUSE accessible depuis My Alten.</p><p><br></p><h1>Méthode</h1><p>La Skill Matrix doit être remplise ... mois après l'arrivée du CAF, puis être mise à jour régulièrement. Le CAF la complète en autonomie, puis en discuter avec le TL, pour validation de l'auto-évaluation et du plan d'action à mettre en place.</p>",
+                "links": [
+                  {
+                    "label": "Skill Matrix ME3S - JTMA",
+                    "url": "https://museng.altengroup.com/#/skm/project-details/6524"
+                  }
+                ],
+                "images": [
+                  {
+                    "src": "https://f.maformation.fr/edito/sites/3/2023/10/monter-competences.jpeg",
+                    "width": 50,
+                    "align": "center"
+                  }
+                ],
                 "videos": [],
-                "profiles": [],
+                "profiles": [
+                  "Nantes",
+                  "Montoir"
+                ],
                 "enabled": true,
                 "quiz": {
                   "enabled": false,
@@ -832,7 +867,7 @@
             "id": "3a303ff7-5543-470f-8f04-6881d45951e1",
             "title": "Le process Jigs & Tools",
             "subtitle": "",
-            "content": "<h1>Le process Airbus Atlantic</h1><p><br></p><p>Afin de valider les exigences et contraintes qualités Airbus et de garantir le succès des affaires Jigs &amp; Tools, il est indispensable de respecter le process et tous ses jalons. En effet, le CAF est responsable de TOUS les jalons dans SAP même ceux sur lesquels il n'est pas acteur.</p><p><br></p><p>Dans les présentations ci-dessous du process tu vas retrouver :</p><ul><li><strong>Le process macro</strong> et les jalons avec leur définition ;</li><li><strong>Chaque jalon expliqués</strong> avec les points de vigilances à avoir.</li></ul><p><br></p><p>Process du site de :</p><ul><li><a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/19YIyNy1d0sMZOUusvEZ1P2wvpeQVURBnyO8GMm5To-M/present?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Nantes</a></li><li><a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1c6wh4bo3nIDbtkrufLtSTSM6ZqtnLAsNdty0nrlyhzs/present?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Montoir</a></li></ul><p><br></p><p><br></p><h1>Change Proposal (CP)</h1><p><br></p><p>Si au cours d'une affaire la solution proposée <strong>ne respecte pas le besoin ou si ce dernier évolue</strong>, on réalise ce qu'on appel un <strong>change proposal</strong> (CP). Cela est un document contractuel qui <strong>modifie le CDC</strong> et peut amener à une modification (augmentation ou diminution) du coût et à un retard planning. Il correspond à un avenant.</p><p>C'est pourquoi il est primordial de <strong><u>bien définir le besoin</u></strong> et de vérifier que toutes les fonctions souhaitées sont présentes dans le CDC.</p><p><br></p><p>Dans ce guide de <a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1ApGNa0oNbA67SD87sOTDrAmFcrYSmH0H/edit?usp=sharing&amp;ouid=107998684615309133819&amp;rtpof=true&amp;sd=true\" rel=\"noopener noreferrer\" target=\"_blank\">rédaction d'une CP</a>, on retrouve :</p><ul><li>Qu'est ce qu'une CP ;</li><li>Comment la rédiger.</li></ul><p><br></p><p><br></p><h1>Gestion des LOP</h1><p><br></p><p>abc</p><p><br></p><h1>RUS et examen d'adéquation</h1><p><br></p><p>abc</p><p><br></p><h1>Suivi de chantier</h1><p><br></p><p>abc</p>",
+            "content": "<h1>Le process Airbus Atlantic</h1><p><br></p><p>Afin de valider les exigences et contraintes qualités Airbus et de garantir le succès des affaires Jigs &amp; Tools, il est indispensable de respecter le process et tous ses jalons. En effet, le CAF est responsable de TOUS les jalons dans SAP même ceux sur lesquels il n'est pas acteur.</p><p><br></p><p>Dans les présentations ci-dessous du process tu vas retrouver :</p><ul><li><strong>Le process macro</strong> et les jalons avec leur définition ;</li><li><strong>Chaque jalon expliqués</strong> avec les points de vigilances à avoir.</li></ul><p><br></p><p>Process du site de :</p><ul><li><a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/19YIyNy1d0sMZOUusvEZ1P2wvpeQVURBnyO8GMm5To-M/present?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Nantes</a></li><li><a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1c6wh4bo3nIDbtkrufLtSTSM6ZqtnLAsNdty0nrlyhzs/present?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Montoir</a></li></ul>",
             "links": [],
             "images": [
               {
@@ -851,7 +886,107 @@
               "enabled": false,
               "questions": []
             },
-            "children": []
+            "children": [
+              {
+                "id": "a9fd258f-0319-4849-9b49-524357ada5ce",
+                "title": "Change Proposal (CP)",
+                "subtitle": "",
+                "content": "<p>Si au cours d'une affaire la solution proposée <strong>ne respecte pas le besoin ou si ce dernier évolue</strong>, on réalise ce qu'on appel un <strong>change proposal</strong> (CP). Cela est un document contractuel qui <strong>modifie le CDC</strong> et peut amener à une modification (augmentation ou diminution) du coût et à un retard planning. Il correspond à un avenant.</p><p>C'est pourquoi il est primordial de <strong><u>bien définir le besoin</u></strong> et de vérifier que toutes les fonctions souhaitées sont présentes dans le CDC.</p><p><br></p><p>Dans ce guide de <a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1ApGNa0oNbA67SD87sOTDrAmFcrYSmH0H/edit?usp=sharing&amp;ouid=107998684615309133819&amp;rtpof=true&amp;sd=true\" rel=\"noopener noreferrer\" target=\"_blank\">rédaction d'une CP</a>, on retrouve :</p><ul><li>Qu'est ce qu'une CP ;</li><li>Comment la rédiger.</li></ul>",
+                "links": [
+                  {
+                    "label": "Rédaction d'une CP",
+                    "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1ApGNa0oNbA67SD87sOTDrAmFcrYSmH0H/edit?usp=sharing&ouid=107998684615309133819&rtpof=true&sd=true"
+                  }
+                ],
+                "images": [
+                  {
+                    "src": "https://ressources.lexdev.fr/wp-content/uploads/2020/07/Avenant-..png",
+                    "width": 50,
+                    "align": "center"
+                  }
+                ],
+                "videos": [],
+                "profiles": [
+                  "Nantes",
+                  "Montoir"
+                ],
+                "enabled": true,
+                "quiz": {
+                  "enabled": false,
+                  "questions": []
+                },
+                "children": []
+              },
+              {
+                "id": "a056e707-e0e1-44d5-a95c-2214d35f446b",
+                "title": "Gestion des LOP",
+                "subtitle": "",
+                "content": "<p><br></p>",
+                "links": [],
+                "images": [],
+                "videos": [],
+                "profiles": [
+                  "Nantes",
+                  "Montoir"
+                ],
+                "enabled": true,
+                "quiz": {
+                  "enabled": false,
+                  "questions": []
+                },
+                "children": []
+              },
+              {
+                "id": "1c43b992-8963-48f3-b39c-8f0b8a7db48c",
+                "title": "RUS et examen d'adéquation",
+                "subtitle": "",
+                "content": "",
+                "links": [],
+                "images": [
+                  {
+                    "src": "https://us.123rf.com/450wm/pablozz/pablozz2012/pablozz201200001/160065268-illustration-vectorielle-de-l-ic%C3%B4ne-logo-d-une-grue-construction-chargement.jpg?ver=6",
+                    "width": 50,
+                    "align": "center"
+                  }
+                ],
+                "videos": [],
+                "profiles": [
+                  "Montoir",
+                  "Nantes"
+                ],
+                "enabled": true,
+                "quiz": {
+                  "enabled": false,
+                  "questions": []
+                },
+                "children": []
+              },
+              {
+                "id": "3868f553-a81d-4660-b61c-4e57084d4208",
+                "title": "Suivi de chantier",
+                "subtitle": "",
+                "content": "",
+                "links": [],
+                "images": [
+                  {
+                    "src": "https://blog.wizzcad.com/wp-content/uploads/2021/06/suivi-de-chantier-1.jpg",
+                    "width": 50,
+                    "align": "center"
+                  }
+                ],
+                "videos": [],
+                "profiles": [
+                  "Nantes",
+                  "Montoir"
+                ],
+                "enabled": true,
+                "quiz": {
+                  "enabled": false,
+                  "questions": []
+                },
+                "children": []
+              }
+            ]
           },
           {
             "id": "7b9b9123-1d18-44fe-ac58-0e9cc148598a",
