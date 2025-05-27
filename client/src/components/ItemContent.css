@@ -1,4 +1,4 @@
-             .item-content {
+.item-content {
                      padding: 16px;
                      background: #fff;
                      border-radius: 8px;
@@ -41,9 +41,23 @@
                    }
                    .check-button svg.unchecked { opacity: .5; }
                    .check-button:hover svg,
-                   .check-button svg.checked { opacity: 1; }
+.check-button svg.checked { opacity: 1; }
+.status-label { font-weight: bold; }
 .item-body {
   margin-top: 16px;
+}
+.item-content.new { opacity: .5; position: relative; }
+.start-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #008bd2;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 .item-body ul { padding-left: 20px; }
 .item-html p {

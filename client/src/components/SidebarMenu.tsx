@@ -36,7 +36,7 @@ function Branch({ branch }: { branch: IItem[] }) {
       {branch.map((it) => {
         const cls =
           `menu-item${it.id === selected ? ' active' : ''}` +
-          `${visited.includes(it.id) ? ' visited' : ''}`;
+          `${visited.includes(it.id) ? ' done' : ''}`;
 
         return (
           <li key={it.id} className={cls}>

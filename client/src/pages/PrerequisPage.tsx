@@ -2,7 +2,7 @@
    ────────────────────────────────── */
    import React, { useEffect, useState } from 'react';
    import SidebarMenu    from '../components/SidebarMenu';
-   import ItemContent    from '../components/ItemContent';
+   import ItemContent, { ItemStatus }    from '../components/ItemContent';
    import ProgressBar    from '../components/ProgressBar';
    import { flatten, findById } from '../utils/items';
    import { getModule, IItem, IModule } from '../api/modules';
@@ -16,8 +16,8 @@
 
      const [mod, setMod]            = useState<IModule | null>(null);
      const [selectedId, setSelId ]  = useState<string>('');
-     const [visitedIds, setVisited] = useState<string[]>(
-       () => JSON.parse(localStorage.getItem(`visited_${MODULE_ID}`) ?? '[]'),
+     const [status, setStatus] = useState<Record<string, ItemStatus>>(
+       () => JSON.parse(localStorage.getItem(`status_${MODULE_ID}`) ?? '{}'),
      );
      const [favs, setFavs] = useState<string[]>(
        () => JSON.parse(localStorage.getItem(favKey) ?? '[]'),
@@ -32,10 +32,10 @@
      }, []);
 
      /* ---------- helpers ---------- */
-     const toggleVisited = (id: string) =>
-       setVisited((prev) => {
-         const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-         localStorage.setItem(`visited_${MODULE_ID}`, JSON.stringify(next));
+     const changeStatus = (id: string, s: ItemStatus) =>
+       setStatus((prev) => {
+         const next = { ...prev, [id]: s };
+         localStorage.setItem(`status_${MODULE_ID}`, JSON.stringify(next));
          return next;
        });
 
@@ -56,12 +56,12 @@
            items={mod.items}
            selected={selectedId}
            onSelect={setSelId}
-           visited={visitedIds}
+           visited={Object.entries(status).filter(([,s])=>s==='done').map(([k])=>k)}
          />
 
          <main className="content-area">
            <ProgressBar
-             current={visitedIds.length}
+             current={Object.values(status).filter(s=>s==='done').length}
              total={flatten(mod.items).length}
            />
 
@@ -74,8 +74,8 @@
               links={item.links}
 
                videos={item.videos}
-               isVisited={visitedIds.includes(item.id)}
-               onToggleVisited={() => toggleVisited(item.id)}
+               status={status[item.id] ?? 'new'}
+               onStatusChange={(s)=>changeStatus(item.id,s)}
                isFav={favs.includes(item.id)}
                onToggleFav={() => toggleFav(item.id)}
              />
