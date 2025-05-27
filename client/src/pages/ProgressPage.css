@@ -1,0 +1,65 @@
+.progress-wrapper {
+  padding: 1rem;
+  max-width: 800px;
+  margin: auto;
+}
+
+.progress-wrapper h1 {
+  margin-bottom: 1rem;
+  color: #043962;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  color: #043962;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background .15s;
+}
+.btn-back:hover { background: #e9f2ff; }
+
+.name_box {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.name_box .row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.name_box .user {
+  width: 120px;
+  font-weight: bold;
+}
+
+.name_box .toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.stat_box {
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.stat_box h3 {
+  margin: 0 0 0.5rem 0;
+}
+
+.stat_box ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
