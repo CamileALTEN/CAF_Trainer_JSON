@@ -1,4 +1,4 @@
-             .item-content {
+.item-content {
                      padding: 16px;
                      background: #fff;
                      border-radius: 8px;
@@ -26,24 +26,63 @@
                      align-items: center;
                      gap: 12px;
                    }
-                   .check-button {
-                     background: none;
-                     border: none;
-                     cursor: pointer;
-                     padding: 4px;
-                     display: flex;
-                     align-items: center;
-                     color: #0870e7;
-                   }
-                   .check-button svg {
-                     font-size: 24px;
-                     transition: opacity .2s;
-                   }
-                   .check-button svg.unchecked { opacity: .5; }
-                   .check-button:hover svg,
-                   .check-button svg.checked { opacity: 1; }
+.check-button {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform .2s;
+}
+.check-button:hover { transform: scale(1.05); }
+.status-label { font-weight: bold; }
 .item-body {
   margin-top: 16px;
+}
+.item-content { position: relative; }
+.item-content.new .item-inner {
+  opacity: .3;
+  pointer-events: none;
+}
+.start-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+.start-overlay button {
+  font-size: 1.5rem;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform .2s;
+}
+.start-overlay button:hover { transform: scale(1.05); }
+.confetti-piece {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  opacity: 0.9;
+  z-index: 1000;
+  animation: confetti-fall 1s linear forwards;
+}
+
+@keyframes confetti-fall {
+  from { transform: translateY(0) rotate(0); }
+  to { transform: translateY(-150px) rotate(720deg); opacity: 0; }
 }
 .item-body ul { padding-left: 20px; }
 .item-html p {

@@ -45,6 +45,7 @@
           <Link to="/manager/create"><button className="btn">+ Créer un compte CAF</button></Link>
           <Link to="/manager/modules"><button className="btn">📝 Modules</button></Link>
           <Link to="/manager/tickets"><button className="btn">📋 Tickets</button></Link>
+          <Link to="/manager/progress"><button className="btn">📊 Progression</button></Link>
         </div>
 
          <h2>Progression globale (Items)</h2>

@@ -33,7 +33,7 @@ ul.sidebar ul   { padding-left:14px; border-left:2px solid rgba(255,255,255,.15)
 }
 .menu-item>button:hover              { background:rgba(255,255,255,.1); }
 .menu-item.active>button             { background:#008bd2; color:#fff; }
-.menu-item.visited>button:not(.active){ opacity:.55; }
+.menu-item.done>button:not(.active){ opacity:.55; }
 
 /* -------- contenu -------- */
 .module-content { height:calc(100vh - 64px); overflow-y:auto;
