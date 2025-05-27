@@ -4,7 +4,7 @@
   border-radius: 4px;
   height: 20px;
   margin: 8px 0;
-}
+  }
 
 .progress-bar-fill {
   background: linear-gradient(90deg, #0099f7, #043962);

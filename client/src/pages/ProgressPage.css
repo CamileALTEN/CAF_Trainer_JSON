@@ -1,6 +1,6 @@
 .progress-wrapper {
   padding: 1rem;
-  max-width: 800px;
+  width: 50%;
   margin: auto;
 }
 
@@ -22,7 +22,7 @@
 .btn-back:hover { background: #e9f2ff; }
 
 .name_box {
-  background: #f9f9f9;
+  background: #e1f1ff;
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 0.75rem;
@@ -30,22 +30,31 @@
 }
 
 .name_box .row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  display: flex;            /* <-- passe en flexbox */
+  align-items: center;      /* centre verticalement */
+  width: 100%;              /* prend toute la largeur du parent */
+  gap: 1rem;                /* espace régulier entre les items */
+}
+
+.name_box .row .progress-container {
+  flex: 1;                  /* pousse les côtés à l'extrémité */
 }
 
 .name_box .user {
   width: 120px;
   font-weight: bold;
+  margin-right: 7rem;
 }
 
+
 .name_box .toggle {
+  margin-left: auto;  /* ← pousse ce bouton à l’extrémité droite */
   background: none;
   border: none;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   cursor: pointer;
 }
+
 
 .stat_box {
   margin-top: 0.5rem;

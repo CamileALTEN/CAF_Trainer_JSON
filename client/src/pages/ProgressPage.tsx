@@ -53,13 +53,21 @@ export default function ProgressPage() {
         const isOpen = open === c.id;
         return (
           <div key={c.id} className="name_box">
-            <div className="row">
-              <span className="user">{c.username}</span>
-              <ProgressBar current={visited} total={Math.max(1, totalItems)} />
-              <button className="toggle" onClick={() => setOpen(isOpen ? null : c.id)}>
-                {isOpen ? '▲' : '▼'}
-              </button>
-            </div>
+                <div className="row">
+        <span className="user">{c.username}</span>
+        <div className="progress-container">
+          <ProgressBar 
+            current={visited} 
+            total={Math.max(1, totalItems)} 
+          />
+        </div>
+        <button 
+          className="toggle" 
+          onClick={() => setOpen(isOpen ? null : c.id)}
+        >
+          {isOpen ? '⬆️' : '⬇️'}
+        </button>
+      </div>
             {isOpen && (
               <div className="stat_box">
                 <h3>En cours</h3>

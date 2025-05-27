@@ -4,8 +4,11 @@
     "moduleId": "module-1",
     "visited": [
       "adbed355-edcb-45f5-86d1-b7079b24b923",
-      "item-1"
+      "item-1",
+      "de2e76e7-368f-4acf-ad07-cbbc804c4797"
     ],
-    "started": []
+    "started": [
+      "823615c7-a15f-464f-bd9c-369efe9e5660"
+    ]
   }
 ]
