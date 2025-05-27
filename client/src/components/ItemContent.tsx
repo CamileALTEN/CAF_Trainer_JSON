@@ -6,6 +6,7 @@ import FavoriteButton from './FavoriteButton';
 import Quiz from './Quiz';
 import './ItemContent.css';
 import { IImage, ILink, IQuiz } from '../api/modules';
+import { launchConfetti } from '../utils/confetti';
 
 export type ItemStatus = 'new' | 'in-progress' | 'done';
       
@@ -42,22 +43,8 @@ export interface ItemContentProps {
   } = props;
       
   const cls = `item-content ${status}`;
-  const launchConfetti = (e: React.MouseEvent) => {
-    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-    const x = (rect.left + rect.width / 2) / window.innerWidth;
-    const y = (rect.top + rect.height / 2) / window.innerHeight;
-    const colors = ['#00c6ff', '#0072ff', '#fce566', '#f98ec5'];
-    for (let i = 0; i < 150; i++) {
-      const div = document.createElement('div');
-      div.className = 'confetti-piece';
-      div.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      div.style.left = `${x * 100}%`;
-      div.style.top = `${y * 100}%`;
-      div.style.transform = `translate(${(Math.random() - 0.5) * 200}px, ${(-Math.random()) * 200}px) rotate(${Math.random() * 720}deg)`;
-      document.body.appendChild(div);
-      setTimeout(() => div.remove(), 1000);
-    }
-  };
+
+
 
   return (
     <div className={cls}>
