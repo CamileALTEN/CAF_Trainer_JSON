@@ -1010,7 +1010,7 @@
             "id": "f3d0be8c-14a1-4537-bbc1-00dab35fcfc1",
             "title": "Outils de suivi d'affaires",
             "subtitle": "",
-            "content": "",
+            "content": "<p><br></p>",
             "links": [],
             "images": [],
             "videos": [],
@@ -1109,8 +1109,17 @@
             "id": "30d2e7b6-bc0c-4838-b893-a2d606038dbc",
             "title": "FTS +",
             "subtitle": "",
-            "content": "",
-            "links": [],
+            "content": "<p>FTS+ est <em>#utilisation#</em></p><p><br></p><p>Dans cet item, tu vas apprendre à :</p><p>Lien 1 :</p><ul><li>Création d'un dossier personnel ;</li><li>Création d'un sous-dossier pour partager ;</li><li>Création d'un compte temporaire.</li></ul><p>Lien 2 :</p><ul><li>Formation sur l'utilisation de FTS+.</li></ul>",
+            "links": [
+              {
+                "label": "FTS+ : Création d'un compte et de dossiers",
+                "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/11YWHfMxuau2zZpZAXH6JfCvPohzbjXcHXegNbPmOss4/edit?usp=sharing"
+              },
+              {
+                "label": "FTS+ : Formation utilisation",
+                "url": "https://docs.google.com/presentation/d/11YWHfMxuau2zZpZAXH6JfCvPohzbjXcHXegNbPmOss4/edit?usp=sharing"
+              }
+            ],
             "images": [],
             "videos": [],
             "profiles": [
@@ -1128,8 +1137,13 @@
             "id": "4ed124fb-6fbb-4b27-8f4e-e074110fd8b7",
             "title": "CATIA",
             "subtitle": "",
-            "content": "",
-            "links": [],
+            "content": "<p>CATIA est un logiciel de CAO et DAO. </p><p><br></p><p>Dans cet item, tu vas apprendre comment utiliser CATIA et les activités liées au logiciel.</p><p><u>CATIA</u> :</p><ul><li>Lancement ;</li><li>Search order ;</li><li><br></li><li>Ouvrir CAO lumineuse ;</li><li>Manipuler ;</li><li>Conception.</li></ul><p><br></p><p><u>Stockage / archivage pour MDM-R</u> :</p><ul><li>Généralités ;</li><li>Télécharger une CAO.</li></ul>",
+            "links": [
+              {
+                "label": "Formation Catia",
+                "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1BsZjkZm97ZmMysrfYWp6TeaSTy3KCt5e_I2Y9YSQ2Qk/edit?usp=sharing"
+              }
+            ],
             "images": [],
             "videos": [],
             "profiles": [
@@ -1147,7 +1161,7 @@
             "id": "c1c9b73c-5353-4932-87ee-0377cfc03a08",
             "title": "Outils génériques (Airbus Sign & NOMAD)",
             "subtitle": "",
-            "content": "<h1>Airbus Sign</h1><p><br></p><p>Airbus Sign est un outil en ligne permettant de <strong>signer des documents</strong> avec les personnes possédants des <strong>adresses mail Airbus</strong>.</p><p><br></p><p>Dans le tuto \"Signature Digitale\", on retrouve comment : </p><ul><li>Créer un compte ;</li><li>Le paramétrer ;</li><li>Signer un document ;</li><li>Créer un document à faire signer ;</li><li>Changer une signature pendant la phase signature. </li></ul><p><br></p><p><br></p><h1>NOMAD</h1><p><br></p><p>NOMAD est un VPN permettant d'accéder à l'environnement Airbus depuis les agences ALTEN ou depuis le domicile du consultant. Cependant, ce VPN possède des limites et certains logiciels ne sont pas disponible comme CATIA. Il faut donc adapter son travail lorsqu'on n'est pas sur le site du client.</p><p><br></p><p><br></p>",
+            "content": "<h1>Airbus Sign</h1><p><br></p><p>Airbus Sign est un outil en ligne permettant de <strong>signer des documents</strong> avec les personnes possédants des <strong>adresses mail Airbus</strong>.</p><p><br></p><p>Dans le tuto \"Signature Digitale\", on retrouve comment :</p><ul><li>Créer un compte ;</li><li>Le paramétrer ;</li><li>Signer un document ;</li><li>Créer un document à faire signer ;</li><li>Changer une signature pendant la phase signature.</li></ul><p><br></p><p><br></p><h1>NOMAD</h1><p><br></p><p>NOMAD est un VPN permettant d'accéder à l'environnement Airbus depuis les agences ALTEN ou depuis le domicile du consultant. Cependant, ce VPN possède des limites et certains logiciels ne sont pas disponible comme CATIA. Il faut donc adapter son travail lorsqu'on n'est pas sur le site du client.</p>",
             "links": [
               {
                 "label": "Airbus Sign - Signature digitale",
@@ -1181,7 +1195,7 @@
             "id": "30cf2249-0124-428c-933d-12153fc1c769",
             "title": "ADOC & MyDoc",
             "subtitle": "",
-            "content": "",
+            "content": "<p>Airbus utilise du stockage en ligne pour sa documentation.</p><p><br></p><h1>ADOC</h1><p>abc</p><p><br></p><h1>MyDoc</h1><p>abc</p>",
             "links": [],
             "images": [],
             "videos": [],
@@ -1199,13 +1213,40 @@
             "id": "97958f90-4973-46ac-846f-f746b20c1109",
             "title": "MDM-R",
             "subtitle": "",
-            "content": "",
-            "links": [],
-            "images": [],
+            "content": "<p>MDM-R est l'outil d'archivage d'Airbus. </p><p>Une fois qu'un l'outillage est fini et prêt à être livré, l'affaire est archivée avant d'être clôturée.</p><p><br></p><p>Dans cet item, tu vas apprendre à utiliser MDM-R : </p><ul><li>Généralités ;</li><li>Processus JTDOC ;</li><li>Process CAO ;</li><li>Exemple d'arborescences ;</li><li>Procédure de stockage et téléchargement.</li></ul>",
+            "links": [
+              {
+                "label": "Formation MDM-R",
+                "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1EY9lHZLzFQ4TCg7TouT3sy6xGNP9_nM7jZrTJLvHEhY/edit?usp=sharing"
+              }
+            ],
+            "images": [
+              {
+                "src": "https://ingedis-solutions.fr/wp-content/uploads/2023/03/SAE-Ingedis-620x325-1.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
             "videos": [],
             "profiles": [
               "Montoir"
             ],
+            "enabled": true,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "b61abdac-09ca-4e0d-a4f8-8d04551cf23d",
+            "title": "JTDOC",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [],
             "enabled": true,
             "quiz": {
               "enabled": false,
