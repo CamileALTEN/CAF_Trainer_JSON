@@ -3,10 +3,11 @@
    import React, { useEffect, useState } from 'react';
    import { Link } from 'react-router-dom';
 
-   import ProgressBar        from '../components/ProgressBar';
-   import { getModules,
-            IModule,
-            IItem }          from '../api/modules';
+import ProgressBar        from '../components/ProgressBar';
+import { getModules,
+         IModule,
+         IItem,
+         IProgress }      from '../api/modules';
    import { flatten }        from '../utils/items';
    import { useAuth }        from '../context/AuthContext';
    import './HomePage.css';
@@ -26,14 +27,15 @@
      const { user } = useAuth();           // ← on connaît le site du CAF
      const site = user?.site;              // « Nantes » | « Montoir » | undefined
 
-     const [modules, setModules] = useState<IModule[]>([]);
-     const [loading, setLoading] = useState(true);
-     const [error,   setError]   = useState('');
+    const [modules, setModules] = useState<IModule[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error,   setError]   = useState('');
+    const [progress, setProgress] = useState<IProgress[]>([]);
 
-     /* charge la liste une seule fois */
-     useEffect(() => {
-       getModules()
-         .then((mods) => {
+    /* charge la liste une seule fois */
+    useEffect(() => {
+      getModules()
+        .then((mods) => {
            if (!Array.isArray(mods)) throw new Error('Réponse inattendue du serveur');
 
            /* garde seulement les modules actifs et au moins 1 item valable */
@@ -45,8 +47,19 @@
            setModules(filtered);
          })
          .catch((e) => setError(e.message ?? 'Erreur réseau'))
-         .finally(() => setLoading(false));
-     }, [site]);
+        .finally(() => setLoading(false));
+    }, [site]);
+
+    useEffect(() => {
+      if (user) {
+        fetch(`/api/progress/${user.username}`)
+          .then((r) => r.json())
+          .then((rows: IProgress[]) => setProgress(rows))
+          .catch(console.error);
+      } else {
+        setProgress([]);
+      }
+    }, [user]);
 
      /* états spéciaux */
      if (loading) return <p style={{ padding: '2rem' }}>Chargement…</p>;
@@ -55,15 +68,11 @@
        return <p style={{ padding: '2rem' }}>Aucun module disponible pour votre profil.</p>;
 
      /* progression globale */
-     const totalItems   = modules.reduce(
+    const totalItems   = modules.reduce(
        (n, m) => n + flatten(m.items).length,
        0,
      );
-    const totalVisited = modules.reduce((n, m) => {
-      const st = JSON.parse(localStorage.getItem(`status_${m.id}`) ?? '{}') as Record<string,string>;
-      const done = Object.entries(st).filter(([,s])=>s==='done').map(([k])=>k);
-      return n + done.filter(id => flatten(m.items).some(it => it.id === id)).length;
-    }, 0);
+   const totalVisited = progress.reduce((n, p) => n + p.visited.length, 0);
 
      /* rendu normal */
      return (
@@ -76,13 +85,10 @@
          </div>
 
          <div className="modules-grid">
-           {modules.map((m) => {
-            const flat = flatten(m.items);
-            const st  = JSON.parse(localStorage.getItem(`status_${m.id}`) ?? '{}') as Record<string,string>;
-            const current = Object.entries(st)
-              .filter(([,s])=>s==='done')
-              .map(([k])=>k)
-              .filter(id => flat.some(it => it.id === id)).length;
+          {modules.map((m) => {
+           const flat = flatten(m.items);
+           const row = progress.find(p => p.moduleId === m.id);
+           const current = row ? row.visited.length : 0;
 
              return (
                <div key={m.id} className="module-card">
