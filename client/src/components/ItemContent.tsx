@@ -6,6 +6,8 @@ import FavoriteButton from './FavoriteButton';
 import Quiz from './Quiz';
 import './ItemContent.css';
 import { IImage, ILink, IQuiz } from '../api/modules';
+
+export type ItemStatus = 'new' | 'in-progress' | 'done';
       
 export interface ItemContentProps {
   /* ─── contenu ─── */
@@ -19,10 +21,10 @@ export interface ItemContentProps {
   quiz?:       IQuiz;
   quizPassed?: boolean;
   onQuizPassed?: () => void;
-      
-                  /* ─── progression ─── */
-                  isVisited:        boolean;
-                  onToggleVisited:  () => void;
+
+  /* ─── progression ─── */
+  status:        ItemStatus;
+  onStatusChange: (s: ItemStatus) => void;
       
                   /* ─── favoris ─── */
                   isFav:       boolean;
@@ -35,12 +37,22 @@ export interface ItemContentProps {
   const {
     title, subtitle, description, links = [], images, videos,
     quiz, quizPassed, onQuizPassed,
-    isVisited, onToggleVisited,
+    status, onStatusChange,
     isFav,     onToggleFav,
   } = props;
       
-                  return (
-                    <div className="item-content">
+  const cls = `item-content ${status}`;
+  return (
+    <div className={cls}>
+      {status === 'new' && (
+        <button
+          className="start-overlay"
+          onClick={() => onStatusChange('in-progress')}
+        >
+          Démarrer
+        </button>
+      )}
+      <div className="item-inner">
                       {/* -------- entête -------- */}
                       <div className="item-header">
         <div className="item-titles">
@@ -49,16 +61,23 @@ export interface ItemContentProps {
         </div>
       
                         <div className="item-actions">
-                          {/* coche “vu” */}
-                          <button
-                            type="button"
-                            className="check-button"
-                            onClick={onToggleVisited}
-                            aria-label={isVisited ? 'Marquer non visité' : 'Marquer visité'}
-                          >
-                            {isVisited ? '✅' : '⭕'}
-                          </button>
-      
+                          <span className="status-label">
+                            {status === 'new' && 'À faire ⏳'}
+                            {status === 'in-progress' && 'En cours 🚧'}
+                            {status === 'done' && 'Validé ✅'}
+                          </span>
+                          {status === 'in-progress' && (
+                            <button
+                              type="button"
+                              className="check-button"
+                              onClick={() => onStatusChange('done')}
+                              disabled={quiz?.enabled && !quizPassed}
+                              aria-label="Marquer terminé"
+                            >
+                              ✅
+                            </button>
+                          )}
+
                           {/* étoile favoris */}
                           <FavoriteButton isFav={isFav} onClick={onToggleFav} />
                         </div>
@@ -119,6 +138,7 @@ export interface ItemContentProps {
                       {quiz && quiz.enabled && (
                         <Quiz quiz={quiz} onSuccess={onQuizPassed ?? (()=>{})} passed={quizPassed ?? false} />
                       )}
-                    </div>
-                  );
-                }
+      </div>
+    </div>
+  );
+}

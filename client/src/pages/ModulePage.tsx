@@ -9,7 +9,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, useNavigate }  from 'react-router-dom';
 
 import SidebarMenu     from '../components/SidebarMenu';
-import ItemContent     from '../components/ItemContent';
+import ItemContent, { ItemStatus }     from '../components/ItemContent';
 import ProgressBar     from '../components/ProgressBar';
 import Loader          from '../components/Loader';
 
@@ -44,7 +44,7 @@ export default function ModulePage() {
   const [mod,      setMod]  = useState<IModule | null>(null);
   const [items,    setIt]   = useState<IItem[]>([]);
   const [selected, setSel]  = useState('');
-  const [visited,  setVis]  = useState<string[]>([]);
+  const [status, setStatus] = useState<Record<string, ItemStatus>>({});
   const [busy,     setBusy] = useState(true);
   const [open,     setOpen] = useState(false);
   const [quizPassed, setQuizPassed] = useState<Record<string, boolean>>({});
@@ -83,7 +83,9 @@ export default function ModulePage() {
         setMod({ ...m, items: filtered });
         setIt(filtered);
         setSel(filtered[0]?.id ?? '');
-        setVis(JSON.parse(localStorage.getItem(`visited_${moduleId}`) ?? '[]'));
+        setStatus(
+          JSON.parse(localStorage.getItem(`status_${moduleId}`) ?? '{}')
+        );
         setQuizPassed(JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}'));
       })
       .catch(() => navigate('/'))
@@ -108,23 +110,26 @@ export default function ModulePage() {
   const prevId   = curIndex > 0 ? flat[curIndex - 1].id : null;
   const nextId   = curIndex !== -1 && curIndex < flat.length - 1 ? flat[curIndex + 1].id : null;
 
-  /* ---------------- visite toggle ---------------- */
-  const toggleVisited = (id: string) =>
-    setVis((prev) => {
+  /* ---------------- changement de statut ---------------- */
+  const changeStatus = (id: string, s: ItemStatus) =>
+    setStatus((prev) => {
       const item = find(id)!;
-      if (item.quiz?.enabled && !quizPassed[id]) {
+      if (s === 'done' && item.quiz?.enabled && !quizPassed[id]) {
         alert('Vous devez réussir le quiz avant de valider cet item.');
         return prev;
       }
-      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-      localStorage.setItem(`visited_${moduleId}`, JSON.stringify(next));
+      const next = { ...prev, [id]: s };
+      localStorage.setItem(`status_${moduleId}`, JSON.stringify(next));
 
       /* push au backend pour suivi manager */
       if (username) {
+        const visited = Object.entries(next)
+          .filter(([, st]) => st === 'done')
+          .map(([k]) => k);
         fetch('/api/progress', {
-          method:  'PATCH',
+          method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ username, moduleId, visited: next }),
+          body: JSON.stringify({ username, moduleId, visited }),
         }).catch(console.error);
       }
       return next;
@@ -136,6 +141,14 @@ export default function ModulePage() {
       localStorage.setItem(`quiz_${moduleId}`, JSON.stringify(next));
       return next;
     });
+    setStatus(prev => {
+      if (prev[id] === 'in-progress') {
+        const up: Record<string, ItemStatus> = { ...prev, [id]: 'done' };
+        localStorage.setItem(`status_${moduleId}`, JSON.stringify(up));
+        return up;
+      }
+      return prev;
+    });
   };
 
   /* ---------------- états spéciaux ---------------- */
@@ -146,7 +159,7 @@ export default function ModulePage() {
 
   const item      = find(selected)!;
   const total     = flat.length;
-  const completed = visited.filter((id) => flat.some((x) => x.id === id)).length;
+  const completed = Object.values(status).filter((s) => s === 'done').length;
   const cls       = `module-page${open ? ' open' : ''}`;
 
   return (
@@ -163,7 +176,7 @@ export default function ModulePage() {
           items={items}
           selected={selected}
           onSelect={(id) => { setSel(id); setOpen(false); }}
-          visited={visited}
+          visited={Object.entries(status).filter(([,s])=>s==='done').map(([k])=>k)}
         />
       </aside>
 
@@ -210,8 +223,8 @@ export default function ModulePage() {
           quiz={item.quiz}
           quizPassed={quizPassed[item.id]}
           onQuizPassed={() => markQuizPassed(item.id)}
-          isVisited={visited.includes(item.id)}
-          onToggleVisited={() => toggleVisited(item.id)}
+          status={status[item.id] ?? 'new'}
+          onStatusChange={(s) => changeStatus(item.id, s)}
           isFav={favs.includes(item.id)}
           onToggleFav={() => toggleFav(item.id)}
         />

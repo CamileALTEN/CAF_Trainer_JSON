@@ -59,11 +59,11 @@
        (n, m) => n + flatten(m.items).length,
        0,
      );
-     const totalVisited = modules.reduce((n, m) => {
-       const vis = JSON.parse(localStorage.getItem(`visited_${m.id}`) ?? '[]') as string[];
-       /* seuls les IDs encore présents comptent */
-       return n + vis.filter(id => flatten(m.items).some(it => it.id === id)).length;
-     }, 0);
+    const totalVisited = modules.reduce((n, m) => {
+      const st = JSON.parse(localStorage.getItem(`status_${m.id}`) ?? '{}') as Record<string,string>;
+      const done = Object.entries(st).filter(([,s])=>s==='done').map(([k])=>k);
+      return n + done.filter(id => flatten(m.items).some(it => it.id === id)).length;
+    }, 0);
 
      /* rendu normal */
      return (
@@ -77,9 +77,12 @@
 
          <div className="modules-grid">
            {modules.map((m) => {
-             const flat = flatten(m.items);
-             const vis  = JSON.parse(localStorage.getItem(`visited_${m.id}`) ?? '[]') as string[];
-             const current = vis.filter(id => flat.some(it => it.id === id)).length;
+            const flat = flatten(m.items);
+            const st  = JSON.parse(localStorage.getItem(`status_${m.id}`) ?? '{}') as Record<string,string>;
+            const current = Object.entries(st)
+              .filter(([,s])=>s==='done')
+              .map(([k])=>k)
+              .filter(id => flat.some(it => it.id === id)).length;
 
              return (
                <div key={m.id} className="module-card">
