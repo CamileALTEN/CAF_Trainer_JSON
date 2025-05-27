@@ -769,7 +769,7 @@
             "id": "5a81047d-208e-4614-931f-11c4e29b4ce3",
             "title": "Sensibilisation",
             "subtitle": "",
-            "content": "<p>Pour exploiter pleinement les outils et ressources mises à disposition du CAF, il est important que le NewComer y soit sensibilisé.</p><p><br></p><p>Dans cet item, la NewComer va découvrir : </p><ul><li>Les activités et les équipes Off-shore ;</li><li>La Skill Matrix.</li></ul>",
+            "content": "<p>Pour exploiter pleinement les outils et ressources mises à disposition du CAF, il est important que le NewComer y soient sensibilisés.</p><p><br></p><p>Dans cet item, le NewComer va découvrir :</p><ul><li>Les activités et les équipes Off-shore ;</li><li>La Skill Matrix.</li></ul>",
             "links": [],
             "images": [
               {
@@ -793,7 +793,7 @@
                 "id": "1baabd86-0ccd-4b68-96f7-007a05b52666",
                 "title": "Off-Shore",
                 "subtitle": "",
-                "content": "<h1>Les équipes</h1><h2>Présentation</h2><p>À la demande d'Airbus Atlantic d'externaliser des activités, ALTEN a des équipes off-shore en Inde.</p><p><br></p><p>Chaque site Airbus travail en collaboration avec sa propre équipe off-shore. Il y a 4 et 2 indiens à Montoir et Nantes respectivement.</p><p><br></p><p><u>Nantes </u>:</p><ul><li>Pooja VARADARAJA</li><li>Poornachandra GONCHIGAR</li></ul><p><br></p><p><u>Montoir </u>:</p><ul><li>Bharat ODU</li><li>Punith MURUGESHA</li><li>Rakshith GOWDA P</li><li>Thippeshkumara MADIVALARASHIVAPPA</li></ul><p><br></p><h2>Compétences</h2><p>Les indiens sont considérés comme des CAF. Même si ils n'ont pas un plan d'intégration qui leur permette de traiter une affaire outillage en entier (et de part la distance géographique), les Indiens ont une base de connaissance du process à force de le pratiquer et de réaliser les tâches qui leur sont confiés (dépend de l'expérience). </p><p><br></p><p><br></p><h1>Missions</h1><p>La plupart des missions confiées à l'Off-shore sont des tâches répétitives (par exemple des affaires de série) qui ne demande pas une présence physique sur site. Leur panel de mission est varié. </p><p><br></p><p>Voici des exemples de tâches qui leur sont confiés : </p><p><u>Rédaction </u>: </p><ul><li>Rédaction de trame de contrôle V&amp;V (Vérification &amp; Validation)</li><li>Rédaction de CDC</li></ul><p><br></p><p><u>Préparation </u>:</p><ul><li>Préparer le dossier RUS</li><li>Préparer les fichiers LOP </li><li>Réaliser des préanalyse technique</li><li>Préparation de support de présentation (pour la KOM par exemple)</li><li>Préparer les documents nécessaires à l'appel d'offre (matrices, support d'analyse, etc.)</li><li>Archiver CAO</li><li>Réaliser l'accès au site</li><li>Réaliser l'entrée de marchandise du jalon</li><li>Ouverture, mise à jour et clôture de jalons SAP</li></ul><p><br></p><p><u>Vérification </u>: </p><ul><li>Vérifier des CAO</li><li>Vérifier et valider la conformité de liasses 2D &amp; 3D</li><li>Vérification d'intégration de toutes les exigences techniques</li><li>Vérifier les besoins énergétiques</li><li>Etc.</li></ul><p><br></p><p>Les CAF qui demande un support dans leur affaire à l'Off-shore doivent bien cadrer le travail. C'est à dire que le besoin doit bien être exprimé puis réaliser un suivi (avec des Meets par exemple) pour répondre aux questions et s'assurer que le travail correspond à l'attendu. </p><p><br></p><h1>Du point de vu NewComer</h1><p>abc</p>",
+                "content": "<h1>Les équipes</h1><h2>Présentation</h2><p>À la demande d'Airbus Atlantic d'externaliser des activités, ALTEN a des équipes off-shore en Inde.</p><p><br></p><p>Chaque site Airbus travail en collaboration avec sa propre équipe off-shore. Il y a 4 et 2 indiens à Montoir et Nantes respectivement.</p><p><br></p><p><u>Nantes </u>:</p><ul><li>Pooja VARADARAJA</li><li>Poornachandra GONCHIGAR</li></ul><p><br></p><p><u>Montoir </u>:</p><ul><li>Bharat ODU</li><li>Punith MURUGESHA</li><li>Rakshith GOWDA P</li><li>Thippeshkumara MADIVALARASHIVAPPA</li></ul><p><br></p><h2>Compétences</h2><p>Les indiens sont considérés comme des CAF. Même si ils n'ont pas un plan d'intégration qui leur permette de traiter une affaire outillage en entier (et de part la distance géographique), les Indiens ont une base de connaissance du process à force de le pratiquer et de réaliser les tâches qui leur sont confiés (dépend de l'expérience).</p><p><br></p><p><br></p><h1>Missions</h1><p>La plupart des missions confiées à l'Off-shore sont des tâches répétitives (par exemple des affaires de série) qui ne demande pas une présence physique sur site. Leur panel de mission est varié.</p><p><br></p><p>Voici des exemples de tâches qui leurs sont confiés :</p><p><u>Rédaction </u>:</p><ul><li>Rédaction de trame de contrôle V&amp;V (Vérification &amp; Validation)</li><li>Rédaction de CDC</li></ul><p><br></p><p><u>Préparation </u>:</p><ul><li>Préparer le dossier RUS</li><li>Préparer les fichiers LOP</li><li>Réaliser des préanalyse technique</li><li>Préparation de support de présentation (pour la KOM par exemple)</li><li>Préparer les documents nécessaires à l'appel d'offre (matrices, support d'analyse, etc.)</li><li>Archiver CAO</li><li>Réaliser l'accès au site</li><li>Réaliser l'entrée de marchandise du jalon</li><li>Ouverture, mise à jour et clôture de jalons SAP</li></ul><p><br></p><p><u>Vérification </u>:</p><ul><li>Vérifier des CAO</li><li>Vérifier et valider la conformité de liasses 2D &amp; 3D</li><li>Vérification d'intégration de toutes les exigences techniques</li><li>Vérifier les besoins énergétiques</li><li>Etc.</li></ul><p><br></p><p>Les CAF qui demande un support dans leur affaire à l'Off-shore doivent bien cadrer le travail. C'est à dire que le besoin doit bien être exprimé puis réaliser un suivi (avec des Meets par exemple) pour répondre aux questions et s'assurer que le travail correspond à l'attendu.</p><p><br></p><h1>Du point de vu NewComer</h1><p>abc</p>",
                 "links": [],
                 "images": [
                   {
@@ -818,7 +818,7 @@
                 "id": "e5b02cce-d345-4a9a-b995-eb83ccb09ebd",
                 "title": "Skill Matrix",
                 "subtitle": "",
-                "content": "<h1>Contexte</h1><p>La Skill Matrix (SM) est un outil permettant d'évaluer les compétences des consultants en fonction de leur métier. En tant que CAF, la Skill Matrix associée est \"ME3S - JTMA\" avec le rôle de \"JTMA Mechanical Tooling Manager (CAF)\".</p><p><br></p><p>Plusieurs compétences sont évaluées selon les catégories suivantes :</p><ul><li>Produit (Équipement) ;</li><li>Méthodes et processus ;</li><li>Norme (Standard) ;</li><li>Logiciel (Outil) ;</li><li>Activité (Savoir-Faire) ;</li><li>Savoir être.</li></ul><p>Le CAF est attendu à un niveau pour chaque compétence (de 0 à 4). Si ce n'est pas le cas, un plan d'action est mis en place avec le TL pour faire monter en compétences le CAF.</p><p><br></p><p>Elle est disponible sur l'outil MUSE accessible depuis My Alten.</p><p><br></p><h1>Méthode</h1><p>La Skill Matrix doit être remplise ... mois après l'arrivée du CAF, puis être mise à jour régulièrement. Le CAF la complète en autonomie, puis en discuter avec le TL, pour validation de l'auto-évaluation et du plan d'action à mettre en place.</p>",
+                "content": "<h1>Contexte</h1><p>La Skill Matrix (SM) est un outil permettant d'évaluer les compétences des consultants en fonction de leur métier. En tant que CAF, la Skill Matrix associée est \"ME3S - JTMA\" avec le rôle de \"JTMA Mechanical Tooling Manager (CAF)\".</p><p><br></p><p>Plusieurs compétences sont évaluées selon les catégories suivantes :</p><ul><li>Produit (Équipement) ;</li><li>Méthodes et processus ;</li><li>Norme (Standard) ;</li><li>Logiciel (Outil) ;</li><li>Activité (Savoir-Faire) ;</li><li>Savoir être.</li></ul><p>Le CAF est attendu à un niveau pour chaque compétence (de 0 à 4). Si ce n'est pas le cas, un plan d'action est mis en place avec le TL pour faire monter en compétences le CAF.</p><p><br></p><p>Elle est disponible sur l'outil MUSE accessible depuis My Alten.</p><p><br></p><h1>Méthode</h1><p>La Skill Matrix doit être remplise ... mois après l'arrivée du CAF, puis être mise à jour régulièrement. Le CAF la complète en autonomie, puis en discute avec le TL, pour validation de l'auto-évaluation et du plan d'action à mettre en place.</p>",
                 "links": [
                   {
                     "label": "Skill Matrix ME3S - JTMA",
@@ -850,9 +850,9 @@
       },
       {
         "id": "601f4248-2455-4b43-ac3a-d7d858699478",
-        "title": "Process",
+        "title": "Process Jigs & Tools",
         "subtitle": "",
-        "content": "",
+        "content": "<p><em>#Faire une introduction#</em></p>",
         "links": [],
         "images": [],
         "videos": [],
@@ -1090,9 +1090,28 @@
             "id": "506d35b9-9718-4277-9958-6c5188e0e197",
             "title": "SAP",
             "subtitle": "",
-            "content": "",
-            "links": [],
-            "images": [],
+            "content": "<h1>Introduction</h1><p>SAP (Systems, Applications and Products in Data Processing) est un logiciel de gestion intégré. Il permet de centraliser, automatiser et standardiser la gestion des processus clés d’une entreprise.</p><p><br></p><p>SAP est modulaire et couvre l’ensemble des fonctions de l’entreprise, notamment :</p><ul><li>Contrôle de gestion : Suivi budgétaire, calcul des coûts, analyse de la rentabilité ;</li><li>Logistique : Gestion des achats (MM), gestion des ventes (SD), stocks, approvisionnement ;</li><li><strong>Gestion de projet </strong>: Suivi de projets, budgets, jalons, ressources ;</li><li>Maintenance : Entretien préventif et correctif, ordres de maintenance ;</li><li>Production ;</li><li>Finance ;</li><li>Etc.</li></ul><p><br></p><p>Le CAF travaille sur la branche Gestion de projet sous l'environnement SAP PGI. Il permet de structurer le projet avec les jalons, le planifier, suivre les coûts, suivre l'avancement et clôturer le projet.</p><p><br></p><p>Un <a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1QN9mdOxU1AiJ9jCKkFixYffSmCreOj8L2gKWsQIlaDg/edit?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">guide d'utilisation SAP PGI</a> est disponible pour expliquer toutes les fonctionnalités et comment les utiliser :</p><ul><li>les informations liées à l'AVIS O9 ;</li><li>traiter un Avis O9.</li></ul><p><br></p><h1>Les AVIS O9</h1><p>Sous SAP l'espace de travail par affaire s'appelle un AVIS O9. </p><p>Les avis O9 sous SAP PGI servent à piloter l’avancement des dossiers outillage. Chaque dossier outillage correspond à un n° d’avis dans SAP qui se présente sous la forme 100000123456. On utilise souvent les 6 derniers digits pour parler des affaires outillages.</p><p><br></p><p>Un <a href=\"https://docs.google.com/presentation/d/1QN9mdOxU1AiJ9jCKkFixYffSmCreOj8L2gKWsQIlaDg/edit?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">manuel d'utilisation de l'outil Avis O9 dans SAP PGI</a> est disponible pour les chargés d'affaires outillages d'Airbus Montoir.</p><p>Ce document présente :</p><ul><li>Comment renseigner les différents champs des AvsiO9 dans le cadre du processus d’acquisition</li><li>Comment personnaliser SAP pour se servir des avis O9 au quotidien</li><li>Les fonctionnalités basiques et supplémentaires liées aux avis O9.</li></ul><p><br></p><p>Pour le site de Nantes, la notice d'utilisation de SAP est directement inséré dans l'<a href=\"https://drive.google.com.rproxy.goskope.com/file/d/1ZstafNBOHCJxmrp0HeIX4QwqvXsFIHda/view?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">UG</a> (User Guide).</p>",
+            "links": [
+              {
+                "label": "Guide d'utilisation des Avis O9 sous SAP PGI",
+                "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1QN9mdOxU1AiJ9jCKkFixYffSmCreOj8L2gKWsQIlaDg/edit?usp=sharing"
+              },
+              {
+                "label": "Manuel utilisateur Avis O9 pour Chargé d'Affaires Outillage NZ",
+                "url": "https://docs.google.com/presentation/d/1QN9mdOxU1AiJ9jCKkFixYffSmCreOj8L2gKWsQIlaDg/edit?usp=sharing"
+              },
+              {
+                "label": "Guide du Process Jigs & Tools Nantes et guide pour Chargé d’Affaires Outillage NT",
+                "url": "https://drive.google.com.rproxy.goskope.com/file/d/1ZstafNBOHCJxmrp0HeIX4QwqvXsFIHda/view?usp=sharing"
+              }
+            ],
+            "images": [
+              {
+                "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/SAP_2011_logo.svg/1200px-SAP_2011_logo.svg.png",
+                "width": 50,
+                "align": "center"
+              }
+            ],
             "videos": [],
             "profiles": [
               "Montoir",
@@ -1137,7 +1156,7 @@
             "id": "4ed124fb-6fbb-4b27-8f4e-e074110fd8b7",
             "title": "CATIA",
             "subtitle": "",
-            "content": "<p>CATIA est un logiciel de CAO et DAO. </p><p><br></p><p>Dans cet item, tu vas apprendre comment utiliser CATIA et les activités liées au logiciel.</p><p><u>CATIA</u> :</p><ul><li>Lancement ;</li><li>Search order ;</li><li><br></li><li>Ouvrir CAO lumineuse ;</li><li>Manipuler ;</li><li>Conception.</li></ul><p><br></p><p><u>Stockage / archivage pour MDM-R</u> :</p><ul><li>Généralités ;</li><li>Télécharger une CAO.</li></ul>",
+            "content": "<p>CATIA est un logiciel de CAO et DAO.</p><p><br></p><p>Dans cet item, tu vas apprendre comment utiliser CATIA et les activités liées au logiciel.</p><p><u>CATIA</u> :</p><ul><li>Lancement ;</li><li>Search order ;</li><li><br></li><li>Ouvrir CAO lumineuse ;</li><li>Manipuler ;</li><li>Conception.</li></ul><p><br></p><p><u>Stockage / archivage pour MDM-R</u> :</p><ul><li>Généralités ;</li><li>Télécharger une CAO.</li></ul>",
             "links": [
               {
                 "label": "Formation Catia",
@@ -1195,7 +1214,7 @@
             "id": "30cf2249-0124-428c-933d-12153fc1c769",
             "title": "ADOC & MyDoc",
             "subtitle": "",
-            "content": "<p>Airbus utilise du stockage en ligne pour sa documentation.</p><p><br></p><h1>ADOC</h1><p>abc</p><p><br></p><h1>MyDoc</h1><p>abc</p>",
+            "content": "<p>Airbus utilise du stockage en ligne pour sa documentation.</p><p><br></p><h1>ADOC</h1><p>abc</p><p><em>#pas de documentation de faite#</em></p><p><br></p><h1>MyDoc</h1><p>abc</p>",
             "links": [],
             "images": [],
             "videos": [],
@@ -1213,7 +1232,7 @@
             "id": "97958f90-4973-46ac-846f-f746b20c1109",
             "title": "MDM-R",
             "subtitle": "",
-            "content": "<p>MDM-R est l'outil d'archivage d'Airbus. </p><p>Une fois qu'un l'outillage est fini et prêt à être livré, l'affaire est archivée avant d'être clôturée.</p><p><br></p><p>Dans cet item, tu vas apprendre à utiliser MDM-R : </p><ul><li>Généralités ;</li><li>Processus JTDOC ;</li><li>Process CAO ;</li><li>Exemple d'arborescences ;</li><li>Procédure de stockage et téléchargement.</li></ul>",
+            "content": "<p>MDM-R est l'outil d'archivage d'Airbus.</p><p>Une fois qu'un l'outillage est fini et prêt à être livré, l'affaire est archivée avant d'être clôturée.</p><p><br></p><p>Dans cet item, tu vas apprendre à utiliser MDM-R :</p><ul><li>Généralités ;</li><li>Processus JTDOC ;</li><li>Process CAO ;</li><li>Exemple d'arborescences ;</li><li>Procédure de stockage et téléchargement.</li></ul>",
             "links": [
               {
                 "label": "Formation MDM-R",
@@ -1239,28 +1258,23 @@
             "children": []
           },
           {
-            "id": "b61abdac-09ca-4e0d-a4f8-8d04551cf23d",
-            "title": "JTDOC",
-            "subtitle": "",
-            "content": "",
-            "links": [],
-            "images": [],
-            "videos": [],
-            "profiles": [],
-            "enabled": true,
-            "quiz": {
-              "enabled": false,
-              "questions": []
-            },
-            "children": []
-          },
-          {
             "id": "a99b1bdd-c95b-4e24-939b-2e9bd3a01225",
             "title": "Click'n Buy",
             "subtitle": "",
-            "content": "",
-            "links": [],
-            "images": [],
+            "content": "<p>Pour passer des commandes, AIRBUS utilise Click'n Buy.</p><p><br></p><p>⚠️ Faire une ligne de commande par terme de paiement.</p><p><br></p><p>Tu trouveras ci-dessous un tuto pour faire un panier Click'n Buy :</p><ul><li>Créer le panier ;</li><li>Remplir les informations ;</li><li>Récapitulatif de commande ;</li><li>Informations liées au compte ;</li><li>Sauvegarder et soumettre.</li></ul>",
+            "links": [
+              {
+                "label": "Panier Click'n Buy",
+                "url": "https://docs.google.com.rproxy.goskope.com/presentation/d/1Z6yWRH8PR_Ljvcvn7v1Rt3dyTmYpVTM16OjZ7eYwtMA/edit?usp=sharing"
+              }
+            ],
+            "images": [
+              {
+                "src": "https://cdn-icons-png.flaticon.com/128/4357/4357328.png",
+                "width": 25,
+                "align": "center"
+              }
+            ],
             "videos": [],
             "profiles": [
               "Nantes",
@@ -1277,7 +1291,7 @@
             "id": "556cdfea-2df9-4b08-b4d2-18010406579c",
             "title": "NormMaster",
             "subtitle": "",
-            "content": "",
+            "content": "<p><em>#pas d'infos et de docs existants#</em></p>",
             "links": [],
             "images": [],
             "videos": [],
@@ -1296,7 +1310,7 @@
             "id": "8bf004aa-beb3-4c5d-8cd3-8f5fcb6452bd",
             "title": "Monitoring Tool",
             "subtitle": "",
-            "content": "",
+            "content": "<p><em>#pas d'infos et de docs existants#</em></p>",
             "links": [],
             "images": [],
             "videos": [],
@@ -1315,7 +1329,7 @@
             "id": "0b6fd1ac-6ece-4a72-8627-7cb95d0998dd",
             "title": "CKI-CKOI",
             "subtitle": "",
-            "content": "",
+            "content": "<p><em>#pas d'infos et de docs existants#</em></p>",
             "links": [],
             "images": [],
             "videos": [],
@@ -1333,7 +1347,7 @@
             "id": "c4a1baf4-bb96-4798-9df9-32dd49cb08d8",
             "title": "GEMAVICC",
             "subtitle": "",
-            "content": "",
+            "content": "<p><em>#pas d'infos et de docs existants#</em></p>",
             "links": [],
             "images": [],
             "videos": [],
