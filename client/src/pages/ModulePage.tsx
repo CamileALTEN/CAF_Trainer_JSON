@@ -13,7 +13,7 @@ import ItemContent, { ItemStatus }     from '../components/ItemContent';
 import ProgressBar     from '../components/ProgressBar';
 import Loader          from '../components/Loader';
 
-import { getModule, IItem, IModule, IQuiz } from '../api/modules';
+import { getModule, IItem, IModule, IQuiz, IProgress } from '../api/modules';
 import { flatten }     from '../utils/items';
 import { useAuth }     from '../context/AuthContext';
 import './ModulePage.css';
@@ -83,14 +83,32 @@ export default function ModulePage() {
         setMod({ ...m, items: filtered });
         setIt(filtered);
         setSel(filtered[0]?.id ?? '');
-        setStatus(
-          JSON.parse(localStorage.getItem(`status_${moduleId}`) ?? '{}')
+        setQuizPassed(
+          JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}'),
         );
-        setQuizPassed(JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}'));
+        if (username) {
+          fetch(`/api/progress/${username}`)
+            .then((r) => r.json())
+            .then((rows: IProgress[]) => {
+              const row = rows.find((p) => p.moduleId === moduleId);
+              if (!row) return;
+              const st: Record<string, ItemStatus> = {};
+              row.started.forEach((id) => {
+                st[id] = 'in-progress';
+              });
+              row.visited.forEach((id) => {
+                st[id] = 'done';
+              });
+              setStatus(st);
+            })
+            .catch(console.error);
+        } else {
+          setStatus({});
+        }
       })
       .catch(() => navigate('/'))
       .finally(() => setTimeout(() => setBusy(false), 450)); // petit délai pour le loader
-  }, [moduleId, site, navigate]);
+  }, [moduleId, site, username, navigate]);
 
   /* ---------------- indexation rapide ---------------- */
   const find = useMemo(() => {
@@ -119,17 +137,20 @@ export default function ModulePage() {
         return prev;
       }
       const next = { ...prev, [id]: s };
-      localStorage.setItem(`status_${moduleId}`, JSON.stringify(next));
 
       /* push au backend pour suivi manager */
       if (username) {
-        const visited = Object.entries(next)
+        const entries = Object.entries(next);
+        const visited = entries
           .filter(([, st]) => st === 'done')
+          .map(([k]) => k);
+        const started = entries
+          .filter(([, st]) => st === 'in-progress')
           .map(([k]) => k);
         fetch('/api/progress', {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, moduleId, visited }),
+          body: JSON.stringify({ username, moduleId, visited, started }),
         }).catch(console.error);
       }
       return next;
@@ -144,7 +165,20 @@ export default function ModulePage() {
     setStatus(prev => {
       if (prev[id] === 'in-progress') {
         const up: Record<string, ItemStatus> = { ...prev, [id]: 'done' };
-        localStorage.setItem(`status_${moduleId}`, JSON.stringify(up));
+        if (username) {
+          const entries = Object.entries(up);
+          const visited = entries
+            .filter(([, st]) => st === 'done')
+            .map(([k]) => k);
+          const started = entries
+            .filter(([, st]) => st === 'in-progress')
+            .map(([k]) => k);
+          fetch('/api/progress', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, moduleId, visited, started }),
+          }).catch(console.error);
+        }
         return up;
       }
       return prev;

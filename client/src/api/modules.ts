@@ -52,7 +52,8 @@ export interface IModule {
 export interface IProgress {
   username: string;          // CAF
   moduleId: string;
-  visited:  string[];        // ids d’items complétés
+  started: string[];         // ids d'items démarrés
+  visited: string[];         // ids d’items complétés
 }
       
       
