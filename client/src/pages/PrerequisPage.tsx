@@ -32,12 +32,22 @@
      }, []);
 
      /* ---------- helpers ---------- */
-     const changeStatus = (id: string, s: ItemStatus) =>
-       setStatus((prev) => {
-         const next = { ...prev, [id]: s };
-         localStorage.setItem(`status_${MODULE_ID}`, JSON.stringify(next));
-         return next;
-       });
+    const changeStatus = (id: string, s: ItemStatus) =>
+      setStatus((prev) => {
+        const next = { ...prev, [id]: s };
+        localStorage.setItem(`status_${MODULE_ID}`, JSON.stringify(next));
+        if (user) {
+          const entries = Object.entries(next);
+          const visited = entries.filter(([,st])=>st==='done').map(([k])=>k);
+          const started = entries.filter(([,st])=>st==='in-progress' || st==='done').map(([k])=>k);
+          fetch('/api/progress', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: user.username, moduleId: MODULE_ID, visited, started }),
+          }).catch(console.error);
+        }
+        return next;
+      });
 
      const toggleFav = (id: string) =>
        setFavs((prev) => {

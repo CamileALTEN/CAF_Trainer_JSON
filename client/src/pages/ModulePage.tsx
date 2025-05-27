@@ -123,13 +123,17 @@ export default function ModulePage() {
 
       /* push au backend pour suivi manager */
       if (username) {
-        const visited = Object.entries(next)
+        const entries = Object.entries(next);
+        const visited = entries
           .filter(([, st]) => st === 'done')
+          .map(([k]) => k);
+        const started = entries
+          .filter(([, st]) => st === 'in-progress' || st === 'done')
           .map(([k]) => k);
         fetch('/api/progress', {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, moduleId, visited }),
+          body: JSON.stringify({ username, moduleId, visited, started }),
         }).catch(console.error);
       }
       return next;

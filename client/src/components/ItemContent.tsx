@@ -42,15 +42,24 @@ export interface ItemContentProps {
   } = props;
       
   const cls = `item-content ${status}`;
+  const launchConfetti = () => {
+    const colors = ['#00c6ff', '#0072ff', '#fce566', '#f98ec5'];
+    for (let i = 0; i < 30; i++) {
+      const div = document.createElement('div');
+      div.className = 'confetti-piece';
+      div.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      div.style.left = `${50 + (Math.random() * 40 - 20)}%`;
+      document.body.appendChild(div);
+      setTimeout(() => div.remove(), 1000);
+    }
+  };
+
   return (
     <div className={cls}>
       {status === 'new' && (
-        <button
-          className="start-overlay"
-          onClick={() => onStatusChange('in-progress')}
-        >
-          Démarrer
-        </button>
+        <div className="start-overlay">
+          <button onClick={() => onStatusChange('in-progress')}>Démarrer</button>
+        </div>
       )}
       <div className="item-inner">
                       {/* -------- entête -------- */}
@@ -70,11 +79,10 @@ export interface ItemContentProps {
                             <button
                               type="button"
                               className="check-button"
-                              onClick={() => onStatusChange('done')}
+                              onClick={() => { launchConfetti(); onStatusChange('done'); }}
                               disabled={quiz?.enabled && !quizPassed}
-                              aria-label="Marquer terminé"
                             >
-                              ✅
+                              Valider l'item ?
                             </button>
                           )}
 
