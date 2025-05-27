@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { IUser } from '../api/auth';
 import { IProgress, IModule, getModules } from '../api/modules';
 import ProgressBar from '../components/ProgressBar';
+import RadarTracker from '../components/RadarTracker';
 import { flatten } from '../utils/items';
 import './ProgressPage.css';
 
@@ -69,6 +70,7 @@ export default function ProgressPage() {
         </button>
       </div>
             {isOpen && (
+              <>
               <div className="stat_box">
                 <h3>En cours</h3>
                 {started.length === 0 ? (
@@ -79,6 +81,11 @@ export default function ProgressPage() {
                   </ul>
                 )}
               </div>
+              <div className="stat_box progress_tracker">
+                <h3>Progress Tracker</h3>
+                <RadarTracker modules={mods} progress={prog} username={c.username} />
+              </div>
+              </>
             )}
           </div>
         );
