@@ -3,12 +3,15 @@
     "username": "logan",
     "moduleId": "module-1",
     "visited": [
+      "823615c7-a15f-464f-bd9c-369efe9e5660",
       "adbed355-edcb-45f5-86d1-b7079b24b923",
       "item-1",
-      "de2e76e7-368f-4acf-ad07-cbbc804c4797"
+      "de2e76e7-368f-4acf-ad07-cbbc804c4797",
+      "ffe016dd-3970-45b1-a898-3e3651461058",
+      "e9637576-9917-4f30-b317-c155bd17757d",
+      "7be21bb4-9a97-4d92-a850-bb9fe4ef6673",
+      "28430088-5437-4272-ab34-70edfab1f354"
     ],
-    "started": [
-      "823615c7-a15f-464f-bd9c-369efe9e5660"
-    ]
+    "started": []
   }
 ]

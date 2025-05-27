@@ -51,6 +51,8 @@ export default function RadarTracker({ modules, progress, username }: RadarTrack
     return null;
   };
 
+  
+
   return (
     <div className="radar-wrapper">
       <h4>{modules[idx]?.title}</h4>
@@ -58,11 +60,11 @@ export default function RadarTracker({ modules, progress, username }: RadarTrack
         <div className="radar-track" style={{ transform: `translateX(-${idx * 100}%)` }}>
           {modules.map(m => (
             <div className="radar-item" key={m.id}>
-              <RadarChart width={220} height={220} outerRadius={80} data={buildData(m)}>
+              <RadarChart width={500} height={500} outerRadius={80} data={buildData(m)}>
                 <PolarGrid />
                 <PolarAngleAxis dataKey="subject" />
                 <PolarRadiusAxis angle={90} domain={[0, 100]} tick={false} />
-                <Radar dataKey="percent" fill="#008bd2" fillOpacity={0.6} />
+                <Radar dataKey="percent" fill='#ff5252' stroke='#ff5252' fillOpacity={0.6} />
                 <Tooltip content={<TooltipContent />} />
               </RadarChart>
             </div>
