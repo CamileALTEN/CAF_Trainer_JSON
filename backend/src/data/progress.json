@@ -1,3 +1,11 @@
 [
-  
+  {
+    "username": "logan",
+    "moduleId": "module-1",
+    "visited": [
+      "adbed355-edcb-45f5-86d1-b7079b24b923",
+      "item-1"
+    ],
+    "started": []
+  }
 ]
