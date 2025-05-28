@@ -2,23 +2,21 @@
   {
     "username": "logan",
     "moduleId": "module-1",
-    "needValidation": [],
+    "needValidation": [
+      "60f65965-ef9e-4541-8086-2569210ddab2"
+    ],
     "visited": [
-      "823615c7-a15f-464f-bd9c-369efe9e5660",
-      "adbed355-edcb-45f5-86d1-b7079b24b923",
-      "item-1",
-      "de2e76e7-368f-4acf-ad07-cbbc804c4797",
-      "ffe016dd-3970-45b1-a898-3e3651461058",
-      "e9637576-9917-4f30-b317-c155bd17757d",
-      
+      "1fac3148-0d9e-4003-86e9-abbf34963b1d",
       "28430088-5437-4272-ab34-70edfab1f354",
-      "1746552185431",
-      "7926dfda-1785-401b-b8e6-ce25e7ebaceb",
-      "1fef12c5-1512-4be2-81a8-ba21dd036931"
+      "item-1",
+      "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
+      "c8aa9ab3-8d46-469c-847a-91f465f730e5",
+      "0ef78fbe-7242-47c1-80e9-5399492ca837",
+      "ffe016dd-3970-45b1-a898-3e3651461058"
     ],
     "started": [
-      "1fac3148-0d9e-4003-86e9-abbf34963b1d",
-      "412c45d2-63ba-48d3-a79a-b5681ba72604"
+      "412c45d2-63ba-48d3-a79a-b5681ba72604",
+      "823615c7-a15f-464f-bd9c-369efe9e5660"
     ]
   }
 ]

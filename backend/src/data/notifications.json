@@ -404,5 +404,12 @@
     "date": "2025-05-22T17:48:15.671Z",
     "category": "ticket",
     "message": "Mise à jour du ticket \"test1245\""
+  },
+  {
+    "id": "1748431422537",
+    "username": "logan",
+    "date": "2025-05-28T11:23:42.528Z",
+    "category": "validation",
+    "message": "Item 60f65965-ef9e-4541-8086-2569210ddab2 invalide"
   }
 ]

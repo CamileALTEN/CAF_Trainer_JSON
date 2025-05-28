@@ -77,3 +77,60 @@
 .progress_tracker {
   text-align: center;
 }
+
+/* Bouton de supervision (icône 👮) */
+.name_box .supervise {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+.name_box .supervise:hover {
+  background: #d0eaff;
+}
+
+/* Boîte de supervision (items à valider) */
+.supervision_box {
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.75rem;
+  background: #fff;
+}
+.supervision_box h3 {
+  margin: 0 0 0.5rem 0;
+}
+.supervision_box p {
+  margin: 0;
+  font-style: italic;
+}
+.supervision_box ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.supervision_box li {
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+}
+.supervision_box button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  font-size: 1.1rem;
+  transition: transform 0.1s;
+}
+.supervision_box button:hover {
+  transform: scale(1.2);
+}
+
+/* État de chargement */
+.progress-wrapper p {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+}
