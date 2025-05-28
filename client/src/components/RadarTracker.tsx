@@ -8,9 +8,10 @@ interface RadarTrackerProps {
   modules: IModule[];
   progress: IProgress[];
   username: string;
+  site?: string;
 }
 
-export default function RadarTracker({ modules, progress, username }: RadarTrackerProps) {
+export default function RadarTracker({ modules, progress, username, site  }: RadarTrackerProps) {
   const [idx, setIdx] = useState(0);
 
   const userProg = progress.filter(p => p.username === username);
@@ -20,11 +21,12 @@ export default function RadarTracker({ modules, progress, username }: RadarTrack
 
   const buildData = (mod: IModule) => {
     const p = userProg.find(x => x.moduleId === mod.id);
-    return mod.items.map(item => {
-      const children = flatten(item.children ?? []);
-      const total = children.length || 1;
-      const visited = children.filter(ch => p?.visited.includes(ch.id)).length;
-      const percent = Math.round((visited / total) * 100);
+    return mod.items.flatMap(item => {
+      const nodes = flatten([item]).filter(n => !site || n.profiles?.includes(site));
+      const total = nodes.length;
+      if (total === 0) return [];
+      const visited = nodes.filter(ch => p?.visited.includes(ch.id)).length;
+      const percent = Math.round(total ? (visited / total) * 100 : 0);
       return { subject: item.title, percent, item, progress: p };
     });
   };
@@ -64,7 +66,7 @@ export default function RadarTracker({ modules, progress, username }: RadarTrack
                 <PolarGrid />
                 <PolarAngleAxis dataKey="subject" />
                 <PolarRadiusAxis angle={90} domain={[0, 100]} tick={false} />
-                <Radar dataKey="percent" fill='#ff5252' stroke='#ff5252' fillOpacity={0.6} />
+                <Radar dataKey="percent" fill='#ff5252' stroke='#ff5252' fillOpacity={0.6} dot />
                 <Tooltip content={<TooltipContent />} />
               </RadarChart>
             </div>
