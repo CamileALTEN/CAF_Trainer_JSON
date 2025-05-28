@@ -6,6 +6,7 @@ import { IProgress, IModule, getModules } from '../api/modules';
 import ProgressBar from '../components/ProgressBar';
 import RadarTracker from '../components/RadarTracker';
 import { flatten } from '../utils/items';
+import { fuzzySearch } from '../utils/fuzzySearch';
 import './ProgressPage.css';
 
 export default function ProgressPage() {
@@ -17,6 +18,13 @@ export default function ProgressPage() {
   const [open, setOpen] = useState<string | null>(null);
   const [superUser, setSuperUser] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [downQuery, setDownQuery] = useState('');
+  const [upQuery, setUpQuery] = useState('');
+
+  useEffect(() => {
+    setDownQuery('');
+    setUpQuery('');
+  }, [superUser]);
 
   useEffect(() => {
     Promise.all([
@@ -30,8 +38,11 @@ export default function ProgressPage() {
     }).finally(() => setLoading(false));
   }, [user]);
 
-  const items = mods.flatMap(m => flatten(m.items));
+  const items = mods.flatMap(m =>
+    flatten(m.items).map(it => ({ id: it.id, title: it.title, moduleId: m.id }))
+  );
   const itemMap = new Map(items.map(it => [it.id, it.title]));
+  const itemInfo = new Map(items.map(it => [it.id, it]));
   const totalItems = items.length;
 
   const getStarted = (username: string) =>
@@ -79,6 +90,63 @@ export default function ProgressPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, date: new Date().toISOString(), category: 'validation', message: `Item ${id} invalide` }),
     }).catch(console.error);
+  };
+
+  const getVisitedItems = (username: string) =>
+    prog.filter(p => p.username === username)
+       .flatMap(p => p.visited.map(id => ({
+         id,
+         moduleId: p.moduleId,
+         title: itemMap.get(id) || id,
+       })));
+
+  const getNotVisitedItems = (username: string) => {
+    const byUser = prog.filter(p => p.username === username);
+    const visited = new Set<string>();
+    const started = new Set<string>();
+    const needVal = new Set<string>();
+    byUser.forEach(p => {
+      p.visited.forEach(id => visited.add(id));
+      p.started.forEach(id => started.add(id));
+      p.needValidation.forEach(id => needVal.add(id));
+    });
+    return items.filter(it =>
+      !visited.has(it.id) && !started.has(it.id) && !needVal.has(it.id)
+    );
+  };
+
+  const downgradeItem = (username: string, moduleId: string, id: string) => {
+    setProg(prev => prev.map(p => {
+      if (p.username === username && p.moduleId === moduleId) {
+        const visited = p.visited.filter(x => x !== id);
+        const started = p.started.filter(x => x !== id);
+        const needValidation = p.needValidation.filter(x => x !== id);
+        fetch('/api/progress', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, moduleId, visited, started, needValidation }),
+        }).catch(console.error);
+        return { ...p, visited, started, needValidation };
+      }
+      return p;
+    }));
+  };
+
+  const upgradeItem = (username: string, moduleId: string, id: string) => {
+    const entry = prog.find(p => p.username === username && p.moduleId === moduleId);
+    const visited = entry ? [...entry.visited, id] : [id];
+    const started = entry ? entry.started : [];
+    const needValidation = entry ? entry.needValidation : [];
+    fetch('/api/progress', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, moduleId, visited, started, needValidation }),
+    }).catch(console.error);
+    if (entry) {
+      setProg(prev => prev.map(p => p === entry ? { ...p, visited } : p));
+    } else {
+      setProg(prev => [...prev, { username, moduleId, visited, started: [], needValidation: [] }]);
+    }
   };
 
   const getVisitedCount = (username: string) =>
@@ -136,6 +204,40 @@ export default function ProgressPage() {
                     ))}
                   </ul>
                 )}
+                <div className="tool_box">
+                  <h4>Rétrograder</h4>
+                  <input
+                    type="search"
+                    placeholder="Recherche item visité"
+                    value={downQuery}
+                    onChange={e => setDownQuery(e.target.value)}
+                  />
+                  <ul>
+                    {fuzzySearch(getVisitedItems(c.username), downQuery, it => it.title).map(it => (
+                      <li key={it.id}>
+                        {it.title}{' '}
+                        <button onClick={() => downgradeItem(c.username, it.moduleId, it.id)}>Downgrade ? 📉</button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="tool_box">
+                  <h4>Upgrade</h4>
+                  <input
+                    type="search"
+                    placeholder="Recherche item non visité"
+                    value={upQuery}
+                    onChange={e => setUpQuery(e.target.value)}
+                  />
+                  <ul>
+                    {fuzzySearch(getNotVisitedItems(c.username), upQuery, it => it.title).map(it => (
+                      <li key={it.id}>
+                        {it.title}{' '}
+                        <button onClick={() => upgradeItem(c.username, it.moduleId, it.id)}>Upgrade ?📈</button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ) : isOpen && (
               <>

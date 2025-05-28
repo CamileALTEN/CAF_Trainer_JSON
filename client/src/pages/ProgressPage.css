@@ -128,6 +128,23 @@
   transform: scale(1.2);
 }
 
+/* outils upgrade/downgrade */
+.supervision_box .tool_box {
+  margin-top: 0.75rem;
+}
+.supervision_box .tool_box input {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.25rem;
+}
+.supervision_box .tool_box ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.supervision_box .tool_box li {
+  margin-bottom: 0.3rem;
+}
+
 /* État de chargement */
 .progress-wrapper p {
   text-align: center;
