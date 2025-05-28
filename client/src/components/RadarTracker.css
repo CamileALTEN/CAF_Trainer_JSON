@@ -1,0 +1,83 @@
+.radar-wrapper {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.radar-wrapper h4 {
+  margin: 0 0 0.5rem 0;
+}
+
+.radar-carousel {
+  position: relative;
+  overflow: hidden;
+  height: 220px;
+}
+
+.radar-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.4s ease;
+}
+
+.radar-item {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radar-item .recharts-tooltip-wrapper {
+  position: absolute !important;
+  /* on la décale vers la droite de 100% + 10px de marge */
+  left: calc(70% + 10px) !important;
+  /* on la centre verticalement */
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  /* s’assure qu’elle ne soit pas coupée */
+  overflow: visible !important;
+  pointer-events: none; /* pour ne pas interférer avec le hover */
+  z-index: 10;
+}
+
+
+.radar-navs {
+  margin-top: 0.25rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.radar-nav {
+  background: #008bd2;
+  color: #fff;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.radar-nav:hover {
+  background: #006fa1;
+}
+
+.radar-tip {
+  background-color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  color: #333;
+  font-size: 0.9rem;
+   width: 200%;
+  
+}
+
+.radar-tip ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.radar-tip li {
+  margin-bottom: 0.5rem;
+}
+

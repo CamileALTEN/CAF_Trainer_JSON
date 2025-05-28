@@ -27,6 +27,7 @@ import {
                   videos:    it.videos    ?? [],
                   profiles:  it.profiles  ?? [],
                   enabled:   it.enabled   ?? true,
+                  needValidation: it.needValidation ?? false,
                   quiz:      it.quiz      ?? { enabled: false, questions: [] },
                   children:  (it.children ?? []).map(ensureDefaults),
                 });
@@ -434,13 +435,23 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                                 ))}
                                 <button onClick={() => patchQuiz({ questions: [...(current.quiz?.questions ?? []), { question: '', options: ['',''], correct: [] }] })}>＋ ajouter une question</button>
                               </div>
-                            )}
+                          )}
                           </fieldset>
       
-                            <label className="inline-row">
-                              <input
-                                type="checkbox"
-                                checked={current.enabled}
+                            
+                          <label className="inline-row">
+                            <input
+                              type="checkbox"
+                              checked={current.needValidation ?? false}
+                              onChange={e => patchItem({ needValidation: e.target.checked })}
+                            />{' '}
+                            Soumettre à validation
+                          </label>
+
+                          <label className="inline-row">
+                            <input
+                              type="checkbox"
+                              checked={current.enabled}
                                 onChange={(e) => patchItem({ enabled: e.target.checked })}
                               />{' '}
                               Item actif

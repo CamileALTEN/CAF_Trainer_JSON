@@ -1,4 +1,4 @@
-export type NotificationCategory = 'ticket' | 'password';
+export type NotificationCategory = 'ticket' | 'password' | 'validation';
 
 export interface INotification {
   id: string;

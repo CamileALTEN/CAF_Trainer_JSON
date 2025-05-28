@@ -2,6 +2,9 @@
   {
     "username": "logan",
     "moduleId": "module-1",
+    "needValidation": [
+      "60f65965-ef9e-4541-8086-2569210ddab2"
+    ],
     "visited": [
       "823615c7-a15f-464f-bd9c-369efe9e5660",
       "adbed355-edcb-45f5-86d1-b7079b24b923",
@@ -17,6 +20,7 @@
   {
     "username": "nantes@alten.com",
     "moduleId": "module-1",
+    "needValidation": [],
     "visited": [],
     "started": [
       "item-1",
@@ -43,6 +47,7 @@
   {
     "username": "nantes@alten.com",
     "moduleId": "1746553317746",
+    "needValidation": [],
     "visited": [],
     "started": [
       "607743e6-b7fa-46f2-aff4-097954ed01c2",
@@ -76,6 +81,7 @@
   {
     "username": "montoir@alten.com",
     "moduleId": "module-1",
+    "needValidation": [],
     "visited": [],
     "started": [
       "item-1",
@@ -102,6 +108,7 @@
   {
     "username": "montoir@alten.com",
     "moduleId": "1746553317746",
+    "needValidation": [],
     "visited": [],
     "started": [
       "607743e6-b7fa-46f2-aff4-097954ed01c2",
@@ -135,6 +142,7 @@
   {
     "username": "montoir.NZ@alten.com",
     "moduleId": "module-1",
+    "needValidation": [],
     "visited": [],
     "started": [
       "item-1",
@@ -161,6 +169,7 @@
   {
     "username": "montoir.NZ@alten.com",
     "moduleId": "1746553317746",
+    "needValidation": [],
     "visited": [],
     "started": [
       "607743e6-b7fa-46f2-aff4-097954ed01c2",

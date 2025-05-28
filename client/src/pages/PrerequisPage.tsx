@@ -34,6 +34,7 @@
               if (!row) return;
               const st: Record<string, ItemStatus> = {};
               row.started.forEach(id => { st[id] = 'in-progress'; });
+              row.needValidation?.forEach(id => { st[id] = 'need-validation'; });
               row.visited.forEach(id => { st[id] = 'done'; });
               setStatus(st);
             })
@@ -49,11 +50,12 @@
         if (user) {
           const entries = Object.entries(next);
           const visited = entries.filter(([,st])=>st==='done').map(([k])=>k);
+          const needValidation = entries.filter(([,st])=>st==='need-validation').map(([k])=>k);
           const started = entries.filter(([,st])=>st==='in-progress').map(([k])=>k);
           fetch('/api/progress', {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: user.username, moduleId: MODULE_ID, visited, started }),
+            body: JSON.stringify({ username: user.username, moduleId: MODULE_ID, visited, started, needValidation }),
           }).catch(console.error);
         }
         return next;
@@ -93,12 +95,13 @@
               description={item.content}
               links={item.links}
 
-               videos={item.videos}
-               status={status[item.id] ?? 'new'}
-               onStatusChange={(s)=>changeStatus(item.id,s)}
-               isFav={favs.includes(item.id)}
-               onToggleFav={() => toggleFav(item.id)}
-             />
+              videos={item.videos}
+              needValidation={item.needValidation}
+              status={status[item.id] ?? 'new'}
+              onStatusChange={(s)=>changeStatus(item.id,s)}
+              isFav={favs.includes(item.id)}
+              onToggleFav={() => toggleFav(item.id)}
+            />
            )}
          </main>
        </div>
