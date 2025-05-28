@@ -54,5 +54,21 @@
     "username": "jonathan.candelier@alten.com",
     "password": "$2b$08$sK71pwta3R0rEpgI5eP1H.Rzkcw9B4gYHFCOJOw/7fckjjskBCpJu",
     "role": "manager"
+  },
+  {
+    "id": "1748425265715",
+    "username": "nantes@alten.com",
+    "password": "$2b$08$2gXy/vGhv87SWkayLneAPOq8cCUUbvooxNSpPGXZPHzgD4ML0fbua",
+    "role": "caf",
+    "site": "Nantes",
+    "managerId": "1747838393929"
+  },
+  {
+    "id": "1748425281829",
+    "username": "montoir@alten.com",
+    "password": "$2b$08$M5ic/74.EmJHQ1BT5t/3Ke/cJSuRMUX7NTumQGXvnI4tg8rDl6j1W",
+    "role": "caf",
+    "site": "Nantes",
+    "managerId": "1747838393929"
   }
 ]
