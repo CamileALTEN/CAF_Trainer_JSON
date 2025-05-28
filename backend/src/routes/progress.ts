@@ -19,6 +19,7 @@ router.patch('/', (req, res) => {
     moduleId,
     visited = [],
     started = [],
+    needValidation = [],
   } = req.body as Partial<IProgress>;
 
   if (!username || !moduleId) {
@@ -26,16 +27,19 @@ router.patch('/', (req, res) => {
   }
 
   const uniqVisited = Array.from(new Set(visited));
-  const uniqStarted = Array.from(new Set(started)).filter((id) => !uniqVisited.includes(id));
+  const uniqNeedVal = Array.from(new Set(needValidation)).filter((id) => !uniqVisited.includes(id));
+  const uniqStarted = Array.from(new Set(started))
+    .filter((id) => !uniqVisited.includes(id) && !uniqNeedVal.includes(id));
 
   const list = read<IProgress>(TABLE);
   const idx = list.findIndex((p) => p.username === username && p.moduleId === moduleId);
 
   if (idx === -1) {
-    list.push({ username, moduleId, visited: uniqVisited, started: uniqStarted });
+    list.push({ username, moduleId, visited: uniqVisited, started: uniqStarted, needValidation: uniqNeedVal });
   } else {
     list[idx].visited = uniqVisited;
     list[idx].started = uniqStarted;
+    list[idx].needValidation = uniqNeedVal;
   }
 
   write(TABLE, list);

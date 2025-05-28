@@ -8,7 +8,7 @@ import './ItemContent.css';
 import { IImage, ILink, IQuiz } from '../api/modules';
 import { launchConfetti } from '../utils/confetti';
 
-export type ItemStatus = 'new' | 'in-progress' | 'done';
+export type ItemStatus = 'new' | 'in-progress' | 'need-validation' | 'done';
       
 export interface ItemContentProps {
   /* ─── contenu ─── */
@@ -22,6 +22,8 @@ export interface ItemContentProps {
   quiz?:       IQuiz;
   quizPassed?: boolean;
   onQuizPassed?: () => void;
+
+  needValidation?: boolean;
 
   /* ─── progression ─── */
   status:        ItemStatus;
@@ -38,6 +40,7 @@ export interface ItemContentProps {
   const {
     title, subtitle, description, links = [], images, videos,
     quiz, quizPassed, onQuizPassed,
+    needValidation,
     status, onStatusChange,
     isFav,     onToggleFav,
   } = props;
@@ -65,13 +68,21 @@ export interface ItemContentProps {
                           <span className="status-label">
                             {status === 'new' && 'À faire ⏳'}
                             {status === 'in-progress' && 'En cours 🚧'}
+                            {status === 'need-validation' && 'À valider ⌛'}
                             {status === 'done' && 'Validé ✅'}
                           </span>
                           {status === 'in-progress' && (
                             <button
                               type="button"
                               className="check-button"
-                              onClick={(e) => { launchConfetti(e); onStatusChange('done'); }}
+                              onClick={(e) => {
+                                if (needValidation) {
+                                  onStatusChange('need-validation');
+                                } else {
+                                  launchConfetti(e);
+                                  onStatusChange('done');
+                                }
+                              }}
                               disabled={quiz?.enabled && !quizPassed}
                             >
                               Valider l'item ?

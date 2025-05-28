@@ -41,6 +41,8 @@ export default function RadarTracker({ modules, progress, username, site  }: Rad
             {children.map(ch => {
               const status = pr?.visited.includes(ch.id)
                 ? '✅'
+                : pr?.needValidation?.includes(ch.id)
+                ? '⌛'
                 : pr?.started.includes(ch.id)
                 ? '🚧'
                 : '📍';

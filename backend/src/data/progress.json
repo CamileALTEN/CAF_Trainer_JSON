@@ -2,6 +2,7 @@
   {
     "username": "logan",
     "moduleId": "module-1",
+    "needValidation": [],
     "visited": [
       "823615c7-a15f-464f-bd9c-369efe9e5660",
       "adbed355-edcb-45f5-86d1-b7079b24b923",

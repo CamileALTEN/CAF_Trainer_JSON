@@ -31,6 +31,8 @@ videos:    string[];
   profiles:  string[];
   enabled:   boolean;
 
+  needValidation?: boolean;
+
   quiz?: IQuiz;
 
   children?: IItem[];

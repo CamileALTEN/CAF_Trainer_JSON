@@ -96,6 +96,9 @@ export default function ModulePage() {
               row.started.forEach((id) => {
                 st[id] = 'in-progress';
               });
+              row.needValidation?.forEach((id) => {
+                st[id] = 'need-validation';
+              });
               row.visited.forEach((id) => {
                 st[id] = 'done';
               });
@@ -144,13 +147,16 @@ export default function ModulePage() {
         const visited = entries
           .filter(([, st]) => st === 'done')
           .map(([k]) => k);
+        const needValidation = entries
+          .filter(([, st]) => st === 'need-validation')
+          .map(([k]) => k);
         const started = entries
           .filter(([, st]) => st === 'in-progress')
           .map(([k]) => k);
         fetch('/api/progress', {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, moduleId, visited, started }),
+          body: JSON.stringify({ username, moduleId, visited, started, needValidation }),
         }).catch(console.error);
       }
       return next;
@@ -166,18 +172,21 @@ export default function ModulePage() {
       if (prev[id] === 'in-progress') {
         const up: Record<string, ItemStatus> = { ...prev, [id]: 'done' };
         if (username) {
-          const entries = Object.entries(up);
-          const visited = entries
-            .filter(([, st]) => st === 'done')
-            .map(([k]) => k);
-          const started = entries
-            .filter(([, st]) => st === 'in-progress')
-            .map(([k]) => k);
-          fetch('/api/progress', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, moduleId, visited, started }),
-          }).catch(console.error);
+        const entries = Object.entries(up);
+        const visited = entries
+          .filter(([, st]) => st === 'done')
+          .map(([k]) => k);
+        const needValidation = entries
+          .filter(([, st]) => st === 'need-validation')
+          .map(([k]) => k);
+        const started = entries
+          .filter(([, st]) => st === 'in-progress')
+          .map(([k]) => k);
+        fetch('/api/progress', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, moduleId, visited, started, needValidation }),
+        }).catch(console.error);
         }
         return up;
       }
@@ -257,6 +266,7 @@ export default function ModulePage() {
           quiz={item.quiz}
           quizPassed={quizPassed[item.id]}
           onQuizPassed={() => markQuizPassed(item.id)}
+          needValidation={item.needValidation}
           status={status[item.id] ?? 'new'}
           onStatusChange={(s) => changeStatus(item.id, s)}
           isFav={favs.includes(item.id)}

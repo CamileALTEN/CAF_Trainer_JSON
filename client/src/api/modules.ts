@@ -37,6 +37,8 @@ export interface IItem  {
   profiles:  string[];
   enabled:   boolean;
 
+  needValidation?: boolean;
+
   quiz?: IQuiz;
 
   children?: IItem[];
@@ -53,6 +55,7 @@ export interface IProgress {
   username: string;          // CAF
   moduleId: string;
   started: string[];         // ids d'items démarrés
+  needValidation: string[];  // ids en attente de validation
   visited: string[];         // ids d’items complétés
 }
       
