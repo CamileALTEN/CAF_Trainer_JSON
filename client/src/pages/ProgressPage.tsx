@@ -108,7 +108,7 @@ export default function ProgressPage() {
           />
         </div>
         <button
-          className="toogle"
+          className="supervise"
           onClick={() => setSuperUser(supervising ? null : c.id)}
         >
           👮
