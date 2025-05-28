@@ -518,6 +518,10 @@
           {
             "label": "Plan de prévention Nantes",
             "url": "https://drive.google.com/drive/folders/1PlFqgb9qlMefgu95NQkJMWWdCZa6miSU?usp=drive_link"
+          },
+          {
+            "label": "Inscription Accueil Sécurité",
+            "url": "https://docs.google.com.rproxy.goskope.com/spreadsheets/d/1Q6hqn_tpbaigWFvHZP3lPn52hYx5jiWZladCSwTyWHY/edit?usp=sharing"
           }
         ],
         "images": [
@@ -732,6 +736,7 @@
           "Montoir"
         ],
         "enabled": true,
+        "needValidation": false,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -756,6 +761,7 @@
               "Montoir"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -781,6 +787,7 @@
               "Montoir"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -806,6 +813,7 @@
               "Montoir"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -830,6 +838,7 @@
                   "Montoir"
                 ],
                 "enabled": true,
+                "needValidation": false,
                 "quiz": {
                   "enabled": false,
                   "questions": []
@@ -860,6 +869,7 @@
                   "Montoir"
                 ],
                 "enabled": true,
+                "needValidation": false,
                 "quiz": {
                   "enabled": false,
                   "questions": []
@@ -880,6 +890,7 @@
         "videos": [],
         "profiles": [],
         "enabled": true,
+        "needValidation": false,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -904,6 +915,7 @@
               "Montoir"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -933,6 +945,7 @@
                   "Montoir"
                 ],
                 "enabled": true,
+                "needValidation": false,
                 "quiz": {
                   "enabled": false,
                   "questions": []
@@ -952,6 +965,7 @@
                   "Montoir"
                 ],
                 "enabled": true,
+                "needValidation": false,
                 "quiz": {
                   "enabled": false,
                   "questions": []
@@ -977,6 +991,7 @@
                   "Nantes"
                 ],
                 "enabled": true,
+                "needValidation": false,
                 "quiz": {
                   "enabled": false,
                   "questions": []
@@ -1002,6 +1017,7 @@
                   "Montoir"
                 ],
                 "enabled": true,
+                "needValidation": false,
                 "quiz": {
                   "enabled": false,
                   "questions": []
@@ -1022,6 +1038,7 @@
               "Nantes"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1040,6 +1057,7 @@
               "Montoir"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1058,6 +1076,7 @@
               "Nantes"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1076,6 +1095,121 @@
               "Montoir"
             ],
             "enabled": true,
+            "needValidation": false,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "85542009-f501-470f-83dc-4c4e4db0de84",
+        "title": "Outils Airbus / Génériques",
+        "subtitle": "",
+        "content": "<p>Pour faciliter la gestion et le succès des affaires, Airbus utilise des outils numériques.</p><p><br></p><p>À toi, le TL et le spécialiste de faire la demande ou de t'aider à la faire.</p>",
+        "links": [],
+        "images": [
+          {
+            "src": "https://www.u-pec.fr/medias/photo/enseigner-en-distanciel-upec_1601998085887-jpg",
+            "width": 50,
+            "align": "center"
+          }
+        ],
+        "videos": [],
+        "profiles": [
+          "Nantes",
+          "Montoir"
+        ],
+        "enabled": true,
+        "needValidation": false,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
+        "children": [
+          {
+            "id": "5829a873-7081-4170-b8f8-e3d79b8558df",
+            "title": "Airbus Sign",
+            "subtitle": "",
+            "content": "<p>Airbus Sign est un outil en ligne permettant de <strong>signer des documents</strong> avec les personnes possédants des <strong>adresses mail Airbus</strong>.</p><p><br></p><p>Dans le tuto \"Signature Digitale\", on retrouve comment :</p><ul><li>Créer un compte ;</li><li>Le paramétrer ;</li><li>Signer un document ;</li><li>Créer un document à faire signer ;</li><li>Changer une signature pendant la phase signature.</li></ul>",
+            "links": [
+              {
+                "label": "Airbus Sign - Signature digitale",
+                "url": "https://drive.google.com.rproxy.goskope.com/file/d/1yz5zdg9lnYGw4lr5-z8y8vTqYMnO71G2/view?usp=sharing"
+              }
+            ],
+            "images": [
+              {
+                "src": "https://www.ilovepdf.com/storage/blog/91-1643797873-Comment-signer-un-document-PDF-nume%CC%81riquement.png",
+                "width": 50,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "needValidation": false,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "52bd1b2f-5dd2-4f6f-971f-1a5e4b3a99a5",
+            "title": "NOMAD",
+            "subtitle": "",
+            "content": "<p>NOMAD est un VPN permettant d'accéder à l'environnement Airbus depuis les agences ALTEN ou depuis le domicile du consultant. Cependant, ce VPN possède des limites et certains logiciels ne sont pas disponibles comme CATIA. Il faut donc adapter son travail lorsqu'on n'est pas sur le site du client.</p>",
+            "links": [
+              {
+                "label": "NOMAD",
+                "url": "https://drive.google.com.rproxy.goskope.com/file/d/1JJwbkasfBdrYGrbrmcF9SQv0G-dL4lp2/view?usp=sharing"
+              }
+            ],
+            "images": [
+              {
+                "src": "https://static.lpnt.fr/images/2021/02/18/21348797lpw-21348807-article-jpg_8641237_1250x625.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
+            "enabled": true,
+            "needValidation": false,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "924e9790-1a0f-4490-8ce9-b3af2123baad",
+            "title": "CKI CKOI",
+            "subtitle": "",
+            "content": "<h1>Fonction</h1><p>CKI CKOI est un outil permettant de <strong>rechercher </strong>et de <strong>trouver des informations</strong> sur une <strong>personne travaillant chez Airbus</strong> :</p><ul><li>Numéro de téléphone</li><li>Adresse mail</li><li><strong>Matricule </strong>(log on)</li><li>etc.</li></ul><p><br></p><p>Il est aussi possible de rechercher une personne sur le hub Airbus mais la matricule n'est pas disponible. La matricule est utiliser dans SAP.</p><p><br></p><h1>Demande d'accès</h1><p>Pour avoir accès il faut :</p><ol><li>Faire une demande FIU dans ServiceNow ;</li><li>Copier le lien d'accès obtenu dans l'explorateur de fichier ;</li><li>Clique sur le lien pour installer le fichier .exe ;</li><li>Garde le lien quelque part pour avoir accès facilement à l'outil.</li></ol>",
+            "links": [],
+            "images": [
+              {
+                "src": "https://www.dinan.fr/wp-content/uploads/2023/02/qui-fait-quoi-a-dinan-1200x630.jpg",
+                "width": 50,
+                "align": "center"
+              }
+            ],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1086,7 +1220,7 @@
       },
       {
         "id": "0661b482-8676-4e4d-a91f-9fc967d964ce",
-        "title": "Outils Airbus",
+        "title": "Outils Airbus / CAF",
         "subtitle": "",
         "content": "<p>Pour faciliter la gestion et le succès des affaires, Airbus utilise des outils numériques.</p>",
         "links": [],
@@ -1103,6 +1237,7 @@
           "Montoir"
         ],
         "enabled": true,
+        "needValidation": false,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -1140,6 +1275,7 @@
               "Nantes"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1168,6 +1304,7 @@
               "Montoir"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1192,40 +1329,7 @@
               "Montoir"
             ],
             "enabled": true,
-            "quiz": {
-              "enabled": false,
-              "questions": []
-            },
-            "children": []
-          },
-          {
-            "id": "c1c9b73c-5353-4932-87ee-0377cfc03a08",
-            "title": "Outils génériques (Airbus Sign & NOMAD)",
-            "subtitle": "",
-            "content": "<h1>Airbus Sign</h1><p><br></p><p>Airbus Sign est un outil en ligne permettant de <strong>signer des documents</strong> avec les personnes possédants des <strong>adresses mail Airbus</strong>.</p><p><br></p><p>Dans le tuto \"Signature Digitale\", on retrouve comment :</p><ul><li>Créer un compte ;</li><li>Le paramétrer ;</li><li>Signer un document ;</li><li>Créer un document à faire signer ;</li><li>Changer une signature pendant la phase signature.</li></ul><p><br></p><p><br></p><h1>NOMAD</h1><p><br></p><p>NOMAD est un VPN permettant d'accéder à l'environnement Airbus depuis les agences ALTEN ou depuis le domicile du consultant. Cependant, ce VPN possède des limites et certains logiciels ne sont pas disponible comme CATIA. Il faut donc adapter son travail lorsqu'on n'est pas sur le site du client.</p>",
-            "links": [
-              {
-                "label": "Airbus Sign - Signature digitale",
-                "url": "https://drive.google.com.rproxy.goskope.com/file/d/1yz5zdg9lnYGw4lr5-z8y8vTqYMnO71G2/view?usp=sharing"
-              },
-              {
-                "label": "NOMAD ",
-                "url": "https://drive.google.com.rproxy.goskope.com/file/d/1JJwbkasfBdrYGrbrmcF9SQv0G-dL4lp2/view?usp=sharing"
-              }
-            ],
-            "images": [
-              {
-                "src": "https://www.u-pec.fr/medias/photo/enseigner-en-distanciel-upec_1601998085887-jpg",
-                "width": 50,
-                "align": "center"
-              }
-            ],
-            "videos": [],
-            "profiles": [
-              "Nantes",
-              "Montoir"
-            ],
-            "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1244,6 +1348,7 @@
               "Nantes"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1273,6 +1378,7 @@
               "Montoir"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1303,6 +1409,7 @@
               "Montoir"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1322,6 +1429,7 @@
               "Montoir"
             ],
             "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1341,42 +1449,7 @@
               "Montoir"
             ],
             "enabled": true,
-            "quiz": {
-              "enabled": false,
-              "questions": []
-            },
-            "children": []
-          },
-          {
-            "id": "0b6fd1ac-6ece-4a72-8627-7cb95d0998dd",
-            "title": "CKI-CKOI",
-            "subtitle": "",
-            "content": "<p><em>#pas d'infos et de docs existants#</em></p>",
-            "links": [],
-            "images": [],
-            "videos": [],
-            "profiles": [
-              "Nantes"
-            ],
-            "enabled": true,
-            "quiz": {
-              "enabled": false,
-              "questions": []
-            },
-            "children": []
-          },
-          {
-            "id": "c4a1baf4-bb96-4798-9df9-32dd49cb08d8",
-            "title": "GEMAVICC",
-            "subtitle": "",
-            "content": "<p><em>#pas d'infos et de docs existants#</em></p>",
-            "links": [],
-            "images": [],
-            "videos": [],
-            "profiles": [
-              "Nantes"
-            ],
-            "enabled": true,
+            "needValidation": false,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1386,17 +1459,50 @@
         ]
       },
       {
-        "id": "fb9750b8-cde3-4b2c-9bb5-8ba06d47461b",
-        "title": "Affaire type - Exercice",
+        "id": "446d07af-006c-4b9d-adda-56562b1bd60d",
+        "title": "Affaire Type - Partie 1",
+        "subtitle": "",
+        "content": "<p><br></p>",
+        "links": [],
+        "images": [],
+        "videos": [],
+        "profiles": [],
+        "enabled": true,
+        "needValidation": false,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
+        "children": []
+      },
+      {
+        "id": "bd15fe24-7983-42d9-8dcd-fe358cb2564b",
+        "title": "Affaire Type - Partie 2",
         "subtitle": "",
         "content": "",
         "links": [],
         "images": [],
         "videos": [],
-        "profiles": [
-          "Nantes"
-        ],
+        "profiles": [],
         "enabled": true,
+        "needValidation": false,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
+        "children": []
+      },
+      {
+        "id": "3ef7fe9f-beca-48e9-a36b-50e1fd625e70",
+        "title": "Affaire Type - Partie 3",
+        "subtitle": "",
+        "content": "",
+        "links": [],
+        "images": [],
+        "videos": [],
+        "profiles": [],
+        "enabled": true,
+        "needValidation": false,
         "quiz": {
           "enabled": false,
           "questions": []
