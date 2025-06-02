@@ -32,6 +32,8 @@ router.post('/', (req, res) => {
         return res.status(400).json({ error: 'Un manager ne peut avoir de managerId' });
     if (role === 'caf' && !managerId)
         return res.status(400).json({ error: 'managerId requis pour un CAF' });
+    if (role === 'manager' && !site)
+        return res.status(400).json({ error: 'site requis pour un manager' });
     const user = {
         id: Date.now().toString(),
         username,
@@ -71,7 +73,14 @@ router.patch('/:id', (req, res) => {
         if (list.some(u => u.username === data.username && u.id !== req.params.id))
             return res.status(409).json({ error: 'Nom déjà pris' });
     }
-    Object.assign(list[idx], data);
+    const updated = { ...list[idx], ...data };
+    if (updated.role === 'manager' && updated.managerId)
+        return res.status(400).json({ error: 'Un manager ne peut avoir de managerId' });
+    if (updated.role === 'caf' && !updated.managerId)
+        return res.status(400).json({ error: 'managerId requis pour un CAF' });
+    if (updated.role === 'manager' && !updated.site)
+        return res.status(400).json({ error: 'site requis pour un manager' });
+    Object.assign(list[idx], updated);
     (0, dataStore_1.write)(TABLE, list);
     const { password, ...clean } = list[idx];
     res.json(clean);

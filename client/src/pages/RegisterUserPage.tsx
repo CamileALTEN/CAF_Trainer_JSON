@@ -50,7 +50,7 @@ export default function RegisterUserPage() {
         username,
         password,
         role,
-        site: role === 'caf' ? site : undefined,
+        site: role === 'caf' || role === 'manager' ? site : undefined,
         managerId: role === 'caf'
           ? (user?.role === 'manager' ? user.id : managerId)
           : undefined,
@@ -85,7 +85,7 @@ export default function RegisterUserPage() {
           </select>
         </label>
 
-        {role === 'caf' && (
+        {(role === 'caf' || role === 'manager') && (
           <>
             <label>Site
               <select value={site} onChange={e=>setSite(e.target.value)}>
@@ -95,7 +95,7 @@ export default function RegisterUserPage() {
             </label>
 
             {/* sélection manager : visible seulement pour l’admin */}
-            {user?.role === 'admin' && (
+            {role === 'caf' && user?.role === 'admin' && (
               <label>Manager
                 <select
                   value={managerId}

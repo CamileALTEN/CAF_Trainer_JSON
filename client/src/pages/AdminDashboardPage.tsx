@@ -70,7 +70,7 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
       const body = {
         username: editUsername,
         role: editRole,
-        site: editRole === 'caf' ? editSite : undefined,
+        site: editRole === 'caf' || editRole === 'manager' ? editSite : undefined,
         managerId: editRole === 'caf' ? editManagerId : undefined,
       };
 
@@ -163,7 +163,7 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
                     </select>
                   </td>
                   <td>
-                    {editRole === 'caf' ? (
+                    {editRole === 'caf' || editRole === 'manager' ? (
                       <select value={editSite} onChange={e => setEditSite(e.target.value)}>
                         <option>Nantes</option>
                         <option>Montoir</option>
