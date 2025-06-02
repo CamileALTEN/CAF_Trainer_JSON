@@ -2,7 +2,8 @@
              /*  AdvancedEditor.tsx – version stabilisée                           */
              /* ------------------------------------------------------------------ */
 import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
-             import ReactQuill from 'react-quill';
+import ReactQuill from 'react-quill';
+import axios from 'axios';
              import 'react-quill/dist/quill.snow\.css';
       
              import hljs from 'highlight.js';
@@ -32,25 +33,30 @@ import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react'
                const [words, setWords] = useState(0);
       
                /* 3. Handler image, MEMO‑ISÉ (sinon ↻ à chaque render) ------------ */
-               const handleImage = useCallback(() => {
-                 const input = document.createElement('input');
-                 input.type = 'file';
-                 input.accept = 'image/*';
-                 input.click();
-      
-                 input.onchange = () => {
-                   const file = input.files?.[0];
-                   if (!file) return;
-      
-                   const reader = new FileReader();
-                   reader.onload = () => {
-                     const editor = quillRef.current?.getEditor();
-                     const range  = editor?.getSelection(true);
-                     editor?.insertEmbed(range?.index ?? 0, 'image', reader.result);
-                   };
-                   reader.readAsDataURL(file);
-                 };
-               }, []);                           // dépendances : aucune → stable
+  const handleImage = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.click();
+
+    input.onchange = () => {
+      const file = input.files?.[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const { data } = await axios.post('/api/images', { data: reader.result });
+          const editor = quillRef.current?.getEditor();
+          const range  = editor?.getSelection(true);
+          editor?.insertEmbed(range?.index ?? 0, 'image', data.url);
+        } catch (e) {
+          alert('Envoi image impossible');
+        }
+      };
+      reader.readAsDataURL(file);
+    };
+  }, []);                           // dépendances : aucune → stable
       
                /* 4. Modules / formats MEMO‑ISÉS ---------------------------------- */
                const modules = useMemo(
