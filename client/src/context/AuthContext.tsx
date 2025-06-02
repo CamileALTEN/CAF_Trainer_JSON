@@ -9,7 +9,7 @@ import React, {
         username:   string;
         role:       'admin' | 'manager' | 'caf' | 'user';  // ← manager
         site?:      string;
-        managerId?: string;
+        managerIds?: string[];
       }
     
     

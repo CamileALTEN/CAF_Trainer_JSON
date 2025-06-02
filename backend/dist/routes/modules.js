@@ -4,19 +4,27 @@ const express_1 = require("express");
 const dataStore_1 = require("../config/dataStore");
 const router = (0, express_1.Router)();
 const TABLE = 'modules';
-/* util ------------------------------------------------------------------ */
-function load() { return (0, dataStore_1.read)(TABLE); }
-function save(list) { (0, dataStore_1.write)(TABLE, list); }
-function byId(id, list = load()) { return list.find(m => m.id === id); }
-function idx(id, list = load()) { return list.findIndex(m => m.id === id); }
-/* GET /api/modules ------------------------------------------------------- */
+// ----- utilitaires -----
+function load() {
+    return (0, dataStore_1.read)(TABLE);
+}
+function save(list) {
+    (0, dataStore_1.write)(TABLE, list);
+}
+function byId(id, list = load()) {
+    return list.find((m) => m.id === id);
+}
+function idx(id, list = load()) {
+    return list.findIndex((m) => m.id === id);
+}
+// GET /api/modules
 router.get('/', (_req, res) => res.json(load()));
-/* GET /api/modules/:id --------------------------------------------------- */
+// GET /api/modules/:id
 router.get('/:id', (req, res) => {
     const mod = byId(req.params.id);
-    mod ? res.json(mod) : res.status(404).json({ error: 'Module non trouvé' });
+    return mod ? res.json(mod) : res.status(404).json({ error: 'Module non trouvé' });
 });
-/* POST /api/modules  (création) ----------------------------------------- */
+// POST /api/modules
 router.post('/', (req, res) => {
     const list = load();
     const id = Date.now().toString();
@@ -31,7 +39,7 @@ router.post('/', (req, res) => {
     save(list);
     res.status(201).json(mod);
 });
-/* PUT /api/modules/:id  (remplacement intégral) ------------------------- */
+// PUT /api/modules/:id
 router.put('/:id', (req, res) => {
     const list = load();
     const index = idx(req.params.id, list);
@@ -41,7 +49,7 @@ router.put('/:id', (req, res) => {
     save(list);
     res.json(list[index]);
 });
-/* PATCH /api/modules/:id  (MAJ partielle) ------------------------------- */
+// PATCH /api/modules/:id
 router.patch('/:id', (req, res) => {
     const list = load();
     const mod = byId(req.params.id, list);
@@ -51,7 +59,7 @@ router.patch('/:id', (req, res) => {
     save(list);
     res.json(mod);
 });
-/* DELETE /api/modules/:id ----------------------------------------------- */
+// DELETE /api/modules/:id
 router.delete('/:id', (req, res) => {
     const list = load();
     const index = idx(req.params.id, list);

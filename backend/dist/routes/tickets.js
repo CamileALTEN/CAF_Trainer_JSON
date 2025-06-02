@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
     const ticket = {
         id: Date.now().toString(),
         username,
-        managerId: author?.managerId,
+        managerId: author?.managerIds?.[0],
         target: target,
         category,
         priority: priority || 'normal',
@@ -89,8 +89,13 @@ router.get('/:id/export', (req, res) => {
     res.send(JSON.stringify(ticket, null, 2));
 });
 router.patch('/:id', (req, res) => {
-    const { status, archived } = req.body;
-    if (status === undefined && archived === undefined)
+    const { status, archived, title, message, category, priority, } = req.body;
+    if (status === undefined &&
+        archived === undefined &&
+        title === undefined &&
+        message === undefined &&
+        category === undefined &&
+        priority === undefined)
         return res.status(400).json({ error: 'Données manquantes' });
     const list = load();
     const idx = list.findIndex(t => t.id === req.params.id);
@@ -100,6 +105,14 @@ router.patch('/:id', (req, res) => {
         list[idx].status = status;
     if (archived !== undefined)
         list[idx].archived = archived;
+    if (title !== undefined)
+        list[idx].title = title;
+    if (message !== undefined)
+        list[idx].message = message;
+    if (category !== undefined)
+        list[idx].category = category;
+    if (priority !== undefined)
+        list[idx].priority = priority;
     save(list);
     const ticket = list[idx];
     const to = mailRx.test(ticket.username) ? [ticket.username] : [];

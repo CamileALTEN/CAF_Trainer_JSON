@@ -13,13 +13,13 @@ const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 router.get('/', (_req, res) => {
     const { managerId } = _req.query as { managerId?: string };
     let list = read<IUser>(TABLE);
-    if (managerId) list = list.filter(u => u.managerId === managerId);
+    if (managerId) list = list.filter(u => u.managerIds?.includes(managerId));
     res.json(list.map(({ password, ...u }) => u));
 });
 
 /* ───────────── POST création ─────────────────── */
 router.post('/', (req, res) => {
-const { username, password, role, site, managerId } = req.body as Partial<IUser>;
+const { username, password, role, site, managerIds } = req.body as Partial<IUser>;
 
 if (!username || !password || !role)
     return res.status(400).json({ error: 'Champs manquants' });
@@ -30,10 +30,12 @@ const list = read<IUser>(TABLE);
 if (list.some(u => u.username === username))
     return res.status(409).json({ error: 'Nom déjà pris' });
 
-if (role === 'manager' && managerId)
+if (role === 'manager' && managerIds && managerIds.length)
     return res.status(400).json({ error: 'Un manager ne peut avoir de managerId' });
-if (role === 'caf' && !managerId)
+if (role === 'caf' && (!managerIds || managerIds.length === 0))
     return res.status(400).json({ error: 'managerId requis pour un CAF' });
+if (role === 'manager' && !site)
+    return res.status(400).json({ error: 'site requis pour un manager' });
 
 const user: IUser = {
     id: Date.now().toString(),
@@ -41,7 +43,7 @@ const user: IUser = {
     password: hash(password),
     role: role as Role,
     site,
-    managerId,
+    managerIds,
 };
 list.push(user); write(TABLE, list);
 const { password: _p, ...clean } = user;
@@ -76,7 +78,15 @@ if (data.username) {
     return res.status(409).json({ error: 'Nom déjà pris' });
 }
 
-Object.assign(list[idx], data);
+const updated = { ...list[idx], ...data } as IUser;
+if (updated.role === 'manager' && updated.managerIds && updated.managerIds.length)
+    return res.status(400).json({ error: 'Un manager ne peut avoir de managerId' });
+if (updated.role === 'caf' && (!updated.managerIds || updated.managerIds.length === 0))
+    return res.status(400).json({ error: 'managerId requis pour un CAF' });
+if (updated.role === 'manager' && !updated.site)
+    return res.status(400).json({ error: 'site requis pour un manager' });
+
+Object.assign(list[idx], updated);
 write(TABLE, list);
 const { password, ...clean } = list[idx];
 res.json(clean);

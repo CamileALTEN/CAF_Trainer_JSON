@@ -16,7 +16,7 @@ export default function RegisterUserPage() {
   const [site,     setSite]     = useState('Nantes');
 
   const [managers, setManagers] = useState<IUser[]>([]);
-  const [managerId, setManagerId] = useState<string>('');
+  const [managerIds, setManagerIds] = useState<string[]>([]);
 
   const [msg,      setMsg]      = useState('');
   const [loading,  setLoading]  = useState(false);
@@ -41,7 +41,7 @@ export default function RegisterUserPage() {
 
     if (!mailRx.test(username))
       return setMsg('❌ Le nom doit être de la forme prenom.nom@alten.com');
-    if (role === 'caf' && !managerId && user?.role === 'admin')
+    if (role === 'caf' && managerIds.length === 0 && user?.role === 'admin')
       return setMsg('❌ Sélectionnez un manager pour le CAF');
 
     setLoading(true);
@@ -50,9 +50,9 @@ export default function RegisterUserPage() {
         username,
         password,
         role,
-        site: role === 'caf' ? site : undefined,
-        managerId: role === 'caf'
-          ? (user?.role === 'manager' ? user.id : managerId)
+        site: role === 'caf' || role === 'manager' ? site : undefined,
+        managerIds: role === 'caf'
+          ? (user?.role === 'manager' ? [user.id] : managerIds)
           : undefined,
       };
 
@@ -64,7 +64,7 @@ export default function RegisterUserPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Erreur');
       setMsg(`✅ Compte créé : ${data.username}`);
-      setUsername(''); setPassword(''); setManagerId('');
+      setUsername(''); setPassword(''); setManagerIds([]);
     } catch (err:any) {
       setMsg(`❌ ${err.message}`);
     } finally {
@@ -85,7 +85,7 @@ export default function RegisterUserPage() {
           </select>
         </label>
 
-        {role === 'caf' && (
+        {(role === 'caf' || role === 'manager') && (
           <>
             <label>Site
               <select value={site} onChange={e=>setSite(e.target.value)}>
@@ -95,14 +95,16 @@ export default function RegisterUserPage() {
             </label>
 
             {/* sélection manager : visible seulement pour l’admin */}
-            {user?.role === 'admin' && (
+            {role === 'caf' && user?.role === 'admin' && (
               <label>Manager
                 <select
-                  value={managerId}
-                  onChange={e=>setManagerId(e.target.value)}
+                  multiple
+                  value={managerIds}
+                  onChange={e=>
+                    setManagerIds(Array.from(e.target.selectedOptions).map(o=>o.value))
+                  }
                   required
                 >
-                  <option value="">— choisir —</option>
                   {managers.map(m=>(
                     <option key={m.id} value={m.id}>{m.username}</option>
                   ))}

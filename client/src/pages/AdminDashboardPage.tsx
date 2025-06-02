@@ -17,7 +17,7 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
    const [editUsername, setEditUsername] = useState('');
    const [editRole, setEditRole] = useState<Role>('caf');
    const [editSite, setEditSite] = useState('Nantes');
-   const [editManagerId, setEditManagerId] = useState('');
+   const [editManagerIds, setEditManagerIds] = useState<string[]>([]);
 
    const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 
@@ -61,7 +61,7 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
       setEditUsername(u.username);
       setEditRole(u.role);
       setEditSite(u.site || 'Nantes');
-      setEditManagerId(u.managerId || '');
+      setEditManagerIds(u.managerIds || []);
     };
 
     const saveEdit = async (id: string) => {
@@ -70,8 +70,8 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
       const body = {
         username: editUsername,
         role: editRole,
-        site: editRole === 'caf' ? editSite : undefined,
-        managerId: editRole === 'caf' ? editManagerId : undefined,
+        site: editRole === 'caf' || editRole === 'manager' ? editSite : undefined,
+        managerIds: editRole === 'caf' ? editManagerIds : undefined,
       };
 
       const res = await fetch(`/api/users/${id}`, {
@@ -163,7 +163,7 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
                     </select>
                   </td>
                   <td>
-                    {editRole === 'caf' ? (
+                    {editRole === 'caf' || editRole === 'manager' ? (
                       <select value={editSite} onChange={e => setEditSite(e.target.value)}>
                         <option>Nantes</option>
                         <option>Montoir</option>
@@ -172,8 +172,13 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
                   </td>
                   <td>
                     {editRole === 'caf' ? (
-                      <select value={editManagerId} onChange={e => setEditManagerId(e.target.value)}>
-                        <option value="">— choisir —</option>
+                      <select
+                        multiple
+                        value={editManagerIds}
+                        onChange={e =>
+                          setEditManagerIds(Array.from(e.target.selectedOptions).map(o => o.value))
+                        }
+                      >
                         {managers.map(m => (
                           <option key={m.id} value={m.id}>{m.username}</option>
                         ))}
@@ -190,7 +195,13 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
                   <td>{u.username}</td>
                   <td>{u.role}</td>
                   <td>{u.site ?? '—'}</td>
-                  <td>{u.managerId ? users.find(m => m.id === u.managerId)?.username ?? u.managerId : '—'}</td>
+                  <td>
+                    {u.managerIds && u.managerIds.length > 0
+                      ? u.managerIds
+                          .map(id => users.find(m => m.id === id)?.username || id)
+                          .join(', ')
+                      : '—'}
+                  </td>
                   <td style={{ whiteSpace: 'nowrap' }}>
                     <button onClick={() => startEdit(u)} title="Modifier">✏️</button>{' '}
                     <button onClick={() => resetPwd(u.id)} title="Réinit. MDP">🔑</button>{' '}

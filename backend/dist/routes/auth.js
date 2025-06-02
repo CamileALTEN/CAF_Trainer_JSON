@@ -27,12 +27,12 @@ router.post('/login', (req, res) => {
     });
     if (!user)
         return res.status(401).json({ error: 'Identifiants invalides' });
-    const { id, role, site } = user;
-    res.json({ id, username, role, site });
+    const { id, role, site, managerIds } = user;
+    res.json({ id, username, role, site, managerIds });
 });
 /* ───────────────────────── REGISTER ────────────────────── */
 router.post('/register', (req, res) => {
-    const { username, password, role, site, managerId } = req.body;
+    const { username, password, role, site, managerIds } = req.body;
     if (!username || !password || !role)
         return res.status(400).json({ error: 'Champs manquants' });
     if (!mailRx.test(username))
@@ -47,11 +47,11 @@ router.post('/register', (req, res) => {
         password: bcrypt_1.default.hashSync(password, 8),
         role,
         site,
-        managerId,
+        managerIds,
     };
     users.push(newUser);
     (0, dataStore_1.write)(USERS, users);
-    res.status(201).json({ id, username, role, site, managerId });
+    res.status(201).json({ id, username, role, site, managerIds });
 });
 /* ───────────────────────── FORGOT PWD ───────────────────── */
 router.post('/forgot', (req, res) => {
@@ -67,8 +67,9 @@ router.post('/forgot', (req, res) => {
     const admins = users
         .filter(u => u.role === 'admin' && mailRx.test(u.username))
         .map(u => u.username);
-    const managerMail = user.managerId
-        ? users.find(u => u.id === user.managerId)?.username
+    const firstManager = user.managerIds ? user.managerIds[0] : undefined;
+    const managerMail = firstManager
+        ? users.find(u => u.id === firstManager)?.username
         : undefined;
     const to = [
         ...admins,

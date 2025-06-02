@@ -7,5 +7,5 @@
                username:  string;
                role:       Role;   // ← manager ajouté
                site?:     string;
-               managerId?: string;
+               managerIds?: string[];
              }
