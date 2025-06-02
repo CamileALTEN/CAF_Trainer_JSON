@@ -122,11 +122,18 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                     }));
                   };
       
-                  const delItem = (id: string) =>
+                  const delItem = (id: string) => {
+                    if (
+                      !window.confirm(
+                        'Supprimer cet item ? Cette action est irréversible.'
+                      )
+                    )
+                      return;
                     setEdit((prev) => ({
                       ...prev,
                       items: filterTree(prev.items, (it) => it.id !== id),
                     }));
+                  };
       
                   const move = (id: string, dir: -1 | 1) => {
                     const reorder = (xs: IItem[]): IItem[] => {
@@ -189,13 +196,20 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                     <ul>
                       {branch.map((it) => (
                         <li key={it.id} className={it.id === curId ? 'sel' : ''}>
+                          <button
+                            className="item-delete"
+                            onClick={() => delItem(it.id)}
+                            title="Supprimer"
+                          >
+                            🗑️
+                          </button>
+
                           <span onClick={() => setCurId(it.id)}>{it.title || '∅'}</span>
-      
+
                           <div className="item-acts">
                             <button onClick={() => addItem(it)} title="Ajouter">＋</button>
                             <button onClick={() => move(it.id, -1)} title="Monter">↑</button>
                             <button onClick={() => move(it.id, +1)} title="Descendre">↓</button>
-                            <button onClick={() => delItem(it.id)} title="Supprimer">🗑️</button>
                           </div>
       
                           {(it.children?.length ?? 0) > 0 && renderTree(it.children ?? [])}
