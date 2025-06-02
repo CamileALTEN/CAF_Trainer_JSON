@@ -1,0 +1,126 @@
+/* ------------------------------------------------------------------ */
+/*  AdvancedEditor.css – police Arial, gras désactivé, styles complets*/
+/* ------------------------------------------------------------------ */
+
+/* Désactiver le gras par défaut ---------------------------------- */
+.editor-core,
+.editor-core p,
+.editor-core li{
+  font-weight:400;
+}
+.editor-core strong,
+.editor-core b{
+  font-weight:700;
+}
+
+/* Conteneur principal --------------------------------------------- */
+.word-editor{
+  font-family:Arial, sans-serif;
+  border:1px solid #d1d5db;          /* gray-300 */
+  background:#ffffff;
+  border-radius:6px;
+}
+
+/* Barre d’outils -------------------------------------------------- */
+.toolbar{
+  position:sticky;
+  top:0;
+  z-index:10;
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  padding:4px;
+  border-bottom:1px solid #d1d5db;
+  background:#f9fafb;               /* gray-50 */
+}
+
+.group{
+  display:flex;
+  gap:4px;
+  padding-right:6px;
+  margin-right:6px;
+  border-right:1px solid #e5e7eb;   /* gray-200 */
+}
+.group:last-child{border-right:0;}
+
+.toolbar button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:4px;
+  width:28px;
+  height:28px;
+  border-radius:4px;
+  background:transparent;
+  border:none;
+  color:#374151;                    /* gray-700 */
+  cursor:pointer;
+  transition:background .15s;
+}
+.toolbar button:hover  {background:#e5e7eb;}  /* gray-200 */
+.toolbar button.active {background:#c7d2fe;}  /* indigo-200 */
+.toolbar .counter      {font-size:12px;color:#6b7280;display:flex;align-items:center;}
+
+/* Zone d’édition -------------------------------------------------- */
+.editor-core{
+  padding:12px;
+  min-height:300px;
+  outline:none;
+  font-family:inherit;
+}
+
+/* Task list ------------------------------------------------------- */
+.editor-core ul[data-type='taskList']{
+  list-style:none;
+  margin:0;
+  padding-left:0;
+  text-align:left;
+}
+.editor-core li[data-type='taskItem']{
+  display:flex;
+  align-items:flex-start;
+  gap:.5em;
+}
+.editor-core li[data-type='taskItem'] input[type='checkbox']{
+  margin:2px 6px 0 0;
+}
+.editor-core li[data-type='taskItem'] p{
+  margin:0;
+  flex:1;
+}
+
+/* Table ----------------------------------------------------------- */
+.editor-core table{
+  border-collapse:collapse;
+  width:100%;
+  margin:.5rem 0;
+}
+.editor-core th{
+  background:#f3f4f6;               /* gray-100 */
+  font-weight:600;
+}
+.editor-core tr:nth-child(even) td{
+  background:#f9fafb;               /* zébrage doux */
+}
+.editor-core th,
+.editor-core td{
+  border:1px solid #e5e7eb;         /* gray-200 */
+  padding:6px 8px;
+  min-width:3em;
+}
+
+/* Sélection de cellules (drag) ----------------------------------- */
+.editor-core .selectedCell{
+  background:#c7d2fe;               /* indigo-200 */
+}
+
+/* Poignée de redimensionnement ----------------------------------- */
+.editor-core .column-resize-handle{
+  position:absolute;
+  right:-2px;
+  top:0;
+  bottom:0;
+  width:4px;
+  cursor:col-resize;
+  background:#6366f1;               /* indigo-500 */
+}
