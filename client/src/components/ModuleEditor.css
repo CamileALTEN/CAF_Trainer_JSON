@@ -18,10 +18,14 @@
                                    display:inline-block; transition:background .15s; }
              .tree-scroll li>span:hover
       
-             .item-acts          { display:inline-flex; gap:4px; margin-left:6px; }
-             .item-acts button   { background:none; border:none; cursor:pointer; padding:0 2px;
-                                   color:#555; }
-             .item-acts button:hover { color:#000; }
+.item-acts          { display:inline-flex; gap:4px; margin-left:6px; }
+.item-acts button   { background:none; border:none; cursor:pointer; padding:0 2px;
+                                  color:#555; }
+.item-acts button:hover { color:#000; }
+
+.item-delete        { background:none; border:none; cursor:pointer; padding:0 2px;
+                                   color:#555; margin-right:6px; }
+.item-delete:hover  { color:#000; }
       
              /* ----------------- zone formulaire ----------------- */
              .editor             { flex:1; overflow-y:auto; padding:24px; }
