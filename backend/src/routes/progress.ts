@@ -53,8 +53,8 @@ router.get('/', (req, res) => {
   const users = read<IUser>('users');
 
   if (managerId) {
-    const cafIds = users.filter((u) => u.managerId === managerId).map((u) => u.username);
-    return res.json(rows.filter((r) => cafIds.includes(r.username)));
+    const cafIds = users.filter(u => u.managerIds?.includes(managerId)).map(u => u.username);
+    return res.json(rows.filter(r => cafIds.includes(r.username)));
   }
   res.json(rows);
 });

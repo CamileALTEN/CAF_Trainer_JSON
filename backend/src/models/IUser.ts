@@ -7,7 +7,12 @@ export interface IUser {
     id:        string;
     username:  string;
     password:  string;
-    role:      Role;   // ← manager ajouté
-    site?:     string;           // pour les CAF
-    managerId?: string;          // CAF ➟ manager référent
+    role:      Role;                 // admin | manager | caf | user
+
+    // ---- CAF fields ----
+    site?:        string;           // site d'affectation du CAF
+    managerIds?:  string[];         // CAF → plusieurs managers référents
+
+    // ---- manager fields ----
+    sites?:       string[];         // manager en charge de plusieurs sites
 }

@@ -2,10 +2,15 @@
       
              export type Role = 'admin' | 'manager' | 'caf' | 'user';
       
-             export interface IUser {
-               id:        string;
-               username:  string;
-               role:       Role;   // ← manager ajouté
-               site?:     string;
-               managerId?: string;
-             }
+export interface IUser {
+  id:        string;
+  username:  string;
+  role:       Role;
+
+  // CAF fields
+  site?:        string;
+  managerIds?:  string[];
+
+  // manager fields
+  sites?:       string[];
+}

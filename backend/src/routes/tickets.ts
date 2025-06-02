@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
   const ticket: ITicket = {
     id: Date.now().toString(),
     username,
-    managerId: author?.managerId,
+    managerId: author?.managerIds ? author.managerIds[0] : undefined,
     target: target as any,
     category,
     priority: (priority as TicketPriority) || 'normal',

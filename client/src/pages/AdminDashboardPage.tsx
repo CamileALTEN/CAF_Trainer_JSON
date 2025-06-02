@@ -15,9 +15,10 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
    const [managers, setManagers] = useState<IUser[]>([]);
    const [editingId, setEditingId] = useState<string | null>(null);
    const [editUsername, setEditUsername] = useState('');
-   const [editRole, setEditRole] = useState<Role>('caf');
-   const [editSite, setEditSite] = useState('Nantes');
-   const [editManagerId, setEditManagerId] = useState('');
+  const [editRole, setEditRole] = useState<Role>('caf');
+  const [editSite, setEditSite] = useState('Nantes');     // site CAF
+  const [editSites, setEditSites] = useState<string[]>([]); // sites manager
+  const [editManagerIds, setEditManagerIds] = useState<string[]>([]);
 
    const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 
@@ -61,7 +62,20 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
       setEditUsername(u.username);
       setEditRole(u.role);
       setEditSite(u.site || 'Nantes');
-      setEditManagerId(u.managerId || '');
+      setEditSites(u.sites || []);
+      setEditManagerIds(u.managerIds || []);
+    };
+
+    const toggleEditSite = (value: string) => {
+      setEditSites(prev =>
+        prev.includes(value) ? prev.filter(s => s !== value) : [...prev, value]
+      );
+    };
+
+    const toggleEditManager = (id: string) => {
+      setEditManagerIds(prev =>
+        prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+      );
     };
 
     const saveEdit = async (id: string) => {
@@ -71,7 +85,8 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
         username: editUsername,
         role: editRole,
         site: editRole === 'caf' ? editSite : undefined,
-        managerId: editRole === 'caf' ? editManagerId : undefined,
+        sites: editRole === 'manager' ? editSites : undefined,
+        managerIds: editRole === 'caf' ? editManagerIds : undefined,
       };
 
       const res = await fetch(`/api/users/${id}`, {
@@ -168,16 +183,26 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
                         <option>Nantes</option>
                         <option>Montoir</option>
                       </select>
+                    ) : editRole === 'manager' ? (
+                      <div className="check">
+                        <label>
+                          <input type="checkbox" value="Nantes" checked={editSites.includes('Nantes')} onChange={e=>toggleEditSite(e.target.value)} /> Nantes
+                        </label>
+                        <label>
+                          <input type="checkbox" value="Montoir" checked={editSites.includes('Montoir')} onChange={e=>toggleEditSite(e.target.value)} /> Montoir
+                        </label>
+                      </div>
                     ) : '—'}
                   </td>
                   <td>
                     {editRole === 'caf' ? (
-                      <select value={editManagerId} onChange={e => setEditManagerId(e.target.value)}>
-                        <option value="">— choisir —</option>
+                      <div className="check">
                         {managers.map(m => (
-                          <option key={m.id} value={m.id}>{m.username}</option>
+                          <label key={m.id}>
+                            <input type="checkbox" value={m.id} checked={editManagerIds.includes(m.id)} onChange={e=>toggleEditManager(e.target.value)} /> {m.username}
+                          </label>
                         ))}
-                      </select>
+                      </div>
                     ) : '—'}
                   </td>
                   <td style={{ whiteSpace: 'nowrap' }}>
@@ -189,8 +214,10 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
                 <tr key={u.id}>
                   <td>{u.username}</td>
                   <td>{u.role}</td>
-                  <td>{u.site ?? '—'}</td>
-                  <td>{u.managerId ? users.find(m => m.id === u.managerId)?.username ?? u.managerId : '—'}</td>
+                  <td>{u.role === 'manager' ? u.sites?.join(', ') ?? '—' : u.site ?? '—'}</td>
+                  <td>{u.role === 'caf' ?
+                        (u.managerIds?.map(id => users.find(m => m.id === id)?.username || id).join(', ') || '—')
+                        : '—'}</td>
                   <td style={{ whiteSpace: 'nowrap' }}>
                     <button onClick={() => startEdit(u)} title="Modifier">✏️</button>{' '}
                     <button onClick={() => resetPwd(u.id)} title="Réinit. MDP">🔑</button>{' '}

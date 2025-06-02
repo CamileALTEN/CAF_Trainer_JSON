@@ -13,13 +13,26 @@ export default function RegisterUserPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [role,     setRole]     = useState<Role>('caf');
-  const [site,     setSite]     = useState('Nantes');
+  const [site,      setSite]      = useState('Nantes');             // site du CAF
+  const [sites,     setSites]     = useState<string[]>([]);         // sites du manager
 
-  const [managers, setManagers] = useState<IUser[]>([]);
-  const [managerId, setManagerId] = useState<string>('');
+  const [managers,  setManagers]  = useState<IUser[]>([]);
+  const [managerIds,setManagerIds]= useState<string[]>([]);
 
   const [msg,      setMsg]      = useState('');
   const [loading,  setLoading]  = useState(false);
+
+  function toggleSite(value: string) {
+    setSites(prev =>
+      prev.includes(value) ? prev.filter(s => s !== value) : [...prev, value]
+    );
+  }
+
+  function toggleManager(id: string) {
+    setManagerIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
+  }
 
   /* ───────── chargement managers pour l’admin ───────── */
   useEffect(() => {
@@ -27,6 +40,10 @@ export default function RegisterUserPage() {
     fetch('/api/users')
       .then(r => r.json())
       .then((list: IUser[]) => setManagers(list.filter(u => u.role === 'manager')));
+  }, [user]);
+
+  useEffect(() => {
+    if (user?.role === 'manager') setManagerIds([user.id]);
   }, [user]);
 
   /* ───────── constantes d’affichage ───────── */
@@ -41,7 +58,7 @@ export default function RegisterUserPage() {
 
     if (!mailRx.test(username))
       return setMsg('❌ Le nom doit être de la forme prenom.nom@alten.com');
-    if (role === 'caf' && !managerId && user?.role === 'admin')
+    if (role === 'caf' && managerIds.length === 0 && user?.role === 'admin')
       return setMsg('❌ Sélectionnez un manager pour le CAF');
 
     setLoading(true);
@@ -51,8 +68,9 @@ export default function RegisterUserPage() {
         password,
         role,
         site: role === 'caf' ? site : undefined,
-        managerId: role === 'caf'
-          ? (user?.role === 'manager' ? user.id : managerId)
+        sites: role === 'manager' ? sites : undefined,
+        managerIds: role === 'caf'
+          ? (user?.role === 'manager' ? [user.id] : managerIds)
           : undefined,
       };
 
@@ -64,7 +82,7 @@ export default function RegisterUserPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Erreur');
       setMsg(`✅ Compte créé : ${data.username}`);
-      setUsername(''); setPassword(''); setManagerId('');
+      setUsername(''); setPassword(''); setManagerIds([]); setSites([]);
     } catch (err:any) {
       setMsg(`❌ ${err.message}`);
     } finally {
@@ -86,30 +104,44 @@ export default function RegisterUserPage() {
         </label>
 
         {role === 'caf' && (
-          <>
-            <label>Site
-              <select value={site} onChange={e=>setSite(e.target.value)}>
-                <option>Nantes</option>
-                <option>Montoir</option>
-              </select>
-            </label>
+          <label>Site
+            <select value={site} onChange={e=>setSite(e.target.value)}>
+              <option>Nantes</option>
+              <option>Montoir</option>
+            </select>
+          </label>
+        )}
 
-            {/* sélection manager : visible seulement pour l’admin */}
-            {user?.role === 'admin' && (
-              <label>Manager
-                <select
-                  value={managerId}
-                  onChange={e=>setManagerId(e.target.value)}
-                  required
-                >
-                  <option value="">— choisir —</option>
-                  {managers.map(m=>(
-                    <option key={m.id} value={m.id}>{m.username}</option>
-                  ))}
-                </select>
+        {role === 'manager' && (
+          <fieldset>
+            <legend>Sites</legend>
+            <label>
+              <input type="checkbox" value="Nantes"
+                     checked={sites.includes('Nantes')}
+                     onChange={e=>toggleSite(e.target.value)} />
+              Nantes
+            </label>
+            <label>
+              <input type="checkbox" value="Montoir"
+                     checked={sites.includes('Montoir')}
+                     onChange={e=>toggleSite(e.target.value)} />
+              Montoir
+            </label>
+          </fieldset>
+        )}
+
+        {role === 'caf' && user?.role === 'admin' && (
+          <fieldset>
+            <legend>Managers</legend>
+            {managers.map(m => (
+              <label key={m.id}>
+                <input type="checkbox" value={m.id}
+                       checked={managerIds.includes(m.id)}
+                       onChange={e=>toggleManager(e.target.value)} />
+                {m.username}
               </label>
-            )}
-          </>
+            ))}
+          </fieldset>
         )}
 
         <label>Utilisateur (mail Alten)
