@@ -4,7 +4,7 @@
 import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import axios from 'axios';
-             import 'react-quill/dist/quill.snow\.css';
+             import 'quill/dist/quill.snow\.css';
       
              import hljs from 'highlight.js';
              import 'highlight.js/styles/github.css';
@@ -57,6 +57,41 @@ import axios from 'axios';
       reader.readAsDataURL(file);
     };
   }, []);                           // dépendances : aucune → stable
+
+  const handleTable = useCallback(() => {
+    const rows = parseInt(prompt('Nombre de lignes ?', '2') || '2', 10);
+    const cols = parseInt(prompt('Nombre de colonnes ?', '2') || '2', 10);
+    if (!rows || !cols) return;
+    const editor = quillRef.current?.getEditor();
+    const range = editor?.getSelection(true);
+    const table = Array.from({ length: rows }, () =>
+      `<tr>${'<td></td>'.repeat(cols)}</tr>`
+    ).join('');
+    editor?.clipboard.dangerouslyPasteHTML(
+      range?.index ?? 0,
+      `<table style="width:100%; border-collapse:collapse" border="1">${table}</table>`
+    );
+  }, []);
+
+  useEffect(() => {
+    const editor = quillRef.current?.getEditor();
+    if (!editor) return;
+    const dbl = (e: MouseEvent) => {
+      const img = (e.target as HTMLElement).closest('img');
+      if (img) {
+        e.preventDefault();
+        const cur = img.getAttribute('width') || img.style.width.replace('px', '') || '300';
+        const width = prompt("Largeur de l'image en pixels?", cur);
+        if (width) {
+          img.setAttribute('width', width);
+        }
+      }
+    };
+    editor.root.addEventListener('dblclick', dbl);
+    return () => {
+      editor.root.removeEventListener('dblclick', dbl);
+    };
+  }, []);
       
                /* 4. Modules / formats MEMO‑ISÉS ---------------------------------- */
                const modules = useMemo(
@@ -66,11 +101,13 @@ import axios from 'axios';
                      container: [
                        [{ header: [1, 2, 3, false] }],
                        ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
+                       [{ color: [] }, { background: [] }],
                        [{ list: 'ordered' }, { list: 'bullet' }],
-                       ['link', 'image'],
+                       [{ align: [] }],
+                       ['link', 'image', 'table'],
                        ['clean']
                      ],
-                     handlers: { image: handleImage }
+                     handlers: { image: handleImage, table: handleTable }
                    }
                  }),
                  [handleImage]                   // ne change plus car handleImage est figé
@@ -81,7 +118,8 @@ import axios from 'axios';
                    'header', 'bold', 'italic', 'underline', 'strike',
                    'blockquote', 'code-block',
                    'list', 'bullet',
-                   'link', 'image'
+                   'link', 'image', 'table',
+                   'color', 'background', 'align'
                  ],
                  []
                );

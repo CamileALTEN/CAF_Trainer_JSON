@@ -3,3 +3,8 @@ body {
   font-family:'Metropolis',Arial,sans-serif;
   background:#f5f5f5; color:#043962;
 }
+
+.advanced-editor img {
+  max-width: 100%;
+  cursor: pointer;
+}
