@@ -6,7 +6,12 @@ import AdvancedEditor                  from './AdvancedEditor';
 import {
   IModule, IItem, ILink, IImage, IQuiz,
 } from '../api/modules';
-                import './ModuleEditor.css';
+import './ModuleEditor.css';
+
+const PROFILE_COLORS: Record<string, string> = {
+  Nantes: '#008bd2',
+  Montoir: '#00c49f',
+};
       
                 /* ═════════════════════════ HELPERS GÉNÉRIAUX ═════════════════════════ */
       
@@ -204,7 +209,17 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                             🗑️
                           </button>
 
-                          <span onClick={() => setCurId(it.id)}>{it.title || '∅'}</span>
+                          <span onClick={() => setCurId(it.id)}>
+                            {it.title || '∅'}
+                            {(it.profiles ?? []).map((p) => (
+                              <span
+                                key={p}
+                                className="profile-dot"
+                                style={{ background: PROFILE_COLORS[p] || '#ccc' }}
+                                title={p}
+                              />
+                            ))}
+                          </span>
 
                           <div className="item-acts">
                             <button onClick={() => addItem(it)} title="Ajouter">＋</button>
