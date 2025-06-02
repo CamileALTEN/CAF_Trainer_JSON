@@ -51,7 +51,7 @@ export default function PageHeader() {
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              📋 Checklist
+                              📋 Plan d'intégration
                             </a>
                           )}
                           <Link
