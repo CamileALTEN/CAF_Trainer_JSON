@@ -9,8 +9,8 @@ import {
 import './ModuleEditor.css';
 
 const PROFILE_COLORS: Record<string, string> = {
-  Nantes: '#008bd2',
-  Montoir: '#00c49f',
+  Nantes: '#ff461e',
+  Montoir: '#33fb22',
 };
       
                 /* ═════════════════════════ HELPERS GÉNÉRIAUX ═════════════════════════ */
