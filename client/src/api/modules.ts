@@ -35,6 +35,7 @@ export interface IItem  {
   images:    IImage[];    // ← anciennement string[]
   videos:    string[];
   profiles:  string[];
+  site?:     'Nantes' | 'Montoir' | 'both';
   enabled:   boolean;
 
   needValidation?: boolean;
@@ -78,14 +79,35 @@ function normaliseOne(id: string, data: unknown): IModule {
   }
   throw new Error('Module introuvable');
 }
+
+/* ajoute la propriété site aux items d'un module */
+const guessSite = (profiles: string[]): 'Nantes' | 'Montoir' | 'both' => {
+  const hasN = profiles.includes('Nantes');
+  const hasM = profiles.includes('Montoir');
+  if (hasN && hasM) return 'both';
+  if (hasN) return 'Nantes';
+  if (hasM) return 'Montoir';
+  return 'both';
+};
+
+const addSite = (it: IItem): IItem => ({
+  ...it,
+  site: it.site ?? guessSite(it.profiles ?? []),
+  children: (it.children ?? []).map(addSite),
+});
+
+const mapSites = (mod: IModule): IModule => ({
+  ...mod,
+  items: mod.items.map(addSite),
+});
       
 /* ═════════════════════════ APPELS REST ═══════════════════════════════ */
       
 export const getModules = async (): Promise<IModule[]> =>
-  normaliseList((await axios.get('/api/modules')).data);
+  normaliseList((await axios.get('/api/modules')).data).map(mapSites);
       
 export const getModule  = async (id: string): Promise<IModule> =>
-  normaliseOne(id, (await axios.get(`/api/modules/${id}`)).data);
+  mapSites(normaliseOne(id, (await axios.get(`/api/modules/${id}`)).data));
       
 export const updateModule = async (m: IModule): Promise<IModule> =>
   (await axios.put(`/api/modules/${m.id}`, m)).data;

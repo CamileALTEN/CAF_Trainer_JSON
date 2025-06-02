@@ -4,6 +4,15 @@ import { IModule, IProgress, IItem } from '../api/modules';
 import { flatten } from '../utils/items';
 import './RadarTracker.css';
 
+const guessSite = (profiles: string[]): 'Nantes' | 'Montoir' | 'both' => {
+  const hasN = profiles.includes('Nantes');
+  const hasM = profiles.includes('Montoir');
+  if (hasN && hasM) return 'both';
+  if (hasN) return 'Nantes';
+  if (hasM) return 'Montoir';
+  return 'both';
+};
+
 interface RadarTrackerProps {
   modules: IModule[];
   progress: IProgress[];
@@ -22,7 +31,10 @@ export default function RadarTracker({ modules, progress, username, site  }: Rad
   const buildData = (mod: IModule) => {
     const p = userProg.find(x => x.moduleId === mod.id);
     return mod.items.flatMap(item => {
-      const nodes = flatten([item]).filter(n => !site || n.profiles?.includes(site));
+      const nodes = flatten([item]).filter(n => {
+        const s = n.site ?? guessSite(n.profiles ?? []);
+        return !site || s === 'both' || s === site;
+      });
       const total = nodes.length;
       if (total === 0) return [];
       const visited = nodes.filter(ch => p?.visited.includes(ch.id)).length;

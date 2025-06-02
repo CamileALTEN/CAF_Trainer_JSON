@@ -29,6 +29,7 @@ links:     ILink[];
 images:    IImage[];
 videos:    string[];
   profiles:  string[];
+  site?:     'Nantes' | 'Montoir' | 'both';
   enabled:   boolean;
 
   needValidation?: boolean;

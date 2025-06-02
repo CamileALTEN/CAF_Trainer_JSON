@@ -17,6 +17,11 @@
              .tree-scroll li>span{ cursor:pointer; padding:2px 4px; border-radius:4px;
                                    display:inline-block; transition:background .15s; }
              .tree-scroll li>span:hover
+
+             /* codes couleur pour les profils */
+             .tree-scroll li.prof-nantes>span{ border-left:4px solid #e67e22; padding-left:4px; }
+             .tree-scroll li.prof-montoir>span{ border-left:4px solid #2ecc71; padding-left:4px; }
+             .tree-scroll li.prof-both>span   { border-left:4px solid #9b59b6; padding-left:4px; }
       
 .item-acts          { display:inline-flex; gap:4px; margin-left:6px; }
 .item-acts button   { background:none; border:none; cursor:pointer; padding:0 2px;

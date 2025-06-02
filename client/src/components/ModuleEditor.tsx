@@ -10,13 +10,22 @@ import {
       
                 /* ═════════════════════════ HELPERS GÉNÉRIAUX ═════════════════════════ */
       
-                const defaultImg = (i: Partial<IImage>): IImage => ({
-                  src:   i.src   ?? '',
-                  width: i.width ?? 100,
-                  align: i.align ?? 'left',
-                });
+const defaultImg = (i: Partial<IImage>): IImage => ({
+  src:   i.src   ?? '',
+  width: i.width ?? 100,
+  align: i.align ?? 'left',
+});
+
+const guessSite = (profiles: string[]): 'Nantes' | 'Montoir' | 'both' => {
+  const hasN = profiles.includes('Nantes');
+  const hasM = profiles.includes('Montoir');
+  if (hasN && hasM) return 'both';
+  if (hasN) return 'Nantes';
+  if (hasM) return 'Montoir';
+  return 'both';
+};
       
-                const ensureDefaults = (it: Partial<IItem>): IItem => ({
+const ensureDefaults = (it: Partial<IItem>): IItem => ({
                   id:        it.id        ?? crypto.randomUUID(),
                   title:     it.title     ?? '',
                   subtitle:  it.subtitle  ?? '',
@@ -25,8 +34,9 @@ import {
                   images:    (it.images   ?? []).map((img: any) =>
                                typeof img === 'string' ? defaultImg({ src: img }) : defaultImg(img)),
                   videos:    it.videos    ?? [],
-                  profiles:  it.profiles  ?? [],
-                  enabled:   it.enabled   ?? true,
+  profiles:  it.profiles  ?? [],
+  site:      it.site ?? guessSite(it.profiles ?? []),
+  enabled:   it.enabled   ?? true,
                   needValidation: it.needValidation ?? false,
                   quiz:      it.quiz      ?? { enabled: false, questions: [] },
                   children:  (it.children ?? []).map(ensureDefaults),
@@ -194,8 +204,14 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                   /* rendu récursif de l’arbre ------------------------------ */
                   const renderTree = (branch: IItem[]) => (
                     <ul>
-                      {branch.map((it) => (
-                        <li key={it.id} className={it.id === curId ? 'sel' : ''}>
+                      {branch.map((it) => {
+                        const s = it.site ?? guessSite(it.profiles ?? []);
+                        let profClass = '';
+                        if (s === 'both') profClass = 'prof-both';
+                        else if (s === 'Nantes') profClass = 'prof-nantes';
+                        else if (s === 'Montoir') profClass = 'prof-montoir';
+                        return (
+                        <li key={it.id} className={`${it.id === curId ? 'sel' : ''} ${profClass}`}>
                           <button
                             className="item-delete"
                             onClick={() => delItem(it.id)}
@@ -211,10 +227,10 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                             <button onClick={() => move(it.id, -1)} title="Monter">↑</button>
                             <button onClick={() => move(it.id, +1)} title="Descendre">↓</button>
                           </div>
-      
+
                           {(it.children?.length ?? 0) > 0 && renderTree(it.children ?? [])}
                         </li>
-                      ))}
+                      )})}
                     </ul>
                   );
       
@@ -299,7 +315,8 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                                     onChange={(e) => {
                                       const set = new Set(current.profiles ?? []);
                                       e.target.checked ? set.add(p) : set.delete(p);
-                                      patchItem({ profiles: Array.from(set) });
+                                      const arr = Array.from(set);
+                                      patchItem({ profiles: arr, site: guessSite(arr) });
                                     }}
                                   />{' '}
                                   {p}

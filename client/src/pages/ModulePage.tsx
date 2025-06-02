@@ -21,8 +21,20 @@ import './ModulePage.css';
 /* ------------------------------------------------------------------ */
 /*  Helpers profils                                                    */
 /* ------------------------------------------------------------------ */
-const matchSite = (site?: string) => (it: IItem) =>
-  it.enabled && (it.profiles?.length ? it.profiles.includes(site!) : true);
+const guessSite = (profiles: string[]): 'Nantes' | 'Montoir' | 'both' => {
+  const hasN = profiles.includes('Nantes');
+  const hasM = profiles.includes('Montoir');
+  if (hasN && hasM) return 'both';
+  if (hasN) return 'Nantes';
+  if (hasM) return 'Montoir';
+  return 'both';
+};
+
+const matchSite = (site?: string) => (it: IItem) => {
+  if (!it.enabled) return false;
+  const s = it.site ?? guessSite(it.profiles ?? []);
+  return !site || s === 'both' || s === site;
+};
 
 const filterBySite = (branch: IItem[], site?: string): IItem[] =>
   branch
