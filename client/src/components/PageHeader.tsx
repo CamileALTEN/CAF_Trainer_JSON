@@ -44,14 +44,14 @@ export default function PageHeader() {
                               ⭐ Favoris
                             </Link>
                           )}
-                          {checklistUrl && (
+                          {(user.role === 'caf' || user.role === 'user'|| user.role === 'admin'|| user.role === 'manager') && (
                             <a
                               className="header-favs"
                               href={checklistUrl}
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              Checklist 📋
+                              📋 Checklist
                             </a>
                           )}
                           <Link
