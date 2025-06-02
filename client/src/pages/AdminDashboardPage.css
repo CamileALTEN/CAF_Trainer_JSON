@@ -77,9 +77,18 @@
                background: #f5fbff;
              }
     
-             .admin-dashboard button {
-               background: none;
-               border: none;
-               cursor: pointer;
-               font-size: 1.1rem;
-             }
+.admin-dashboard button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+/* form d'édition dans le tableau */
+.edit-form input,
+.edit-form select {
+  padding: .5rem;
+  margin-bottom: .25rem;
+  width: 100%;
+}
+.edit-form button { margin-right: .5rem; }

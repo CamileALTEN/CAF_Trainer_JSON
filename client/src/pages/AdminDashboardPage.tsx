@@ -4,15 +4,22 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
-
-   import { IUser } from '../api/auth';
+   import { IUser, Role } from '../api/auth';
    import { IModule } from '../api/modules';
    import './AdminDashboardPage.css';
 
    export default function AdminDashboardPage() {
-     const [users, setUsers] = useState<IUser[]>([]);
-     const [modules, setModules] = useState<IModule[]>([]);
-     const [loading, setLoading] = useState(true);
+   const [users, setUsers] = useState<IUser[]>([]);
+   const [modules, setModules] = useState<IModule[]>([]);
+   const [loading, setLoading] = useState(true);
+   const [managers, setManagers] = useState<IUser[]>([]);
+   const [editingId, setEditingId] = useState<string | null>(null);
+   const [editUsername, setEditUsername] = useState('');
+   const [editRole, setEditRole] = useState<Role>('caf');
+   const [editSite, setEditSite] = useState('Nantes');
+   const [editManagerId, setEditManagerId] = useState('');
+
+   const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 
      /* ───────── chargement initial ───────── */
      useEffect(() => {
@@ -25,6 +32,7 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
              Array.isArray(m) ? m :
              m && typeof m === 'object' && Array.isArray((m as any).modules) ? (m as any).modules : [];
            setUsers(u);
+           setManagers(u.filter((x: IUser) => x.role === 'manager'));
            setModules(mods);
          })
          .finally(() => setLoading(false));
@@ -48,26 +56,33 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
        alert('Mot de passe modifié');
      };
 
-     const editUser = async (u: IUser) => {
-      const username = prompt('Email (prenom.nom@alten.com) :', u.username) ?? u.username;
-      if (!/^[a-z]+\.[a-z]+@alten\.com$/i.test(username)) return alert('Email invalide');
+    const startEdit = (u: IUser) => {
+      setEditingId(u.id);
+      setEditUsername(u.username);
+      setEditRole(u.role);
+      setEditSite(u.site || 'Nantes');
+      setEditManagerId(u.managerId || '');
+    };
 
-       const role = prompt('Rôle (admin|manager|caf) :', u.role) ?? u.role;
-       const site = role === 'caf'
-         ? prompt('Site (Nantes|Montoir) :', u.site ?? '') ?? u.site
-         : undefined;
-       const managerId = role === 'caf'
-         ? prompt('id manager (laisser vide si inchangé) :', u.managerId ?? '') || u.managerId
-         : undefined;
+    const saveEdit = async (id: string) => {
+      if (!mailRx.test(editUsername)) return alert('Email invalide');
 
-       const res = await fetch(`/api/users/${u.id}`, {
-         method: 'PATCH',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({ username, role, site, managerId }),
-       });
-       const data = await res.json();
-       setUsers(prev => prev.map(x => (x.id === data.id ? data : x)));
-     };
+      const body = {
+        username: editUsername,
+        role: editRole,
+        site: editRole === 'caf' ? editSite : undefined,
+        managerId: editRole === 'caf' ? editManagerId : undefined,
+      };
+
+      const res = await fetch(`/api/users/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      setUsers(prev => prev.map(x => (x.id === data.id ? data : x)));
+      setEditingId(null);
+    };
 
      /* ───────── rendu ───────── */
      if (loading) return <div className="admin-dashboard"><p>Chargement…</p></div>;
@@ -128,21 +143,64 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
              <tr><th>User</th><th>Rôle</th><th>Site</th><th>Manager</th><th/></tr>
            </thead>
            <tbody>
-             {sortedUsers.map(u => (
-               <tr key={u.id}>
-                 <td>{u.username}</td>
-                 <td>{u.role}</td>
-                 <td>{u.site ?? '—'}</td>
-                 <td>{u.managerId ? users.find(m => m.id === u.managerId)?.username ?? u.managerId : '—'}</td>
-                 <td style={{ whiteSpace: 'nowrap' }}>
-                   <button onClick={() => editUser(u)} title="Modifier">✏️</button>{' '}
-                   <button onClick={() => resetPwd(u.id)} title="Réinit. MDP">🔑</button>{' '}
-                   {u.role === 'caf' && <button onClick={() => deleteUser(u.id)} title="Supprimer">🗑️</button>}
-                   {u.role === 'manager' && <button onClick={() => deleteUser(u.id)} title="Supprimer">🗑️</button>}
-                   {u.role === 'admin' && <button onClick={() => deleteUser(u.id)} title="Supprimer">🗑️</button>}
-                 </td>
-               </tr>
-             ))}
+            {sortedUsers.map(u => (
+              editingId === u.id ? (
+                <tr key={u.id} className="edit-form">
+                  <td>
+                    <input
+                      value={editUsername}
+                      onChange={e => setEditUsername(e.target.value)}
+                    />
+                  </td>
+                  <td>
+                    <select
+                      value={editRole}
+                      onChange={e => setEditRole(e.target.value as Role)}
+                    >
+                      <option value="admin">admin</option>
+                      <option value="manager">manager</option>
+                      <option value="caf">caf</option>
+                    </select>
+                  </td>
+                  <td>
+                    {editRole === 'caf' ? (
+                      <select value={editSite} onChange={e => setEditSite(e.target.value)}>
+                        <option>Nantes</option>
+                        <option>Montoir</option>
+                      </select>
+                    ) : '—'}
+                  </td>
+                  <td>
+                    {editRole === 'caf' ? (
+                      <select value={editManagerId} onChange={e => setEditManagerId(e.target.value)}>
+                        <option value="">— choisir —</option>
+                        {managers.map(m => (
+                          <option key={m.id} value={m.id}>{m.username}</option>
+                        ))}
+                      </select>
+                    ) : '—'}
+                  </td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
+                    <button onClick={() => saveEdit(u.id)}>💾</button>{' '}
+                    <button onClick={() => setEditingId(null)}>✖️</button>
+                  </td>
+                </tr>
+              ) : (
+                <tr key={u.id}>
+                  <td>{u.username}</td>
+                  <td>{u.role}</td>
+                  <td>{u.site ?? '—'}</td>
+                  <td>{u.managerId ? users.find(m => m.id === u.managerId)?.username ?? u.managerId : '—'}</td>
+                  <td style={{ whiteSpace: 'nowrap' }}>
+                    <button onClick={() => startEdit(u)} title="Modifier">✏️</button>{' '}
+                    <button onClick={() => resetPwd(u.id)} title="Réinit. MDP">🔑</button>{' '}
+                    {u.role === 'caf' && <button onClick={() => deleteUser(u.id)} title="Supprimer">🗑️</button>}
+                    {u.role === 'manager' && <button onClick={() => deleteUser(u.id)} title="Supprimer">🗑️</button>}
+                    {u.role === 'admin' && <button onClick={() => deleteUser(u.id)} title="Supprimer">🗑️</button>}
+                  </td>
+                </tr>
+              )
+            ))}
            </tbody>
          </table>
        </div>
