@@ -1,13 +1,21 @@
              /* client/src/components/PageHeader.tsx
                 ──────────────────────────────────── */
-                import React from 'react';
+import React, { useEffect, useState } from 'react';
                 import { Link, useNavigate } from 'react-router-dom';
                 import { useAuth }           from '../context/AuthContext';
                 import './PageHeader.css';
       
-                export default function PageHeader() {
-                  const { user, logout } = useAuth();
-                  const navigate = useNavigate();
+export default function PageHeader() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [checklistUrl, setChecklistUrl] = useState('');
+
+  useEffect(() => {
+    fetch('/api/checklist-url')
+      .then(r => r.json())
+      .then(d => setChecklistUrl(d.url || ''))
+      .catch(() => setChecklistUrl(''));
+  }, []);
       
                   const goHome = () => {
                     if (!user) return navigate('/login');
@@ -35,6 +43,16 @@
                             <Link className="header-favs" to="/favoris">
                               ⭐ Favoris
                             </Link>
+                          )}
+                          {(user.role === 'caf' || user.role === 'user'|| user.role === 'admin'|| user.role === 'manager') && (
+                            <a
+                              className="header-favs"
+                              href={checklistUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              📋 Checklist
+                            </a>
                           )}
                           <Link
                             className="header-favs"

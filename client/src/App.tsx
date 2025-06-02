@@ -24,6 +24,7 @@ import RegisterUserPage     from './pages/RegisterUserPage';
 import NotificationsPage    from './pages/NotificationsPage';
 import TicketsListPage      from './pages/TicketsListPage';
 import CreateTicketPage     from './pages/CreateTicketPage';
+import ChecklistUrlPage     from './pages/ChecklistUrlPage';
 
 import Footer from './components/Footer';
 
@@ -57,6 +58,7 @@ function RoleRoutes() {
         <Route path="/manager/tickets"            element={<TicketsListPage />} />
         <Route path="/manager/tickets/new"        element={<CreateTicketPage />} />
         <Route path="/manager/progress"           element={<ProgressPage />} />
+        <Route path="/manager/checklist-url"      element={<ChecklistUrlPage />} />
         <Route path="/admin/*"                     element={<Navigate to="/manager" replace />} />
         <Route path="*"                            element={<Navigate to="/manager" replace />} />
       </Routes>
@@ -74,6 +76,7 @@ function RoleRoutes() {
         <Route path="/admin/notifications"         element={<NotificationsPage />} />
         <Route path="/admin/tickets"               element={<TicketsListPage />} />
         <Route path="/admin/create"                element={<RegisterUserPage />} />
+        <Route path="/admin/checklist-url"         element={<ChecklistUrlPage />} />
 
         <Route path="/"   element={<Navigate to="/admin" replace />} />
         <Route path="*"   element={<Navigate to="/admin" replace />} />

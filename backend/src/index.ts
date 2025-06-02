@@ -13,6 +13,7 @@ import modulesRouter from './routes/modules';
 import notifsRouter from './routes/notifications';
 import progressRouter from './routes/progress';
 import ticketsRouter from './routes/tickets';
+import checklistRouter from './routes/checklist';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -26,6 +27,7 @@ app.use('/api/modules', modulesRouter);
 app.use('/api/notifications', notifsRouter);
 app.use('/api/progress', progressRouter);
 app.use('/api/tickets', ticketsRouter);
+app.use('/api/checklist-url', checklistRouter);
 
 app.get('/', (_req, res) => {
 res.send('🚀 Backend TS démarré !');
