@@ -194,8 +194,14 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                   /* rendu récursif de l’arbre ------------------------------ */
                   const renderTree = (branch: IItem[]) => (
                     <ul>
-                      {branch.map((it) => (
-                        <li key={it.id} className={it.id === curId ? 'sel' : ''}>
+                      {branch.map((it) => {
+                        const p = new Set(it.profiles ?? []);
+                        let profClass = '';
+                        if (p.has('Nantes') && p.has('Montoir')) profClass = 'prof-both';
+                        else if (p.has('Nantes')) profClass = 'prof-nantes';
+                        else if (p.has('Montoir')) profClass = 'prof-montoir';
+                        return (
+                        <li key={it.id} className={`${it.id === curId ? 'sel' : ''} ${profClass}`}>
                           <button
                             className="item-delete"
                             onClick={() => delItem(it.id)}
@@ -211,10 +217,10 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                             <button onClick={() => move(it.id, -1)} title="Monter">↑</button>
                             <button onClick={() => move(it.id, +1)} title="Descendre">↓</button>
                           </div>
-      
+
                           {(it.children?.length ?? 0) > 0 && renderTree(it.children ?? [])}
                         </li>
-                      ))}
+                      )})}
                     </ul>
                   );
       
