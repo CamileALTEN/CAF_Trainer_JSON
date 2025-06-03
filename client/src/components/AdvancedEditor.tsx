@@ -31,6 +31,7 @@ import {
 } from 'lucide-react';
 
 import './AdvancedEditor.css';
+import { uploadImage } from '../api/images';
 
 const CHAR_LIMIT = 10000;
 
@@ -95,9 +96,27 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
     if (url) editor?.chain().focus().setLink({ href: url }).run();
   };
 
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const onSelectImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const url = await uploadImage(reader.result as string);
+        editor?.chain().focus().setImage({ src: url }).run();
+      } catch (err) {
+        console.error(err);
+        alert('Échec de l\u2019upload');
+      }
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
+
   const addImage = () => {
-    const url = prompt('URL de l’image');
-    if (url) editor?.chain().focus().setImage({ src: url }).run();
+    fileRef.current?.click();
   };
 
   /** Efface marks + nœuds (gomme) */
@@ -192,6 +211,13 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
         {/* Bloc 6 – Insertion --------------------------------------- */}
         <div className="group">
           <button onClick={addImage}><ImageIcon size={16}/></button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            onChange={onSelectImage}
+            style={{ display: 'none' }}
+          />
           <button onClick={promptTable}><Table2 size={16}/></button>
         </div>
 
