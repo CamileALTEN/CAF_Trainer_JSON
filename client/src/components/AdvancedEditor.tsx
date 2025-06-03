@@ -69,10 +69,13 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
     onUpdate: ({ editor }) => onChange(editor.getHTML()),
   });
 
+  // keep editor in sync when switching items without interrupting typing
   useEffect(() => {
     if (!editor) return;
-    const cur = editor.getHTML();
-    if (cur !== value) editor.commands.setContent(value, false);
+    // Avoid resetting content while the user is editing
+    if (!editor.isFocused && editor.getHTML() !== value) {
+      editor.commands.setContent(value, false);
+    }
   }, [value, editor]);
 
   /* ---------- Références & commandes utilitaires ---------------- */
