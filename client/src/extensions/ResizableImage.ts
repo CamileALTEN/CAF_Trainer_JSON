@@ -41,6 +41,7 @@ const ResizableImage = Image.extend({
       container.className = 'image-wrapper';
       container.draggable = true;
       container.contentEditable = 'false';
+      container.style.maxWidth = '100%';
 
       const img = document.createElement('img');
       img.src = node.attrs.src;
@@ -48,6 +49,8 @@ const ResizableImage = Image.extend({
       if (node.attrs.title) img.title = node.attrs.title;
       if (node.attrs.width) img.style.width = node.attrs.width;
       if (node.attrs.height) img.style.height = node.attrs.height;
+      img.style.maxWidth = '100%';
+      img.style.height = img.style.height || 'auto';
 
       container.appendChild(img);
 
@@ -105,6 +108,8 @@ const ResizableImage = Image.extend({
         if (current.includes('w')) width = Math.max(50, startWidth - dx);
         if (current.includes('s')) height = Math.max(50, startHeight + dy);
         if (current.includes('n')) height = Math.max(50, startHeight - dy);
+        const maxW = (editor.view.dom as HTMLElement).clientWidth;
+        width = Math.min(width, maxW);
         img.style.width = `${width}px`;
         img.style.height = `${height}px`;
       };
