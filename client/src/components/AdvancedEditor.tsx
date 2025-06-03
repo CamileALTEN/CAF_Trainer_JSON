@@ -146,7 +146,7 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
   const align = (dir: 'left' | 'center' | 'right' | 'justify') => {
     if (!editor) return;
     if (isImageSelected() && dir !== 'justify') {
-      editor.chain().focus().setImageAlign(dir as 'left' | 'center' | 'right').run();
+      (editor.chain() as any).focus().setImageAlign(dir as 'left' | 'center' | 'right').run();
     } else {
       editor.chain().focus().setTextAlign(dir).run();
     }

@@ -1,4 +1,5 @@
 import Image from '@tiptap/extension-image';
+import type { CommandProps } from '@tiptap/core';
 
 const ResizableImage = Image.extend({
   addAttributes() {
@@ -28,7 +29,8 @@ const ResizableImage = Image.extend({
     return {
       ...this.parent?.(),
       setImageAlign:
-        (align: 'left' | 'center' | 'right') => ({ commands }) =>
+        (align: 'left' | 'center' | 'right') =>
+        ({ commands }: CommandProps) =>
           commands.updateAttributes('image', { align }),
     };
   },
