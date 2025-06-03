@@ -19,6 +19,7 @@ import TaskList                 from '@tiptap/extension-task-list';
 import TaskItem                 from '@tiptap/extension-task-item';
 import TextStyle                from '@tiptap/extension-text-style';
 import Color                    from '@tiptap/extension-color';
+import { NodeSelection }        from 'prosemirror-state';
 
 import {
   Bold, Italic, Underline as UnderlineIcon, Strikethrough, Highlighter, Code,
@@ -136,6 +137,30 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
     e.target.blur();
   };
 
+  const isImageSelected = () => {
+    if (!editor) return false;
+    const { selection } = editor.state;
+    return selection instanceof NodeSelection && selection.node.type.name === 'image';
+  };
+
+  const align = (dir: 'left' | 'center' | 'right' | 'justify') => {
+    if (!editor) return;
+    if (isImageSelected() && dir !== 'justify') {
+      (editor.chain() as any).focus().setImageAlign(dir as 'left' | 'center' | 'right').run();
+    } else {
+      editor.chain().focus().setTextAlign(dir).run();
+    }
+  };
+
+  const activeAlign = (dir: 'left' | 'center' | 'right' | 'justify') => {
+    if (!editor) return false;
+    if (isImageSelected() && dir !== 'justify') {
+      const sel = editor.state.selection as NodeSelection;
+      return sel.node.attrs.align === dir;
+    }
+    return editor.isActive({ textAlign: dir });
+  };
+
   const currentColor = editor?.getAttributes('textStyle').color?.toString() || '#000000';
   const chars        = editor ? editor.storage.characterCount.characters() : 0;
 
@@ -196,10 +221,10 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
 
         {/* Bloc 4 – Alignement --------------------------------------- */}
         <div className="group">
-          <button className={editor?.isFocused && editor.isActive({textAlign:'left'}) ? 'active' : ''}    onClick={() => editor?.chain().focus().setTextAlign('left').run()}><AlignLeft size={16}/></button>
-          <button className={editor?.isFocused && editor.isActive({textAlign:'center'}) ? 'active' : ''}  onClick={() => editor?.chain().focus().setTextAlign('center').run()}><AlignCenter size={16}/></button>
-          <button className={editor?.isFocused && editor.isActive({textAlign:'right'}) ? 'active' : ''}   onClick={() => editor?.chain().focus().setTextAlign('right').run()}><AlignRight size={16}/></button>
-          <button className={editor?.isFocused && editor.isActive({textAlign:'justify'}) ? 'active' : ''} onClick={() => editor?.chain().focus().setTextAlign('justify').run()}><AlignJustify size={16}/></button>
+          <button className={activeAlign('left') ? 'active' : ''}    onClick={() => align('left')}><AlignLeft size={16}/></button>
+          <button className={activeAlign('center') ? 'active' : ''}  onClick={() => align('center')}><AlignCenter size={16}/></button>
+          <button className={activeAlign('right') ? 'active' : ''}   onClick={() => align('right')}><AlignRight size={16}/></button>
+          <button className={activeAlign('justify') ? 'active' : ''} onClick={() => align('justify')}><AlignJustify size={16}/></button>
         </div>
 
         {/* Bloc 5 – Liens ------------------------------------------- */}

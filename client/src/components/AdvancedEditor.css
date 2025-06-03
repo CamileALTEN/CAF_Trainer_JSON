@@ -130,6 +130,12 @@
   position:relative;
   display:inline-block;
   user-select:auto;
+  max-width:100%;
+}
+.image-wrapper img{
+  max-width:100%;
+  height:auto;
+  display:block;
 }
 .image-resize-handle{
   position:absolute;

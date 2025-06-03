@@ -19,7 +19,9 @@ router.post('/', (req, res) => {
   const base64 = m[2];
   const name = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
   fs.writeFileSync(path.join(DIR, name), base64, 'base64');
-  res.json({ url: `/images/${name}` });
+  const host = req.get('host');
+  const url = `${req.protocol}://${host}/images/${name}`;
+  res.json({ url });
 });
 
 export default router;

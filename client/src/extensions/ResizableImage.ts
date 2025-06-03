@@ -1,4 +1,6 @@
 import Image from '@tiptap/extension-image';
+import type { CommandProps } from '@tiptap/core';
+import { NodeSelection } from 'prosemirror-state';
 
 const ResizableImage = Image.extend({
   addAttributes() {
@@ -16,6 +18,21 @@ const ResizableImage = Image.extend({
         renderHTML: attrs =>
           attrs.height ? { 'data-height': attrs.height } : {},
       },
+      align: {
+        default: 'center',
+        parseHTML: element => element.getAttribute('data-align') || 'center',
+        renderHTML: attrs => ({ 'data-align': attrs.align }),
+      },
+    };
+  },
+
+  addCommands() {
+    return {
+      ...this.parent?.(),
+      setImageAlign:
+        (align: 'left' | 'center' | 'right') =>
+        ({ commands }: CommandProps) =>
+          commands.updateAttributes('image', { align }),
     };
   },
 
@@ -25,6 +42,7 @@ const ResizableImage = Image.extend({
       container.className = 'image-wrapper';
       container.draggable = true;
       container.contentEditable = 'false';
+      container.style.maxWidth = '100%';
 
       const img = document.createElement('img');
       img.src = node.attrs.src;
@@ -32,8 +50,33 @@ const ResizableImage = Image.extend({
       if (node.attrs.title) img.title = node.attrs.title;
       if (node.attrs.width) img.style.width = node.attrs.width;
       if (node.attrs.height) img.style.height = node.attrs.height;
+      img.style.maxWidth = '100%';
+      img.style.height = img.style.height || 'auto';
+
+      img.addEventListener('load', () => {
+        container.style.width = img.style.width || `${img.offsetWidth}px`;
+      });
 
       container.appendChild(img);
+
+      const applyAlign = (a: string) => {
+        container.style.float = '';
+        container.style.display = 'inline-block';
+        container.style.margin = '0';
+        container.style.width = img.style.width || `${img.offsetWidth}px`;
+        if (a === 'left') {
+          container.style.float = 'left';
+          container.style.margin = '0 1em 1em 0';
+        } else if (a === 'right') {
+          container.style.float = 'right';
+          container.style.margin = '0 0 1em 1em';
+        } else if (a === 'center') {
+          container.style.display = 'block';
+          container.style.margin = '0 auto';
+        }
+      };
+
+      applyAlign(node.attrs.align);
 
       const positions = ['nw','n','ne','e','se','s','sw','w'] as const;
       const handles: {el: HTMLSpanElement; pos: typeof positions[number]}[] = [];
@@ -71,8 +114,11 @@ const ResizableImage = Image.extend({
         if (current.includes('w')) width = Math.max(50, startWidth - dx);
         if (current.includes('s')) height = Math.max(50, startHeight + dy);
         if (current.includes('n')) height = Math.max(50, startHeight - dy);
+        const maxW = (editor.view.dom as HTMLElement).clientWidth;
+        width = Math.min(width, maxW);
         img.style.width = `${width}px`;
         img.style.height = `${height}px`;
+        container.style.width = `${width}px`;
       };
 
       const onMouseUp = () => {
@@ -88,6 +134,7 @@ const ResizableImage = Image.extend({
           });
           editor.view.dispatch(tr);
         }
+        container.style.width = img.style.width || `${img.offsetWidth}px`;
         current = null;
       };
 
@@ -97,20 +144,37 @@ const ResizableImage = Image.extend({
         return { el: h.el, fn };
       });
 
+      const selectNode = (event: MouseEvent) => {
+        const pos = getPos();
+        if (typeof pos === 'number') {
+          const { state } = editor.view;
+          const tr = state.tr.setSelection(NodeSelection.create(state.doc, pos));
+          editor.view.dispatch(tr);
+        }
+      };
+      container.addEventListener('mousedown', selectNode);
+
       return {
         dom: container,
         contentDOM: null,
         update: updatedNode => {
           if (updatedNode.type !== node.type) return false;
           if (updatedNode.attrs.src !== node.attrs.src) img.src = updatedNode.attrs.src;
-          if (updatedNode.attrs.width) img.style.width = updatedNode.attrs.width;
-          else img.style.removeProperty('width');
+          if (updatedNode.attrs.width) {
+            img.style.width = updatedNode.attrs.width;
+            container.style.width = updatedNode.attrs.width;
+          } else {
+            img.style.removeProperty('width');
+            container.style.width = `${img.offsetWidth}px`;
+          }
           if (updatedNode.attrs.height) img.style.height = updatedNode.attrs.height;
           else img.style.removeProperty('height');
+          if (updatedNode.attrs.align !== node.attrs.align) applyAlign(updatedNode.attrs.align);
           return true;
         },
         destroy: () => {
           handlers.forEach(h => h.el.removeEventListener('mousedown', h.fn));
+          container.removeEventListener('mousedown', selectNode);
         },
       };
     };
