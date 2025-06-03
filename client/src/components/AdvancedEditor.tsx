@@ -32,7 +32,7 @@ import {
 
 import './AdvancedEditor.css';
 
-const CHAR_LIMIT = 1000;
+const CHAR_LIMIT = 10000;
 
 /* ------------------------------------------------------------------ */
 export interface AdvancedEditorProps {

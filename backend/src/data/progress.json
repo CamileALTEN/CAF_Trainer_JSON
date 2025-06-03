@@ -6,15 +6,18 @@
       "60f65965-ef9e-4541-8086-2569210ddab2"
     ],
     "visited": [
+      "14468455-a676-4a55-9bcc-22ae3bad8966",
       "823615c7-a15f-464f-bd9c-369efe9e5660",
       "adbed355-edcb-45f5-86d1-b7079b24b923",
       "item-1",
       "de2e76e7-368f-4acf-ad07-cbbc804c4797",
-      "ffe016dd-3970-45b1-a898-3e3651461058"
+      "ffe016dd-3970-45b1-a898-3e3651461058",
+      "b83a25cb-12ac-4e4c-ad6b-6a1a4e324a8a",
+      "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
+      "7926dfda-1785-401b-b8e6-ce25e7ebaceb"
     ],
     "started": [
-      "1746552185431",
-      "14468455-a676-4a55-9bcc-22ae3bad8966"
+      "1746552185431"
     ]
   },
   {
@@ -233,6 +236,13 @@
       "52bd1b2f-5dd2-4f6f-971f-1a5e4b3a99a5",
       "924e9790-1a0f-4490-8ce9-b3af2123baad"
     ],
+    "needValidation": []
+  },
+  {
+    "username": "logan",
+    "moduleId": "1746553317746",
+    "visited": [],
+    "started": [],
     "needValidation": []
   }
 ]
