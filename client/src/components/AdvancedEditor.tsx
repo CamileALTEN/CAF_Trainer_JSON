@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------------ */
 /*  AdvancedEditor.tsx – police Arial, gras désactivé, couleur texte  */
 /* ------------------------------------------------------------------ */
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit               from '@tiptap/starter-kit';
 import Underline                from '@tiptap/extension-underline';
@@ -68,6 +68,12 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
     ],
     onUpdate: ({ editor }) => onChange(editor.getHTML()),
   });
+
+  useEffect(() => {
+    if (!editor) return;
+    const cur = editor.getHTML();
+    if (cur !== value) editor.commands.setContent(value, false);
+  }, [value, editor]);
 
   /* ---------- Références & commandes utilitaires ---------------- */
   const colorRef = useRef<HTMLInputElement>(null);
