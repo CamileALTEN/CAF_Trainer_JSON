@@ -16,6 +16,20 @@ const ResizableImage = Image.extend({
         renderHTML: attrs =>
           attrs.height ? { 'data-height': attrs.height } : {},
       },
+      align: {
+        default: 'center',
+        parseHTML: element => element.getAttribute('data-align') || 'center',
+        renderHTML: attrs => ({ 'data-align': attrs.align }),
+      },
+    };
+  },
+
+  addCommands() {
+    return {
+      ...this.parent?.(),
+      setImageAlign:
+        (align: 'left' | 'center' | 'right') => ({ commands }) =>
+          commands.updateAttributes('image', { align }),
     };
   },
 
@@ -34,6 +48,24 @@ const ResizableImage = Image.extend({
       if (node.attrs.height) img.style.height = node.attrs.height;
 
       container.appendChild(img);
+
+      const applyAlign = (a: string) => {
+        container.style.float = '';
+        container.style.display = 'inline-block';
+        container.style.margin = '0';
+        if (a === 'left') {
+          container.style.float = 'left';
+          container.style.margin = '0 1em 1em 0';
+        } else if (a === 'right') {
+          container.style.float = 'right';
+          container.style.margin = '0 0 1em 1em';
+        } else if (a === 'center') {
+          container.style.display = 'block';
+          container.style.margin = '0 auto';
+        }
+      };
+
+      applyAlign(node.attrs.align);
 
       const positions = ['nw','n','ne','e','se','s','sw','w'] as const;
       const handles: {el: HTMLSpanElement; pos: typeof positions[number]}[] = [];
@@ -107,6 +139,7 @@ const ResizableImage = Image.extend({
           else img.style.removeProperty('width');
           if (updatedNode.attrs.height) img.style.height = updatedNode.attrs.height;
           else img.style.removeProperty('height');
+          if (updatedNode.attrs.align !== node.attrs.align) applyAlign(updatedNode.attrs.align);
           return true;
         },
         destroy: () => {
