@@ -650,7 +650,10 @@
               }
             ],
             "videos": [],
-            "profiles": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
             "enabled": true,
             "needValidation": true,
             "quiz": {
@@ -673,7 +676,10 @@
               }
             ],
             "videos": [],
-            "profiles": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
             "enabled": true,
             "needValidation": false,
             "quiz": {
@@ -696,7 +702,10 @@
               }
             ],
             "videos": [],
-            "profiles": [],
+            "profiles": [
+              "Nantes",
+              "Montoir"
+            ],
             "enabled": true,
             "needValidation": false,
             "quiz": {
@@ -888,7 +897,10 @@
         "links": [],
         "images": [],
         "videos": [],
-        "profiles": [],
+        "profiles": [
+          "Nantes",
+          "Montoir"
+        ],
         "enabled": true,
         "needValidation": false,
         "quiz": {
@@ -1466,7 +1478,9 @@
         "links": [],
         "images": [],
         "videos": [],
-        "profiles": [],
+        "profiles": [
+          "Nantes"
+        ],
         "enabled": true,
         "needValidation": false,
         "quiz": {
@@ -1483,7 +1497,9 @@
         "links": [],
         "images": [],
         "videos": [],
-        "profiles": [],
+        "profiles": [
+          "Nantes"
+        ],
         "enabled": true,
         "needValidation": false,
         "quiz": {
@@ -1496,11 +1512,13 @@
         "id": "3ef7fe9f-beca-48e9-a36b-50e1fd625e70",
         "title": "Affaire Type - Partie 3",
         "subtitle": "",
-        "content": "",
+        "content": "<p><span style=\"color: rgb(255, 194, 102);\"><span class=\"ql-cursor\">﻿</span></span></p>",
         "links": [],
         "images": [],
         "videos": [],
-        "profiles": [],
+        "profiles": [
+          "Nantes"
+        ],
         "enabled": true,
         "needValidation": false,
         "quiz": {
