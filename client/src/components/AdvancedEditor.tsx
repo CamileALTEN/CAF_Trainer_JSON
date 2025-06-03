@@ -111,6 +111,7 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
     col === '#000000'
       ? editor.chain().focus().unsetColor().run()
       : editor.chain().focus().setColor(col).run();
+    e.target.blur();
   };
 
   const currentColor = editor?.getAttributes('textStyle').color?.toString() || '#000000';
@@ -125,7 +126,10 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
         <div className="group">
           <button
             title="Couleur du texte"
-            onClick={() => colorRef.current?.click()}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              colorRef.current?.click();
+            }}
           >
             {/* stroke = couleur actuelle */}
             <PaintBucket size={16} style={{ color: currentColor }} />
