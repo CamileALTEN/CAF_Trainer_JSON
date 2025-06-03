@@ -1,5 +1,6 @@
 import Image from '@tiptap/extension-image';
 import type { CommandProps } from '@tiptap/core';
+import { NodeSelection } from 'prosemirror-state';
 
 const ResizableImage = Image.extend({
   addAttributes() {
@@ -52,12 +53,17 @@ const ResizableImage = Image.extend({
       img.style.maxWidth = '100%';
       img.style.height = img.style.height || 'auto';
 
+      img.addEventListener('load', () => {
+        container.style.width = img.style.width || `${img.offsetWidth}px`;
+      });
+
       container.appendChild(img);
 
       const applyAlign = (a: string) => {
         container.style.float = '';
         container.style.display = 'inline-block';
         container.style.margin = '0';
+        container.style.width = img.style.width || `${img.offsetWidth}px`;
         if (a === 'left') {
           container.style.float = 'left';
           container.style.margin = '0 1em 1em 0';
@@ -112,6 +118,7 @@ const ResizableImage = Image.extend({
         width = Math.min(width, maxW);
         img.style.width = `${width}px`;
         img.style.height = `${height}px`;
+        container.style.width = `${width}px`;
       };
 
       const onMouseUp = () => {
@@ -127,6 +134,7 @@ const ResizableImage = Image.extend({
           });
           editor.view.dispatch(tr);
         }
+        container.style.width = img.style.width || `${img.offsetWidth}px`;
         current = null;
       };
 
@@ -136,14 +144,29 @@ const ResizableImage = Image.extend({
         return { el: h.el, fn };
       });
 
+      const selectNode = (event: MouseEvent) => {
+        const pos = getPos();
+        if (typeof pos === 'number') {
+          const { state } = editor.view;
+          const tr = state.tr.setSelection(NodeSelection.create(state.doc, pos));
+          editor.view.dispatch(tr);
+        }
+      };
+      container.addEventListener('mousedown', selectNode);
+
       return {
         dom: container,
         contentDOM: null,
         update: updatedNode => {
           if (updatedNode.type !== node.type) return false;
           if (updatedNode.attrs.src !== node.attrs.src) img.src = updatedNode.attrs.src;
-          if (updatedNode.attrs.width) img.style.width = updatedNode.attrs.width;
-          else img.style.removeProperty('width');
+          if (updatedNode.attrs.width) {
+            img.style.width = updatedNode.attrs.width;
+            container.style.width = updatedNode.attrs.width;
+          } else {
+            img.style.removeProperty('width');
+            container.style.width = `${img.offsetWidth}px`;
+          }
           if (updatedNode.attrs.height) img.style.height = updatedNode.attrs.height;
           else img.style.removeProperty('height');
           if (updatedNode.attrs.align !== node.attrs.align) applyAlign(updatedNode.attrs.align);
@@ -151,6 +174,7 @@ const ResizableImage = Image.extend({
         },
         destroy: () => {
           handlers.forEach(h => h.el.removeEventListener('mousedown', h.fn));
+          container.removeEventListener('mousedown', selectNode);
         },
       };
     };
