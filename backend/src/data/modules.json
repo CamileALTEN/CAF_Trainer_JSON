@@ -191,7 +191,7 @@
             "id": "ffe016dd-3970-45b1-a898-3e3651461058",
             "title": "Qui contacter - Pour quoi ?",
             "subtitle": "",
-            "content": "<h1>Qui contacter ?</h1><p>Si tu as une demande sur un sujet :</p><ul><li>IT ;</li><li>sur les Accès ;</li><li>Administrative ;</li><li>ou un Problème technique ;</li></ul><p>tu peux contacter / consulter une ressource interne ALTEN. Tu trouvera la liste dans le lien ci-dessous.</p><p><br></p><p>Tu peux aussi faire une demande de support de tout type dans le <a href=\"https://alten.service-now.com/mysupport?id=sc_home\" rel=\"noopener noreferrer\" target=\"_blank\">catalogue de Service Now</a>.</p><p><br></p><h1>Correspondance</h1><p>Il peut être difficile de se repérer dans le tableau avec les acronymes.</p><p>Voici un rappel de qui correspond à quel poste :</p><ul><li>Gali : est le service informatique en support de la prod ALTEN. Tu peux les contacter par téléphone au +331 46 08 68 00 ou <a href=\"https://alten.service-now.com/mysupport?id=sc_cat_item&amp;sys_id=9dfc40b0377e6200d29c148543990eea\" rel=\"noopener noreferrer\" target=\"_blank\">déclarer un incident</a> sur My alten.</li><li>RC : le Responsable Commercial est ton responsable lié à la mission.</li><li>RI : le Responsable Ingénieur est la personne qui t'a fait signer ton contrat. Il reste inchangé tout au long de ta carrière chez ALTEN.</li><li>CP : est le Chef de Projet (1 ou 2)</li></ul>",
+            "content": "<h1>Qui contacter ?</h1><p>Si tu as une demande sur un sujet :</p><ul><li><p>IT ;</p></li><li><p>sur les Accès ;</p></li><li><p>Administrative ;</p></li><li><p>ou un Problème technique ;</p></li></ul><p>tu peux contacter / consulter une ressource interne ALTEN. Tu trouvera la liste dans le lien ci-dessous.</p><p><br></p><p>Tu peux aussi faire une demande de support de tout type dans le <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://alten.service-now.com/mysupport?id=sc_home\">catalogue de Service Now</a>.</p><p><br></p><h1>Correspondance</h1><p>Il peut être difficile de se repérer dans le tableau avec les acronymes.</p><p>Voici un rappel de qui correspond à quel poste :</p><ul><li><p>Gali : est le service informatique en support de la prod ALTEN. Tu peux les contacter par téléphone au +33<strong> </strong>(1) 46 08 68 00 ou <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://alten.service-now.com/mysupport?id=sc_cat_item&amp;sys_id=9dfc40b0377e6200d29c148543990eea\">déclarer un incident</a> sur My alten.</p></li><li><p>RC : le Responsable Commercial est ton responsable lié à la mission.</p></li><li><p>RI : le Responsable Ingénieur est la personne qui t'a fait signer ton contrat. Il reste inchangé tout au long de ta carrière chez ALTEN.</p></li><li><p>CP : est le Chef de Projet (1 ou 2)</p></li></ul>",
             "links": [
               {
                 "label": "Qui contacter",
@@ -692,7 +692,7 @@
             "id": "b83a25cb-12ac-4e4c-ad6b-6a1a4e324a8a",
             "title": "Process et Machine",
             "subtitle": "",
-            "content": "",
+            "content": "<ul data-type=\"taskList\"><li data-checked=\"false\" data-type=\"taskItem\"><label><input type=\"checkbox\"><span></span></label><div><p>l</p></div></li></ul>",
             "links": [],
             "images": [
               {
@@ -902,7 +902,7 @@
           "Montoir"
         ],
         "enabled": true,
-        "needValidation": false,
+        "needValidation": true,
         "quiz": {
           "enabled": false,
           "questions": []

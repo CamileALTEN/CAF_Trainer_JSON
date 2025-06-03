@@ -19,6 +19,15 @@ function idx(id: string, list = load()) {
   return list.findIndex((m) => m.id === id);
 }
 
+function findItem(items: IItem[], id: string): IItem | null {
+  for (const it of items) {
+    if (it.id === id) return it;
+    const sub = findItem(it.children ?? [], id);
+    if (sub) return sub;
+  }
+  return null;
+}
+
 // GET /api/modules
 router.get('/', (_req, res) => res.json(load()));
 
@@ -26,6 +35,14 @@ router.get('/', (_req, res) => res.json(load()));
 router.get('/:id', (req, res) => {
   const mod = byId(req.params.id);
   return mod ? res.json(mod) : res.status(404).json({ error: 'Module non trouvé' });
+});
+
+// GET /api/modules/:moduleId/items/:itemId
+router.get('/:moduleId/items/:itemId', (req, res) => {
+  const mod = byId(req.params.moduleId);
+  if (!mod) return res.status(404).json({ error: 'Module non trouvé' });
+  const item = findItem(mod.items, req.params.itemId);
+  return item ? res.json(item) : res.status(404).json({ error: 'Item non trouvé' });
 });
 
 // POST /api/modules

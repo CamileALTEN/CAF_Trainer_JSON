@@ -1,120 +1,236 @@
 /* ------------------------------------------------------------------ */
-/*  AdvancedEditor.tsx – version with text color support              */
+/*  AdvancedEditor.tsx – police Arial, gras désactivé, couleur texte  */
 /* ------------------------------------------------------------------ */
-import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
-import ReactQuill from 'react-quill';
-import axios from 'axios';
-import 'react-quill/dist/quill.snow.css';
+import React, { useRef, useEffect } from 'react';
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit               from '@tiptap/starter-kit';
+import Underline                from '@tiptap/extension-underline';
+import Link                     from '@tiptap/extension-link';
+import ResizableImage           from '../extensions/ResizableImage';
+import Table                    from '@tiptap/extension-table';
+import TableRow                 from '@tiptap/extension-table-row';
+import TableCell                from '@tiptap/extension-table-cell';
+import TableHeader              from '@tiptap/extension-table-header';
+import TextAlign                from '@tiptap/extension-text-align';
+import Highlight                from '@tiptap/extension-highlight';
+import Placeholder              from '@tiptap/extension-placeholder';
+import CharacterCount           from '@tiptap/extension-character-count';
+import TaskList                 from '@tiptap/extension-task-list';
+import TaskItem                 from '@tiptap/extension-task-item';
+import TextStyle                from '@tiptap/extension-text-style';
+import Color                    from '@tiptap/extension-color';
 
-import hljs from 'highlight.js';
-import 'highlight.js/styles/github.css';
+import {
+  Bold, Italic, Underline as UnderlineIcon, Strikethrough, Highlighter, Code,
+  Pilcrow, Heading1, Heading2, Heading3, Quote, Braces, Minus,
+  List, ListOrdered, CheckSquare,
+  AlignLeft, AlignCenter, AlignRight, AlignJustify,
+  Link as LinkIcon, Link2Off,
+  Image as ImageIcon, Table2,
+  Undo2, Redo2, Eraser, PaintBucket
+} from 'lucide-react';
 
-/* HLJS ---------------------------------------------------------------- */
-hljs.configure({
-  languages: [
-    'javascript', 'typescript', 'python', 'go',
-    'java', 'c', 'cpp', 'json', 'bash', 'markdown'
-  ]
-});
+import './AdvancedEditor.css';
+import { uploadImage } from '../api/images';
 
-/* -------------------------------------------------------------------- */
+const CHAR_LIMIT = 10000;
+
+/* ------------------------------------------------------------------ */
 export interface AdvancedEditorProps {
   value: string;
   onChange: (html: string) => void;
 }
 
+/* ------------------------------------------------------------------ */
 const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
-  /* 1. Ref Quill ----------------------------------------------------- */
-  const quillRef = useRef<any>(null);
-  const [html, setHtml] = useState(value);
-  useEffect(() => setHtml(value), [value]);
 
-  /* 2. Compteur de mots --------------------------------------------- */
-  const [words, setWords] = useState(0);
-
-  /* 3. Handler image, MEMO‑ISÉ (sinon ↻ à chaque render) ------------ */
-  const handleImage = useCallback(() => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.click();
-
-    input.onchange = () => {
-      const file = input.files?.[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = async () => {
-        try {
-          const { data } = await axios.post('/api/images', { data: reader.result });
-          const editor = quillRef.current?.getEditor();
-          const range  = editor?.getSelection(true);
-          editor?.insertEmbed(range?.index ?? 0, 'image', data.url);
-        } catch (e) {
-          alert('Envoi image impossible');
-        }
-      };
-      reader.readAsDataURL(file);
-    };
-  }, []); // dépendances : aucune → stable
-
-  /* 4. Modules / formats MEMO‑ISÉS ---------------------------------- */
-  const modules = useMemo(
-    () => ({
-      syntax: { highlight: (txt: string) => hljs.highlightAuto(txt).value },
-      toolbar: {
-        container: [
-          [{ header: [1, 2, 3, false] }],
-          ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-          [{ color: [] }, { background: [] }],
-          ['link', 'image'],
-          ['clean']
-        ],
-        handlers: { image: handleImage }
-      }
-    }),
-    [handleImage]
-  );
-
-  const formats = useMemo(
-    () => [
-      'header', 'bold', 'italic', 'underline', 'strike',
-      'blockquote', 'code-block',
-      'list', 'bullet',
-      'link', 'image',
-      'color', 'background'
+  const editor = useEditor({
+    content: value,
+    editorProps: { attributes: { class: 'editor-core' } },
+    extensions: [
+      StarterKit,
+      Underline,
+      Link,
+      ResizableImage,
+      /* --- TABLE (ordre impératif) -------------------------------- */
+      Table.configure({ resizable: true }),
+      TableRow,
+      TableCell,
+      TableHeader,
+      /* ------------------------------------------------------------ */
+      TextAlign.configure({ types: ['heading', 'paragraph'] }),
+      Highlight,
+      Placeholder.configure({ placeholder: 'Écrivez ici…' }),
+      CharacterCount.configure({ limit: CHAR_LIMIT }),
+      TaskList,
+      TaskItem.configure({ nested: true }),
+      TextStyle,          // nécessaire pour Color
+      Color,
     ],
-    []
-  );
+    onUpdate: ({ editor }) => onChange(editor.getHTML()),
+  });
 
-  /* 5. onChange – MEMO‑ISÉ aussi (optionnel) ------------------------ */
-  const onEditorChange = useCallback(
-    (html: string, _delta: any, _src: any, editor: any) => {
-      onChange(html);
-      setHtml(html);
-      const txt = editor.getText().trim();
-      setWords(txt ? txt.split(/\s+/).length : 0);
-    },
-    [onChange]
-  );
+  // keep editor in sync when switching items without interrupting typing
+  useEffect(() => {
+    if (!editor) return;
+    // Avoid resetting content while the user is editing
+    if (!editor.isFocused && editor.getHTML() !== value) {
+      editor.commands.setContent(value, false);
+    }
+  }, [value, editor]);
 
-  /* 6. Rendu --------------------------------------------------------- */
+  /* ---------- Références & commandes utilitaires ---------------- */
+  const colorRef = useRef<HTMLInputElement>(null);
+
+  const promptTable = () => {
+    const rows = parseInt(prompt('Nombre de lignes ?', '3') || '', 10);
+    const cols = parseInt(prompt('Nombre de colonnes ?', '3') || '', 10);
+    if (rows > 0 && cols > 0) {
+      editor?.chain().focus().insertTable({ rows, cols, withHeaderRow: true }).run();
+      editor?.commands.enter();
+    }
+  };
+
+  const addLink = () => {
+    const url = prompt('URL du lien');
+    if (url) editor?.chain().focus().setLink({ href: url }).run();
+  };
+
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const onSelectImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const url = await uploadImage(reader.result as string);
+        editor?.chain().focus().setImage({ src: url }).run();
+      } catch (err) {
+        console.error(err);
+        alert('Échec de l\u2019upload');
+      }
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
+
+  const addImage = () => {
+    fileRef.current?.click();
+  };
+
+  /** Efface marks + nœuds (gomme) */
+  const clearFormatting = () => {
+    if (!editor) return;
+    editor.chain().focus().unsetAllMarks().run();
+    editor.chain().focus().clearNodes().run();
+  };
+
+  /** Change la couleur du texte sélectionné */
+  const changeColor = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!editor) return;
+    const col = e.target.value;
+    col === '#000000'
+      ? editor.chain().focus().unsetColor().run()
+      : editor.chain().focus().setColor(col).run();
+    e.target.blur();
+  };
+
+  const currentColor = editor?.getAttributes('textStyle').color?.toString() || '#000000';
+  const chars        = editor ? editor.storage.characterCount.characters() : 0;
+
+  /* ----------------------------- UI ----------------------------- */
   return (
-    <div className="advanced-editor">
-      <ReactQuill
-        ref={quillRef}
-        theme="snow"
-        value={html}
-        onChange={onEditorChange}
-        modules={modules}
-        formats={formats}
-        placeholder="Commencez à écrire…"
-      />
+    <div className="word-editor">
+      <div className="toolbar">
 
-      <div style={{ textAlign: 'right', fontSize: 12, marginTop: 4, color: '#666' }}>
-        {words} mot{words > 1 ? 's' : ''}
+        {/* Bloc Couleur ------------------------------------------------ */}
+        <div className="group">
+          <button
+            title="Couleur du texte"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              colorRef.current?.click();
+            }}
+          >
+            {/* stroke = couleur actuelle */}
+            <PaintBucket size={16} style={{ color: currentColor }} />
+          </button>
+          {/* input caché : palette visible uniquement via le bouton */}
+          <input
+            ref={colorRef}
+            type="color"
+            value={currentColor}
+            onChange={changeColor}
+            style={{ display: 'none' }}
+          />
+        </div>
+
+        {/* Bloc 1 – Texte --------------------------------------------- */}
+        <div className="group">
+          <button className={editor?.isFocused && editor.isActive('bold') ? 'active' : ''}      onClick={() => editor?.chain().focus().toggleBold().run()}><Bold size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('italic') ? 'active' : ''}    onClick={() => editor?.chain().focus().toggleItalic().run()}><Italic size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('underline') ? 'active' : ''} onClick={() => editor?.chain().focus().toggleUnderline().run()}><UnderlineIcon size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('strike') ? 'active' : ''}    onClick={() => editor?.chain().focus().toggleStrike().run()}><Strikethrough size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('highlight') ? 'active' : ''} onClick={() => editor?.chain().focus().toggleHighlight().run()}><Highlighter size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('code') ? 'active' : ''}      onClick={() => editor?.chain().focus().toggleCode().run()}><Code size={16}/></button>
+        </div>
+
+        {/* Bloc 2 – Structure ----------------------------------------- */}
+        <div className="group">
+          <button onClick={() => editor?.chain().focus().setParagraph().run()}><Pilcrow size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('heading',{level:1}) ? 'active' : ''} onClick={() => editor?.chain().focus().toggleHeading({level:1}).run()}><Heading1 size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('heading',{level:2}) ? 'active' : ''} onClick={() => editor?.chain().focus().toggleHeading({level:2}).run()}><Heading2 size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('heading',{level:3}) ? 'active' : ''} onClick={() => editor?.chain().focus().toggleHeading({level:3}).run()}><Heading3 size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('blockquote') ? 'active' : ''} onClick={() => editor?.chain().focus().toggleBlockquote().run()}><Quote size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('codeBlock') ? 'active' : ''}  onClick={() => editor?.chain().focus().toggleCodeBlock().run()}><Braces size={16}/></button>
+          <button onClick={() => editor?.chain().focus().setHorizontalRule().run()}><Minus size={16}/></button>
+        </div>
+
+        {/* Bloc 3 – Listes ------------------------------------------- */}
+        <div className="group">
+          <button className={editor?.isFocused && editor.isActive('bulletList') ? 'active' : ''}  onClick={() => editor?.chain().focus().toggleBulletList().run()}><List size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('orderedList') ? 'active' : ''} onClick={() => editor?.chain().focus().toggleOrderedList().run()}><ListOrdered size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('taskList') ? 'active' : ''}    onClick={() => editor?.chain().focus().toggleTaskList().run()}><CheckSquare size={16}/></button>
+        </div>
+
+        {/* Bloc 4 – Alignement --------------------------------------- */}
+        <div className="group">
+          <button className={editor?.isFocused && editor.isActive({textAlign:'left'}) ? 'active' : ''}    onClick={() => editor?.chain().focus().setTextAlign('left').run()}><AlignLeft size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive({textAlign:'center'}) ? 'active' : ''}  onClick={() => editor?.chain().focus().setTextAlign('center').run()}><AlignCenter size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive({textAlign:'right'}) ? 'active' : ''}   onClick={() => editor?.chain().focus().setTextAlign('right').run()}><AlignRight size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive({textAlign:'justify'}) ? 'active' : ''} onClick={() => editor?.chain().focus().setTextAlign('justify').run()}><AlignJustify size={16}/></button>
+        </div>
+
+        {/* Bloc 5 – Liens ------------------------------------------- */}
+        <div className="group">
+          <button onClick={addLink}><LinkIcon size={16}/></button>
+          <button onClick={() => editor?.chain().focus().unsetLink().run()}><Link2Off size={16}/></button>
+        </div>
+
+        {/* Bloc 6 – Insertion --------------------------------------- */}
+        <div className="group">
+          <button onClick={addImage}><ImageIcon size={16}/></button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            onChange={onSelectImage}
+            style={{ display: 'none' }}
+          />
+          <button onClick={promptTable}><Table2 size={16}/></button>
+        </div>
+
+        {/* Bloc 7 – Outils ------------------------------------------ */}
+        <div className="group">
+          <button onClick={() => editor?.chain().focus().undo().run()}><Undo2 size={16}/></button>
+          <button onClick={() => editor?.chain().focus().redo().run()}><Redo2 size={16}/></button>
+          <button onClick={clearFormatting}><Eraser size={16}/></button>
+          <span className="counter">{chars}/{CHAR_LIMIT}</span>
+        </div>
       </div>
+
+      <EditorContent editor={editor} />
     </div>
   );
 };
