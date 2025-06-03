@@ -6,7 +6,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit               from '@tiptap/starter-kit';
 import Underline                from '@tiptap/extension-underline';
 import Link                     from '@tiptap/extension-link';
-import Image                    from '@tiptap/extension-image';
+import ResizableImage           from '../extensions/ResizableImage';
 import Table                    from '@tiptap/extension-table';
 import TableRow                 from '@tiptap/extension-table-row';
 import TableCell                from '@tiptap/extension-table-cell';
@@ -51,7 +51,7 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
       StarterKit,
       Underline,
       Link,
-      Image,
+      ResizableImage,
       /* --- TABLE (ordre impératif) -------------------------------- */
       Table.configure({ resizable: true }),
       TableRow,
