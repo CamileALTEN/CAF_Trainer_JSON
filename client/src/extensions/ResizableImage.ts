@@ -6,15 +6,15 @@ const ResizableImage = Image.extend({
       ...this.parent?.(),
       width: {
         default: null,
-        parseHTML: element => element.getAttribute('data-width'),
+        parseHTML: element => element.getAttribute('width'),
         renderHTML: attrs =>
-          attrs.width ? { 'data-width': attrs.width } : {},
+          attrs.width ? { 'width': attrs.width } : {},
       },
       height: {
         default: null,
-        parseHTML: element => element.getAttribute('data-height'),
+        parseHTML: element => element.getAttribute('height'),
         renderHTML: attrs =>
-          attrs.height ? { 'data-height': attrs.height } : {},
+          attrs.height ? { 'height': attrs.height } : {},
       },
     };
   },
@@ -22,6 +22,7 @@ const ResizableImage = Image.extend({
   addNodeView() {
     return ({ node, getPos, editor }) => {
       const container = document.createElement('span');
+      
       container.className = 'image-wrapper';
       container.draggable = true;
       container.contentEditable = 'false';
