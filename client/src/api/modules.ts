@@ -89,3 +89,9 @@ export const getModule  = async (id: string): Promise<IModule> =>
       
 export const updateModule = async (m: IModule): Promise<IModule> =>
   (await axios.put(`/api/modules/${m.id}`, m)).data;
+
+export const getItem = async (
+  moduleId: string,
+  itemId: string,
+): Promise<IItem> => (await axios.get(`/api/modules/${moduleId}/items/${itemId}`)).data;
+

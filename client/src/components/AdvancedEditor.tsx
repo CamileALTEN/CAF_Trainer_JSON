@@ -136,38 +136,38 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
 
         {/* Bloc 1 – Texte --------------------------------------------- */}
         <div className="group">
-          <button className={editor?.isActive('bold') ? 'active' : ''}      onClick={() => editor?.chain().focus().toggleBold().run()}><Bold size={16}/></button>
-          <button className={editor?.isActive('italic') ? 'active' : ''}    onClick={() => editor?.chain().focus().toggleItalic().run()}><Italic size={16}/></button>
-          <button className={editor?.isActive('underline') ? 'active' : ''} onClick={() => editor?.chain().focus().toggleUnderline().run()}><UnderlineIcon size={16}/></button>
-          <button className={editor?.isActive('strike') ? 'active' : ''}    onClick={() => editor?.chain().focus().toggleStrike().run()}><Strikethrough size={16}/></button>
-          <button className={editor?.isActive('highlight') ? 'active' : ''} onClick={() => editor?.chain().focus().toggleHighlight().run()}><Highlighter size={16}/></button>
-          <button className={editor?.isActive('code') ? 'active' : ''}      onClick={() => editor?.chain().focus().toggleCode().run()}><Code size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('bold') ? 'active' : ''}      onClick={() => editor?.chain().focus().toggleBold().run()}><Bold size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('italic') ? 'active' : ''}    onClick={() => editor?.chain().focus().toggleItalic().run()}><Italic size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('underline') ? 'active' : ''} onClick={() => editor?.chain().focus().toggleUnderline().run()}><UnderlineIcon size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('strike') ? 'active' : ''}    onClick={() => editor?.chain().focus().toggleStrike().run()}><Strikethrough size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('highlight') ? 'active' : ''} onClick={() => editor?.chain().focus().toggleHighlight().run()}><Highlighter size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('code') ? 'active' : ''}      onClick={() => editor?.chain().focus().toggleCode().run()}><Code size={16}/></button>
         </div>
 
         {/* Bloc 2 – Structure ----------------------------------------- */}
         <div className="group">
           <button onClick={() => editor?.chain().focus().setParagraph().run()}><Pilcrow size={16}/></button>
-          <button className={editor?.isActive('heading',{level:1}) ? 'active' : ''} onClick={() => editor?.chain().focus().toggleHeading({level:1}).run()}><Heading1 size={16}/></button>
-          <button className={editor?.isActive('heading',{level:2}) ? 'active' : ''} onClick={() => editor?.chain().focus().toggleHeading({level:2}).run()}><Heading2 size={16}/></button>
-          <button className={editor?.isActive('heading',{level:3}) ? 'active' : ''} onClick={() => editor?.chain().focus().toggleHeading({level:3}).run()}><Heading3 size={16}/></button>
-          <button className={editor?.isActive('blockquote') ? 'active' : ''} onClick={() => editor?.chain().focus().toggleBlockquote().run()}><Quote size={16}/></button>
-          <button className={editor?.isActive('codeBlock') ? 'active' : ''}  onClick={() => editor?.chain().focus().toggleCodeBlock().run()}><Braces size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('heading',{level:1}) ? 'active' : ''} onClick={() => editor?.chain().focus().toggleHeading({level:1}).run()}><Heading1 size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('heading',{level:2}) ? 'active' : ''} onClick={() => editor?.chain().focus().toggleHeading({level:2}).run()}><Heading2 size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('heading',{level:3}) ? 'active' : ''} onClick={() => editor?.chain().focus().toggleHeading({level:3}).run()}><Heading3 size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('blockquote') ? 'active' : ''} onClick={() => editor?.chain().focus().toggleBlockquote().run()}><Quote size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('codeBlock') ? 'active' : ''}  onClick={() => editor?.chain().focus().toggleCodeBlock().run()}><Braces size={16}/></button>
           <button onClick={() => editor?.chain().focus().setHorizontalRule().run()}><Minus size={16}/></button>
         </div>
 
         {/* Bloc 3 – Listes ------------------------------------------- */}
         <div className="group">
-          <button className={editor?.isActive('bulletList') ? 'active' : ''}  onClick={() => editor?.chain().focus().toggleBulletList().run()}><List size={16}/></button>
-          <button className={editor?.isActive('orderedList') ? 'active' : ''} onClick={() => editor?.chain().focus().toggleOrderedList().run()}><ListOrdered size={16}/></button>
-          <button className={editor?.isActive('taskList') ? 'active' : ''}    onClick={() => editor?.chain().focus().toggleTaskList().run()}><CheckSquare size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('bulletList') ? 'active' : ''}  onClick={() => editor?.chain().focus().toggleBulletList().run()}><List size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('orderedList') ? 'active' : ''} onClick={() => editor?.chain().focus().toggleOrderedList().run()}><ListOrdered size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive('taskList') ? 'active' : ''}    onClick={() => editor?.chain().focus().toggleTaskList().run()}><CheckSquare size={16}/></button>
         </div>
 
         {/* Bloc 4 – Alignement --------------------------------------- */}
         <div className="group">
-          <button className={editor?.isActive({textAlign:'left'}) ? 'active' : ''}    onClick={() => editor?.chain().focus().setTextAlign('left').run()}><AlignLeft size={16}/></button>
-          <button className={editor?.isActive({textAlign:'center'}) ? 'active' : ''}  onClick={() => editor?.chain().focus().setTextAlign('center').run()}><AlignCenter size={16}/></button>
-          <button className={editor?.isActive({textAlign:'right'}) ? 'active' : ''}   onClick={() => editor?.chain().focus().setTextAlign('right').run()}><AlignRight size={16}/></button>
-          <button className={editor?.isActive({textAlign:'justify'}) ? 'active' : ''} onClick={() => editor?.chain().focus().setTextAlign('justify').run()}><AlignJustify size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive({textAlign:'left'}) ? 'active' : ''}    onClick={() => editor?.chain().focus().setTextAlign('left').run()}><AlignLeft size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive({textAlign:'center'}) ? 'active' : ''}  onClick={() => editor?.chain().focus().setTextAlign('center').run()}><AlignCenter size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive({textAlign:'right'}) ? 'active' : ''}   onClick={() => editor?.chain().focus().setTextAlign('right').run()}><AlignRight size={16}/></button>
+          <button className={editor?.isFocused && editor.isActive({textAlign:'justify'}) ? 'active' : ''} onClick={() => editor?.chain().focus().setTextAlign('justify').run()}><AlignJustify size={16}/></button>
         </div>
 
         {/* Bloc 5 – Liens ------------------------------------------- */}

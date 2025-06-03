@@ -4,7 +4,7 @@ import React, { useMemo, useState, useEffect, forwardRef, useImperativeHandle } 
 import AdvancedEditor                  from './AdvancedEditor';
       
 import {
-  IModule, IItem, ILink, IImage, IQuiz,
+  IModule, IItem, ILink, IImage, IQuiz, getItem,
 } from '../api/modules';
 import './ModuleEditor.css';
 
@@ -95,6 +95,19 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
   useEffect(() => {
     setEdit({ ...module, items: module.items.map(ensureDefaults) });
   }, [module]);
+
+  useEffect(() => {
+    if (!curId || module.id === 'new') return;
+    getItem(module.id, curId)
+      .then(it =>
+        setEdit(prev => ({
+          ...prev,
+          items: mapItems(prev.items, x =>
+            x.id === curId ? ensureDefaults(it) : x,
+          ),
+        })))
+      .catch(console.error);
+  }, [curId, module.id]);
       
                   /* MAJ ciblée d’un item ----------------------------------- */
                   const patchItem = (patch: Partial<IItem>) =>
