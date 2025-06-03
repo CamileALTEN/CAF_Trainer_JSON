@@ -129,9 +129,15 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
         <div className="group">
           <button
             title="Couleur du texte"
-            onMouseDown={(e) => {
+            onClick={(e) => {
               e.preventDefault();
-              colorRef.current?.click();
+              if (colorRef.current) {
+                // open color picker without stealing focus
+                if ('showPicker' in colorRef.current)
+                  (colorRef.current as any).showPicker();
+                else
+                  colorRef.current.click();
+              }
             }}
           >
             {/* stroke = couleur actuelle */}
@@ -143,7 +149,14 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
             type="color"
             value={currentColor}
             onChange={changeColor}
-            style={{ display: 'none' }}
+            style={{
+              position: 'fixed',
+              left: '-1000px',
+              width: 0,
+              height: 0,
+              pointerEvents: 'none',
+              opacity: 0,
+            }}
           />
         </div>
 
