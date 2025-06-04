@@ -16,11 +16,11 @@ export interface IAnalytics {
     topPages: { page: string; views: number }[];
     visitsByHour: { hour: string; sessions: number }[];
   };
-  content: {
+  content?: {
     topContents: { content: string; views: number }[];
     favorites: { content: string; count: number }[];
   };
-  session: {
+  session?: {
     avgDuration: string;
     trend: number[];
   };

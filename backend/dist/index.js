@@ -19,6 +19,7 @@ const tickets_1 = __importDefault(require("./routes/tickets"));
 const checklist_1 = __importDefault(require("./routes/checklist"));
 const images_1 = __importDefault(require("./routes/images"));
 const analytics_1 = __importDefault(require("./routes/analytics"));
+const analyticsRecorder_1 = require("./middleware/analyticsRecorder");
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
 const IMG_DIR = path_1.default.resolve(__dirname, '../image');
@@ -27,6 +28,7 @@ if (!fs_1.default.existsSync(IMG_DIR))
 app.use((0, cors_1.default)());
 app.use(express_1.default.json({ limit: '50mb' }));
 app.use('/images', express_1.default.static(IMG_DIR));
+app.use(analyticsRecorder_1.analyticsRecorder);
 app.use('/api/auth', auth_1.default);
 app.use('/api/users', users_1.default);
 app.use('/api/modules', modules_1.default);

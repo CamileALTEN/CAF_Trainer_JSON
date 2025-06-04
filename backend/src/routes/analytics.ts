@@ -1,14 +1,12 @@
 import { Router } from 'express';
-import fs from 'fs';
-import path from 'path';
+import { computeAnalytics } from '../utils/analytics';
 
 const router = Router();
-const DATA_FILE = path.resolve(__dirname, '../data/analytics.json');
 
 router.get('/', (_req, res) => {
   try {
-    const data = fs.readFileSync(DATA_FILE, 'utf8');
-    res.json(JSON.parse(data));
+    const data = computeAnalytics();
+    res.json(data);
   } catch (err) {
     res.status(500).json({ error: 'Cannot load analytics' });
   }
