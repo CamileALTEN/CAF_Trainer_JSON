@@ -4,7 +4,6 @@ import './CircleMenu.css';
 
 export default function CircleMenu() {
   const [open, setOpen] = useState(false);
-  const [index, setIndex] = useState(0);
   const [rotation, setRotation] = useState(0);
 
   const items = [
@@ -15,11 +14,7 @@ export default function CircleMenu() {
     { to: '/manager/progress', icon: '📊', label: 'Progress' },
   ];
 
-  const visible = [
-    items[index % items.length],
-    items[(index + 1) % items.length],
-    items[(index + 2) % items.length],
-  ];
+  const angleStep = 360 / items.length;
 
   return (
     <div className={`menu menu--circle${open ? ' open' : ''}`}>
@@ -35,8 +30,8 @@ export default function CircleMenu() {
           className="circle"
           style={{ ['--rotation' as any]: `${rotation}deg` }}
         >
-          {visible.map((it, i) => (
-            <li key={i} style={{ ['--angle' as any]: `${i * 60}deg` }}>
+          {items.map((it, i) => (
+            <li key={i} style={{ ['--angle' as any]: `${i * angleStep}deg` }}>
               <Link to={it.to} className="button">
                 <span>{it.icon}</span>
                 <span className="label">{it.label}</span>
@@ -47,10 +42,7 @@ export default function CircleMenu() {
         <button
           className="rotate"
           aria-label="Tourner"
-          onClick={() => {
-            setIndex(n => (n + 1) % items.length);
-            setRotation(r => r - 60);
-          }}
+          onClick={() => setRotation(r => r - angleStep)}
         >▲</button>
       </div>
     </div>
