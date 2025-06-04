@@ -60,8 +60,23 @@
   font-size: 0.9rem;
   line-height: 1.45;
   color: #444;
-  flex-grow: 1;                   /* pousse le bouton vers le bas */
+  flex-grow: 1;   
+   margin-left: 0;                /* pousse le bouton vers le bas */
 }
+
+.summary ul,
+.summary ol {
+  margin-left: 1.25rem;
+  padding-left: 1.25rem;
+}
+
+.summary blockquote {
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 4px solid #e5e7eb; /* gray-200 */
+  color: #374151;                 /* gray-700 */
+}
+.summary blockquote p { margin: 0; }
 
 /* ========== barre de progression module ========== */
 .module-progress .progress-bar {

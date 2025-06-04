@@ -75,7 +75,7 @@ export default function LoginPage() {
             }}
             onClick={forgotPwd}
           >
-            Mot de passe oublié ?
+            Mot de passe oublié ? 
           </button>
         </div>
       </form>

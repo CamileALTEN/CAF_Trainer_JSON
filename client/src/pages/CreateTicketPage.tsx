@@ -51,9 +51,9 @@ export default function CreateTicketPage() {
           placeholder="Catégorie"
         />
         <select value={priority} onChange={e => setPriority(e.target.value as TicketPriority)}>
-          <option value="low">Faible</option>
-          <option value="normal">Normal</option>
-          <option value="high">Élevée</option>
+          <option value="low">Faible 🟢</option>
+          <option value="normal">Normal 🟠</option>
+          <option value="high">Élevée 🔴</option>
         </select>
         {user.role !== 'manager' && (
           <select value={target} onChange={e => setTarget(e.target.value as any)}>

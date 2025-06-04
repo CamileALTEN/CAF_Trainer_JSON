@@ -300,8 +300,8 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                               />{' '}
                               Utiliser l'éditeur avancé
                             </label>
-                            <label>
-                              Description (HTML enrichi)
+                            <div style={{ marginBottom: 12 }}>
+                              <div style={{ marginBottom: 4 }}>Description (HTML enrichi)</div>
                               {useAdv ? (
                                 <AdvancedEditor
                                    value={current.content}
@@ -315,7 +315,7 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                                   style={{ minHeight: 200 }}
                                 />
                               )}
-                            </label>
+                             </div>
       
                             {/* profils */}
                             <div className="prof-select">

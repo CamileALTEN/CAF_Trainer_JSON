@@ -7,7 +7,7 @@ export default function LoggedOutPage() {
   return (
     <Wrapper>
       <p>Vous êtes déconnecté.</p>
-      <button onClick={() => navigate('/login')}>Se reconnecter</button>
+      <button onClick={() => navigate('/login')}>🔓 Se reconnecter</button>
     </Wrapper>
   );
 }

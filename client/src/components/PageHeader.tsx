@@ -72,7 +72,7 @@ export default function PageHeader() {
                             className="header-logout"
                             onClick={() => { logout(); navigate('/logged-out'); }}
                           >
-                            Se déconnecter
+                            🔐 Se déconnecter
                           </button>
                         </div>
                       )}
