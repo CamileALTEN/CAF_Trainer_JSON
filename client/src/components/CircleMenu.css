@@ -1,7 +1,7 @@
 .menu--circle {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  top: 1.5rem;
+  left: 1.5rem;
   width: 220px;
   height: 220px;
   pointer-events: none;
@@ -90,10 +90,8 @@
 }
 
 .circle li:nth-child(1) { --angle: 0deg; }
-.circle li:nth-child(2) { --angle: 72deg; }
-.circle li:nth-child(3) { --angle: 144deg; }
-.circle li:nth-child(4) { --angle: 216deg; }
-.circle li:nth-child(5) { --angle: 288deg; }
+.circle li:nth-child(2) { --angle: 120deg; }
+.circle li:nth-child(3) { --angle: 240deg; }
 
 .button {
   background: #fff;
@@ -115,4 +113,26 @@
 .button .label {
   font-size: 0.6rem;
   margin-top: 2px;
+}
+
+.rotate {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #008bd2;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity .3s, transform .3s;
+}
+
+.menu--circle.open .rotate {
+  opacity: 1;
+  transform: scale(1);
 }

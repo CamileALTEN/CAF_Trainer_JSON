@@ -4,19 +4,47 @@ import './CircleMenu.css';
 
 export default function CircleMenu() {
   const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState(0);
+
+  const items = [
+    { to: '/manager/create', icon: '➕', label: 'Créer' },
+    { to: '/manager/modules', icon: '📝', label: 'Modules' },
+    { to: '/manager/tickets', icon: '📋', label: 'Tickets' },
+    { to: '/manager/checklist-url', icon: '🔗', label: 'Checklist' },
+    { to: '/manager/progress', icon: '📊', label: 'Progress' },
+  ];
+
+  const visible = [
+    items[index % items.length],
+    items[(index + 1) % items.length],
+    items[(index + 2) % items.length],
+  ];
+
   return (
     <div className={`menu menu--circle${open ? ' open' : ''}`}>\
-      <button className="menu__toggle" onClick={() => setOpen(o => !o)} aria-label="Menu">
-        <div className="icon"><div className="hamburger"/></div>
+      <button
+        className="menu__toggle"
+        onClick={() => setOpen(o => !o)}
+        aria-label="Menu"
+      >
+        <div className="icon">{open ? '✕' : <div className="hamburger"/>}</div>
       </button>
       <div className="menu__listings">
         <ul className="circle">
-          <li><Link to="/manager/create" className="button"><span>➕</span><span className="label">Créer</span></Link></li>
-          <li><Link to="/manager/modules" className="button"><span>📝</span><span className="label">Modules</span></Link></li>
-          <li><Link to="/manager/tickets" className="button"><span>📋</span><span className="label">Tickets</span></Link></li>
-          <li><Link to="/manager/checklist-url" className="button"><span>🔗</span><span className="label">Checklist</span></Link></li>
-          <li><Link to="/manager/progress" className="button"><span>📊</span><span className="label">Progress</span></Link></li>
+          {visible.map((it, i) => (
+            <li key={i} style={{ ['--angle' as any]: `${i * 120}deg` }}>
+              <Link to={it.to} className="button">
+                <span>{it.icon}</span>
+                <span className="label">{it.label}</span>
+              </Link>
+            </li>
+          ))}
         </ul>
+        <button
+          className="rotate"
+          aria-label="Tourner"
+          onClick={() => setIndex(n => (n + 1) % items.length)}
+        >↻</button>
       </div>
     </div>
   );
