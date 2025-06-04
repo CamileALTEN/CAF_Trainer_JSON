@@ -121,11 +121,14 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
     ];
     const COLORS = ['#043962', '#008bd2', '#00c49f'];
 
-    const siteMap = users.reduce<Record<string, number>>((acc,u)=>{
+    const siteMap = users.reduce<Record<string, number>>((acc, u) => {
       const sites = u.role === 'manager' ? (u.sites || []) : [u.site];
-      sites.forEach(s=>{ if(s){ acc[s] = (acc[s] || 0) + 1; } });
+      sites.forEach(s => {
+        if (s) acc[s] = (acc[s] || 0) + 1;
+      });
       return acc;
-    },{});
+    }, {});
+    const siteData = Object.entries(siteMap).map(([name, value]) => ({ name, value }));
 
      return (
        <div className="admin-dashboard">
@@ -150,13 +153,18 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
           </ResponsiveContainer>
         </section>
 
-        <section className="site-info">
+        <section className="chart-area">
           <h3>Répartition par site</h3>
-          <ul>
-            {Object.entries(siteMap).map(([s,c]) => (
-              <li key={s}>{s}: {c}</li>
-            ))}
-          </ul>
+          <ResponsiveContainer width="100%" height={220}>
+            <PieChart>
+              <Pie data={siteData} dataKey="value" nameKey="name" outerRadius={80} label>
+                {siteData.map((_, i) => (
+                  <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                ))}
+              </Pie>
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
         </section>
 
         <div className="quick">
