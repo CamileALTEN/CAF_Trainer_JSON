@@ -41,9 +41,13 @@ export default function AdminModuleEditor() {
         body: JSON.stringify(m),
       }).then(r => r.json());
 
-      navigate(`/admin/modules/${created.id}`, { replace: true });  // redirige vers l’URL “normale”
+      navigate(`/admin/modules/${created.id}`, { replace: true }); 
+      alert('Module sauvegardé'); // redirige vers l’URL “normale”
     } else {
-      updateModule(m).then(setMod);                 // mises‑à‑jour suivantes => PUT
+      updateModule(m).then(saved => {
+        setMod(saved);                 // mises‑à‑jour suivantes => PUT
+        alert('Module sauvegardé');
+      });                 // mises‑à‑jour suivantes => PUT
     }
   };
   return (
