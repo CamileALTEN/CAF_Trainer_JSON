@@ -8,6 +8,7 @@
   import ProgressBar   from '../components/ProgressBar';
   import { Link }      from 'react-router-dom';
   import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
+  const COLORS = ['#043962', '#008bd2', '#00c49f'];
 
    export default function ManagerDashboardPage() {
     const { user } = useAuth();               // rôle == manager
