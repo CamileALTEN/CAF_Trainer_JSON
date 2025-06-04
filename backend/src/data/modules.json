@@ -93,7 +93,7 @@
             "id": "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
             "title": "Présentation d'accueil",
             "subtitle": "",
-            "content": "<p>Le jour de ton arrivée, le Team Leader (TL) a fait une présentation pour introduire ton environnement de travail.</p><p>Tu peux la retrouver ci-dessous.</p>",
+            "content": "<p>Le jour de ton arrivée, le Team Leader (TL) a fait une présentation pour introduire ton environnement de travail.</p><p>Tu peux la retrouver ci-dessous.</p><ul data-type=\"taskList\"><li data-checked=\"false\" data-type=\"taskItem\"><label><input type=\"checkbox\"><span></span></label><div><p>qwqwq</p></div></li><li data-checked=\"false\" data-type=\"taskItem\"><label><input type=\"checkbox\"><span></span></label><div><p>qwWQXQ</p></div></li><li data-checked=\"false\" data-type=\"taskItem\"><label><input type=\"checkbox\"><span></span></label><div><p></p></div></li></ul>",
             "links": [
               {
                 "label": "Présentation accueil Nantes",
@@ -1217,9 +1217,7 @@
               }
             ],
             "videos": [],
-            "profiles": [
-              "Nantes"
-            ],
+            "profiles": [],
             "enabled": true,
             "needValidation": false,
             "quiz": {
@@ -1350,7 +1348,7 @@
           },
           {
             "id": "30cf2249-0124-428c-933d-12153fc1c769",
-            "title": "ADOC & MyDoc",
+            "title": "ADOC, MyDoc et NormMaster",
             "subtitle": "",
             "content": "<p>Airbus utilise du stockage en ligne pour sa documentation.</p><p><br></p><h1>ADOC</h1><p>abc</p><p><em>#pas de documentation de faite#</em></p><p><br></p><h1>MyDoc</h1><p>abc</p>",
             "links": [],
@@ -1415,26 +1413,6 @@
                 "align": "center"
               }
             ],
-            "videos": [],
-            "profiles": [
-              "Nantes",
-              "Montoir"
-            ],
-            "enabled": true,
-            "needValidation": false,
-            "quiz": {
-              "enabled": false,
-              "questions": []
-            },
-            "children": []
-          },
-          {
-            "id": "556cdfea-2df9-4b08-b4d2-18010406579c",
-            "title": "NormMaster",
-            "subtitle": "",
-            "content": "<p><em>#pas d'infos et de docs existants#</em></p>",
-            "links": [],
-            "images": [],
             "videos": [],
             "profiles": [
               "Nantes",
