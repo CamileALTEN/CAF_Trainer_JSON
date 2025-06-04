@@ -90,8 +90,8 @@
 }
 
 .circle li:nth-child(1) { --angle: 0deg; }
-.circle li:nth-child(2) { --angle: 120deg; }
-.circle li:nth-child(3) { --angle: 240deg; }
+.circle li:nth-child(2) { --angle: 30deg; }
+.circle li:nth-child(3) { --angle: 60deg; }
 
 .button {
   background: #fff;

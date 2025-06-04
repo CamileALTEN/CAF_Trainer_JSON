@@ -32,7 +32,7 @@ export default function CircleMenu() {
       <div className="menu__listings">
         <ul className="circle">
           {visible.map((it, i) => (
-            <li key={i} style={{ ['--angle' as any]: `${i * 120}deg` }}>
+            <li key={i} style={{ ['--angle' as any]: `${i * 30}deg` }}>
               <Link to={it.to} className="button">
                 <span>{it.icon}</span>
                 <span className="label">{it.label}</span>
