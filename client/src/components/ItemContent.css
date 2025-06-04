@@ -84,7 +84,20 @@
   from { transform: translateY(0) rotate(0); }
   to { transform: translateY(-150px) rotate(720deg); opacity: 0; }
 }
-.item-body ul { padding-left: 20px; }
+.item-body ul,
+.item-body ol {
+  margin-left: 1.25rem;
+  padding-left: 1.25rem;
+}
+
+.item-body blockquote {
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 4px solid #e5e7eb; /* gray-200 */
+  color: #374151;                 /* gray-700 */
+}
+.item-body blockquote p { margin: 0; }
+
 .item-html p {
   line-height: 1.5;
   color: #333;

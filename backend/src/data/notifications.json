@@ -439,5 +439,26 @@
     "date": "2025-06-03T09:08:12.657Z",
     "category": "ticket",
     "message": "Mise à jour du ticket \"test\""
+  },
+  {
+    "id": "1749031973751",
+    "username": "logan",
+    "date": "2025-06-04T10:12:53.751Z",
+    "category": "ticket",
+    "message": "Mise à jour du ticket \"Test 2\""
+  },
+  {
+    "id": "1749031984791",
+    "username": "logan",
+    "date": "2025-06-04T10:13:04.791Z",
+    "category": "ticket",
+    "message": "Mise à jour du ticket \"Test 2\""
+  },
+  {
+    "id": "1749031998591",
+    "username": "logan",
+    "date": "2025-06-04T10:13:18.591Z",
+    "category": "ticket",
+    "message": "Mise à jour du ticket \"Test 2\""
   }
 ]

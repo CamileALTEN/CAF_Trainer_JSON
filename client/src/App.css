@@ -47,7 +47,7 @@ a:hover    {
 3. Boutons génériques
 --------------------------------------------------------------*/
 button {
-  display:inline-block;        /* largeur auto */
+  display : inline-block;        /* largeur auto */
   max-width:unset;             /* coupe les libellés très longs */
   white-space:nowrap;
   overflow:hidden;

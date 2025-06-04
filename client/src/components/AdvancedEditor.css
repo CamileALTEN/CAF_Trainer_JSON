@@ -155,3 +155,20 @@
 .handle-s{ bottom:-6px; left:50%; transform:translateX(-50%); cursor:ns-resize; }
 .handle-e{ right:-6px; top:50%; transform:translateY(-50%); cursor:ew-resize; }
 .handle-w{ left:-6px; top:50%; transform:translateY(-50%); cursor:ew-resize; }
+
+
+
+/* Listes & citations -------------------------------------------- */
+.editor-core ul,
+.editor-core ol{
+  margin-left:1.25rem;
+  padding-left:1.25rem;
+}
+
+.editor-core blockquote{
+  margin-left:1rem;
+  padding-left:1rem;
+  border-left:4px solid #e5e7eb;   /* gray-200 */
+  color:#374151;                    /* gray-700 */
+}
+.editor-core blockquote p{margin:0;}
