@@ -1,0 +1,118 @@
+.menu--circle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 220px;
+  height: 220px;
+  pointer-events: none;
+}
+
+.menu__toggle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  display: block;
+  width: 26px;
+  border-top: 3px solid #392338;
+  margin: 5px 0;
+  transition: transform .4s, border-color .4s;
+}
+
+.menu--circle.open .hamburger {
+  border-color: transparent;
+}
+
+.menu--circle.open .hamburger::before {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.menu--circle.open .hamburger::after {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.menu__listings {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform .5s;
+}
+
+.menu--circle.open .menu__listings {
+  transform: scale(1);
+}
+
+.circle {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.circle li {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform .4s, opacity .3s;
+}
+
+.menu--circle.open .circle li {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1) rotate(var(--angle)) translate(90px) rotate(calc(var(--angle) * -1));
+}
+
+.circle li:nth-child(1) { --angle: 0deg; }
+.circle li:nth-child(2) { --angle: 72deg; }
+.circle li:nth-child(3) { --angle: 144deg; }
+.circle li:nth-child(4) { --angle: 216deg; }
+.circle li:nth-child(5) { --angle: 288deg; }
+
+.button {
+  background: #fff;
+  color: #392338;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  pointer-events: auto;
+}
+.button:hover {
+  background: #c1264e;
+  color: #fff;
+}
+.button .label {
+  font-size: 0.6rem;
+  margin-top: 2px;
+}
