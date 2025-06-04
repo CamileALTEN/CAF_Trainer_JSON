@@ -51,7 +51,7 @@ export default function CircleMenu() {
             setIndex(n => (n + 1) % items.length);
             setRotation(r => r - 60);
           }}
-        >↻</button>
+        >▲</button>
       </div>
     </div>
   );
