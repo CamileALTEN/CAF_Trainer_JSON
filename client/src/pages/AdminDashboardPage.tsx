@@ -121,6 +121,12 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
     ];
     const COLORS = ['#043962', '#008bd2', '#00c49f'];
 
+    const siteMap = users.reduce<Record<string, number>>((acc,u)=>{
+      const sites = u.role === 'manager' ? (u.sites || []) : [u.site];
+      sites.forEach(s=>{ if(s){ acc[s] = (acc[s] || 0) + 1; } });
+      return acc;
+    },{});
+
      return (
        <div className="admin-dashboard">
          <h1>Tableau de bord admin</h1>
@@ -142,6 +148,15 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
               <Legend />
             </PieChart>
           </ResponsiveContainer>
+        </section>
+
+        <section className="site-info">
+          <h3>Répartition par site</h3>
+          <ul>
+            {Object.entries(siteMap).map(([s,c]) => (
+              <li key={s}>{s}: {c}</li>
+            ))}
+          </ul>
         </section>
 
         <div className="quick">

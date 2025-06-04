@@ -58,9 +58,13 @@
                border-collapse: collapse;
              }
 
-             .admin-dashboard .chart-area {
-               margin-bottom: 2rem;
-             }
+.admin-dashboard .chart-area {
+  margin-bottom: 2rem;
+}
+
+.admin-dashboard .site-info {
+  margin-bottom: 2rem;
+}
     
              .admin-dashboard th,
              .admin-dashboard td {

@@ -4,30 +4,37 @@
    import { useAuth }   from '../context/AuthContext';
    import styled        from 'styled-components';
    import { IUser }     from '../api/auth';
-   import { IProgress } from '../api/modules';
-   import { Link }      from 'react-router-dom';
-   import { Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart } from 'recharts';
+  import { IProgress, IModule, getModules } from '../api/modules';
+  import ProgressBar   from '../components/ProgressBar';
+  import { Link }      from 'react-router-dom';
 
    export default function ManagerDashboardPage() {
-     const { user } = useAuth();               // rôle == manager
-     const [caf,setCaf]         = useState<IUser[]>([]);
-     const [prog,setProg]       = useState<IProgress[]>([]);
-     const [loading,setLoading] = useState(true);
+    const { user } = useAuth();               // rôle == manager
+    const [caf,setCaf]         = useState<IUser[]>([]);
+    const [prog,setProg]       = useState<IProgress[]>([]);
+    const [mods,setMods]       = useState<IModule[]>([]);
+    const [loading,setLoading] = useState(true);
 
-     useEffect(()=>{
-       Promise.all([
-         fetch(`/api/users?managerId=${user!.id}`).then(r=>r.json()),
-         fetch(`/api/progress?managerId=${user!.id}`).then(r=>r.json()),
-       ]).then(([u,p])=>{ setCaf(u); setProg(p); })
-         .finally(()=>setLoading(false));
-     },[user]);
+    useEffect(()=>{
+      Promise.all([
+        fetch(`/api/users?managerId=${user!.id}`).then(r=>r.json()),
+        fetch(`/api/progress?managerId=${user!.id}`).then(r=>r.json()),
+        getModules(),
+      ]).then(([u,p,m])=>{ setCaf(u); setProg(p); setMods(m); })
+        .finally(()=>setLoading(false));
+    },[user]);
 
-     /* regroupe par utilisateur */
-     const data = caf.map(c => {
-       const rows = prog.filter(r=>r.username===c.username);
-       const totalVisited = rows.reduce((n,r)=>n+r.visited.length,0);
-       return { name:c.username, visited:totalVisited };
-     });
+    /* répartition par site */
+    const siteMap = caf.reduce<Record<string, number>>((acc, c) => {
+      const site = c.site || '—';
+      acc[site] = (acc[site] || 0) + 1;
+      return acc;
+    }, {});
+
+    /* progression globale */
+    const itemsPerUser = mods.reduce((n,m)=> n + (m.items?.length ?? 0), 0);
+    const totalPossible = itemsPerUser * caf.length;
+    const totalVisited = prog.reduce((n,p)=> n + p.visited.length, 0);
 
      if(loading) return <p style={{padding:'2rem'}}>Chargement…</p>;
 
@@ -35,28 +42,30 @@
        <Wrapper>
          <h1>Dashboard manager</h1>
 
-         <section className="cards">
-           <StatCard label="CAF gérés" value={caf.length}/>
-           <StatCard label="Modules suivis" value={prog.length}/>
-         </section>
+        <section className="cards">
+          <StatCard label="CAF supervisés" value={caf.length}/>
+          <div className="card">
+            <h3>Par site</h3>
+            <ul>
+              {Object.entries(siteMap).map(([s,c]) => (
+                <li key={s}>{s}: {c}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
 
-         {/* ----------- actions rapides ----------- */}
-        <div className="quick">
-          <Link to="/manager/create"><button className="btn">+ Créer un compte CAF</button></Link>
-          <Link to="/manager/modules"><button className="btn">📝 Modules</button></Link>
-        <Link to="/manager/tickets"><button className="btn">📋 Tickets</button></Link>
-        <Link to="/manager/checklist-url"><button className="btn">URL Checklist 📋</button></Link>
-        <Link to="/manager/progress"><button className="btn">📊 Progression</button></Link>
-        </div>
+        {/* ----------- actions rapides ----------- */}
+       <div className="quick-wheel">
+         <button className="center">☰</button>
+         <Link to="/manager/create" className="btn" title="Créer un compte CAF">+</Link>
+         <Link to="/manager/modules" className="btn" title="Modules">📝</Link>
+         <Link to="/manager/tickets" className="btn" title="Tickets">📋</Link>
+         <Link to="/manager/checklist-url" className="btn" title="Checklist">🔗</Link>
+         <Link to="/manager/progress" className="btn" title="Progression">📊</Link>
+       </div>
 
-         <h2>Progression globale (Items)</h2>
-        <ResponsiveContainer width="100%" height={240}>
-          <BarChart data={data}>
-            <XAxis dataKey="name" /><YAxis allowDecimals={false} />
-            <Tooltip />
-            <Bar dataKey="visited" fill="#008bd2" />
-          </BarChart>
-        </ResponsiveContainer>
+        <h2>Progression globale</h2>
+       <ProgressBar current={totalVisited} total={totalPossible} />
 
          <h2>Changer un mot de passe</h2>
          <table>
@@ -97,10 +106,18 @@
            text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.1)}
      .big{font-size:2rem;font-weight:bold;color:#008BD2;margin-top:.5rem}
    
-     /* ---- actions rapides ---- */
-     .quick{display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;justify-content:center}
-     .btn{background:#008bd2;color:#fff;border:none;padding:.6rem 1rem;border-radius:4px}
-     .btn:hover{background:#006fa1}
+    /* ---- actions rapides (roue) ---- */
+    .quick-wheel{position:relative;width:220px;height:220px;margin:1.5rem auto;}
+    .quick-wheel .center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;background:#008bd2;color:#fff;border:none;width:48px;height:48px;border-radius:50%;}
+    .quick-wheel a{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#008bd2;color:#fff;border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;opacity:0;transition:transform .3s,opacity .3s;}
+    .quick-wheel:hover a{opacity:1;}
+    .quick-wheel:hover a:nth-child(2){transform:translate(-50%,-50%) rotate(0deg) translate(90px) rotate(0deg);}
+    .quick-wheel:hover a:nth-child(3){transform:translate(-50%,-50%) rotate(72deg) translate(90px) rotate(-72deg);}
+    .quick-wheel:hover a:nth-child(4){transform:translate(-50%,-50%) rotate(144deg) translate(90px) rotate(-144deg);}
+    .quick-wheel:hover a:nth-child(5){transform:translate(-50%,-50%) rotate(216deg) translate(90px) rotate(-216deg);}
+    .quick-wheel:hover a:nth-child(6){transform:translate(-50%,-50%) rotate(288deg) translate(90px) rotate(-288deg);}
+    .btn{background:#008bd2;color:#fff;border:none;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+    .btn:hover{background:#006fa1}
    
      table{width:100%;border-collapse:collapse;margin-top:1rem}
      th,td{border-bottom:1px solid #e0e0e0;padding:.5rem .75rem}
