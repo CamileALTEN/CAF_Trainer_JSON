@@ -27,12 +27,12 @@
     "target": "manager",
     "title": "test",
     "message": "test 123",
-    "status": "open",
+    "status": "closed",
     "date": "2025-05-22T15:05:40.182Z",
     "category": "Autre",
     "priority": "normal",
     "replies": [],
-    "archived": false
+    "archived": true
   },
   {
     "id": "1747926552130",
