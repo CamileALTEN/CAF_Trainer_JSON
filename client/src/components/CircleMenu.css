@@ -1,10 +1,11 @@
 .menu--circle {
   position: fixed;
   top: 1.5rem;
-  left: 1.5rem;
+  right: 1.5rem;
   width: 220px;
   height: 220px;
   pointer-events: none;
+  --distance: 100px;
 }
 
 .menu__toggle {
@@ -73,6 +74,8 @@
   height: 100%;
   width: 100%;
   position: relative;
+  transform: rotate(var(--rotation, 0deg));
+  transition: transform .5s ease;
 }
 
 .circle li {
@@ -86,12 +89,9 @@
 
 .menu--circle.open .circle li {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1) rotate(var(--angle)) translate(90px) rotate(calc(var(--angle) * -1));
+  transform: translate(-50%, -50%) scale(1) rotate(var(--angle)) translate(var(--distance,100px)) rotate(calc(var(--angle) * -1));
 }
 
-.circle li:nth-child(1) { --angle: 0deg; }
-.circle li:nth-child(2) { --angle: 30deg; }
-.circle li:nth-child(3) { --angle: 60deg; }
 
 .button {
   background: #fff;

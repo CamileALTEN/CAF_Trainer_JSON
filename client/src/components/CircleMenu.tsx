@@ -5,6 +5,7 @@ import './CircleMenu.css';
 export default function CircleMenu() {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
+  const [rotation, setRotation] = useState(0);
 
   const items = [
     { to: '/manager/create', icon: '➕', label: 'Créer' },
@@ -21,7 +22,7 @@ export default function CircleMenu() {
   ];
 
   return (
-    <div className={`menu menu--circle${open ? ' open' : ''}`}>\
+    <div className={`menu menu--circle${open ? ' open' : ''}`}>
       <button
         className="menu__toggle"
         onClick={() => setOpen(o => !o)}
@@ -30,9 +31,12 @@ export default function CircleMenu() {
         <div className="icon">{open ? '✕' : <div className="hamburger"/>}</div>
       </button>
       <div className="menu__listings">
-        <ul className="circle">
+        <ul
+          className="circle"
+          style={{ ['--rotation' as any]: `${rotation}deg` }}
+        >
           {visible.map((it, i) => (
-            <li key={i} style={{ ['--angle' as any]: `${i * 30}deg` }}>
+            <li key={i} style={{ ['--angle' as any]: `${i * 60}deg` }}>
               <Link to={it.to} className="button">
                 <span>{it.icon}</span>
                 <span className="label">{it.label}</span>
@@ -43,7 +47,10 @@ export default function CircleMenu() {
         <button
           className="rotate"
           aria-label="Tourner"
-          onClick={() => setIndex(n => (n + 1) % items.length)}
+          onClick={() => {
+            setIndex(n => (n + 1) % items.length);
+            setRotation(r => r - 60);
+          }}
         >↻</button>
       </div>
     </div>
