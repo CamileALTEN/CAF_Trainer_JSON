@@ -43,7 +43,7 @@ export default function CircleMenu() {
           className="rotate"
           aria-label="Tourner"
           onClick={() => setRotation(r => r - angleStep)}
-        >▲</button>
+        >🔄​</button>
       </div>
     </div>
   );
