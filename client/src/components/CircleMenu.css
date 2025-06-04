@@ -89,7 +89,10 @@
 
 .menu--circle.open .circle li {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1) rotate(var(--angle)) translate(var(--distance,100px)) rotate(calc(var(--angle) * -1));
+  transform: translate(-50%, -50%) scale(1)
+    rotate(var(--angle))
+    translate(var(--distance,100px))
+    rotate(calc(var(--angle) * -1 - var(--rotation)));
 }
 
 
