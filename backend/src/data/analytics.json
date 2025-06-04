@@ -1,0 +1,68 @@
+{
+  "traffic": {
+    "uniqueVisitorsToday": 120,
+    "uniqueVisitorsWeek": 580,
+    "uniqueVisitorsMonth": 1240,
+    "pageViews": 1523,
+    "bounceRate": 35,
+    "bounceDiff": -5,
+    "avgSessionDuration": "7:32",
+    "sessionsPerUser": 2.3,
+    "peakHours": [
+      {"hour": "09:00", "sessions": 50},
+      {"hour": "10:00", "sessions": 70},
+      {"hour": "11:00", "sessions": 30},
+      {"hour": "14:00", "sessions": 80},
+      {"hour": "15:00", "sessions": 60}
+    ]
+  },
+  "behavior": {
+    "topPages": [
+      {"page": "/modules", "views": 200},
+      {"page": "/favorites", "views": 150},
+      {"page": "/tickets", "views": 120},
+      {"page": "/login", "views": 100},
+      {"page": "/dashboard", "views": 90}
+    ],
+    "visitsByHour": [
+      {"hour": "09:00", "sessions": 30},
+      {"hour": "10:00", "sessions": 40},
+      {"hour": "11:00", "sessions": 20},
+      {"hour": "14:00", "sessions": 50},
+      {"hour": "15:00", "sessions": 45}
+    ]
+  },
+  "content": {
+    "topContents": [
+      {"content": "Module 1", "views": 250},
+      {"content": "Module 2", "views": 210},
+      {"content": "Module 3", "views": 180},
+      {"content": "Module 4", "views": 130},
+      {"content": "Module 5", "views": 100}
+    ],
+    "favorites": [
+      {"content": "Module 2", "count": 40},
+      {"content": "Module 1", "count": 30},
+      {"content": "Module 3", "count": 25}
+    ]
+  },
+  "session": {
+    "avgDuration": "7:32",
+    "trend": [6.5, 7, 7.5, 7.2, 7.7]
+  },
+  "tickets": {
+    "weeks": [
+      {"week": "2024-01-01", "created": 5, "resolved": 3},
+      {"week": "2024-01-08", "created": 3, "resolved": 4},
+      {"week": "2024-01-15", "created": 6, "resolved": 5},
+      {"week": "2024-01-22", "created": 4, "resolved": 6}
+    ]
+  },
+  "accounts": {
+    "bySite": [
+      {"site": "Paris", "count": 102},
+      {"site": "Lyon", "count": 88},
+      {"site": "Toulouse", "count": 51}
+    ]
+  }
+}

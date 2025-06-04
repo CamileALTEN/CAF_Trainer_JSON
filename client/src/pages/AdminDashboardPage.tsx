@@ -3,15 +3,21 @@
 
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
-   import { IUser, Role } from '../api/auth';
-   import { IModule } from '../api/modules';
+import {
+  PieChart, Pie, Cell, Legend, ResponsiveContainer,
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
+  BarChart, Bar
+} from 'recharts';
+import { IUser, Role } from '../api/auth';
+import { IModule } from '../api/modules';
+import { IAnalytics } from '../api/analytics';
    import './AdminDashboardPage.css';
 
    export default function AdminDashboardPage() {
    const [users, setUsers] = useState<IUser[]>([]);
-   const [modules, setModules] = useState<IModule[]>([]);
-   const [loading, setLoading] = useState(true);
+  const [modules, setModules] = useState<IModule[]>([]);
+  const [analytics, setAnalytics] = useState<IAnalytics | null>(null);
+  const [loading, setLoading] = useState(true);
    const [managers, setManagers] = useState<IUser[]>([]);
    const [editingId, setEditingId] = useState<string | null>(null);
    const [editUsername, setEditUsername] = useState('');
@@ -22,22 +28,24 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 
    const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 
-     /* ───────── chargement initial ───────── */
-     useEffect(() => {
-       Promise.all([
-         fetch('/api/users').then(r => r.json()),
-         fetch('/api/modules').then(r => r.json()),
-       ])
-         .then(([u, m]) => {
-           const mods: IModule[] =
-             Array.isArray(m) ? m :
-             m && typeof m === 'object' && Array.isArray((m as any).modules) ? (m as any).modules : [];
-           setUsers(u);
-           setManagers(u.filter((x: IUser) => x.role === 'manager'));
-           setModules(mods);
-         })
-         .finally(() => setLoading(false));
-     }, []);
+  /* ───────── chargement initial ───────── */
+  useEffect(() => {
+    Promise.all([
+      fetch('/api/users').then(r => r.json()),
+      fetch('/api/modules').then(r => r.json()),
+      fetch('/api/analytics').then(r => r.json()),
+    ])
+      .then(([u, m, a]) => {
+        const mods: IModule[] =
+          Array.isArray(m) ? m :
+          m && typeof m === 'object' && Array.isArray((m as any).modules) ? (m as any).modules : [];
+        setUsers(u);
+        setManagers(u.filter((x: IUser) => x.role === 'manager'));
+        setModules(mods);
+        setAnalytics(a as IAnalytics);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
      /* ───────── helpers ───────── */
      const deleteUser = async (id: string) => {
@@ -100,7 +108,7 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
     };
 
      /* ───────── rendu ───────── */
-     if (loading) return <div className="admin-dashboard"><p>Chargement…</p></div>;
+  if (loading || !analytics) return <div className="admin-dashboard"><p>Chargement…</p></div>;
 
      // Tri des utilisateurs par rôle : admin → manager → caf
      const rolePriority: Record<string, number> = { admin: 0, manager: 1, caf: 2 };
@@ -134,22 +142,55 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
        <div className="admin-dashboard">
          <h1>Tableau de bord admin</h1>
 
-        <section className="cards">
+        <section className="analytics-grid">
           <Stat label="Comptes" value={users.length} />
           <Stat label="Modules" value={modules.length} />
           <Stat label="Items" value={totalItems} />
+          <Stat label="Visiteurs aujourd\u2019hui" value={analytics.traffic.uniqueVisitorsToday} />
+          <Stat label="Visiteurs semaine" value={analytics.traffic.uniqueVisitorsWeek} />
+          <Stat label="Visiteurs mois" value={analytics.traffic.uniqueVisitorsMonth} />
+          <Stat label="Pages vues" value={analytics.traffic.pageViews} />
+          <Stat label="Taux de rebond" value={analytics.traffic.bounceRate} />
+          <Stat label="Durée session" value={Number(analytics.traffic.avgSessionDuration.replace(':', '.'))} />
+          <Stat label="Sessions/user" value={analytics.traffic.sessionsPerUser} />
         </section>
 
         <section className="chart-area">
+          <ResponsiveContainer width="100%" height={200}>
+            <LineChart data={analytics.traffic.peakHours}>
+              <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
+              <XAxis dataKey="hour" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="sessions" stroke="#8884d8" />
+            </LineChart>
+          </ResponsiveContainer>
+        </section>
+
+        <section className="chart-area">
+          <h3>Pages les plus visitées</h3>
           <ResponsiveContainer width="100%" height={220}>
-            <PieChart>
-              <Pie data={roleData} dataKey="value" nameKey="name" outerRadius={80}>
-                {roleData.map((_, i) => (
-                  <Cell key={i} fill={COLORS[i % COLORS.length]} />
-                ))}
-              </Pie>
-              <Legend />
-            </PieChart>
+            <BarChart data={analytics.behavior.topPages}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="page" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="views" fill="#82ca9d" />
+            </BarChart>
+          </ResponsiveContainer>
+        </section>
+
+        <section className="chart-area">
+          <h3>Tickets</h3>
+          <ResponsiveContainer width="100%" height={220}>
+            <BarChart data={analytics.tickets.weeks}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="week" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="created" stackId="a" fill="#008bd2" />
+              <Bar dataKey="resolved" stackId="a" fill="#00c49f" />
+            </BarChart>
           </ResponsiveContainer>
         </section>
 
