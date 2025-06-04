@@ -1,0 +1,131 @@
+.manager-dashboard {
+  padding: 1.5rem;
+  max-width: 960px;
+  margin: auto;
+}
+
+.manager-dashboard h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.manager-dashboard .cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.manager-dashboard .card {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+  flex: 1;
+  min-width: 250px;
+}
+
+.manager-dashboard .progress-card {
+  margin-bottom: 1.5rem;
+}
+
+.manager-dashboard .big {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #008BD2;
+  margin-top: .5rem;
+}
+
+/* ---- actions rapides (roue) ---- */
+.quick-wheel {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 220px;
+  height: 220px;
+}
+.quick-wheel .center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  background: #008bd2;
+  color: #fff;
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.quick-wheel a {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: #008bd2;
+  color: #fff;
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: transform .3s, opacity .3s;
+}
+.quick-wheel a span.label {
+  font-size: .65rem;
+  margin-top: 2px;
+}
+.quick-wheel.open a {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.quick-wheel.open a:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(0deg) translate(100px) rotate(0deg);
+}
+.quick-wheel.open a:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(72deg) translate(100px) rotate(-72deg);
+}
+.quick-wheel.open a:nth-child(4) {
+  transform: translate(-50%, -50%) rotate(144deg) translate(100px) rotate(-144deg);
+}
+.quick-wheel.open a:nth-child(5) {
+  transform: translate(-50%, -50%) rotate(216deg) translate(100px) rotate(-216deg);
+}
+.quick-wheel.open a:nth-child(6) {
+  transform: translate(-50%, -50%) rotate(288deg) translate(100px) rotate(-288deg);
+}
+.btn {
+  background: #008bd2;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.btn:hover {
+  background: #006fa1;
+}
+
+.manager-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+.manager-dashboard th,
+.manager-dashboard td {
+  border-bottom: 1px solid #e0e0e0;
+  padding: .5rem .75rem;
+}
