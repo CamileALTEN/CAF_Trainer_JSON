@@ -140,7 +140,15 @@ import { IAnalytics } from '../api/analytics';
      return (
        <div className="admin-dashboard">
          <h1>Tableau de bord admin</h1>
-
+         
+                 <div className="quick">
+          <Link to="/admin/create"><button>+ Créer un compte</button></Link>
+          <Link to="/admin/modules"><button>📝 Modules</button></Link>
+        <Link to="/admin/notifications"><button>🔔 Notifications</button></Link>
+        <Link to="/admin/tickets"><button>📋 Tickets</button></Link>
+        <Link to="/admin/checklist-url"><button>URL Checklist 📋</button></Link>
+      </div>
+<h2>Analytics</h2>
         <section className="analytics-grid">
           <Stat label="Comptes" value={analytics.counts.accounts} />
           <Stat label="Modules" value={analytics.counts.modules} />
@@ -149,7 +157,7 @@ import { IAnalytics } from '../api/analytics';
           <Stat label="Visiteurs semaine" value={analytics.visitors.week} />
           <Stat label={`Visiteurs ${analytics.visitors.month.label}`} value={analytics.visitors.month.count} />
           <Stat label="Durée CAF (min)" value={Math.round(analytics.sessions.avgDurationCaf)} />
-          <Stat label="Durée manager" value={Math.round(analytics.sessions.avgDurationManager)} />
+          <Stat label="Durée manager (min)" value={Math.round(analytics.sessions.avgDurationManager)} />
         </section>
 
         <section className="chart-area">
@@ -172,9 +180,9 @@ import { IAnalytics } from '../api/analytics';
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="title" />
               <YAxis ticks={favTicks} domain={[0, favMax]} allowDecimals={false} />
-              <Tooltip formatter={(val:number, _name:string, entry:any)=>[val, entry.payload.itemId]} />
+              <Tooltip formatter={(val:number, _name:string, entry:any)=>[val]} />
               <Bar dataKey="count" fill="#82ca9d">
-                <LabelList dataKey="count" position="top" />
+                
               </Bar>
             </BarChart>
           </ResponsiveContainer>

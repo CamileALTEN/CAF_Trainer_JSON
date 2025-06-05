@@ -10,11 +10,27 @@
              }
     
 .admin-dashboard .analytics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+.admin-dashboard .analytics-grid > * {
+  flex: 1 1 120px;
+  max-width: 150px;
+  text-align: center;
+}
+
+.admin-dashboard .analytics-grid > :nth-child(-n+3) {
+  flex: 1 1 calc(33.333% - 1rem); /* forcer 3 sur la 1re ligne */
+  max-width: calc(33.333% - 1rem);
+}
+
     
              .admin-dashboard .card {
                background: #f9f9f9;
