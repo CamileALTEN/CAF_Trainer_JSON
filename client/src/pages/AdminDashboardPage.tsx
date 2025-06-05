@@ -4,9 +4,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  PieChart, Pie, Cell, Legend, ResponsiveContainer,
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
-  BarChart, Bar
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  BarChart,
+  Bar,
+  LabelList,
 } from 'recharts';
 import { IUser, Role } from '../api/auth';
 import { IModule } from '../api/modules';
@@ -122,7 +133,9 @@ import { IAnalytics } from '../api/analytics';
 
     const COLORS = ['#043962', '#008bd2', '#00c49f'];
 
-    const siteData = analytics.sites.map(s => ({ name: s.site, value: s.count }));
+  const siteData = analytics.sites.map(s => ({ name: s.site, value: s.count }));
+  const favMax = Math.max(...analytics.favorites.map(f => f.count), 0);
+  const favTicks = Array.from({ length: favMax + 1 }, (_, i) => i);
 
      return (
        <div className="admin-dashboard">
@@ -140,6 +153,7 @@ import { IAnalytics } from '../api/analytics';
         </section>
 
         <section className="chart-area">
+          <h3>Moyenne de connexion par heure</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={analytics.sessions.byHour}>
               <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
@@ -157,9 +171,11 @@ import { IAnalytics } from '../api/analytics';
             <BarChart data={analytics.favorites}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="title" />
-              <YAxis />
+              <YAxis ticks={favTicks} domain={[0, favMax]} allowDecimals={false} />
               <Tooltip formatter={(val:number, _name:string, entry:any)=>[val, entry.payload.itemId]} />
-              <Bar dataKey="count" fill="#82ca9d" />
+              <Bar dataKey="count" fill="#82ca9d">
+                <LabelList dataKey="count" position="top" />
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
         </section>
