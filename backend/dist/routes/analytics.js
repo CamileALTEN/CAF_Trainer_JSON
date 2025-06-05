@@ -12,4 +12,25 @@ router.get('/', (_req, res) => {
         res.status(500).json({ error: 'Cannot load analytics' });
     }
 });
+router.post('/login', async (req, res) => {
+    const { userId, role } = req.body;
+    if (!userId || !role)
+        return res.status(400).json({ error: 'Missing data' });
+    await (0, analytics_1.startSession)(userId, role);
+    res.json({ ok: true });
+});
+router.post('/logout', async (req, res) => {
+    const { userId } = req.body;
+    if (!userId)
+        return res.status(400).json({ error: 'Missing data' });
+    await (0, analytics_1.endSession)(userId);
+    res.json({ ok: true });
+});
+router.post('/favorite', async (req, res) => {
+    const { userId, itemId } = req.body;
+    if (!userId || !itemId)
+        return res.status(400).json({ error: 'Missing data' });
+    await (0, analytics_1.recordFavorite)(userId, itemId);
+    res.json({ ok: true });
+});
 exports.default = router;

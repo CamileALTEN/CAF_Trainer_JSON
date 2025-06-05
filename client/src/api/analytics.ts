@@ -1,35 +1,25 @@
 import axios from 'axios';
 
 export interface IAnalytics {
-  traffic: {
-    uniqueVisitorsToday: number;
-    uniqueVisitorsWeek: number;
-    uniqueVisitorsMonth: number;
-    pageViews: number;
-    bounceRate: number;
-    bounceDiff: number;
-    avgSessionDuration: string;
-    sessionsPerUser: number;
-    peakHours: { hour: string; sessions: number }[];
+  counts: {
+    accounts: number;
+    modules: number;
+    items: number;
   };
-  behavior: {
-    topPages: { page: string; views: number }[];
-    visitsByHour: { hour: string; sessions: number }[];
+  visitors: {
+    today: number;
+    week: number;
+    month: { count: number; label: string };
   };
-  content?: {
-    topContents: { content: string; views: number }[];
-    favorites: { content: string; count: number }[];
+  sessions: {
+    caf: number;
+    manager: number;
+    avgDurationCaf: number;
+    avgDurationManager: number;
+    byHour: { hour: string; avg: number }[];
   };
-  session?: {
-    avgDuration: string;
-    trend: number[];
-  };
-  tickets: {
-    weeks: { week: string; created: number; resolved: number }[];
-  };
-  accounts: {
-    bySite: { site: string; count: number }[];
-  };
+  favorites: { itemId: string; count: number }[];
+  sites: { site: string; count: number }[];
 }
 
 export const getAnalytics = async (): Promise<IAnalytics> =>

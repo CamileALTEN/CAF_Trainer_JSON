@@ -1,184 +1,181 @@
 import fs from 'fs';
 import path from 'path';
 import { Request } from 'express';
-
-export interface AnalyticsEvent {
-  timestamp: number;
-  ip: string;
-  route: string;
-}
-
-interface AnalyticsFile {
-  events: AnalyticsEvent[];
-}
+import { IAnalytics, SessionRecord, FavoriteRecord, Role } from '../models/IAnalytics';
 
 const DATA_FILE = path.resolve(__dirname, '../data/analytics.json');
 
-function load(): AnalyticsFile {
+function load(): IAnalytics {
   if (!fs.existsSync(DATA_FILE)) {
-    fs.writeFileSync(DATA_FILE, JSON.stringify({ events: [] }, null, 2), 'utf8');
+    fs.writeFileSync(DATA_FILE, JSON.stringify({ sessions: [], favorites: [] }, null, 2), 'utf8');
   }
   const raw = fs.readFileSync(DATA_FILE, 'utf8');
   try {
-    return JSON.parse(raw) as AnalyticsFile;
+    return JSON.parse(raw) as IAnalytics;
   } catch {
-    return { events: [] };
+    return { sessions: [], favorites: [] };
   }
 }
 
-function save(data: AnalyticsFile) {
+function save(data: IAnalytics) {
   fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf8');
 }
 
-export function recordEvent(req: Request): void {
-  if (req.path.startsWith('/api/analytics')) return; // ignore
+async function getParisTime(): Promise<string> {
+  try {
+    const res = await fetch('https://worldtimeapi.org/api/timezone/Europe/Paris');
+    const data: any = await res.json();
+    return data.datetime;
+  } catch {
+    return new Date().toISOString();
+  }
+}
+
+export async function startSession(userId: string, role: Role): Promise<void> {
   const data = load();
-  data.events.push({ timestamp: Date.now(), ip: req.ip || 'unknown', route: req.path });
+  const login = await getParisTime();
+  data.sessions.push({ userId, role, login });
   save(data);
 }
 
-export function getEvents(): AnalyticsEvent[] {
-  return load().events;
-}
-
-export interface AnalyticsMetrics {
-  traffic: {
-    uniqueVisitorsToday: number;
-    uniqueVisitorsWeek: number;
-    uniqueVisitorsMonth: number;
-    pageViews: number;
-    bounceRate: number;
-    bounceDiff: number;
-    avgSessionDuration: string;
-    sessionsPerUser: number;
-    peakHours: { hour: string; sessions: number }[];
-  };
-  behavior: {
-    topPages: { page: string; views: number }[];
-    visitsByHour: { hour: string; sessions: number }[];
-  };
-  tickets: { weeks: { week: string; created: number; resolved: number }[] };
-  accounts: { bySite: { site: string; count: number }[] };
-}
-
-function secondsToTime(s: number): string {
-  const m = Math.floor(s / 60).toString().padStart(2, '0');
-  const sec = Math.floor(s % 60).toString().padStart(2, '0');
-  return `${m}:${sec}`;
-}
-
-export function computeAnalytics(): AnalyticsMetrics {
-  const events = getEvents();
-  const now = Date.now();
-  const dayMs = 86400000;
-  const weekMs = 7 * dayMs;
-  const monthMs = 30 * dayMs;
-
-  const today = new Set<string>();
-  const week = new Set<string>();
-  const month = new Set<string>();
-  const pageMap: Record<string, number> = {};
-  const hourMap: Record<string, number> = {};
-
-  interface Session {
-    last: number;
-    start: number;
-    count: number;
+export async function endSession(userId: string): Promise<void> {
+  const data = load();
+  const logout = await getParisTime();
+  for (let i = data.sessions.length - 1; i >= 0; i--) {
+    const s = data.sessions[i];
+    if (s.userId === userId && !s.logout) {
+      s.logout = logout;
+      break;
+    }
   }
-  const sessions = new Map<string, Session>();
+  save(data);
+}
 
-  events.forEach(ev => {
-    pageMap[ev.route] = (pageMap[ev.route] || 0) + 1;
-    const h = new Date(ev.timestamp).toISOString().slice(11, 13) + ':00';
-    hourMap[h] = (hourMap[h] || 0) + 1;
+export async function recordFavorite(userId: string, itemId: string): Promise<void> {
+  const data = load();
+  const date = await getParisTime();
+  data.favorites.push({ userId, itemId, date });
+  save(data);
+}
 
-    if (now - ev.timestamp < dayMs) today.add(ev.ip);
-    if (now - ev.timestamp < weekMs) week.add(ev.ip);
-    if (now - ev.timestamp < monthMs) month.add(ev.ip);
+export function getAnalyticsFile(): IAnalytics {
+  return load();
+}
 
-    const s = sessions.get(ev.ip);
-    if (!s || ev.timestamp - s.last > 30 * 60 * 1000) {
-      sessions.set(ev.ip, { last: ev.timestamp, start: ev.timestamp, count: 1 });
-    } else {
-      s.last = ev.timestamp;
-      s.count++;
+export interface AnalyticsSummary {
+  counts: {
+    accounts: number;
+    modules: number;
+    items: number;
+  };
+  visitors: {
+    today: number;
+    week: number;
+    month: { count: number; label: string };
+  };
+  sessions: {
+    caf: number;
+    manager: number;
+    avgDurationCaf: number;
+    avgDurationManager: number;
+    byHour: { hour: string; avg: number }[];
+  };
+  favorites: { itemId: string; count: number }[];
+  sites: { site: string; count: number }[];
+}
+
+function parseDate(str: string): Date {
+  return new Date(str);
+}
+
+function totalItems(mods: any[]): number {
+  const walk = (items: any[]): number => items.reduce((n, it) => n + 1 + walk(it.children || []), 0);
+  return mods.reduce((n, m) => n + walk(m.items || []), 0);
+}
+
+export function computeAnalytics(): AnalyticsSummary {
+  const file = load();
+  let users: any[] = [];
+  let modules: any[] = [];
+  try {
+    users = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../data/users.json'), 'utf8'));
+  } catch {}
+  try {
+    modules = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../data/modules.json'), 'utf8'));
+  } catch {}
+
+  const now = new Date();
+  const monthLabel = now.toISOString().slice(0,7); // YYYY-MM
+
+  const sessionsToday = new Set<string>();
+  const sessionsWeek = new Set<string>();
+  const sessionsMonth = new Set<string>();
+
+  const cafDurations: number[] = [];
+  const managerDurations: number[] = [];
+  const hourBuckets: Record<string, number[]> = {};
+  for (let h = 6; h <= 20; h += 2) {
+    const label = `${h.toString().padStart(2,'0')}:00`;
+    hourBuckets[label] = [];
+  }
+
+  file.sessions.forEach((s) => {
+    const login = parseDate(s.login);
+    const logout = s.logout ? parseDate(s.logout) : null;
+
+    const startOfDay = new Date(now); startOfDay.setHours(0,0,0,0);
+    if (login >= startOfDay) sessionsToday.add(s.userId);
+
+    const startOfWeek = new Date(now); const day = startOfWeek.getDay(); const diff = startOfWeek.getDate() - day + (day === 0 ? -6 : 1); startOfWeek.setDate(diff); startOfWeek.setHours(0,0,0,0);
+    if (login >= startOfWeek) sessionsWeek.add(s.userId);
+
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1); if (login >= startOfMonth) sessionsMonth.add(s.userId);
+
+    if (logout) {
+      const durationMin = Math.ceil((logout.getTime() - login.getTime()) / 60000);
+      if (s.role === 'caf') cafDurations.push(durationMin); else if (s.role === 'manager') managerDurations.push(durationMin);
+      const hour = login.getHours();
+      const bucket = Math.max(6, Math.min(20, hour + (hour % 2 ? -1 : 0)));
+      const label = `${bucket.toString().padStart(2,'0')}:00`;
+      hourBuckets[label].push(1);
     }
   });
 
-  const sessionList = Array.from(sessions.values());
-  const bounce = sessionList.filter(s => s.count === 1).length;
-  const sessionDurationTotal = sessionList.reduce((n, s) => n + (s.last - s.start), 0);
-  const sessionCount = sessionList.length || 1;
-  const avgDuration = sessionDurationTotal / sessionCount / 1000; // sec
+  const avg = (list: number[]) => (list.length ? list.reduce((a,b)=>a+b,0)/list.length : 0);
 
-  const topPages = Object.entries(pageMap)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 5)
-    .map(([page, views]) => ({ page, views }));
+  const byHour = Object.entries(hourBuckets).map(([hour,list])=>({hour, avg: avg(list)}));
 
-  const visitsByHour = Object.entries(hourMap)
-    .sort(([a], [b]) => (a < b ? -1 : 1))
-    .map(([hour, sessions]) => ({ hour, sessions }));
+  const favMap: Record<string, Set<string>> = {};
+  file.favorites.forEach(f => {
+    if (!favMap[f.itemId]) favMap[f.itemId] = new Set();
+    favMap[f.itemId].add(f.userId);
+  });
+  const favorites = Object.entries(favMap)
+    .map(([itemId, set]) => ({ itemId, count: set.size }))
+    .sort((a,b)=>b.count-a.count)
+    .slice(0,5);
 
-  const traffic = {
-    uniqueVisitorsToday: today.size,
-    uniqueVisitorsWeek: week.size,
-    uniqueVisitorsMonth: month.size,
-    pageViews: events.length,
-    bounceRate: Math.round((bounce / sessionCount) * 100),
-    bounceDiff: 0,
-    avgSessionDuration: secondsToTime(avgDuration),
-    sessionsPerUser: month.size ? sessionCount / month.size : 0,
-    peakHours: visitsByHour,
-  };
-
-  // compute tickets
-  let ticketWeeks: Record<string, { created: number; resolved: number }> = {};
-  try {
-    const ticketsRaw = fs.readFileSync(path.resolve(__dirname, '../data/tickets.json'), 'utf8');
-    const tickets = JSON.parse(ticketsRaw) as Array<{ date: string; status: string } & any>;
-    tickets.forEach(t => {
-      const weekStart = new Date(t.date);
-      weekStart.setUTCHours(0, 0, 0, 0);
-      const day = weekStart.getUTCDay();
-      const diff = weekStart.getUTCDate() - day;
-      weekStart.setUTCDate(diff);
-      const key = weekStart.toISOString().slice(0, 10);
-      ticketWeeks[key] = ticketWeeks[key] || { created: 0, resolved: 0 };
-      ticketWeeks[key].created += 1;
-      if (t.status === 'closed') ticketWeeks[key].resolved += 1;
-    });
-  } catch {
-    // ignore
-  }
-
-  const ticketData = Object.entries(ticketWeeks)
-    .sort(([a], [b]) => (a < b ? -1 : 1))
-    .map(([week, { created, resolved }]) => ({ week, created, resolved }));
-
-  // accounts by site
-  let siteMap: Record<string, number> = {};
-  try {
-    const usersRaw = fs.readFileSync(path.resolve(__dirname, '../data/users.json'), 'utf8');
-    const users = JSON.parse(usersRaw) as Array<{ role: string; site?: string; sites?: string[] }>;
-    users.forEach(u => {
-      const sites = u.role === 'manager' ? u.sites || [] : [u.site];
-      sites.forEach(s => {
-        if (s) siteMap[s] = (siteMap[s] || 0) + 1;
-      });
-    });
-  } catch {
-    // ignore
-  }
-
-  const accounts = {
-    bySite: Object.entries(siteMap).map(([site, count]) => ({ site, count })),
-  };
+  const siteMap: Record<string, number> = {};
+  users.forEach(u => {
+    const sites = u.role === 'manager' ? (u.sites || []) : [u.site];
+    sites.forEach((s: string)=>{ if(s) siteMap[s] = (siteMap[s]||0)+1; });
+  });
 
   return {
-    traffic,
-    behavior: { topPages, visitsByHour },
-    tickets: { weeks: ticketData },
-    accounts,
+    counts: { accounts: users.length, modules: modules.length, items: totalItems(modules) },
+    visitors: {
+      today: sessionsToday.size,
+      week: sessionsWeek.size,
+      month: { count: sessionsMonth.size, label: monthLabel },
+    },
+    sessions: {
+      caf: cafDurations.length,
+      manager: managerDurations.length,
+      avgDurationCaf: avg(cafDurations),
+      avgDurationManager: avg(managerDurations),
+      byHour,
+    },
+    favorites,
+    sites: Object.entries(siteMap).map(([site,count])=>({site,count})),
   };
 }

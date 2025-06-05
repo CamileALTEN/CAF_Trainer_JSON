@@ -119,80 +119,51 @@ import { IAnalytics } from '../api/analytics';
        return a.username.localeCompare(b.username);
      });
 
-    const totalItems = modules.reduce((n, m) => n + (m.items?.length ?? 0), 0);
 
-    // distribution des rôles pour le graphique
-    const roleData = [
-      { name: 'admin',   value: users.filter(u => u.role === 'admin').length },
-      { name: 'manager', value: users.filter(u => u.role === 'manager').length },
-      { name: 'caf',     value: users.filter(u => u.role === 'caf').length },
-    ];
     const COLORS = ['#043962', '#008bd2', '#00c49f'];
 
-    const siteMap = users.reduce<Record<string, number>>((acc, u) => {
-      const sites = u.role === 'manager' ? (u.sites || []) : [u.site];
-      sites.forEach(s => {
-        if (s) acc[s] = (acc[s] || 0) + 1;
-      });
-      return acc;
-    }, {});
-    const siteData = Object.entries(siteMap).map(([name, value]) => ({ name, value }));
+    const siteData = analytics.sites.map(s => ({ name: s.site, value: s.count }));
 
      return (
        <div className="admin-dashboard">
          <h1>Tableau de bord admin</h1>
 
         <section className="analytics-grid">
-          <Stat label="Comptes" value={users.length} />
-          <Stat label="Modules" value={modules.length} />
-          <Stat label="Items" value={totalItems} />
-          <Stat label="Visiteurs aujourd\u2019hui" value={analytics.traffic.uniqueVisitorsToday} />
-          <Stat label="Visiteurs semaine" value={analytics.traffic.uniqueVisitorsWeek} />
-          <Stat label="Visiteurs mois" value={analytics.traffic.uniqueVisitorsMonth} />
-          <Stat label="Pages vues" value={analytics.traffic.pageViews} />
-          <Stat label="Taux de rebond" value={analytics.traffic.bounceRate} />
-          <Stat label="Durée session" value={Number(analytics.traffic.avgSessionDuration.replace(':', '.'))} />
-          <Stat label="Sessions/user" value={analytics.traffic.sessionsPerUser} />
+          <Stat label="Comptes" value={analytics.counts.accounts} />
+          <Stat label="Modules" value={analytics.counts.modules} />
+          <Stat label="Items" value={analytics.counts.items} />
+          <Stat label="Visiteurs aujourd’hui" value={analytics.visitors.today} />
+          <Stat label="Visiteurs semaine" value={analytics.visitors.week} />
+          <Stat label={`Visiteurs ${analytics.visitors.month.label}`} value={analytics.visitors.month.count} />
+          <Stat label="Durée CAF (min)" value={Math.round(analytics.sessions.avgDurationCaf)} />
+          <Stat label="Durée manager" value={Math.round(analytics.sessions.avgDurationManager)} />
         </section>
 
         <section className="chart-area">
           <ResponsiveContainer width="100%" height={200}>
-            <LineChart data={analytics.traffic.peakHours}>
+            <LineChart data={analytics.sessions.byHour}>
               <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
               <XAxis dataKey="hour" />
               <YAxis />
               <Tooltip />
-              <Line type="monotone" dataKey="sessions" stroke="#8884d8" />
+              <Line type="monotone" dataKey="avg" stroke="#8884d8" />
             </LineChart>
           </ResponsiveContainer>
         </section>
 
         <section className="chart-area">
-          <h3>Pages les plus visitées</h3>
+          <h3>Favoris CAF</h3>
           <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={analytics.behavior.topPages}>
+            <BarChart data={analytics.favorites}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="page" />
+              <XAxis dataKey="itemId" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="views" fill="#82ca9d" />
+              <Bar dataKey="count" fill="#82ca9d" />
             </BarChart>
           </ResponsiveContainer>
         </section>
 
-        <section className="chart-area">
-          <h3>Tickets</h3>
-          <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={analytics.tickets.weeks}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="week" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="created" stackId="a" fill="#008bd2" />
-              <Bar dataKey="resolved" stackId="a" fill="#00c49f" />
-            </BarChart>
-          </ResponsiveContainer>
-        </section>
 
         <section className="chart-area">
           <h3>Répartition par site</h3>

@@ -5,8 +5,9 @@
    import ItemContent, { ItemStatus }    from '../components/ItemContent';
    import ProgressBar    from '../components/ProgressBar';
    import { flatten, findById } from '../utils/items';
-   import { getModule, IItem, IModule, IProgress } from '../api/modules';
-   import { useAuth }     from '../context/AuthContext';
+import { getModule, IItem, IModule, IProgress } from '../api/modules';
+import { useAuth }     from '../context/AuthContext';
+import axios from 'axios';
    import './PrerequisPage.css';
 
    export default function PrerequisPage() {
@@ -61,12 +62,16 @@
         return next;
       });
 
-     const toggleFav = (id: string) =>
-       setFavs((prev) => {
-         const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-         localStorage.setItem(favKey, JSON.stringify(next));
-         return next;
-       });
+  const toggleFav = async (id: string) => {
+    setFavs((prev) => {
+      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
+      localStorage.setItem(favKey, JSON.stringify(next));
+      return next;
+    });
+    if (!favs.includes(id)) {
+      try { await axios.post('/api/analytics/favorite', { userId: user?.id, itemId: id }); } catch { /* ignore */ }
+    }
+  };
 
      /* ---------- rendu ---------- */
      if (!mod) return <p>Chargement…</p>;

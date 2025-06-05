@@ -3,144 +3,160 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.computeAnalytics = exports.getEvents = exports.recordEvent = void 0;
+exports.computeAnalytics = exports.getAnalyticsFile = exports.recordFavorite = exports.endSession = exports.startSession = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const DATA_FILE = path_1.default.resolve(__dirname, '../data/analytics.json');
 function load() {
     if (!fs_1.default.existsSync(DATA_FILE)) {
-        fs_1.default.writeFileSync(DATA_FILE, JSON.stringify({ events: [] }, null, 2), 'utf8');
+        fs_1.default.writeFileSync(DATA_FILE, JSON.stringify({ sessions: [], favorites: [] }, null, 2), 'utf8');
     }
     const raw = fs_1.default.readFileSync(DATA_FILE, 'utf8');
     try {
         return JSON.parse(raw);
     }
     catch {
-        return { events: [] };
+        return { sessions: [], favorites: [] };
     }
 }
 function save(data) {
     fs_1.default.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf8');
 }
-function recordEvent(req) {
-    if (req.path.startsWith('/api/analytics'))
-        return; // ignore
+async function getParisTime() {
+    try {
+        const res = await fetch('https://worldtimeapi.org/api/timezone/Europe/Paris');
+        const data = await res.json();
+        return data.datetime;
+    }
+    catch {
+        return new Date().toISOString();
+    }
+}
+async function startSession(userId, role) {
     const data = load();
-    data.events.push({ timestamp: Date.now(), ip: req.ip || 'unknown', route: req.path });
+    const login = await getParisTime();
+    data.sessions.push({ userId, role, login });
     save(data);
 }
-exports.recordEvent = recordEvent;
-function getEvents() {
-    return load().events;
+exports.startSession = startSession;
+async function endSession(userId) {
+    const data = load();
+    const logout = await getParisTime();
+    for (let i = data.sessions.length - 1; i >= 0; i--) {
+        const s = data.sessions[i];
+        if (s.userId === userId && !s.logout) {
+            s.logout = logout;
+            break;
+        }
+    }
+    save(data);
 }
-exports.getEvents = getEvents;
-function secondsToTime(s) {
-    const m = Math.floor(s / 60).toString().padStart(2, '0');
-    const sec = Math.floor(s % 60).toString().padStart(2, '0');
-    return `${m}:${sec}`;
+exports.endSession = endSession;
+async function recordFavorite(userId, itemId) {
+    const data = load();
+    const date = await getParisTime();
+    data.favorites.push({ userId, itemId, date });
+    save(data);
+}
+exports.recordFavorite = recordFavorite;
+function getAnalyticsFile() {
+    return load();
+}
+exports.getAnalyticsFile = getAnalyticsFile;
+function parseDate(str) {
+    return new Date(str);
+}
+function totalItems(mods) {
+    const walk = (items) => items.reduce((n, it) => n + 1 + walk(it.children || []), 0);
+    return mods.reduce((n, m) => n + walk(m.items || []), 0);
 }
 function computeAnalytics() {
-    const events = getEvents();
-    const now = Date.now();
-    const dayMs = 86400000;
-    const weekMs = 7 * dayMs;
-    const monthMs = 30 * dayMs;
-    const today = new Set();
-    const week = new Set();
-    const month = new Set();
-    const pageMap = {};
-    const hourMap = {};
-    const sessions = new Map();
-    events.forEach(ev => {
-        pageMap[ev.route] = (pageMap[ev.route] || 0) + 1;
-        const h = new Date(ev.timestamp).toISOString().slice(11, 13) + ':00';
-        hourMap[h] = (hourMap[h] || 0) + 1;
-        if (now - ev.timestamp < dayMs)
-            today.add(ev.ip);
-        if (now - ev.timestamp < weekMs)
-            week.add(ev.ip);
-        if (now - ev.timestamp < monthMs)
-            month.add(ev.ip);
-        const s = sessions.get(ev.ip);
-        if (!s || ev.timestamp - s.last > 30 * 60 * 1000) {
-            sessions.set(ev.ip, { last: ev.timestamp, start: ev.timestamp, count: 1 });
-        }
-        else {
-            s.last = ev.timestamp;
-            s.count++;
+    const file = load();
+    let users = [];
+    let modules = [];
+    try {
+        users = JSON.parse(fs_1.default.readFileSync(path_1.default.resolve(__dirname, '../data/users.json'), 'utf8'));
+    }
+    catch { }
+    try {
+        modules = JSON.parse(fs_1.default.readFileSync(path_1.default.resolve(__dirname, '../data/modules.json'), 'utf8'));
+    }
+    catch { }
+    const now = new Date();
+    const monthLabel = now.toISOString().slice(0, 7); // YYYY-MM
+    const sessionsToday = new Set();
+    const sessionsWeek = new Set();
+    const sessionsMonth = new Set();
+    const cafDurations = [];
+    const managerDurations = [];
+    const hourBuckets = {};
+    for (let h = 6; h <= 20; h += 2) {
+        const label = `${h.toString().padStart(2, '0')}:00`;
+        hourBuckets[label] = [];
+    }
+    file.sessions.forEach((s) => {
+        const login = parseDate(s.login);
+        const logout = s.logout ? parseDate(s.logout) : null;
+        const startOfDay = new Date(now);
+        startOfDay.setHours(0, 0, 0, 0);
+        if (login >= startOfDay)
+            sessionsToday.add(s.userId);
+        const startOfWeek = new Date(now);
+        const day = startOfWeek.getDay();
+        const diff = startOfWeek.getDate() - day + (day === 0 ? -6 : 1);
+        startOfWeek.setDate(diff);
+        startOfWeek.setHours(0, 0, 0, 0);
+        if (login >= startOfWeek)
+            sessionsWeek.add(s.userId);
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        if (login >= startOfMonth)
+            sessionsMonth.add(s.userId);
+        if (logout) {
+            const durationMin = Math.ceil((logout.getTime() - login.getTime()) / 60000);
+            if (s.role === 'caf')
+                cafDurations.push(durationMin);
+            else if (s.role === 'manager')
+                managerDurations.push(durationMin);
+            const hour = login.getHours();
+            const bucket = Math.max(6, Math.min(20, hour + (hour % 2 ? -1 : 0)));
+            const label = `${bucket.toString().padStart(2, '0')}:00`;
+            hourBuckets[label].push(1);
         }
     });
-    const sessionList = Array.from(sessions.values());
-    const bounce = sessionList.filter(s => s.count === 1).length;
-    const sessionDurationTotal = sessionList.reduce((n, s) => n + (s.last - s.start), 0);
-    const sessionCount = sessionList.length || 1;
-    const avgDuration = sessionDurationTotal / sessionCount / 1000; // sec
-    const topPages = Object.entries(pageMap)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5)
-        .map(([page, views]) => ({ page, views }));
-    const visitsByHour = Object.entries(hourMap)
-        .sort(([a], [b]) => (a < b ? -1 : 1))
-        .map(([hour, sessions]) => ({ hour, sessions }));
-    const traffic = {
-        uniqueVisitorsToday: today.size,
-        uniqueVisitorsWeek: week.size,
-        uniqueVisitorsMonth: month.size,
-        pageViews: events.length,
-        bounceRate: Math.round((bounce / sessionCount) * 100),
-        bounceDiff: 0,
-        avgSessionDuration: secondsToTime(avgDuration),
-        sessionsPerUser: month.size ? sessionCount / month.size : 0,
-        peakHours: visitsByHour,
-    };
-    // compute tickets
-    let ticketWeeks = {};
-    try {
-        const ticketsRaw = fs_1.default.readFileSync(path_1.default.resolve(__dirname, '../data/tickets.json'), 'utf8');
-        const tickets = JSON.parse(ticketsRaw);
-        tickets.forEach(t => {
-            const weekStart = new Date(t.date);
-            weekStart.setUTCHours(0, 0, 0, 0);
-            const day = weekStart.getUTCDay();
-            const diff = weekStart.getUTCDate() - day;
-            weekStart.setUTCDate(diff);
-            const key = weekStart.toISOString().slice(0, 10);
-            ticketWeeks[key] = ticketWeeks[key] || { created: 0, resolved: 0 };
-            ticketWeeks[key].created += 1;
-            if (t.status === 'closed')
-                ticketWeeks[key].resolved += 1;
-        });
-    }
-    catch {
-        // ignore
-    }
-    const ticketData = Object.entries(ticketWeeks)
-        .sort(([a], [b]) => (a < b ? -1 : 1))
-        .map(([week, { created, resolved }]) => ({ week, created, resolved }));
-    // accounts by site
-    let siteMap = {};
-    try {
-        const usersRaw = fs_1.default.readFileSync(path_1.default.resolve(__dirname, '../data/users.json'), 'utf8');
-        const users = JSON.parse(usersRaw);
-        users.forEach(u => {
-            const sites = u.role === 'manager' ? u.sites || [] : [u.site];
-            sites.forEach(s => {
-                if (s)
-                    siteMap[s] = (siteMap[s] || 0) + 1;
-            });
-        });
-    }
-    catch {
-        // ignore
-    }
-    const accounts = {
-        bySite: Object.entries(siteMap).map(([site, count]) => ({ site, count })),
-    };
+    const avg = (list) => (list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0);
+    const byHour = Object.entries(hourBuckets).map(([hour, list]) => ({ hour, avg: avg(list) }));
+    const favMap = {};
+    file.favorites.forEach(f => {
+        if (!favMap[f.itemId])
+            favMap[f.itemId] = new Set();
+        favMap[f.itemId].add(f.userId);
+    });
+    const favorites = Object.entries(favMap)
+        .map(([itemId, set]) => ({ itemId, count: set.size }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 5);
+    const siteMap = {};
+    users.forEach(u => {
+        const sites = u.role === 'manager' ? (u.sites || []) : [u.site];
+        sites.forEach((s) => { if (s)
+            siteMap[s] = (siteMap[s] || 0) + 1; });
+    });
     return {
-        traffic,
-        behavior: { topPages, visitsByHour },
-        tickets: { weeks: ticketData },
-        accounts,
+        counts: { accounts: users.length, modules: modules.length, items: totalItems(modules) },
+        visitors: {
+            today: sessionsToday.size,
+            week: sessionsWeek.size,
+            month: { count: sessionsMonth.size, label: monthLabel },
+        },
+        sessions: {
+            caf: cafDurations.length,
+            manager: managerDurations.length,
+            avgDurationCaf: avg(cafDurations),
+            avgDurationManager: avg(managerDurations),
+            byHour,
+        },
+        favorites,
+        sites: Object.entries(siteMap).map(([site, count]) => ({ site, count })),
     };
 }
 exports.computeAnalytics = computeAnalytics;
