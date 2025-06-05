@@ -5,21 +5,25 @@
    import ItemContent, { ItemStatus }    from '../components/ItemContent';
    import ProgressBar    from '../components/ProgressBar';
    import { flatten, findById } from '../utils/items';
-   import { getModule, IItem, IModule, IProgress } from '../api/modules';
-   import { useAuth }     from '../context/AuthContext';
+import { getModule, IItem, IModule, IProgress } from '../api/modules';
+import { useAuth }     from '../context/AuthContext';
+import axios from 'axios';
+import { getFavorites, addFavorite, removeFavorite } from '../api/favorites';
    import './PrerequisPage.css';
 
    export default function PrerequisPage() {
      const MODULE_ID = 'prerequis';
      const { user }  = useAuth();
-     const favKey    = `favs_${user?.username}`;
+    const [mod, setMod]            = useState<IModule | null>(null);
+    const [selectedId, setSelId ]  = useState<string>('');
+   const [status, setStatus] = useState<Record<string, ItemStatus>>({});
+    const [favs, setFavs] = useState<string[]>([]);
 
-     const [mod, setMod]            = useState<IModule | null>(null);
-     const [selectedId, setSelId ]  = useState<string>('');
-    const [status, setStatus] = useState<Record<string, ItemStatus>>({});
-     const [favs, setFavs] = useState<string[]>(
-       () => JSON.parse(localStorage.getItem(favKey) ?? '[]'),
-     );
+    useEffect(() => {
+      if (user) {
+        getFavorites(user.id).then(setFavs).catch(() => setFavs([]));
+      }
+    }, [user]);
 
      /* ---------- chargement module ---------- */
     useEffect(() => {
@@ -61,12 +65,18 @@
         return next;
       });
 
-     const toggleFav = (id: string) =>
-       setFavs((prev) => {
-         const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-         localStorage.setItem(favKey, JSON.stringify(next));
-         return next;
-       });
+  const toggleFav = async (id: string) => {
+    if (!user) return;
+    setFavs((prev) => {
+      if (prev.includes(id)) {
+        removeFavorite(user.id, id).catch(() => undefined);
+        return prev.filter((x) => x !== id);
+      }
+      addFavorite(user.id, id).catch(() => undefined);
+      try { axios.post('/api/analytics/favorite', { userId: user.id, itemId: id }); } catch { /* ignore */ }
+      return [...prev, id];
+    });
+  };
 
      /* ---------- rendu ---------- */
      if (!mod) return <p>Chargement…</p>;

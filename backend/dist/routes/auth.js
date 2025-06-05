@@ -6,6 +6,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const analytics_1 = require("../utils/analytics");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const dataStore_1 = require("../config/dataStore");
 const notifier_1 = require("../utils/notifier");
@@ -28,6 +29,7 @@ router.post('/login', (req, res) => {
     if (!user)
         return res.status(401).json({ error: 'Identifiants invalides' });
     const { id, role, site } = user;
+    (0, analytics_1.startSession)(id, role).catch(() => undefined);
     res.json({ id, username, role, site });
 });
 /* ───────────────────────── REGISTER ────────────────────── */

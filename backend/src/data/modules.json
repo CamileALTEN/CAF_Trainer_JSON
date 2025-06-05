@@ -692,7 +692,7 @@
             "id": "b83a25cb-12ac-4e4c-ad6b-6a1a4e324a8a",
             "title": "Process et Machine",
             "subtitle": "",
-            "content": "<img src=\"/images/1748990479665-99oeac0xphn.png\" width=\"536px\" height=\"373px\"><ol><li><p>1234</p></li></ol><p></p><ul><li><p>lkjhgf</p></li></ul><p></p><blockquote><p>kijhgf</p></blockquote>",
+            "content": "<img src=\"/images/1748990479665-99oeac0xphn.png\" width=\"515px\" height=\"353px\"><ol><li><p>1234</p></li></ol><p></p><ul><li><p>lkjhgf</p></li></ul><p></p><blockquote><p>kijhgf</p></blockquote>",
             "links": [],
             "images": [
               {
@@ -709,8 +709,19 @@
             "enabled": true,
             "needValidation": false,
             "quiz": {
-              "enabled": false,
-              "questions": []
+              "enabled": true,
+              "questions": [
+                {
+                  "question": "Test",
+                  "options": [
+                    "oui",
+                    "non"
+                  ],
+                  "correct": [
+                    0
+                  ]
+                }
+              ]
             },
             "children": []
           }
