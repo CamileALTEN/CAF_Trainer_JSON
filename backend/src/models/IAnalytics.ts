@@ -16,4 +16,5 @@ export interface FavoriteRecord {
 export interface IAnalytics {
   sessions: SessionRecord[];
   favorites: FavoriteRecord[];
+  averages?: Record<string, { avg: number; prevAvg?: number; count: number }>;
 }

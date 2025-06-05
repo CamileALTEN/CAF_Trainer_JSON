@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { computeAnalytics, startSession, endSession, recordFavorite } from '../utils/analytics';
+import { computeAnalytics, startSession, endSession, recordFavorite, getAnalyticsFile } from '../utils/analytics';
 
 const router = Router();
 
@@ -31,6 +31,15 @@ router.post('/favorite', async (req, res) => {
   if (!userId || !itemId) return res.status(400).json({ error: 'Missing data' });
   await recordFavorite(userId, itemId);
   res.json({ ok: true });
+});
+
+router.get('/averages', (_req, res) => {
+  try {
+    const { averages } = getAnalyticsFile();
+    res.json(averages || {});
+  } catch {
+    res.status(500).json({ error: 'Cannot load averages' });
+  }
 });
 
 export default router;
