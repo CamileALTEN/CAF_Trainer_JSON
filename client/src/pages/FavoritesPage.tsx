@@ -4,26 +4,28 @@
    import { useNavigate }   from 'react-router-dom';
    import styled            from 'styled-components';
    import { useAuth }       from '../context/AuthContext';
-   import { getModules, IItem, IModule } from '../api/modules';
-   import { flatten }       from '../utils/items';
+import { getModules, IItem, IModule } from '../api/modules';
+import { flatten }       from '../utils/items';
+import { getFavorites, removeFavorite } from '../api/favorites';
+
 
 
    export default function FavoritesPage() {
      const { user } = useAuth();
-     const navigate = useNavigate();
-     const favKey   = `favs_${user?.username}`;
+    const navigate = useNavigate();
 
-     const [mods, setMods]   = useState<IModule[]>([]);
-     const [favs, setFavs]   = useState<string[]>(() =>
-       JSON.parse(localStorage.getItem(favKey) ?? '[]'),
-     );
-     const [loading, setLoading] = useState(true);
+    const [mods, setMods]   = useState<IModule[]>([]);
+    const [favs, setFavs]   = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
 
-     useEffect(() => {
-       getModules()
-         .then(setMods)
-         .finally(() => setLoading(false));
-     }, []);
+    useEffect(() => {
+      if (user) {
+        getFavorites(user.id).then(setFavs).catch(() => setFavs([]));
+      }
+      getModules()
+        .then(setMods)
+        .finally(() => setLoading(false));
+    }, [user]);
 
      if (loading) return <Wrapper><p>Chargement…</p></Wrapper>;
 
@@ -49,18 +51,28 @@
              <section key={module.id} className="fav-module">
                <h2>{module.title}</h2>
                <ul>
-                 {items.map((it) => (
-                   <li key={it.id}>
-                     <span>{it.title}</span>
-                     <button
-                       onClick={() =>
-                         navigate(`/modules/${module.id}`, { state: { itemId: it.id } })
-                       }
-                     >
-                       Ouvrir
-                     </button>
-                   </li>
-                 ))}
+                {items.map((it) => (
+                  <li key={it.id}>
+                    <span>{it.title}</span>
+                    <button
+                      onClick={() =>
+                        navigate(`/modules/${module.id}`, { state: { itemId: it.id } })
+                      }
+                    >
+                      Ouvrir
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (!user) return;
+                        removeFavorite(user.id, it.id).then(() =>
+                          setFavs((prev) => prev.filter((x) => x !== it.id)),
+                        );
+                      }}
+                    >
+                      Retirer
+                    </button>
+                  </li>
+                ))}
                </ul>
              </section>
            ))
@@ -70,15 +82,15 @@
    }
 
    /* ---------------- styles ---------------- */
-   const Wrapper = styled.div`     padding:2rem; max-width:960px; margin:auto;
+   const Wrapper = styled.div`     padding:2rem; width:auto; margin:auto;
      header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
      header h1{margin:0;font-size:1.8rem;color:#043962}
      header button{background:none;border:none;font-size:1.2rem;cursor:pointer;color:#008bd2}
-     section{margin-bottom:2rem}
+     section{margin-bottom:2rem;}
      h2{margin:.5rem 0 1rem;color:#008bd2}
      ul{list-style:none;padding:0;margin:0}
-     li{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid #eee}
+     li{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid #ccc}
      li span{flex:1}
-     li button{background:#008bd2;color:#fff;border:none;padding:.4rem .8rem;border-radius:4px;cursor:pointer}
+     li button{background:#008bd2;color:#fff;border:none;padding:.4rem .8rem;border-radius:4px;cursor:pointer; margin : 5px 5px 5px 25px}
      li button:hover{background:#006fa1}
   `;

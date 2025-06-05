@@ -39,9 +39,17 @@ import React, {
           }
         };
     
-        const logout = () => {
+        const logout = async () => {
+          const current = user;
           setUser(null);
           sessionStorage.removeItem('caf-user');
+          if (current) {
+            try {
+              await axios.post('/api/analytics/logout', { userId: current.id });
+            } catch {
+              /* ignore */
+            }
+          }
         };
     
         return (

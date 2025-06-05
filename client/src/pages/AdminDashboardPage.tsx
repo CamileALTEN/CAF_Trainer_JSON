@@ -3,15 +3,32 @@
 
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
-   import { IUser, Role } from '../api/auth';
-   import { IModule } from '../api/modules';
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  BarChart,
+  Bar,
+  LabelList,
+} from 'recharts';
+import { IUser, Role } from '../api/auth';
+import { IModule } from '../api/modules';
+import { IAnalytics } from '../api/analytics';
    import './AdminDashboardPage.css';
 
    export default function AdminDashboardPage() {
    const [users, setUsers] = useState<IUser[]>([]);
-   const [modules, setModules] = useState<IModule[]>([]);
-   const [loading, setLoading] = useState(true);
+  const [modules, setModules] = useState<IModule[]>([]);
+  const [analytics, setAnalytics] = useState<IAnalytics | null>(null);
+  const [loading, setLoading] = useState(true);
    const [managers, setManagers] = useState<IUser[]>([]);
    const [editingId, setEditingId] = useState<string | null>(null);
    const [editUsername, setEditUsername] = useState('');
@@ -22,22 +39,24 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 
    const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 
-     /* ───────── chargement initial ───────── */
-     useEffect(() => {
-       Promise.all([
-         fetch('/api/users').then(r => r.json()),
-         fetch('/api/modules').then(r => r.json()),
-       ])
-         .then(([u, m]) => {
-           const mods: IModule[] =
-             Array.isArray(m) ? m :
-             m && typeof m === 'object' && Array.isArray((m as any).modules) ? (m as any).modules : [];
-           setUsers(u);
-           setManagers(u.filter((x: IUser) => x.role === 'manager'));
-           setModules(mods);
-         })
-         .finally(() => setLoading(false));
-     }, []);
+  /* ───────── chargement initial ───────── */
+  useEffect(() => {
+    Promise.all([
+      fetch('/api/users').then(r => r.json()),
+      fetch('/api/modules').then(r => r.json()),
+      fetch('/api/analytics').then(r => r.json()),
+    ])
+      .then(([u, m, a]) => {
+        const mods: IModule[] =
+          Array.isArray(m) ? m :
+          m && typeof m === 'object' && Array.isArray((m as any).modules) ? (m as any).modules : [];
+        setUsers(u);
+        setManagers(u.filter((x: IUser) => x.role === 'manager'));
+        setModules(mods);
+        setAnalytics(a as IAnalytics);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
      /* ───────── helpers ───────── */
      const deleteUser = async (id: string) => {
@@ -100,7 +119,7 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
     };
 
      /* ───────── rendu ───────── */
-     if (loading) return <div className="admin-dashboard"><p>Chargement…</p></div>;
+  if (loading || !analytics) return <div className="admin-dashboard"><p>Chargement…</p></div>;
 
      // Tri des utilisateurs par rôle : admin → manager → caf
      const rolePriority: Record<string, number> = { admin: 0, manager: 1, caf: 2 };
@@ -111,47 +130,64 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
        return a.username.localeCompare(b.username);
      });
 
-    const totalItems = modules.reduce((n, m) => n + (m.items?.length ?? 0), 0);
 
-    // distribution des rôles pour le graphique
-    const roleData = [
-      { name: 'admin',   value: users.filter(u => u.role === 'admin').length },
-      { name: 'manager', value: users.filter(u => u.role === 'manager').length },
-      { name: 'caf',     value: users.filter(u => u.role === 'caf').length },
-    ];
     const COLORS = ['#043962', '#008bd2', '#00c49f'];
 
-    const siteMap = users.reduce<Record<string, number>>((acc, u) => {
-      const sites = u.role === 'manager' ? (u.sites || []) : [u.site];
-      sites.forEach(s => {
-        if (s) acc[s] = (acc[s] || 0) + 1;
-      });
-      return acc;
-    }, {});
-    const siteData = Object.entries(siteMap).map(([name, value]) => ({ name, value }));
+  const siteData = analytics.sites.map(s => ({ name: s.site, value: s.count }));
+  const favMax = Math.max(...analytics.favorites.map(f => f.count), 0);
+  const favTicks = Array.from({ length: favMax + 1 }, (_, i) => i);
 
      return (
        <div className="admin-dashboard">
          <h1>Tableau de bord admin</h1>
-
-        <section className="cards">
-          <Stat label="Comptes" value={users.length} />
-          <Stat label="Modules" value={modules.length} />
-          <Stat label="Items" value={totalItems} />
+         
+                 <div className="quick">
+          <Link to="/admin/create"><button>+ Créer un compte</button></Link>
+          <Link to="/admin/modules"><button>📝 Modules</button></Link>
+        <Link to="/admin/notifications"><button>🔔 Notifications</button></Link>
+        <Link to="/admin/tickets"><button>📋 Tickets</button></Link>
+        <Link to="/admin/checklist-url"><button>URL Checklist 📋</button></Link>
+      </div>
+<h2>Analytics</h2>
+        <section className="analytics-grid">
+          <Stat label="Comptes" value={analytics.counts.accounts} />
+          <Stat label="Modules" value={analytics.counts.modules} />
+          <Stat label="Items" value={analytics.counts.items} />
+          <Stat label="Visiteurs aujourd’hui" value={analytics.visitors.today} />
+          <Stat label="Visiteurs semaine" value={analytics.visitors.week} />
+          <Stat label={`Visiteurs ${analytics.visitors.month.label}`} value={analytics.visitors.month.count} />
+          <Stat label="Durée CAF (min)" value={Math.round(analytics.sessions.avgDurationCaf)} />
+          <Stat label="Durée manager (min)" value={Math.round(analytics.sessions.avgDurationManager)} />
         </section>
 
         <section className="chart-area">
-          <ResponsiveContainer width="100%" height={220}>
-            <PieChart>
-              <Pie data={roleData} dataKey="value" nameKey="name" outerRadius={80}>
-                {roleData.map((_, i) => (
-                  <Cell key={i} fill={COLORS[i % COLORS.length]} />
-                ))}
-              </Pie>
-              <Legend />
-            </PieChart>
+          <h3>Moyenne de connexion par heure</h3>
+          <ResponsiveContainer width="100%" height={200}>
+            <LineChart data={analytics.sessions.byHour}>
+              <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
+              <XAxis dataKey="hour" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="avg" stroke="#8884d8" />
+            </LineChart>
           </ResponsiveContainer>
         </section>
+
+        <section className="chart-area">
+          <h3>Favoris CAF</h3>
+          <ResponsiveContainer width="100%" height={220}>
+            <BarChart data={analytics.favorites}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="title" />
+              <YAxis ticks={favTicks} domain={[0, favMax]} allowDecimals={false} />
+              <Tooltip formatter={(val:number, _name:string, entry:any)=>[val]} />
+              <Bar dataKey="count" fill="#82ca9d">
+                
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </section>
+
 
         <section className="chart-area">
           <h3>Répartition par site</h3>

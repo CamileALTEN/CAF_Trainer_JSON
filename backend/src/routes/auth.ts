@@ -2,6 +2,7 @@
 ───────────────────────────────────────────────────────────────────────── */
 
 import { Router }        from 'express';
+import { startSession }  from '../utils/analytics';
 import bcrypt            from 'bcrypt';
 import { read, write }   from '../config/dataStore';
 import { IUser }         from '../models/IUser';
@@ -29,6 +30,7 @@ router.post('/login', (req, res) => {
     if (!user) return res.status(401).json({ error: 'Identifiants invalides' });
 
     const { id, role, site } = user;
+    startSession(id, role as any).catch(() => undefined);
     res.json({ id, username, role, site });
 });
 

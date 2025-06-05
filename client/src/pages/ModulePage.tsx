@@ -16,6 +16,8 @@ import Loader          from '../components/Loader';
 import { getModule, IItem, IModule, IQuiz, IProgress } from '../api/modules';
 import { flatten }     from '../utils/items';
 import { useAuth }     from '../context/AuthContext';
+import axios          from 'axios';
+import { getFavorites, addFavorite, removeFavorite } from '../api/favorites';
 import './ModulePage.css';
 
 /* ------------------------------------------------------------------ */
@@ -50,16 +52,26 @@ export default function ModulePage() {
   const [quizPassed, setQuizPassed] = useState<Record<string, boolean>>({});
 
   /* ---------------- favoris ---------------- */
-  const favKey = `favs_${username}`;
-  const [favs, setFavs] = useState<string[]>(
-    () => JSON.parse(localStorage.getItem(favKey) ?? '[]'),
-  );
-  const toggleFav = (id: string) =>
+  const [favs, setFavs] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!user) return;
+    getFavorites(user.id)
+      .then(setFavs)
+      .catch(() => setFavs([]));
+  }, [user]);
+  const toggleFav = async (id: string) => {
+    if (!user) return;
     setFavs((prev) => {
-      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-      localStorage.setItem(favKey, JSON.stringify(next));
-      return next;
+      if (prev.includes(id)) {
+        removeFavorite(user.id, id).catch(() => undefined);
+        return prev.filter((x) => x !== id);
+      }
+      addFavorite(user.id, id).catch(() => undefined);
+      try { axios.post('/api/analytics/favorite', { userId: user.id, itemId: id }); } catch { /* ignore */ }
+      return [...prev, id];
     });
+  };
 
   /* ---------------- recherche plein‑texte ---------------- */
   const [term, setTerm] = useState('');
