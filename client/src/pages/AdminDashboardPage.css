@@ -11,18 +11,18 @@
     
              .admin-dashboard .cards {
                display: flex;
+               flex-direction: column;
                gap: 1rem;
-               flex-wrap: wrap;
                margin-bottom: 1.5rem;
              }
     
              .admin-dashboard .card {
-               flex: 1 1 180px;
                background: #f9f9f9;
                padding: 1rem;
                border-radius: 8px;
                text-align: center;
                box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+               width: 100%;
              }
     
              .admin-dashboard .big {
@@ -58,9 +58,13 @@
                border-collapse: collapse;
              }
 
-             .admin-dashboard .chart-area {
-               margin-bottom: 2rem;
-             }
+.admin-dashboard .chart-area {
+  margin-bottom: 2rem;
+}
+
+.admin-dashboard .site-info {
+  margin-bottom: 2rem;
+}
     
              .admin-dashboard th,
              .admin-dashboard td {

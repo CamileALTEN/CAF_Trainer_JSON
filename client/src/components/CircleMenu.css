@@ -1,0 +1,176 @@
+.menu--circle {
+  position: fixed;
+  background-color: none;
+  top: 0%;
+  left: -4%;
+  width: 200px;
+  height: 220px;
+  pointer-events: none;
+  --distance: 90px;
+}
+
+.menu__toggle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.icon {
+  position: absolute;
+  font-size: 150%;
+  font-weight: bold;
+  color: #000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  
+  display: block;
+  width: 26px;
+  border-top: 3px solid #000000;
+  
+  margin: 5px 0;
+  transition: transform .4s, border-color 0;
+}
+
+.menu__toggle:hover{
+  background: none;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+
+.menu--circle.open .hamburger {
+  border-color: transparent;
+}
+
+.menu--circle.open .hamburger::before {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.menu--circle.open .hamburger::after {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.menu__listings {
+  position: absolute;
+  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: rotate(0deg);
+  transition: transform .9s;
+}
+
+.menu--circle.open .menu__listings {
+  transform:  rotate(0deg);
+}
+
+.circle {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  transform: rotate(var(--rotation, 0deg));
+  transition: transform .5s ease;
+}
+
+.circle li {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform .2s, opacity .3s;
+}
+
+.menu--circle.open .circle li {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1)
+    rotate(var(--angle))
+    translate(var(--distance,100px))
+    rotate(calc(var(--angle) * -1 - var(--rotation)));
+}
+
+
+.button {
+  background: none;
+  font-size: 150%;
+  font-weight: bold;
+  color: #392338;
+  border-radius: 20%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  pointer-events: auto;
+}
+.button:hover {
+  background: none;
+  transform: scale(1.2);
+}
+  
+
+.button .label {
+  font-size: 50%;
+  margin-top: 2px;
+}
+
+.rotate {
+  position: relative;
+  bottom: 40%;
+  left: 65%;
+
+  /* Centrage et état fermé (caché/zoom 0) */
+  transform: translate(-50%, -50%) scale(0);
+
+  width: 10%;
+  height: 10%;
+
+  background: none;
+  /* Meilleur contraste sinon le texte sera invisible */
+
+  margin: 0; /* Supprime les marges */
+  padding: 0; /* Facultatif mais souvent utile */
+
+  cursor: pointer;
+  pointer-events: auto;
+
+  opacity: 1;
+  transition: 
+    opacity 0.3s ease, 
+    transform 0.3s ease;
+}
+
+/* État ouvert : on agrandit et on affiche */
+.menu--circle.open .rotate {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+/* Effet au survol */
+.menu--circle.open .rotate:hover {
+  position: relative;
+  background: none;
+  transform: translate(-50%, -50%) scale(1.9);
+}
+
