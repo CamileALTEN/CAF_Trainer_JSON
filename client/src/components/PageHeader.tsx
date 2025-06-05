@@ -9,6 +9,7 @@ export default function PageHeader() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [checklistUrl, setChecklistUrl] = useState('');
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     fetch('/api/checklist-url')
@@ -16,6 +17,17 @@ export default function PageHeader() {
       .then(d => setChecklistUrl(d.url || ''))
       .catch(() => setChecklistUrl(''));
   }, []);
+
+  useEffect(() => {
+    if (!user) return;
+    const loginStr = sessionStorage.getItem('login-time');
+    if (!loginStr) return;
+    const login = parseInt(loginStr, 10);
+    const tick = () => setDuration(Math.floor((Date.now() - login) / 60000));
+    tick();
+    const id = setInterval(tick, 60000);
+    return () => clearInterval(id);
+  }, [user]);
       
                   const goHome = () => {
                     if (!user) return navigate('/login');
@@ -68,6 +80,9 @@ export default function PageHeader() {
                           </Link>
       
                           <span className="header-user">{user.username}</span>
+                          {user.role === 'caf' && (
+                            <span className="header-duration">{duration} min</span>
+                          )}
                           <button
                             className="header-logout"
                             onClick={() => { logout(); navigate('/logged-out'); }}

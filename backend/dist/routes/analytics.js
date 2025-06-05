@@ -33,4 +33,13 @@ router.post('/favorite', async (req, res) => {
     await (0, analytics_1.recordFavorite)(userId, itemId);
     res.json({ ok: true });
 });
+router.get('/averages', (_req, res) => {
+    try {
+        const { averages } = (0, analytics_1.getAnalyticsFile)();
+        res.json(averages || {});
+    }
+    catch {
+        res.status(500).json({ error: 'Cannot load averages' });
+    }
+});
 exports.default = router;

@@ -33,6 +33,7 @@ import React, {
             const res = await axios.post<IUser>('/api/auth/login', { username, password });
             setUser(res.data);
             sessionStorage.setItem('caf-user', JSON.stringify(res.data));
+            sessionStorage.setItem('login-time', Date.now().toString());
             return { ok: true } as const;
           } catch (err: any) {
             return { ok: false, msg: err.response?.data?.error || 'Erreur réseau' } as const;
@@ -43,6 +44,7 @@ import React, {
           const current = user;
           setUser(null);
           sessionStorage.removeItem('caf-user');
+          sessionStorage.removeItem('login-time');
           if (current) {
             try {
               await axios.post('/api/analytics/logout', { userId: current.id });

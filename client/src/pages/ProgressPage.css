@@ -45,6 +45,10 @@
   font-weight: bold;
   margin-right: 7rem;
 }
+.name_box .kpi {
+  width: 140px;
+  font-size: 0.9rem;
+}
 
 
 .name_box .toggle {
