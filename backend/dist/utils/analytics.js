@@ -95,6 +95,17 @@ function computeAnalytics() {
         modules = JSON.parse(fs_1.default.readFileSync(path_1.default.resolve(__dirname, '../data/modules.json'), 'utf8'));
     }
     catch { }
+    const userRoles = {};
+    users.forEach(u => { userRoles[u.id] = u.role; });
+    const itemTitles = {};
+    const collectTitles = (items) => {
+        items.forEach(it => {
+            itemTitles[it.id] = it.title || it.name || it.id;
+            if (Array.isArray(it.children))
+                collectTitles(it.children);
+        });
+    };
+    modules.forEach(m => collectTitles(m.items || []));
     const now = new Date();
     const monthLabel = now.toISOString().slice(0, 7); // YYYY-MM
     const sessionsToday = new Set();
@@ -142,12 +153,14 @@ function computeAnalytics() {
     const favMap = {};
     const favArr = Array.isArray(file.favorites) ? file.favorites : [];
     favArr.forEach(f => {
+        if (userRoles[f.userId] !== 'caf')
+            return;
         if (!favMap[f.itemId])
             favMap[f.itemId] = new Set();
         favMap[f.itemId].add(f.userId);
     });
     const favorites = Object.entries(favMap)
-        .map(([itemId, set]) => ({ itemId, count: set.size }))
+        .map(([itemId, set]) => ({ itemId, title: itemTitles[itemId] || itemId, count: set.size }))
         .sort((a, b) => b.count - a.count)
         .slice(0, 5);
     const siteMap = {};

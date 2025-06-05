@@ -156,9 +156,9 @@ import { IAnalytics } from '../api/analytics';
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={analytics.favorites}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="itemId" />
+              <XAxis dataKey="title" />
               <YAxis />
-              <Tooltip />
+              <Tooltip formatter={(val:number, _name:string, entry:any)=>[val, entry.payload.itemId]} />
               <Bar dataKey="count" fill="#82ca9d" />
             </BarChart>
           </ResponsiveContainer>

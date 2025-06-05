@@ -100,7 +100,7 @@ export interface AnalyticsSummary {
     avgDurationManager: number;
     byHour: { hour: string; avg: number }[];
   };
-  favorites: { itemId: string; count: number }[];
+  favorites: { itemId: string; title: string; count: number }[];
   sites: { site: string; count: number }[];
 }
 
@@ -123,6 +123,18 @@ export function computeAnalytics(): AnalyticsSummary {
   try {
     modules = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../data/modules.json'), 'utf8'));
   } catch {}
+
+  const userRoles: Record<string,string> = {};
+  users.forEach(u => { userRoles[u.id] = u.role; });
+
+  const itemTitles: Record<string,string> = {};
+  const collectTitles = (items: any[]) => {
+    items.forEach(it => {
+      itemTitles[it.id] = it.title || it.name || it.id;
+      if (Array.isArray(it.children)) collectTitles(it.children);
+    });
+  };
+  modules.forEach(m => collectTitles(m.items || []));
 
   const now = new Date();
   const monthLabel = now.toISOString().slice(0,7); // YYYY-MM
@@ -169,11 +181,12 @@ export function computeAnalytics(): AnalyticsSummary {
   const favMap: Record<string, Set<string>> = {};
   const favArr = Array.isArray(file.favorites) ? file.favorites : [];
   favArr.forEach(f => {
+    if (userRoles[f.userId] !== 'caf') return;
     if (!favMap[f.itemId]) favMap[f.itemId] = new Set();
     favMap[f.itemId].add(f.userId);
   });
   const favorites = Object.entries(favMap)
-    .map(([itemId, set]) => ({ itemId, count: set.size }))
+    .map(([itemId, set]) => ({ itemId, title: itemTitles[itemId] || itemId, count: set.size }))
     .sort((a,b)=>b.count-a.count)
     .slice(0,5);
 

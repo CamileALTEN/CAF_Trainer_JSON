@@ -18,7 +18,7 @@ export interface IAnalytics {
     avgDurationManager: number;
     byHour: { hour: string; avg: number }[];
   };
-  favorites: { itemId: string; count: number }[];
+  favorites: { itemId: string; title: string; count: number }[];
   sites: { site: string; count: number }[];
 }
 
