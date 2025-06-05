@@ -9,7 +9,7 @@ const path_1 = __importDefault(require("path"));
 const DATA_FILE = path_1.default.resolve(__dirname, '../data/analytics.json');
 function load() {
     if (!fs_1.default.existsSync(DATA_FILE)) {
-        fs_1.default.writeFileSync(DATA_FILE, JSON.stringify({ sessions: [], favorites: [] }, null, 2), 'utf8');
+        fs_1.default.writeFileSync(DATA_FILE, JSON.stringify({ sessions: [], favorites: [], averages: {} }, null, 2), 'utf8');
     }
     const raw = fs_1.default.readFileSync(DATA_FILE, 'utf8');
     try {
@@ -23,13 +23,14 @@ function load() {
         }
         const sessions = Array.isArray(parsed.sessions) ? parsed.sessions : [];
         const favorites = Array.isArray(parsed.favorites) ? parsed.favorites : [];
-        if (sessions !== parsed.sessions || favorites !== parsed.favorites) {
-            save({ sessions, favorites });
+        const averages = typeof parsed.averages === 'object' && parsed.averages !== null ? parsed.averages : {};
+        if (sessions !== parsed.sessions || favorites !== parsed.favorites || averages !== parsed.averages) {
+            save({ sessions, favorites, averages });
         }
-        return { sessions, favorites };
+        return { sessions, favorites, averages };
     }
     catch {
-        return { sessions: [], favorites: [] };
+        return { sessions: [], favorites: [], averages: {} };
     }
 }
 function save(data) {
@@ -59,6 +60,11 @@ async function endSession(userId) {
         const s = data.sessions[i];
         if (s.userId === userId && !s.logout) {
             s.logout = logout;
+            const duration = Math.ceil((new Date(logout).getTime() - new Date(s.login).getTime()) / 60000);
+            const stats = data.averages?.[userId] || { avg: 0, count: 0 };
+            const newAvg = (stats.avg * stats.count + duration) / (stats.count + 1);
+            data.averages = data.averages || {};
+            data.averages[userId] = { avg: newAvg, prevAvg: stats.avg, count: stats.count + 1 };
             break;
         }
     }

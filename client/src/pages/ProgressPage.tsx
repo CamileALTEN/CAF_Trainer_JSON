@@ -20,6 +20,7 @@ export default function ProgressPage() {
   const [loading, setLoading] = useState(true);
   const [downQuery, setDownQuery] = useState('');
   const [upQuery, setUpQuery] = useState('');
+  const [averages, setAverages] = useState<Record<string, { avg: number; prevAvg?: number }>>({});
 
   useEffect(() => {
     setDownQuery('');
@@ -31,10 +32,12 @@ export default function ProgressPage() {
       fetch(`/api/users?managerId=${user!.id}`).then(r => r.json()),
       fetch(`/api/progress?managerId=${user!.id}`).then(r => r.json()),
       getModules(),
-    ]).then(([u, p, m]) => {
+      fetch('/api/analytics/averages').then(r => r.json()),
+    ]).then(([u, p, m, a]) => {
       setCaf(u);
       setProg(p);
       setMods(m);
+      setAverages(a);
     }).finally(() => setLoading(false));
   }, [user]);
 
@@ -163,12 +166,16 @@ export default function ProgressPage() {
         const started = getStarted(c.username);
         const needVal = getNeedValidation(c.username);
         const visited = getVisitedCount(c.username);
+        const avg = averages[c.id]?.avg ?? 0;
+        const prev = averages[c.id]?.prevAvg ?? avg;
+        const trend = prev ? ((avg - prev) / prev) * 100 : 0;
         const isOpen = open === c.id;
         const supervising = superUser === c.id;
         return (
           <div key={c.id} className="name_box">
                 <div className="row">
         <span className="user">{c.username}</span>
+        <span className="kpi">{Math.round(avg)} min {trend >= 0 ? '▲' : '▼'}{Math.round(Math.abs(trend))}%</span>
         <div className="progress-container">
           <ProgressBar
             current={visited}
