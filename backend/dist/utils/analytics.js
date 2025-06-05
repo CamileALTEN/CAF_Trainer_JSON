@@ -13,7 +13,20 @@ function load() {
     }
     const raw = fs_1.default.readFileSync(DATA_FILE, 'utf8');
     try {
-        return JSON.parse(raw);
+        const parsed = JSON.parse(raw);
+        // handle legacy format or missing fields
+        if (Array.isArray(parsed.events)) {
+            parsed.sessions = [];
+            parsed.favorites = [];
+            delete parsed.events;
+            save(parsed);
+        }
+        const sessions = Array.isArray(parsed.sessions) ? parsed.sessions : [];
+        const favorites = Array.isArray(parsed.favorites) ? parsed.favorites : [];
+        if (sessions !== parsed.sessions || favorites !== parsed.favorites) {
+            save({ sessions, favorites });
+        }
+        return { sessions, favorites };
     }
     catch {
         return { sessions: [], favorites: [] };
@@ -94,7 +107,8 @@ function computeAnalytics() {
         const label = `${h.toString().padStart(2, '0')}:00`;
         hourBuckets[label] = [];
     }
-    file.sessions.forEach((s) => {
+    const sessionsArr = Array.isArray(file.sessions) ? file.sessions : [];
+    sessionsArr.forEach((s) => {
         const login = parseDate(s.login);
         const logout = s.logout ? parseDate(s.logout) : null;
         const startOfDay = new Date(now);
@@ -126,7 +140,8 @@ function computeAnalytics() {
     const avg = (list) => (list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0);
     const byHour = Object.entries(hourBuckets).map(([hour, list]) => ({ hour, avg: avg(list) }));
     const favMap = {};
-    file.favorites.forEach(f => {
+    const favArr = Array.isArray(file.favorites) ? file.favorites : [];
+    favArr.forEach(f => {
         if (!favMap[f.itemId])
             favMap[f.itemId] = new Set();
         favMap[f.itemId].add(f.userId);

@@ -7,11 +7,31 @@ const DATA_FILE = path.resolve(__dirname, '../data/analytics.json');
 
 function load(): IAnalytics {
   if (!fs.existsSync(DATA_FILE)) {
-    fs.writeFileSync(DATA_FILE, JSON.stringify({ sessions: [], favorites: [] }, null, 2), 'utf8');
+    fs.writeFileSync(
+      DATA_FILE,
+      JSON.stringify({ sessions: [], favorites: [] }, null, 2),
+      'utf8',
+    );
   }
+
   const raw = fs.readFileSync(DATA_FILE, 'utf8');
   try {
-    return JSON.parse(raw) as IAnalytics;
+    const parsed = JSON.parse(raw);
+
+    // handle legacy format or missing fields
+    if (Array.isArray(parsed.events)) {
+      parsed.sessions = [];
+      parsed.favorites = [];
+      delete parsed.events;
+      save(parsed);
+    }
+
+    const sessions = Array.isArray(parsed.sessions) ? parsed.sessions : [];
+    const favorites = Array.isArray(parsed.favorites) ? parsed.favorites : [];
+    if (sessions !== parsed.sessions || favorites !== parsed.favorites) {
+      save({ sessions, favorites });
+    }
+    return { sessions, favorites };
   } catch {
     return { sessions: [], favorites: [] };
   }
@@ -119,7 +139,8 @@ export function computeAnalytics(): AnalyticsSummary {
     hourBuckets[label] = [];
   }
 
-  file.sessions.forEach((s) => {
+  const sessionsArr = Array.isArray(file.sessions) ? file.sessions : [];
+  sessionsArr.forEach((s) => {
     const login = parseDate(s.login);
     const logout = s.logout ? parseDate(s.logout) : null;
 
@@ -146,7 +167,8 @@ export function computeAnalytics(): AnalyticsSummary {
   const byHour = Object.entries(hourBuckets).map(([hour,list])=>({hour, avg: avg(list)}));
 
   const favMap: Record<string, Set<string>> = {};
-  file.favorites.forEach(f => {
+  const favArr = Array.isArray(file.favorites) ? file.favorites : [];
+  favArr.forEach(f => {
     if (!favMap[f.itemId]) favMap[f.itemId] = new Set();
     favMap[f.itemId].add(f.userId);
   });
