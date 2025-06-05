@@ -151,13 +151,19 @@ function computeAnalytics() {
     const avg = (list) => (list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0);
     const byHour = Object.entries(hourBuckets).map(([hour, list]) => ({ hour, avg: avg(list) }));
     const favMap = {};
-    const favArr = Array.isArray(file.favorites) ? file.favorites : [];
-    favArr.forEach(f => {
+    let favLists = [];
+    try {
+        favLists = JSON.parse(fs_1.default.readFileSync(path_1.default.resolve(__dirname, '../data/favorites.json'), 'utf8'));
+    }
+    catch { }
+    favLists.forEach(f => {
         if (userRoles[f.userId] !== 'caf')
             return;
-        if (!favMap[f.itemId])
-            favMap[f.itemId] = new Set();
-        favMap[f.itemId].add(f.userId);
+        (f.items || []).forEach((id) => {
+            if (!favMap[id])
+                favMap[id] = new Set();
+            favMap[id].add(f.userId);
+        });
     });
     const favorites = Object.entries(favMap)
         .map(([itemId, set]) => ({ itemId, title: itemTitles[itemId] || itemId, count: set.size }))

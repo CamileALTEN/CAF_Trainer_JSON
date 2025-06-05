@@ -179,11 +179,18 @@ export function computeAnalytics(): AnalyticsSummary {
   const byHour = Object.entries(hourBuckets).map(([hour,list])=>({hour, avg: avg(list)}));
 
   const favMap: Record<string, Set<string>> = {};
-  const favArr = Array.isArray(file.favorites) ? file.favorites : [];
-  favArr.forEach(f => {
+  let favLists: any[] = [];
+  try {
+    favLists = JSON.parse(
+      fs.readFileSync(path.resolve(__dirname, '../data/favorites.json'), 'utf8'),
+    );
+  } catch {}
+  favLists.forEach(f => {
     if (userRoles[f.userId] !== 'caf') return;
-    if (!favMap[f.itemId]) favMap[f.itemId] = new Set();
-    favMap[f.itemId].add(f.userId);
+    (f.items || []).forEach((id: string) => {
+      if (!favMap[id]) favMap[id] = new Set<string>();
+      favMap[id].add(f.userId);
+    });
   });
   const favorites = Object.entries(favMap)
     .map(([itemId, set]) => ({ itemId, title: itemTitles[itemId] || itemId, count: set.size }))

@@ -17,6 +17,7 @@ import ticketsRouter from './routes/tickets';
 import checklistRouter from './routes/checklist';
 import imagesRouter from './routes/images';
 import analyticsRouter from './routes/analytics';
+import favoritesRouter from './routes/favorites';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -36,6 +37,7 @@ app.use('/api/progress', progressRouter);
 app.use('/api/tickets', ticketsRouter);
 app.use('/api/checklist-url', checklistRouter);
 app.use('/api/images', imagesRouter);
+app.use('/api/favorites', favoritesRouter);
 app.use('/api/analytics', analyticsRouter);
 
 app.get('/', (_req, res) => {

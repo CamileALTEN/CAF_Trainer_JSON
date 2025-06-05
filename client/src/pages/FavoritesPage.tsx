@@ -4,26 +4,27 @@
    import { useNavigate }   from 'react-router-dom';
    import styled            from 'styled-components';
    import { useAuth }       from '../context/AuthContext';
-   import { getModules, IItem, IModule } from '../api/modules';
-   import { flatten }       from '../utils/items';
+import { getModules, IItem, IModule } from '../api/modules';
+import { flatten }       from '../utils/items';
+import { getFavorites, removeFavorite } from '../api/favorites';
 
 
    export default function FavoritesPage() {
      const { user } = useAuth();
-     const navigate = useNavigate();
-     const favKey   = `favs_${user?.username}`;
+    const navigate = useNavigate();
 
-     const [mods, setMods]   = useState<IModule[]>([]);
-     const [favs, setFavs]   = useState<string[]>(() =>
-       JSON.parse(localStorage.getItem(favKey) ?? '[]'),
-     );
-     const [loading, setLoading] = useState(true);
+    const [mods, setMods]   = useState<IModule[]>([]);
+    const [favs, setFavs]   = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
 
-     useEffect(() => {
-       getModules()
-         .then(setMods)
-         .finally(() => setLoading(false));
-     }, []);
+    useEffect(() => {
+      if (user) {
+        getFavorites(user.id).then(setFavs).catch(() => setFavs([]));
+      }
+      getModules()
+        .then(setMods)
+        .finally(() => setLoading(false));
+    }, [user]);
 
      if (loading) return <Wrapper><p>Chargement…</p></Wrapper>;
 
@@ -49,18 +50,28 @@
              <section key={module.id} className="fav-module">
                <h2>{module.title}</h2>
                <ul>
-                 {items.map((it) => (
-                   <li key={it.id}>
-                     <span>{it.title}</span>
-                     <button
-                       onClick={() =>
-                         navigate(`/modules/${module.id}`, { state: { itemId: it.id } })
-                       }
-                     >
-                       Ouvrir
-                     </button>
-                   </li>
-                 ))}
+                {items.map((it) => (
+                  <li key={it.id}>
+                    <span>{it.title}</span>
+                    <button
+                      onClick={() =>
+                        navigate(`/modules/${module.id}`, { state: { itemId: it.id } })
+                      }
+                    >
+                      Ouvrir
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (!user) return;
+                        removeFavorite(user.id, it.id).then(() =>
+                          setFavs((prev) => prev.filter((x) => x !== it.id)),
+                        );
+                      }}
+                    >
+                      Retirer
+                    </button>
+                  </li>
+                ))}
                </ul>
              </section>
            ))
