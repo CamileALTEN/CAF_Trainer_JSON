@@ -683,8 +683,29 @@
             "enabled": true,
             "needValidation": false,
             "quiz": {
-              "enabled": false,
-              "questions": []
+              "enabled": true,
+              "questions": [
+                {
+                  "question": "oui",
+                  "options": [
+                    "o",
+                    "n"
+                  ],
+                  "correct": [
+                    0
+                  ]
+                },
+                {
+                  "question": "n",
+                  "options": [
+                    "n",
+                    "o"
+                  ],
+                  "correct": [
+                    0
+                  ]
+                }
+              ]
             },
             "children": []
           },
@@ -734,7 +755,7 @@
   {
     "id": "1746553317746",
     "title": "Métier CAF",
-    "summary": "<h1>Ce module vise à introduire toutes les notions nécessaires à la réalisation d'une affaire Jigs &amp; Tools :</h1><p>- Sur le métier de CAF ;</p><p>- Sur le Process ;</p><p>- Sur les outils Airbus ;</p><p>- Un entraînement avec la réalisation d'une affaire type.</p>",
+    "summary": "<p><strong>Ce module vise à introduire toutes les notions nécessaires à la réalisation d'une affaire Jigs &amp; Tools :</strong></p><p>- Sur le métier de CAF ;</p><p>- Sur le Process ;</p><p>- Sur les outils Airbus ;</p><p>- Un entraînement avec la réalisation d'une affaire type.</p>",
     "enabled": true,
     "items": [
       {
