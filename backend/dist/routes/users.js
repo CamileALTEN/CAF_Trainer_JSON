@@ -74,7 +74,22 @@ router.patch('/:id', (req, res) => {
         if (list.some(u => u.username === data.username && u.id !== req.params.id))
             return res.status(409).json({ error: 'Nom déjà pris' });
     }
-    const updated = { ...list[idx], ...data };
+    let updated = { ...list[idx], ...data };
+    // enlever les champs incompatibles lors d'un changement de rôle
+    if (data.role && data.role !== list[idx].role) {
+        if (data.role === 'manager') {
+            updated.managerIds = undefined;
+            updated.site = undefined;
+        }
+        else if (data.role === 'caf') {
+            updated.sites = undefined;
+        }
+        else {
+            updated.managerIds = undefined;
+            updated.site = undefined;
+            updated.sites = undefined;
+        }
+    }
     if (updated.role === 'manager' && updated.managerIds?.length)
         return res.status(400).json({ error: 'Un manager ne peut avoir de managerIds' });
     if (updated.role === 'caf' && (!updated.managerIds || updated.managerIds.length === 0))
