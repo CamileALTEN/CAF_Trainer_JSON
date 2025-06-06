@@ -81,6 +81,15 @@ router.patch('/:id', (req, res) => {
         return res.status(400).json({ error: 'managerIds requis pour un CAF' });
     if (updated.role === 'manager' && (!updated.sites || updated.sites.length === 0))
         return res.status(400).json({ error: 'sites requis pour un manager' });
+    // si le nom d'utilisateur change, mettre à jour la progression associée
+    if (data.username && data.username !== list[idx].username) {
+        const prog = (0, dataStore_1.read)('progress');
+        prog.forEach(p => {
+            if (p.username === list[idx].username)
+                p.username = data.username;
+        });
+        (0, dataStore_1.write)('progress', prog);
+    }
     Object.assign(list[idx], updated);
     (0, dataStore_1.write)(TABLE, list);
     const { password, ...clean } = list[idx];
