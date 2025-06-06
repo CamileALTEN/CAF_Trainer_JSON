@@ -154,8 +154,8 @@ function computeAnalytics() {
             hourBuckets[label].push(1);
         }
     });
-    const avg = (list) => (list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0);
-    const byHour = Object.entries(hourBuckets).map(([hour, list]) => ({ hour, avg: avg(list) }));
+    const avg = (list) => list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0;
+    const byHour = Object.entries(hourBuckets).map(([hour, list]) => ({ hour, avg: list.length }));
     const favMap = {};
     let favLists = [];
     try {

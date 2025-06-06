@@ -166,7 +166,11 @@ import { IAnalytics } from '../api/analytics';
             <LineChart data={analytics.sessions.byHour}>
               <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
               <XAxis dataKey="hour" />
-              <YAxis />
+              {(() => {
+                const max = Math.max(...analytics.sessions.byHour.map(h => h.avg), 0);
+                const ticks = Array.from({ length: Math.ceil(max) + 1 }, (_, i) => i);
+                return <YAxis ticks={ticks} domain={[0, Math.ceil(max)]} allowDecimals={false} />;
+              })()}
               <Tooltip />
               <Line type="monotone" dataKey="avg" stroke="#8884d8" />
             </LineChart>
