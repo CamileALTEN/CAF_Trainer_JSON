@@ -734,7 +734,7 @@
   {
     "id": "1746553317746",
     "title": "Métier CAF",
-    "summary": "<p>Ce module vise à introduire toutes les notions nécessaires à la réalisation d'une affaire Jigs &amp; Tools :</p><p>- Sur le métier de CAF ;</p><p>- Sur le Process ;</p><p>- Sur les outils Airbus ;</p><p>- Un entraînement avec la réalisation d'une affaire type.</p>",
+    "summary": "<h1>Ce module vise à introduire toutes les notions nécessaires à la réalisation d'une affaire Jigs &amp; Tools :</h1><p>- Sur le métier de CAF ;</p><p>- Sur le Process ;</p><p>- Sur les outils Airbus ;</p><p>- Un entraînement avec la réalisation d'une affaire type.</p>",
     "enabled": true,
     "items": [
       {
@@ -896,7 +896,7 @@
       },
       {
         "id": "601f4248-2455-4b43-ac3a-d7d858699478",
-        "title": "Process Jigs & Tools",
+        "title": "Process",
         "subtitle": "",
         "content": "<p><em>#Faire une introduction#</em></p>",
         "links": [],
@@ -917,7 +917,7 @@
             "id": "3a303ff7-5543-470f-8f04-6881d45951e1",
             "title": "Le process Jigs & Tools",
             "subtitle": "",
-            "content": "<h1>Le process Airbus Atlantic</h1><p><br></p><p>Afin de valider les exigences et contraintes qualités Airbus et de garantir le succès des affaires Jigs &amp; Tools, il est indispensable de respecter le process et tous ses jalons. En effet, le CAF est responsable de TOUS les jalons dans SAP même ceux sur lesquels il n'est pas acteur.</p><p><br></p><p>Dans les présentations ci-dessous du process tu vas retrouver :</p><ul><li><strong>Le process macro</strong> et les jalons avec leur définition ;</li><li><strong>Chaque jalon expliqués</strong> avec les points de vigilances à avoir.</li></ul><p><br></p><p>Process du site de :</p><ul><li><a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/19YIyNy1d0sMZOUusvEZ1P2wvpeQVURBnyO8GMm5To-M/present?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Nantes</a></li><li><a href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1c6wh4bo3nIDbtkrufLtSTSM6ZqtnLAsNdty0nrlyhzs/present?usp=sharing\" rel=\"noopener noreferrer\" target=\"_blank\">Montoir</a></li></ul>",
+            "content": "<h1>Le process Airbus Atlantic</h1><p></p><p>Afin de valider les exigences et contraintes qualités Airbus et de garantir le succès des affaires Jigs &amp; Tools, il est indispensable de respecter le process et tous ses jalons. En effet, le CAF est responsable de TOUS les jalons dans SAP même ceux sur lesquels il n'est pas acteur.</p><p></p><p>Dans les présentations ci-dessous du process tu vas retrouver :</p><ul><li><p><strong>Le process macro</strong> et les jalons avec leur définition ;</p></li><li><p><strong>Chaque jalon expliqués</strong> avec les points de vigilances à avoir.</p></li></ul><p></p><p>Process du site de :</p><ul><li><p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/19YIyNy1d0sMZOUusvEZ1P2wvpeQVURBnyO8GMm5To-M/present?usp=sharing\">Nantes</a></p></li><li><p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1c6wh4bo3nIDbtkrufLtSTSM6ZqtnLAsNdty0nrlyhzs/present?usp=sharing\">Montoir</a></p></li></ul>",
             "links": [],
             "images": [
               {
@@ -935,7 +935,16 @@
             "needValidation": false,
             "quiz": {
               "enabled": false,
-              "questions": []
+              "questions": [
+                {
+                  "question": "",
+                  "options": [
+                    "",
+                    ""
+                  ],
+                  "correct": []
+                }
+              ]
             },
             "children": [
               {
@@ -1455,9 +1464,9 @@
       },
       {
         "id": "446d07af-006c-4b9d-adda-56562b1bd60d",
-        "title": "Affaire Type - Partie 1",
+        "title": "Affaire Type",
         "subtitle": "",
-        "content": "<p><br></p>",
+        "content": "<h1>Présentation de l'exercice</h1><p></p><p>Tu vas maintenant réaliser ta première affaire en tant qua CAF Jigs &amp; Tools. Pour cela tu vas avoir à ta disposition une <strong>affaire type</strong> / simple pour que tu te familiarises avec le <strong>process </strong>et que tu réalises et comprennes les <strong>livrables </strong>attendus.</p><p></p><p>Conseil : Pour faciliter la réalisation de cette exercice, tu peux ouvrir le <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/19YIyNy1d0sMZOUusvEZ1P2wvpeQVURBnyO8GMm5To-M/present?slide=id.g3554adfc16c_0_0\">process de NT</a> ainsi que l'<a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://drive.google.com.rproxy.goskope.com/file/d/1ZstafNBOHCJxmrp0HeIX4QwqvXsFIHda/view?usp=sharing\">UG (User Guide)</a>.</p><p></p><h1>Contexte</h1><p></p><p>Tu es CAF sur le site Airbus Nantes et une affaire arrive sur ton bureau. Lorsque tu es contacté le process a déjà commencé. Le besoin a été émis et le cahier des charges a commencé à être rédigé par le préparateur. Nous sommes donc dans la partie <span style=\"color: rgb(255, 0, 0)\"><strong>Spécification Technique</strong></span> au jalon <span style=\"color: rgb(255, 0, 0)\"><strong>ACAF</strong></span> (Analyse du Chargé d'AFfaires).</p><p></p><p>Travail effectué en amont par le demandeur et le préparateur :</p><h2><span style=\"color: #4da3fe\">1. Étude de faisabilité</span></h2><ul><li><p><span style=\"color: #4da3f5\"><strong>TECH</strong></span></p></li></ul><p></p><ul><li><p><span style=\"color: #4da3fe\"><strong>JTDR</strong></span></p></li></ul><p></p><ul><li><p><span style=\"color: #4da3fe\"><strong>ACDG</strong></span></p></li></ul><p></p><h2><span style=\"color: #ff0000\">2. Spécification Technique </span></h2><ul><li><p><span style=\"color: #ff0000\"><strong>UP1</strong></span></p></li></ul><p></p><ul><li><p><span style=\"color: #ff0000\"><strong>CAO</strong></span></p></li></ul><p></p><ul><li><p><span style=\"color: #ff0000\"><strong>RSTB</strong></span></p></li></ul><p></p><p></p><p></p><p><br></p>",
         "links": [],
         "images": [],
         "videos": [],
@@ -1470,45 +1479,103 @@
           "enabled": false,
           "questions": []
         },
-        "children": []
-      },
-      {
-        "id": "bd15fe24-7983-42d9-8dcd-fe358cb2564b",
-        "title": "Affaire Type - Partie 2",
-        "subtitle": "",
-        "content": "",
-        "links": [],
-        "images": [],
-        "videos": [],
-        "profiles": [
-          "Nantes"
-        ],
-        "enabled": true,
-        "needValidation": false,
-        "quiz": {
-          "enabled": false,
-          "questions": []
-        },
-        "children": []
-      },
-      {
-        "id": "3ef7fe9f-beca-48e9-a36b-50e1fd625e70",
-        "title": "Affaire Type - Partie 3",
-        "subtitle": "",
-        "content": "<p><span style=\"color: rgb(255, 194, 102);\"><span class=\"ql-cursor\">﻿</span></span></p>",
-        "links": [],
-        "images": [],
-        "videos": [],
-        "profiles": [
-          "Nantes"
-        ],
-        "enabled": true,
-        "needValidation": false,
-        "quiz": {
-          "enabled": false,
-          "questions": []
-        },
-        "children": []
+        "children": [
+          {
+            "id": "77ea1067-85a1-4041-b589-cc63cf932d9d",
+            "title": "Spécification Technique",
+            "subtitle": "",
+            "content": "<h1><span style=\"color: #ff0000\">ACAF</span></h1><p></p><h1><span style=\"color: #ff0000\">RCDC</span></h1><p></p>",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "needValidation": false,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "459b6d61-6288-456b-9080-b90ff91903cf",
+            "title": "Support pour processus AO",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "needValidation": false,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "62740905-b74b-4ee6-8697-686bf42e0834",
+            "title": "Gestion conception J&T",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "needValidation": false,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "cf22ec65-85cd-4a9b-adb8-8b70946f55b0",
+            "title": "Gestion fabrication et réception J&T",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "needValidation": false,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          },
+          {
+            "id": "ce00c818-89f6-4aa8-9e58-8c75ea6b3882",
+            "title": "Clôture du projet",
+            "subtitle": "",
+            "content": "",
+            "links": [],
+            "images": [],
+            "videos": [],
+            "profiles": [
+              "Nantes"
+            ],
+            "enabled": true,
+            "needValidation": false,
+            "quiz": {
+              "enabled": false,
+              "questions": []
+            },
+            "children": []
+          }
+        ]
       }
     ]
   },
