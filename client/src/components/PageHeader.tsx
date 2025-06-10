@@ -43,7 +43,7 @@ export default function PageHeader() {
       <div className="header-left" onClick={goHome}>
         
         <img
-          src="/images/caf-trainer.png"
+          src="/images/caf-trainer2.png"
           alt="CAF Trainer"
           className="header-logo"
         />
