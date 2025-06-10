@@ -24,4 +24,13 @@ router.post('/', (req, res) => {
     (0, dataStore_1.write)(TABLE, list);
     res.json({ ok: true });
 });
+router.delete('/', (req, res) => {
+    const { username, moduleId, itemId } = req.body;
+    if (!username || !moduleId || !itemId) {
+        return res.status(400).json({ error: 'Données manquantes' });
+    }
+    const list = (0, dataStore_1.read)(TABLE).filter(r => !(r.username === username && r.moduleId === moduleId && r.itemId === itemId));
+    (0, dataStore_1.write)(TABLE, list);
+    res.json({ ok: true });
+});
 exports.default = router;

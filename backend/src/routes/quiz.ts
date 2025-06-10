@@ -24,4 +24,16 @@ router.post('/', (req, res) => {
   res.json({ ok: true });
 });
 
+router.delete('/', (req, res) => {
+  const { username, moduleId, itemId } = req.body as Partial<IQuizResult>;
+  if (!username || !moduleId || !itemId) {
+    return res.status(400).json({ error: 'Données manquantes' });
+  }
+  const list = read<IQuizResult>(TABLE).filter(r =>
+    !(r.username === username && r.moduleId === moduleId && r.itemId === itemId)
+  );
+  write(TABLE, list);
+  res.json({ ok: true });
+});
+
 export default router;
