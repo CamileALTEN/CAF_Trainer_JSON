@@ -5,25 +5,26 @@ import './Quiz.css';
 
 interface Props {
   quiz: IQuiz;
-  onSuccess: () => void;
+  onSuccess: (answers: number[][]) => void;
   passed: boolean;
   moduleId: string;
   itemId: string;
   username?: string;
+  initialAnswers?: number[][];
 }
 
-export default function Quiz({ quiz, onSuccess, passed, moduleId, itemId, username }: Props) {
+export default function Quiz({ quiz, onSuccess, passed, moduleId, itemId, username, initialAnswers }: Props) {
   const [answers, setAnswers] = useState<number[][]>(
-    quiz.questions.map(() => [])
+    initialAnswers ?? quiz.questions.map(() => [])
   );
   const [result, setResult] = useState<'ok' | 'fail' | null>(null);
   const [showCorr, setShowCorr] = useState(false);
 
   useEffect(() => {
-    setAnswers(quiz.questions.map(() => []));
-    setShowCorr(false);
-    setResult(null);
-  }, [quiz]);
+    setAnswers(initialAnswers ?? quiz.questions.map(() => []));
+    setShowCorr(passed);
+    setResult(passed ? 'ok' : null);
+  }, [quiz, initialAnswers, passed]);
 
   const toggle = (qi: number, opt: number, checked: boolean) => {
     setAnswers(prev => {
@@ -48,12 +49,14 @@ export default function Quiz({ quiz, onSuccess, passed, moduleId, itemId, userna
     } catch {
       /* ignore */
     }
-    setShowCorr(true);
     if (score >= 80) {
+      setShowCorr(true);
       setResult('ok');
-      onSuccess();
+      onSuccess(answers);
     } else {
-      setResult('fail');
+      setAnswers(quiz.questions.map(() => []));
+      setShowCorr(false);
+      setResult(null);
     }
   };
 
@@ -94,12 +97,6 @@ export default function Quiz({ quiz, onSuccess, passed, moduleId, itemId, userna
         </div>
       ))}
       {result === 'ok' && <p className="quiz-result success">Bravo ! Quiz réussi.</p>}
-      {result === 'fail' && (
-        <div className="quiz-popup">
-          <p>Quiz échoué… réessayez !</p>
-          <button onClick={() => setResult(null)}>Fermer</button>
-        </div>
-      )}
       {!passed && (
         <button className="quiz-submit" onClick={submit}>
           Valider le quiz
