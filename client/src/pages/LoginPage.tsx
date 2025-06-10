@@ -38,6 +38,11 @@ export default function LoginPage() {
   return (
     <div className="login-container">
       <form className="login-card" onSubmit={submit}>
+        <img
+          src="/images/caf-trainer.png"
+          alt="CAF Trainer"
+          className="login-logo"
+        />
         <h2 className="login-title">CAF‑Trainer</h2>
 
         <div className="login-field">

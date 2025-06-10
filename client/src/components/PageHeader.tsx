@@ -46,6 +46,11 @@ export default function PageHeader() {
           alt="Alten"
           className="header-logo"
         />
+        <img
+          src="/images/caf-trainer.png"
+          alt="CAF Trainer"
+          className="header-logo"
+        />
         <span className="header-title">CAF‑Trainer</span>
       </div>
       
