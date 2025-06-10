@@ -280,6 +280,9 @@ export default function ModulePage() {
           quiz={item.quiz}
           quizPassed={quizPassed[item.id]}
           onQuizPassed={() => markQuizPassed(item.id)}
+          moduleId={moduleId!}
+          itemId={item.id}
+          username={username}
           needValidation={item.needValidation}
           status={status[item.id] ?? 'new'}
           onStatusChange={(s) => changeStatus(item.id, s)}

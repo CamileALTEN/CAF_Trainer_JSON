@@ -20,6 +20,7 @@ const checklist_1 = __importDefault(require("./routes/checklist"));
 const images_1 = __importDefault(require("./routes/images"));
 const analytics_1 = __importDefault(require("./routes/analytics"));
 const favorites_1 = __importDefault(require("./routes/favorites"));
+const quiz_1 = __importDefault(require("./routes/quiz"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
 const IMG_DIR = path_1.default.resolve(__dirname, '../image');
@@ -38,6 +39,7 @@ app.use('/api/checklist-url', checklist_1.default);
 app.use('/api/images', images_1.default);
 app.use('/api/favorites', favorites_1.default);
 app.use('/api/analytics', analytics_1.default);
+app.use('/api/quiz-results', quiz_1.default);
 app.get('/', (_req, res) => {
     res.send('🚀 Backend TS démarré !');
 });

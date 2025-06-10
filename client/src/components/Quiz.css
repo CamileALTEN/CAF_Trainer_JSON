@@ -7,6 +7,9 @@
 }
 .quiz-question { margin-bottom: 12px; }
 .quiz-option { display: block; margin: 4px 0; }
+.quiz-option.correct { color: green; }
+.quiz-option.wrong { color: red; }
+.quiz-correction { color: green; margin-left: 12px; font-style: italic; }
 .quiz-submit {
   background: #008bd2;
   color: #fff;
