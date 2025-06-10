@@ -104,6 +104,7 @@ export interface AnalyticsSummary {
     manager: number;
     avgDurationCaf: number;
     avgDurationManager: number;
+    // avg represents the number of connections for the hour slot
     byHour: { hour: string; avg: number }[];
   };
   favorites: { itemId: string; title: string; count: number }[];
@@ -180,9 +181,10 @@ export function computeAnalytics(): AnalyticsSummary {
     }
   });
 
-  const avg = (list: number[]) => (list.length ? list.reduce((a,b)=>a+b,0)/list.length : 0);
+  const avg = (list: number[]) =>
+    list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0;
 
-  const byHour = Object.entries(hourBuckets).map(([hour,list])=>({hour, avg: avg(list)}));
+  const byHour = Object.entries(hourBuckets).map(([hour,list])=>({hour, avg: list.length}));
 
   const favMap: Record<string, Set<string>> = {};
   let favLists: any[] = [];

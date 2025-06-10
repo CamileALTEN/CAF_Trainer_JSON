@@ -39,6 +39,8 @@ export default function ModulePage() {
   const { user }       = useAuth();
   const site           = user?.site;
   const username       = user?.username;
+  const quizKey        = username ? `quiz_${username}_${moduleId}` : `quiz_${moduleId}`;
+
 
   const navigate       = useNavigate();
 
@@ -96,7 +98,7 @@ export default function ModulePage() {
         setIt(filtered);
         setSel(filtered[0]?.id ?? '');
         setQuizPassed(
-          JSON.parse(localStorage.getItem(`quiz_${moduleId}`) ?? '{}'),
+          JSON.parse(localStorage.getItem(quizKey) ?? '{}'),
         );
         if (username) {
           fetch(`/api/progress/${username}`)

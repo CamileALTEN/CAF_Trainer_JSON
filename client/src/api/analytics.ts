@@ -16,6 +16,7 @@ export interface IAnalytics {
     manager: number;
     avgDurationCaf: number;
     avgDurationManager: number;
+    // avg represents the number of connections for the hour slot
     byHour: { hour: string; avg: number }[];
   };
   favorites: { itemId: string; title: string; count: number }[];

@@ -2,6 +2,7 @@ import { Router }     from 'express';
 import bcrypt          from 'bcrypt';
 import { read, write } from '../config/dataStore';
 import { IUser, Role } from '../models/IUser';
+import { IProgress } from '../models/IProgress';
 
 const router   = Router();
 const TABLE    = 'users';
@@ -79,13 +80,37 @@ if (data.username) {
     return res.status(409).json({ error: 'Nom déjà pris' });
 }
 
-const updated = { ...list[idx], ...data } as IUser;
-if (updated.role === 'manager' && updated.managerIds?.length)
+let updated = { ...list[idx], ...data } as IUser;
+
+  // enlever les champs incompatibles lors d'un changement de rôle
+  if (data.role && data.role !== list[idx].role) {
+    if (data.role === 'manager') {
+      updated.managerIds = undefined;
+      updated.site = undefined;
+    } else if (data.role === 'caf') {
+      updated.sites = undefined;
+    } else {
+      updated.managerIds = undefined;
+      updated.site = undefined;
+      updated.sites = undefined;
+    }
+  }
+
+  if (updated.role === 'manager' && updated.managerIds?.length)
     return res.status(400).json({ error: 'Un manager ne peut avoir de managerIds' });
-if (updated.role === 'caf' && (!updated.managerIds || updated.managerIds.length === 0))
+  if (updated.role === 'caf' && (!updated.managerIds || updated.managerIds.length === 0))
     return res.status(400).json({ error: 'managerIds requis pour un CAF' });
-if (updated.role === 'manager' && (!updated.sites || updated.sites.length === 0))
+  if (updated.role === 'manager' && (!updated.sites || updated.sites.length === 0))
     return res.status(400).json({ error: 'sites requis pour un manager' });
+
+  // si le nom d'utilisateur change, mettre à jour la progression associée
+  if (data.username && data.username !== list[idx].username) {
+    const prog = read<IProgress>('progress');
+    prog.forEach(p => {
+      if (p.username === list[idx].username) p.username = data.username as string;
+    });
+    write('progress', prog);
+  }
 
 Object.assign(list[idx], updated);
 write(TABLE, list);
