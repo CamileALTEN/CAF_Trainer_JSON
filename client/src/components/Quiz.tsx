@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IQuiz } from '../api/modules';
 import { saveQuizResult } from '../api/quiz';
 import './Quiz.css';
@@ -18,6 +18,12 @@ export default function Quiz({ quiz, onSuccess, passed, moduleId, itemId, userna
   );
   const [result, setResult] = useState<'ok' | 'fail' | null>(null);
   const [showCorr, setShowCorr] = useState(false);
+
+  useEffect(() => {
+    setAnswers(quiz.questions.map(() => []));
+    setShowCorr(false);
+    setResult(null);
+  }, [quiz]);
 
   const toggle = (qi: number, opt: number, checked: boolean) => {
     setAnswers(prev => {
