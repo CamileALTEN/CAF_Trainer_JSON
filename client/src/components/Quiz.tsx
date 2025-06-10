@@ -56,7 +56,7 @@ export default function Quiz({ quiz, onSuccess, passed, moduleId, itemId, userna
     } else {
       setAnswers(quiz.questions.map(() => []));
       setShowCorr(false);
-      setResult(null);
+      setResult('fail');
     }
   };
 
@@ -97,6 +97,12 @@ export default function Quiz({ quiz, onSuccess, passed, moduleId, itemId, userna
         </div>
       ))}
       {result === 'ok' && <p className="quiz-result success">Bravo ! Quiz réussi.</p>}
+      {result === 'fail' && (
+        <div className="quiz-popup">
+          <p>Quiz échoué… réessayez !</p>
+          <button onClick={() => setResult(null)}>Fermer</button>
+        </div>
+      )}
       {!passed && (
         <button className="quiz-submit" onClick={submit}>
           Valider le quiz
