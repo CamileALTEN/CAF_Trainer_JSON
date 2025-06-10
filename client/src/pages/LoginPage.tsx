@@ -43,7 +43,7 @@ export default function LoginPage() {
           alt="CAF Trainer"
           className="login-logo"
         />
-        <h2 className="login-title">CAF‑Trainer</h2>
+       
 
         <div className="login-field">
           <label>Utilisateur</label>

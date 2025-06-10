@@ -16,7 +16,7 @@
 }
 .header-left{display:flex;align-items:center;cursor:pointer}
 .header-title{font-size:1.5rem;font-weight:bold;user-select:none}
-.header-logo{height:32px;margin-right:12px;}
+.header-logo{height:52px;margin-right:12px;}
                .header-right{display:flex;align-items:center;gap:12px}
 .header-user{font-size:.95rem}
 .header-duration{font-size:.85rem; margin-left:4px;}
