@@ -17,6 +17,7 @@ import { getModule, IItem, IModule, IQuiz, IProgress } from '../api/modules';
 import { flatten }     from '../utils/items';
 import { useAuth }     from '../context/AuthContext';
 import axios          from 'axios';
+import { getQuizResults } from '../api/quiz';
 import { getFavorites, addFavorite, removeFavorite } from '../api/favorites';
 import './ModulePage.css';
 
@@ -132,6 +133,19 @@ export default function ModulePage() {
                 }
                 localStorage.setItem(quizKey, JSON.stringify(next));
                 return next;
+              });
+            })
+            .catch(console.error);
+          getQuizResults(username)
+            .then(rows => {
+              const map: Record<string, QuizPassData> = {};
+              rows
+                .filter(r => r.moduleId === moduleId && r.score >= 80)
+                .forEach(r => { map[r.itemId] = { answers: r.answers }; });
+              setQuizPassed(prev => {
+                const merged = { ...prev, ...map };
+                localStorage.setItem(quizKey, JSON.stringify(merged));
+                return merged;
               });
             })
             .catch(console.error);
