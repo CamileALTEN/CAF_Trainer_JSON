@@ -205,7 +205,7 @@ export function computeAnalytics(): AnalyticsSummary {
   const favorites = Object.entries(favMap)
     .map(([itemId, set]) => ({ itemId, title: itemTitles[itemId] || itemId, count: set.size }))
     .sort((a,b)=>b.count-a.count)
-    .slice(0,5);
+    .slice(0,10);
 
   const siteMap: Record<string, number> = {};
   users.forEach(u => {

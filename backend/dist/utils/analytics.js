@@ -176,7 +176,7 @@ function computeAnalytics() {
     const favorites = Object.entries(favMap)
         .map(([itemId, set]) => ({ itemId, title: itemTitles[itemId] || itemId, count: set.size }))
         .sort((a, b) => b.count - a.count)
-        .slice(0, 5);
+        .slice(0, 10);
     const siteMap = {};
     users.forEach(u => {
         const sites = u.role === 'manager' ? (u.sites || []) : [u.site];
