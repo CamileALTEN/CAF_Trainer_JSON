@@ -17,6 +17,7 @@ import { getModule, IItem, IModule, IQuiz, IProgress } from '../api/modules';
 import { flatten }     from '../utils/items';
 import { useAuth }     from '../context/AuthContext';
 import axios          from 'axios';
+import { getQuizResults } from '../api/quiz';
 import { getFavorites, addFavorite, removeFavorite } from '../api/favorites';
 import './ModulePage.css';
 
@@ -51,7 +52,8 @@ export default function ModulePage() {
   const [status, setStatus] = useState<Record<string, ItemStatus>>({});
   const [busy,     setBusy] = useState(true);
   const [open,     setOpen] = useState(false);
-  const [quizPassed, setQuizPassed] = useState<Record<string, boolean>>({});
+  interface QuizPassData { answers: number[][]; }
+  const [quizPassed, setQuizPassed] = useState<Record<string, QuizPassData>>({});
 
   /* ---------------- favoris ---------------- */
   const [favs, setFavs] = useState<string[]>([]);
@@ -97,9 +99,16 @@ export default function ModulePage() {
         setMod({ ...m, items: filtered });
         setIt(filtered);
         setSel(filtered[0]?.id ?? '');
-        setQuizPassed(
-          JSON.parse(localStorage.getItem(quizKey) ?? '{}'),
-        );
+        {
+          const raw = JSON.parse(localStorage.getItem(quizKey) ?? '{}');
+          const norm: Record<string, QuizPassData> = {};
+          for (const [k, v] of Object.entries(raw)) {
+            if (v && typeof v === 'object' && Array.isArray((v as any).answers)) {
+              norm[k] = { answers: (v as any).answers };
+            }
+          }
+          setQuizPassed(norm);
+        }
         if (username) {
           fetch(`/api/progress/${username}`)
             .then((r) => r.json())
@@ -117,6 +126,27 @@ export default function ModulePage() {
                 st[id] = 'done';
               });
               setStatus(st);
+              setQuizPassed(prev => {
+                const next: Record<string, QuizPassData> = {};
+                for (const [k, v] of Object.entries(prev)) {
+                  if (row.visited.includes(k)) next[k] = v;
+                }
+                localStorage.setItem(quizKey, JSON.stringify(next));
+                return next;
+              });
+            })
+            .catch(console.error);
+          getQuizResults(username)
+            .then(rows => {
+              const map: Record<string, QuizPassData> = {};
+              rows
+                .filter(r => r.moduleId === moduleId && r.score >= 80)
+                .forEach(r => { map[r.itemId] = { answers: r.answers }; });
+              setQuizPassed(prev => {
+                const merged = { ...prev, ...map };
+                localStorage.setItem(quizKey, JSON.stringify(merged));
+                return merged;
+              });
             })
             .catch(console.error);
         } else {
@@ -176,9 +206,9 @@ export default function ModulePage() {
       return next;
     });
 
-  const markQuizPassed = (id: string) => {
+  const markQuizPassed = (id: string, answers: number[][]) => {
     setQuizPassed(prev => {
-      const next = { ...prev, [id]: true };
+      const next = { ...prev, [id]: { answers } };
       localStorage.setItem(`quiz_${moduleId}`, JSON.stringify(next));
       return next;
     });
@@ -278,8 +308,12 @@ export default function ModulePage() {
 
           videos={item.videos}
           quiz={item.quiz}
-          quizPassed={quizPassed[item.id]}
-          onQuizPassed={() => markQuizPassed(item.id)}
+          quizPassed={!!quizPassed[item.id]}
+          quizAnswers={quizPassed[item.id]?.answers}
+          onQuizPassed={(ans) => markQuizPassed(item.id, ans)}
+          moduleId={moduleId!}
+          itemId={item.id}
+          username={username}
           needValidation={item.needValidation}
           status={status[item.id] ?? 'new'}
           onStatusChange={(s) => changeStatus(item.id, s)}

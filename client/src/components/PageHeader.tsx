@@ -41,12 +41,13 @@ export default function PageHeader() {
                   return (
                     <header className="page-header">
       <div className="header-left" onClick={goHome}>
+        
         <img
-          src="https://upload.wikimedia.org/wikipedia/fr/8/82/Logo_ALTEN.jpg"
-          alt="Alten"
+          src="/images/caf-trainer.png"
+          alt="CAF Trainer"
           className="header-logo"
         />
-        <span className="header-title">CAF‑Trainer</span>
+        
       </div>
       
                       {user && (

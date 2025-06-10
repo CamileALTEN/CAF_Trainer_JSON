@@ -120,7 +120,8 @@ function computeAnalytics() {
     const cafDurations = [];
     const managerDurations = [];
     const hourBuckets = {};
-    for (let h = 6; h <= 20; h += 2) {
+    // One-hour buckets between 08:00 and 18:00
+    for (let h = 8; h <= 18; h++) {
         const label = `${h.toString().padStart(2, '0')}:00`;
         hourBuckets[label] = [];
     }
@@ -149,9 +150,10 @@ function computeAnalytics() {
             else if (s.role === 'manager')
                 managerDurations.push(durationMin);
             const hour = login.getHours();
-            const bucket = Math.max(6, Math.min(20, hour + (hour % 2 ? -1 : 0)));
-            const label = `${bucket.toString().padStart(2, '0')}:00`;
-            hourBuckets[label].push(1);
+            if (hour >= 8 && hour <= 18) {
+                const label = `${hour.toString().padStart(2, '0')}:00`;
+                hourBuckets[label].push(1);
+            }
         }
     });
     const avg = (list) => list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0;
@@ -174,7 +176,7 @@ function computeAnalytics() {
     const favorites = Object.entries(favMap)
         .map(([itemId, set]) => ({ itemId, title: itemTitles[itemId] || itemId, count: set.size }))
         .sort((a, b) => b.count - a.count)
-        .slice(0, 5);
+        .slice(0, 10);
     const siteMap = {};
     users.forEach(u => {
         const sites = u.role === 'manager' ? (u.sites || []) : [u.site];

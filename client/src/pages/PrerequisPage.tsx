@@ -97,7 +97,7 @@ import { getFavorites, addFavorite, removeFavorite } from '../api/favorites';
              total={flatten(mod.items).length}
            />
 
-           {item && (
+          {item && (
             <ItemContent
               title={item.title}
               subtitle={item.subtitle}
@@ -106,6 +106,9 @@ import { getFavorites, addFavorite, removeFavorite } from '../api/favorites';
               links={item.links}
 
               videos={item.videos}
+              moduleId={MODULE_ID}
+              itemId={item.id}
+              username={user?.username}
               needValidation={item.needValidation}
               status={status[item.id] ?? 'new'}
               onStatusChange={(s)=>changeStatus(item.id,s)}

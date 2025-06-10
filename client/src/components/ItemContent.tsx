@@ -21,7 +21,11 @@ export interface ItemContentProps {
 
   quiz?:       IQuiz;
   quizPassed?: boolean;
-  onQuizPassed?: () => void;
+  quizAnswers?: number[][];
+  onQuizPassed?: (answers: number[][]) => void;
+  moduleId: string;
+  itemId: string;
+  username?: string;
 
   needValidation?: boolean;
 
@@ -36,10 +40,11 @@ export interface ItemContentProps {
       
                 /* ════════════════════════════════════════════════════════════════════ */
       
-                export default function ItemContent(props: ItemContentProps) {
+export default function ItemContent(props: ItemContentProps) {
   const {
     title, subtitle, description, links = [], images, videos,
-    quiz, quizPassed, onQuizPassed,
+    quiz, quizPassed, quizAnswers, onQuizPassed,
+    moduleId, itemId, username,
     needValidation,
     status, onStatusChange,
     isFav,     onToggleFav,
@@ -147,7 +152,16 @@ export interface ItemContentProps {
                       ) : null}
 
                       {quiz && quiz.enabled && (
-                        <Quiz quiz={quiz} onSuccess={onQuizPassed ?? (()=>{})} passed={quizPassed ?? false} />
+                        <Quiz
+                          key={`${moduleId}-${itemId}`}
+                          quiz={quiz}
+                          onSuccess={onQuizPassed ?? (()=>{})}
+                          passed={quizPassed ?? false}
+                          initialAnswers={quizAnswers}
+                          moduleId={moduleId}
+                          itemId={itemId}
+                          username={username}
+                        />
                       )}
       </div>
     </div>

@@ -18,6 +18,7 @@ import checklistRouter from './routes/checklist';
 import imagesRouter from './routes/images';
 import analyticsRouter from './routes/analytics';
 import favoritesRouter from './routes/favorites';
+import quizRouter from './routes/quiz';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -39,6 +40,7 @@ app.use('/api/checklist-url', checklistRouter);
 app.use('/api/images', imagesRouter);
 app.use('/api/favorites', favoritesRouter);
 app.use('/api/analytics', analyticsRouter);
+app.use('/api/quiz-results', quizRouter);
 
 app.get('/', (_req, res) => {
 res.send('🚀 Backend TS démarré !');

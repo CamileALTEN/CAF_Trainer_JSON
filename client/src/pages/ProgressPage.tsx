@@ -129,6 +129,11 @@ export default function ProgressPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, moduleId, visited, started, needValidation }),
         }).catch(console.error);
+        fetch('/api/quiz-results', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, moduleId, itemId: id }),
+        }).catch(console.error);
         return { ...p, visited, started, needValidation };
       }
       return p;

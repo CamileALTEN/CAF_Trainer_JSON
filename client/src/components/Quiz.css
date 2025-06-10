@@ -6,7 +6,10 @@
   animation: fadeIn 0.3s ease;
 }
 .quiz-question { margin-bottom: 12px; }
-.quiz-option { display: block; margin: 4px 0; }
+.quiz-option { display: block; margin: 4px 0; padding: 2px 4px; border-radius: 4px; }
+.quiz-option.correct { background: #2ecc71; color: #fff; }
+.quiz-option.wrong { background: #e74c3c; color: #fff; }
+.quiz-correction { color: green; margin-left: 12px; font-style: italic; }
 .quiz-submit {
   background: #008bd2;
   color: #fff;

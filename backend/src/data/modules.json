@@ -153,7 +153,7 @@
               "Montoir"
             ],
             "enabled": true,
-            "needValidation": false,
+            "needValidation": true,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -700,7 +700,7 @@
           },
           {
             "id": "1fac3148-0d9e-4003-86e9-abbf34963b1d",
-            "title": "Éléctricité",
+            "title": "Electricité",
             "subtitle": "",
             "content": "",
             "links": [],
