@@ -33,7 +33,7 @@ import {
 import './AdvancedEditor.css';
 import { uploadImage } from '../api/images';
 
-const CHAR_LIMIT = 10000;
+const CHAR_LIMIT = 100000;
 
 /* ------------------------------------------------------------------ */
 export interface AdvancedEditorProps {
