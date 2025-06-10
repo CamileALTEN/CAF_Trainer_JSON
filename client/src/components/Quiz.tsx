@@ -70,7 +70,7 @@ export default function Quiz({ quiz, onSuccess, passed, moduleId, itemId, userna
                 showCorr || passed
                   ? q.correct.includes(oi)
                     ? ' correct'
-                    : answers[qi].includes(oi)
+                    : (answers[qi] ?? []).includes(oi)
                       ? ' wrong'
                       : ''
                   : ''
@@ -78,7 +78,7 @@ export default function Quiz({ quiz, onSuccess, passed, moduleId, itemId, userna
             >
               <input
                 type="checkbox"
-                checked={answers[qi].includes(oi)}
+                checked={(answers[qi] ?? []).includes(oi)}
                 onChange={e => toggle(qi, oi, e.target.checked)}
                 disabled={passed || showCorr}
               />{' '}
@@ -86,7 +86,7 @@ export default function Quiz({ quiz, onSuccess, passed, moduleId, itemId, userna
             </label>
           ))}
           {showCorr &&
-            [...answers[qi]].sort().join(',') !== [...q.correct].sort().join(',') && (
+            [...(answers[qi] ?? [])].sort().join(',') !== [...q.correct].sort().join(',') && (
               <p className="quiz-correction">
                 Correction : {q.correct.map(idx => q.options[idx]).join(', ')}
               </p>

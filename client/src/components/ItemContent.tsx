@@ -152,6 +152,7 @@ export default function ItemContent(props: ItemContentProps) {
 
                       {quiz && quiz.enabled && (
                         <Quiz
+                          key={`${moduleId}-${itemId}`}
                           quiz={quiz}
                           onSuccess={onQuizPassed ?? (()=>{})}
                           passed={quizPassed ?? false}
