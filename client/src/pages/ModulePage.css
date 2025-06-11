@@ -91,3 +91,11 @@ ul.sidebar ul   { padding-left:14px; border-left:2px solid rgba(255,255,255,.15)
   border:1px solid #bbb;
   border-radius:4px;
 }
+
+/* -------- responsive -------- */
+@media (max-width:768px) {
+  .module-page { height:auto; min-height:calc(100vh - 64px); }
+  .module-sidebar { width:80%; left:-80%; }
+  .module-page.open .module-sidebar { left:0; }
+  .module-content { height:auto; min-height:calc(100vh - 64px); }
+}
