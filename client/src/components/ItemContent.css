@@ -41,6 +41,9 @@
 .status-label { font-weight: bold; }
 .item-body {
   margin-top: 16px;
+  min-height: 240px;       /* fenêtre mini pour images */
+  max-height: 70vh;        /* limite haute adaptative   */
+  overflow-y: auto;
 }
 .item-content { position: relative; }
 .item-content.new .item-inner {
