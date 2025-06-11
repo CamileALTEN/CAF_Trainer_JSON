@@ -25,7 +25,20 @@ const Video = Node.create({
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['video', mergeAttributes(HTMLAttributes)];
+    return ['video', mergeAttributes({ controls: true }, HTMLAttributes)];
+  },
+
+  addNodeView() {
+    return ({ node }) => {
+      const video = document.createElement('video');
+      video.src = node.attrs.src;
+      video.preload = 'metadata';
+      video.style.maxWidth = '100%';
+      video.style.height = 'auto';
+      video.style.display = 'block';
+      video.style.margin = '0 auto';
+      return { dom: video };
+    };
   },
 });
 

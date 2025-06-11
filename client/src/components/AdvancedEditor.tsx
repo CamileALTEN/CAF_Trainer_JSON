@@ -130,7 +130,7 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
     reader.onload = async () => {
       try {
         const url = await uploadVideo(reader.result as string);
-        editor?.chain().focus().insertContent(`<video controls src="${url}"></video>`);
+        editor?.chain().focus().insertContent(`<video src="${url}"></video>`);
       } catch (err) {
         console.error(err);
         alert('Échec de l\u2019upload');
