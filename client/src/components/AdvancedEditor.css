@@ -161,6 +161,13 @@
 .handle-e{ right:-6px; top:50%; transform:translateY(-50%); cursor:ew-resize; }
 .handle-w{ left:-6px; top:50%; transform:translateY(-50%); cursor:ew-resize; }
 
+/* Vidéos --------------------------------------------------------- */
+.editor-core video{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+
 
 
 /* Listes & citations -------------------------------------------- */
