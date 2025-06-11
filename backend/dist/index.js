@@ -31,7 +31,7 @@ const VID_DIR = path_1.default.resolve(__dirname, '../video');
 if (!fs_1.default.existsSync(VID_DIR))
     fs_1.default.mkdirSync(VID_DIR);
 app.use((0, cors_1.default)());
-app.use(express_1.default.json({ limit: '50mb' }));
+app.use(express_1.default.json({ limit: '200mb' }));
 app.use('/images', express_1.default.static(IMG_DIR));
 app.use('/videos', express_1.default.static(VID_DIR));
 app.use('/api/auth', auth_1.default);

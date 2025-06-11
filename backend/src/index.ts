@@ -30,7 +30,7 @@ const VID_DIR = path.resolve(__dirname, '../video');
 if (!fs.existsSync(VID_DIR)) fs.mkdirSync(VID_DIR);
 
 app.use(cors());
-app.use(express.json({ limit: '50mb' }));
+app.use(express.json({ limit: '200mb' }));
 app.use('/images', express.static(IMG_DIR));
 app.use('/videos', express.static(VID_DIR));
 
