@@ -14,9 +14,12 @@
       "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
       "1fef12c5-1512-4be2-81a8-ba21dd036931",
       "1fac3148-0d9e-4003-86e9-abbf34963b1d",
-      "b83a25cb-12ac-4e4c-ad6b-6a1a4e324a8a"
+      "b83a25cb-12ac-4e4c-ad6b-6a1a4e324a8a",
+      "7be21bb4-9a97-4d92-a850-bb9fe4ef6673"
     ],
-    "started": []
+    "started": [
+      "60f65965-ef9e-4541-8086-2569210ddab2"
+    ]
   },
   {
     "username": "nantes@alten.com",
@@ -250,7 +253,8 @@
       "52bd1b2f-5dd2-4f6f-971f-1a5e4b3a99a5",
       "7d856688-6867-4ffd-a1f7-a8aa17a3b12c",
       "446d07af-006c-4b9d-adda-56562b1bd60d",
-      "77ea1067-85a1-4041-b589-cc63cf932d9d"
+      "77ea1067-85a1-4041-b589-cc63cf932d9d",
+      "3a303ff7-5543-470f-8f04-6881d45951e1"
     ],
     "needValidation": []
   },
