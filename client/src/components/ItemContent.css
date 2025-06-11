@@ -101,6 +101,12 @@
 }
 .item-body blockquote p { margin: 0; }
 
+.item-body p {
+  margin: 0 0 1em;
+  line-height: 1.5;
+}
+.item-body p:last-child { margin-bottom: 0; }
+
 .item-html p {
   line-height: 1.5;
   color: #333;
