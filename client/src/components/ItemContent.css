@@ -41,6 +41,9 @@
 .status-label { font-weight: bold; }
 .item-body {
   margin-top: 16px;
+  min-height: 240px;       /* fenêtre mini pour images */
+  max-height: 70vh;        /* limite haute adaptative   */
+  overflow-y: auto;
 }
 .item-content { position: relative; }
 .item-content.new .item-inner {
@@ -97,6 +100,18 @@
   color: #374151;                 /* gray-700 */
 }
 .item-body blockquote p { margin: 0; }
+
+.item-body p {
+  margin: 0 0 1em;
+  line-height: 1.5;
+}
+
+.item-body video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 1em;
+}
 
 .item-html p {
   line-height: 1.5;

@@ -218,7 +218,7 @@ import { IAnalytics } from '../api/analytics';
          <h2>Comptes</h2>
          <table>
            <thead>
-             <tr><th>User 👤</th><th>Rôle 💬</th><th>Site 📍</th><th>Manager 👨‍💼</th><th/></tr>
+             <tr><th>User 👤</th><th>Rôle 💬</th><th>Site📍</th><th>Manager 👨‍💼</th><th/></tr>
            </thead>
            <tbody>
             {sortedUsers.map(u => (

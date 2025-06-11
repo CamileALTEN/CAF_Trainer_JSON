@@ -13,6 +13,11 @@
   font-weight:700;
 }
 
+.editor-core p{
+  margin:0 0 1em;
+  line-height:1.5;
+}
+
 /* Conteneur principal --------------------------------------------- */
 .word-editor{
   font-family:Arial, sans-serif;
@@ -155,6 +160,15 @@
 .handle-s{ bottom:-6px; left:50%; transform:translateX(-50%); cursor:ns-resize; }
 .handle-e{ right:-6px; top:50%; transform:translateY(-50%); cursor:ew-resize; }
 .handle-w{ left:-6px; top:50%; transform:translateY(-50%); cursor:ew-resize; }
+
+/* Vidéos --------------------------------------------------------- */
+.editor-core video{
+  max-width:100%;
+  height:auto;
+  display:block;
+  margin:0 auto 1em;
+  pointer-events:none;
+}
 
 
 

@@ -7,6 +7,7 @@ import StarterKit               from '@tiptap/starter-kit';
 import Underline                from '@tiptap/extension-underline';
 import Link                     from '@tiptap/extension-link';
 import ResizableImage           from '../extensions/ResizableImage';
+import VideoExt                 from '../extensions/Video';
 import Table                    from '@tiptap/extension-table';
 import TableRow                 from '@tiptap/extension-table-row';
 import TableCell                from '@tiptap/extension-table-cell';
@@ -26,12 +27,13 @@ import {
   List, ListOrdered, CheckSquare,
   AlignLeft, AlignCenter, AlignRight, AlignJustify,
   Link as LinkIcon, Link2Off,
-  Image as ImageIcon, Table2,
+  Image as ImageIcon, Video as VideoIcon, Table2,
   Undo2, Redo2, Eraser, PaintBucket
 } from 'lucide-react';
 
 import './AdvancedEditor.css';
 import { uploadImage } from '../api/images';
+import { uploadVideo } from '../api/videos';
 
 const CHAR_LIMIT = 100000;
 
@@ -52,6 +54,7 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
       Underline,
       Link,
       ResizableImage,
+      VideoExt,
       /* --- TABLE (ordre impératif) -------------------------------- */
       Table.configure({ resizable: true }),
       TableRow,
@@ -97,6 +100,7 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
   };
 
   const fileRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLInputElement>(null);
 
   const onSelectImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -117,6 +121,27 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
 
   const addImage = () => {
     fileRef.current?.click();
+  };
+
+  const onSelectVideo = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const url = await uploadVideo(reader.result as string);
+        editor?.chain().focus().insertContent(`<video src="${url}"></video>`).run();
+      } catch (err) {
+        console.error(err);
+        alert('Échec de l\u2019upload');
+      }
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
+
+  const addVideo = () => {
+    videoRef.current?.click();
   };
 
   /** Efface marks + nœuds (gomme) */
@@ -216,6 +241,14 @@ const AdvancedEditor: React.FC<AdvancedEditorProps> = ({ value, onChange }) => {
             type="file"
             accept="image/*"
             onChange={onSelectImage}
+            style={{ display: 'none' }}
+          />
+          <button onClick={addVideo}><VideoIcon size={16}/></button>
+          <input
+            ref={videoRef}
+            type="file"
+            accept="video/*"
+            onChange={onSelectVideo}
             style={{ display: 'none' }}
           />
           <button onClick={promptTable}><Table2 size={16}/></button>
