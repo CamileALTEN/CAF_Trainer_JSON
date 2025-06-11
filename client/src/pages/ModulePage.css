@@ -42,7 +42,7 @@ ul.sidebar ul   { padding-left:14px; border-left:2px solid rgba(255,255,255,.15)
                   transition:margin-left .25s; }
 
 /* quand le panneau est ouvert, on décale le contenu */
-.module-page.open .module-content { margin-left:300px; }
+.module-page.open .module-content { margin-left:50px; }
 
 /* -------- bouton hamburger -------- */
 .toggle-sidebar{
