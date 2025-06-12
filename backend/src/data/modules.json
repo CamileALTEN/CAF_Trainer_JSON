@@ -5,6 +5,26 @@
     "description": "<p>...</p>",
     "items": [
       {
+        "id": "4bf08127-d3a0-4e10-b095-9f5abb7d2887",
+        "title": "Politique RGPD",
+        "subtitle": "",
+        "content": "",
+        "links": [],
+        "images": [],
+        "videos": [],
+        "profiles": [
+          "Nantes",
+          "Montoir"
+        ],
+        "enabled": true,
+        "needValidation": false,
+        "quiz": {
+          "enabled": false,
+          "questions": []
+        },
+        "children": []
+      },
+      {
         "id": "item-1",
         "title": "Accueil consultant",
         "subtitle": "",
@@ -197,7 +217,7 @@
         "id": "1746552185431",
         "title": "ALTEN",
         "subtitle": "",
-        "content": "<h3>Voici une vidéo en anglais qui vous présenteras ALTEN et sa présence dans le domaine de l'aéronautique</h3><p><br></p><video controls=\"true\" src=\"/videos/1749654331963-jpazd6lhsiq.mp4\"></video>",
+        "content": "<h3>Voici une vidéo en anglais qui vous présentera ALTEN et sa présence dans le domaine de l'aéronautique</h3><p><br></p><video controls=\"true\" src=\"/videos/1749654331963-jpazd6lhsiq.mp4\"></video>",
         "links": [
           {
             "label": "Alten & l'agence de Saint-Herblain",
@@ -823,7 +843,7 @@
             "id": "40df64ab-94ee-4527-81b0-2898f2de7618",
             "title": "Métier CAF",
             "subtitle": "",
-            "content": "<h1>#Insérer une \"fiche métier\"</h1><p><br></p><p>En tant que prestataire Airbus, le CAF a un rôle du support dans la gestion d’une affaire outillage.&nbsp;</p><p><br></p><p>Il est le garant de ses affaires et doit s’assurer que la solution technique de l’outillage soit fonctionnelle et respecte les contraintes. Il est aussi garant du respect du délais / planning.&nbsp;</p><p><br></p><p>------------------------------------------</p><p><strong>Identification du métier</strong> : en quoi consiste l’emploi cité ? Quelle est la définition du métier ?</p><ul><li>Chargé d’affaire Bâtis et Outillages (CAF)</li></ul><p><br></p><p>Le CAF est responsable du déroulé d’une affaire d’outillage. Il doit respecter les contraintes et normes du client. Il est le garant de TOUS les jalons SAP du process client.</p><p><strong>Les principales responsabilités et activités</strong> : quelles sont les tâches et les réalisations de la fonction ? Quelles sont les missions quotidiennes ?</p><p><strong>Les conditions d’exercice</strong> : dans quels environnements se pratique le métier ? Est-il associé à des secteurs d’activités particuliers ?</p><p><strong>Les compétences et qualités</strong> :</p><p><br></p><p><strong>Description du métier / rôle</strong></p><p><strong>Positionnement à avoir</strong></p><p><strong>Parties prenantes d'une affaire / implication /valeur ajoutée</strong></p><p><br></p>",
+            "content": "<p>Pour en apprendre plus sur le métier de CAF, tu peux regarder la présentation : <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://docs.google.com.rproxy.goskope.com/presentation/d/1H7EPMcom2BDJ5BbO8NsEHpi2ob9dQ-ojMeE45PvLrUc/edit?usp=sharing\">Process Nantes</a> ou Process Montoir, où il te sera présenté : </p><ul><li><p>Le périmètre ;</p></li><li><p>Le rôle du chargé d'affaires outillage</p></li><li><p>Les partenaires </p><img src=\"/images/1749737045195-on58r5f0hoe.png\" width=\"218px\" height=\"191px\"></li><li><p>Une première vue du process</p></li></ul><p></p>",
             "links": [],
             "images": [
               {
@@ -894,7 +914,7 @@
                 "id": "1baabd86-0ccd-4b68-96f7-007a05b52666",
                 "title": "Off-Shore",
                 "subtitle": "",
-                "content": "<h1>Les équipes</h1><h2>Présentation</h2><p>À la demande d'Airbus Atlantic d'externaliser des activités, ALTEN a des équipes off-shore en Inde.</p><p></p><p>Chaque site Airbus travail en collaboration avec sa propre équipe off-shore. Il y a 4 et 2 indiens à Montoir et Nantes respectivement.</p><p></p><p><u>Nantes </u>:</p><ul><li><p>Pooja VARADARAJA</p></li><li><p>Poornachandra GONCHIGAR</p></li></ul><p></p><p><u>Montoir </u>:</p><ul><li><p>Bharat ODU</p></li><li><p>Punith MURUGESHA</p></li><li><p>Rakshith GOWDA P</p></li><li><p>Thippeshkumara MADIVALARASHIVAPPA</p></li></ul><p><br></p><h2>Compétences</h2><p>Les indiens sont considérés comme des CAF. Même si ils n'ont pas un plan d'intégration qui leur permette de traiter une affaire outillage en entier (et de part la distance géographique), les Indiens ont une base de connaissance du process à force de le pratiquer et de réaliser les tâches qui leur sont confiés (dépend de l'expérience).</p><p><br></p><h1>Missions</h1><p>La plupart des missions confiées à l'Off-shore sont des tâches répétitives (par exemple des affaires de sérialisation) qui ne demande pas une présence physique sur site. Leur panel de mission est varié.</p><p></p><p>Voici des exemples de tâches qui leurs sont confiés :</p><p><u>Rédaction </u>:</p><ul><li><p>Rédaction de trame de contrôle V&amp;V (Vérification &amp; Validation)</p></li><li><p>Rédaction de CDC</p></li></ul><p></p><p><u>Préparation </u>:</p><ul><li><p>Préparer le dossier RUS</p></li><li><p>Préparer les fichiers LOP</p></li><li><p>Réaliser des préanalyse technique</p></li><li><p>Préparation de support de présentation (pour la KOM par exemple)</p></li><li><p>Préparer les documents nécessaires à l'appel d'offre (matrices, support d'analyse, etc.)</p></li><li><p>Archiver CAO</p></li><li><p>Réaliser l'accès au site</p></li><li><p>Réaliser l'entrée de marchandise du jalon</p></li><li><p>Ouverture, mise à jour et clôture de jalons SAP</p></li></ul><p></p><p><u>Vérification </u>:</p><ul><li><p>Vérifier des CAO</p></li><li><p>Vérifier et valider la conformité de liasses 2D &amp; 3D</p></li><li><p>Vérification d'intégration de toutes les exigences techniques</p></li><li><p>Vérifier les besoins énergétiques</p></li><li><p>Etc.</p></li></ul><p></p><p>Les CAF qui demande un support dans leur affaire à l'Off-shore doivent bien cadrer le travail. C'est à dire que le besoin doit bien être exprimé puis réaliser un suivi (avec des Meets par exemple) pour répondre aux questions et s'assurer que le travail correspond à l'attendu.</p><p><br></p><h1>Du point de vu NewComer</h1><p>abc</p>",
+                "content": "<h1>Les équipes</h1><h2>Présentation</h2><p>À la demande d'Airbus Atlantic d'externaliser des activités, ALTEN a des équipes off-shore en Inde.</p><p>Chaque site Airbus travail en collaboration avec sa propre équipe off-shore. Il y a 4 et 2 indiens à Montoir et Nantes respectivement.</p><p><u>Nantes </u>:</p><ul><li><p>Pooja VARADARAJA</p></li><li><p>Poornachandra GONCHIGAR</p></li></ul><p><u>Montoir </u>:</p><ul><li><p>Bharat ODU</p></li><li><p>Punith MURUGESHA</p></li><li><p>Rakshith GOWDA P</p></li><li><p>Thippeshkumara MADIVALARASHIVAPPA</p></li></ul><p></p><h2>Compétences</h2><p>Les indiens sont considérés comme des CAF. Même si ils n'ont pas un plan d'intégration qui leur permette de traiter une affaire outillage en entier (et de part la distance géographique), les Indiens ont une base de connaissance du process à force de le pratiquer et de réaliser les tâches qui leur sont confiés (dépend de l'expérience).</p><p><mark>Découpe dans UG à récupérer</mark><br></p><h1>Missions</h1><p>La plupart des missions confiées à l'Off-shore sont des tâches répétitives (par exemple des affaires de sérialisation) qui ne demande pas une présence physique sur site. Leur panel de mission est varié.</p><p><mark>+ Notion de volumétrie</mark></p><p></p><p>Voici des exemples de tâches qui leurs sont confiés :</p><p><u>Rédaction </u>:</p><ul><li><p>Réalisation du contrôle V&amp;V (Vérification &amp; Validation)</p></li><li><p>Rédaction compliance matrix + price</p></li></ul><p></p><p><u>Préparation </u>:</p><ul><li><p>Préparer le dossier RUS</p></li><li><p>Préparer les fichiers LOP ( à venir)</p></li><li><p>Réaliser des préanalyse technique des réponses fournisseurs : <mark>slide correspondance fonction pendant AO</mark></p></li><li><p>Préparation de support de présentation (pour la KOM par exemple)</p></li><li><p>Préparer les documents nécessaires à l'appel d'offre (matrices, support d'analyse, etc.)</p></li><li><p>Archiver CAO (à venir)</p></li><li><p>Réaliser l'accès au site (montoir ?)</p></li><li><p>Réaliser l'entrée de marchandise du jalon (montoir ?)</p></li></ul><p></p><p><u>Vérification </u>:</p><ul><li><p>Vérification des avis SAP</p></li><li><p>Vérifier des CAO</p></li><li><p>Vérifier et valider la conformité de liasses 2D &amp; 3D</p></li><li><p>Vérification d'intégration de toutes les exigences techniques</p></li><li><p>Etc.</p></li></ul><p></p><p>Les CAF qui demande un support dans leur affaire à l'Off-shore doivent bien cadrer le travail. C'est à dire que le besoin doit bien être exprimé puis réaliser un suivi (avec des Meets par exemple) pour répondre aux questions et s'assurer que le travail correspond à l'attendu.</p><p></p><p>Récurrence : 1 fois par semaine (en fonction de si activité)</p>",
                 "links": [],
                 "images": [
                   {
