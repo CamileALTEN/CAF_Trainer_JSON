@@ -49,7 +49,7 @@ const COLORS = ['#043962', '#008bd2', '#00c49f'];
           <StatCard label="CAF supervisés" value={caf.length} />
           <div className="card">
             <h3>Répartition par site</h3>
-            <ResponsiveContainer width="100%" height={220}>
+            <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie data={siteData} dataKey="value" nameKey="name" outerRadius={80} label>
                   {siteData.map((_, i) => (
