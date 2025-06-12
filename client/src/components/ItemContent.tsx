@@ -34,9 +34,12 @@ export interface ItemContentProps {
   onStatusChange: (s: ItemStatus) => void;
       
                   /* ─── favoris ─── */
-                  isFav:       boolean;
-                  onToggleFav: () => void;
-                }
+  isFav:       boolean;
+  onToggleFav: () => void;
+
+  /** Affiche uniquement le contenu sans actions */
+  readOnly?: boolean;
+}
       
                 /* ════════════════════════════════════════════════════════════════════ */
       
@@ -48,6 +51,7 @@ export default function ItemContent(props: ItemContentProps) {
     needValidation,
     status, onStatusChange,
     isFav,     onToggleFav,
+    readOnly = false,
   } = props;
       
   const cls = `item-content ${status}`;
@@ -56,7 +60,7 @@ export default function ItemContent(props: ItemContentProps) {
 
   return (
     <div className={cls}>
-      {status === 'new' && (
+      {status === 'new' && !readOnly && (
         <div className="start-overlay">
           <button onClick={() => onStatusChange('in-progress')}>Démarrer</button>
         </div>
@@ -69,35 +73,37 @@ export default function ItemContent(props: ItemContentProps) {
           {subtitle ? <h3>{subtitle}</h3> : null}
         </div>
       
-                        <div className="item-actions">
-                          <span className="status-label">
-                            {status === 'new' && 'À faire ⏳'}
-                            {status === 'in-progress' && 'En cours 🚧'}
-                            {status === 'need-validation' && 'À valider ⌛'}
-                            {status === 'done' && 'Validé ✅'}
-                          </span>
-                          {status === 'in-progress' && (
-                            <button
-                              type="button"
-                              className="check-button"
-                              onClick={(e) => {
-                                if (needValidation) {
-                                  onStatusChange('need-validation');
-                                } else {
-                                  launchConfetti(e);
-                                  onStatusChange('done');
-                                }
-                              }}
-                              disabled={quiz?.enabled && !quizPassed}
-                            >
-                              Valider l'item ?
-                            </button>
-                          )}
+        {!readOnly && (
+          <div className="item-actions">
+            <span className="status-label">
+              {status === 'new' && 'À faire ⏳'}
+              {status === 'in-progress' && 'En cours 🚧'}
+              {status === 'need-validation' && 'À valider ⌛'}
+              {status === 'done' && 'Validé ✅'}
+            </span>
+            {status === 'in-progress' && (
+              <button
+                type="button"
+                className="check-button"
+                onClick={(e) => {
+                  if (needValidation) {
+                    onStatusChange('need-validation');
+                  } else {
+                    launchConfetti(e);
+                    onStatusChange('done');
+                  }
+                }}
+                disabled={quiz?.enabled && !quizPassed}
+              >
+                Valider l'item ?
+              </button>
+            )}
 
-                          {/* étoile favoris */}
-                          <FavoriteButton isFav={isFav} onClick={onToggleFav} />
-                        </div>
-                      </div>
+            {/* étoile favoris */}
+            <FavoriteButton isFav={isFav} onClick={onToggleFav} />
+          </div>
+        )}
+      </div>
       
                       {/* -------- corps HTML (éditeur) -------- */}
                       <div

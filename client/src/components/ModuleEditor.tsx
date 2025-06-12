@@ -502,8 +502,6 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                             <div style={{ marginTop: 8 }}>
                               <Link
                                 to={`/preview/${module.id}/${current.id}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
                                 className="btn-secondary"
                               >
                                 Prévisualiser

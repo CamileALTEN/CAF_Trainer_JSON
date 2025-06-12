@@ -37,6 +37,7 @@ export default function PreviewItemPage() {
         onStatusChange={() => undefined}
         isFav={false}
         onToggleFav={() => undefined}
+        readOnly
       />
     </div>
   );
