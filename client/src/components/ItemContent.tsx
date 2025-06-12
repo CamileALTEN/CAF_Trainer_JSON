@@ -54,7 +54,7 @@ export default function ItemContent(props: ItemContentProps) {
     readOnly = false,
   } = props;
       
-  const cls = `item-content ${status}`;
+  const cls = `item-content ${status}${readOnly ? ' read-only' : ''}`;
 
 
 
