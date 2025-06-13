@@ -46,6 +46,18 @@
              button.primary      { background:#008bd2; color:#fff; border:none;
                                    padding:8px 16px; border-radius:4px; cursor:pointer; }
 button.primary:hover{ background:#006fa1; }
+.btn-secondary {
+  background: #043962;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: .95rem;
+  transition: background .15s;
+}
+.btn-secondary:hover { background:#032c59; }
 .profile-dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-left:4px;}
 
 /* -------- responsive -------- */

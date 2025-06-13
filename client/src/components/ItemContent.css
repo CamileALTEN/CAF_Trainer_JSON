@@ -50,6 +50,11 @@
   opacity: .3;
   pointer-events: none;
 }
+
+.item-content.read-only .item-inner {
+  opacity: 1;
+  pointer-events: auto;
+}
 .start-overlay {
   position: absolute;
   top: 0;

@@ -1,6 +1,7 @@
              /* client/src/components/ModuleEditor.tsx
                 ─────────────────────────────────────── */
 import React, { useMemo, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import { Link } from 'react-router-dom';
 import AdvancedEditor                  from './AdvancedEditor';
       
 import {
@@ -498,6 +499,14 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                               />{' '}
                               Item actif
                             </label>
+                            <div style={{ marginTop: 8 }}>
+                              <Link
+                                to={`/preview/${module.id}/${current.id}`}
+                                className="btn-secondary"
+                              >
+                                Prévisualiser
+                              </Link>
+                            </div>
                           </>
                         ) : (
                           <p>Sélectionnez un item dans l’arborescence…</p>
