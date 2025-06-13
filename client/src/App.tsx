@@ -12,6 +12,7 @@ import ModulePage           from './pages/ModulePage';
 import FavoritesPage        from './pages/FavoritesPage';
 import LoginPage            from './pages/LoginPage';
 import LoggedOutPage        from './pages/LoggedOutPage';
+import PreviewItemPage      from './pages/PreviewItemPage';
 
 import AdminDashboardPage   from './pages/AdminDashboardPage';
 import AdminModulesPage     from './pages/AdminModulesPage';
@@ -40,6 +41,7 @@ function RoleRoutes() {
   if (!user) {
     return (
       <Routes>
+        <Route path="/preview/:moduleId/:itemId" element={<PreviewItemPage />} />
         <Route path="/login"      element={<LoginPage />} />
         <Route path="/logged-out" element={<LoggedOutPage />} />
         <Route path="*"           element={<Navigate to="/login" replace />} />
@@ -51,6 +53,7 @@ function RoleRoutes() {
   if (user.role === 'manager') {
     return (
       <Routes>
+        <Route path="/preview/:moduleId/:itemId" element={<PreviewItemPage />} />
         <Route path="/manager"                     element={<ManagerDashboardPage />} />
         <Route path="/manager/create"              element={<RegisterUserPage />} />
         <Route path="/manager/modules"             element={<AdminModulesPage />} />
@@ -69,6 +72,7 @@ function RoleRoutes() {
   if (user.role === 'admin') {
     return (
       <Routes>
+        <Route path="/preview/:moduleId/:itemId" element={<PreviewItemPage />} />
         <Route path="/admin"                       element={<AdminDashboardPage />} />
         <Route path="/admin/modules"               element={<AdminModulesPage />} />
         <Route path="/admin/modules/:moduleId"     element={<AdminModuleEditor />} />
@@ -87,6 +91,7 @@ function RoleRoutes() {
   /* ---------- user / caf ---------- */
   return (
     <Routes>
+      <Route path="/preview/:moduleId/:itemId" element={<PreviewItemPage />} />
       <Route path="/"                   element={<HomePage />} />
       <Route path="/modules/:moduleId"  element={<ModulePage />} />
       <Route path="/favoris"            element={<FavoritesPage />} />

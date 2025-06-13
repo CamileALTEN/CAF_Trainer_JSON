@@ -1,0 +1,20 @@
+.preview-page {
+  padding: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.preview-page .btn-back {
+  background: none;
+  border: none;
+  color: #043962;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background .15s;
+}
+
+.preview-page .btn-back:hover {
+  background: #e9f2ff;
+}

@@ -50,6 +50,11 @@
   opacity: .3;
   pointer-events: none;
 }
+
+.item-content.read-only .item-inner {
+  opacity: 1;
+  pointer-events: auto;
+}
 .start-overlay {
   position: absolute;
   top: 0;
@@ -59,7 +64,8 @@
   background: rgba(255,255,255,0.7);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* place the button at the top */
+  padding-top: 1rem;       /* small spacing from the top */
   z-index: 2;
 }
 .start-overlay button {
