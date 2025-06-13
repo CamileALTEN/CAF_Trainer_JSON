@@ -460,5 +460,12 @@
     "date": "2025-06-04T10:13:18.591Z",
     "category": "ticket",
     "message": "Mise à jour du ticket \"Test 2\""
+  },
+  {
+    "id": "1749806480321",
+    "username": "camile.briard@alten.com",
+    "date": "2025-06-13T09:21:20.321Z",
+    "category": "password",
+    "message": "Demande de réinitialisation de mot de passe"
   }
 ]
