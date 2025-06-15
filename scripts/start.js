@@ -3,12 +3,22 @@ const { spawn } = require('child_process');
 const figlet = require('figlet');
 const ora = require('ora');
 const open = require('open');
+const path = require('path');
+const fs = require('fs');
+
+
+const logoPath = path.join(__dirname, 'logo.txt');
+try {
+  const logo = fs.readFileSync(logoPath, 'utf8');
+  console.log(logo);
+} catch (err) {
+  console.error('Unable to read logo:', err);
+}
 
 function ascii(text) {
   return figlet.textSync(text, { font: 'Slant' });
 }
 
-console.log(ascii('CAF Trainer'));
 
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 rl.question('Voulez-vous les logs ? (o/n) ', answer => {
@@ -31,8 +41,8 @@ rl.question('Voulez-vous les logs ? (o/n) ', answer => {
     if (!opened && str.includes('Compiled successfully')) {
       opened = true;
       spinner.stop();
-      console.log('Opérationnel sur http://localhost:3000');
-      
+      console.log('\n' + ascii('- Opérationnel -') +'\n'+'\n'+'You can now view CAF-Trainer in the browser.');
+      console.log('Local:            http://localhost:3000')
     }
   });
 });
