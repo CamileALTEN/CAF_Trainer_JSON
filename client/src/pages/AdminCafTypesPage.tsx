@@ -47,7 +47,7 @@ export default function AdminCafTypesPage() {
           <li key={t.id}>
             <span>{t.name}</span>
             <span>
-              <button onClick={() => startEdit(t)}>✏️</button>{' '}
+              {t.id !== '1' && (<button onClick={() => startEdit(t)}>✏️</button>)}
               {t.id !== '1' && (
                 <button onClick={() => remove(t.id)}>🗑️</button>
               )}
