@@ -35,6 +35,7 @@ export interface IItem  {
   images:    IImage[];    // ← anciennement string[]
   videos:    string[];
   profiles:  string[];
+  cafTypes?: string[];
   enabled:   boolean;
 
   needValidation?: boolean;

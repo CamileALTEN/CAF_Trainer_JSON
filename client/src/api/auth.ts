@@ -9,6 +9,7 @@ export interface IUser {
 
   // CAF fields
   site?:        string;
+  cafTypeId?:   string;
   managerIds?:  string[];
 
   // manager fields

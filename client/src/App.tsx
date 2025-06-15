@@ -27,6 +27,7 @@ import TicketsListPage      from './pages/TicketsListPage';
 import CreateTicketPage     from './pages/CreateTicketPage';
 import ChecklistUrlPage     from './pages/ChecklistUrlPage';
 import AdminSitesPage       from './pages/AdminSitesPage';
+import AdminCafTypesPage    from './pages/AdminCafTypesPage';
 
 import Footer from './components/Footer';
 
@@ -81,6 +82,7 @@ function RoleRoutes() {
         <Route path="/admin/notifications"         element={<NotificationsPage />} />
         <Route path="/admin/tickets"               element={<TicketsListPage />} />
         <Route path="/admin/sites"                 element={<AdminSitesPage />} />
+        <Route path="/admin/caf-types"            element={<AdminCafTypesPage />} />
         <Route path="/admin/create"                element={<RegisterUserPage />} />
         <Route path="/admin/checklist-url"         element={<ChecklistUrlPage />} />
 

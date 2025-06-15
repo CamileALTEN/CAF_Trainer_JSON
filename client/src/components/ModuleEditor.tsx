@@ -10,6 +10,7 @@ import {
 import './ModuleEditor.css';
 
 import { ISite, getSites } from '../api/sites';
+import { ICafType, getCafTypes } from '../api/cafTypes';
       
                 /* ═════════════════════════ HELPERS GÉNÉRIAUX ═════════════════════════ */
       
@@ -29,6 +30,7 @@ import { ISite, getSites } from '../api/sites';
                                typeof img === 'string' ? defaultImg({ src: img }) : defaultImg(img)),
                   videos:    it.videos    ?? [],
                   profiles:  it.profiles  ?? [],
+                  cafTypes: it.cafTypes ?? [],
                   enabled:   it.enabled   ?? true,
                   needValidation: it.needValidation ?? false,
                   quiz:      it.quiz      ?? { enabled: false, questions: [] },
@@ -74,8 +76,10 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
   const [useAdv, setUseAdv] = useState(true);
   const [dirty, setDirty] = useState(false);
   const [sites, setSites] = useState<ISite[]>([]);
+  const [cafTypes, setCafTypes] = useState<ICafType[]>([]);
 
   useEffect(() => { getSites().then(setSites); }, []);
+  useEffect(() => { getCafTypes().then(setCafTypes); }, []);
 
   const PROFILE_COLORS = useMemo(() => {
     const map: Record<string, string> = {};
@@ -341,6 +345,27 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                                   {s.name}
                                 </label>
                               ))}
+                            </div>
+
+                            {/* types CAF */}
+                            <div className="prof-select">
+                              {cafTypes
+                                .filter(t => t.id !== '1')
+                                .map(t => (
+                                  <label key={t.id}>
+                                    <input
+                                      type="checkbox"
+                                      value={t.id}
+                                      checked={(current.cafTypes ?? []).includes(t.id)}
+                                      onChange={e => {
+                                        const set = new Set(current.cafTypes ?? []);
+                                        e.target.checked ? set.add(t.id) : set.delete(t.id);
+                                        patchItem({ cafTypes: Array.from(set) });
+                                      }}
+                                    />{' '}
+                                    {t.name}
+                                  </label>
+                                ))}
                             </div>
       
                             {/* liens --------------------------------------------------- */}

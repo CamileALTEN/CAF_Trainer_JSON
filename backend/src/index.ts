@@ -21,6 +21,7 @@ import analyticsRouter from './routes/analytics';
 import favoritesRouter from './routes/favorites';
 import quizRouter from './routes/quiz';
 import sitesRouter from './routes/sites';
+import cafTypesRouter from './routes/cafTypes';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -48,6 +49,7 @@ app.use('/api/favorites', favoritesRouter);
 app.use('/api/analytics', analyticsRouter);
 app.use('/api/quiz-results', quizRouter);
 app.use('/api/sites', sitesRouter);
+app.use('/api/caf-types', cafTypesRouter);
 
 app.get('/', (_req, res) => {
 res.send('🚀 Backend TS démarré !');

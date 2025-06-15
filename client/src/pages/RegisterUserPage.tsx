@@ -6,6 +6,7 @@ import Loader from '../components/Loader';
 import { Role, IUser } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
 import { ISite, getSites } from '../api/sites';
+import { ICafType, getCafTypes } from '../api/cafTypes';
 
 export default function RegisterUserPage() {
   const { user } = useAuth();                     // admin ou manager
@@ -15,8 +16,10 @@ export default function RegisterUserPage() {
   const [password, setPassword] = useState('');
   const [role,     setRole]     = useState<Role>('caf');
   const [site,      setSite]      = useState('');             // site du CAF
+  const [cafTypeId, setCafTypeId] = useState('');
   const [selectedSites, setSelectedSites] = useState<string[]>([]); // sites du manager
   const [availableSites, setAvailableSites] = useState<ISite[]>([]);
+  const [cafTypes, setCafTypes] = useState<ICafType[]>([]);
 
   const [managers,  setManagers]  = useState<IUser[]>([]);
   const [managerIds,setManagerIds]= useState<string[]>([]);
@@ -47,10 +50,16 @@ export default function RegisterUserPage() {
   useEffect(() => {
     getSites().then(setAvailableSites);
   }, []);
+  useEffect(() => {
+    getCafTypes().then(setCafTypes);
+  }, []);
 
   useEffect(() => {
     if (!site && availableSites.length > 0) setSite(availableSites[0].name);
   }, [availableSites, site]);
+  useEffect(() => {
+    if (!cafTypeId && cafTypes.length > 0) setCafTypeId(cafTypes[0].id);
+  }, [cafTypes, cafTypeId]);
 
   useEffect(() => {
     if (user?.role === 'manager') setManagerIds([user.id]);
@@ -78,6 +87,7 @@ export default function RegisterUserPage() {
         password,
         role,
         site: role === 'caf' ? site : undefined,
+        cafTypeId: role === 'caf' ? cafTypeId : undefined,
         sites: role === 'manager' ? selectedSites : undefined,
         managerIds: role === 'caf'
           ? (user?.role === 'manager' ? [user.id] : managerIds)
@@ -92,7 +102,7 @@ export default function RegisterUserPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Erreur');
       setMsg(`✅ Compte créé : ${data.username}`);
-      setUsername(''); setPassword(''); setManagerIds([]); setSelectedSites([]);
+      setUsername(''); setPassword(''); setManagerIds([]); setSelectedSites([]); setSite(''); setCafTypeId('');
     } catch (err:any) {
       setMsg(`❌ ${err.message}`);
     } finally {
@@ -118,6 +128,15 @@ export default function RegisterUserPage() {
             <select value={site} onChange={e=>setSite(e.target.value)}>
               {availableSites.map(s => (
                 <option key={s.id}>{s.name}</option>
+              ))}
+            </select>
+          </label>
+        )}
+        {role === 'caf' && (
+          <label>Type
+            <select value={cafTypeId} onChange={e=>setCafTypeId(e.target.value)}>
+              {cafTypes.map(t => (
+                <option key={t.id} value={t.id}>{t.name}</option>
               ))}
             </select>
           </label>
