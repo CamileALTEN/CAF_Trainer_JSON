@@ -30,6 +30,10 @@
   margin-bottom: 1.5rem;
 }
 
+.manager-dashboard .chart-area {
+  margin-bottom: 2rem;
+}
+
 .manager-dashboard .big {
   font-size: 2rem;
   font-weight: bold;
