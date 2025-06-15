@@ -7,6 +7,16 @@ import ProgressBar from '../components/ProgressBar';
 import RadarTracker from '../components/RadarTracker';
 import { flatten } from '../utils/items';
 import { fuzzySearch } from '../utils/fuzzySearch';
+import {
+  ScatterChart,
+  Scatter,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
+import { getUserSessions, SessionRecord } from '../api/analytics';
 import './ProgressPage.css';
 
 export default function ProgressPage() {
@@ -21,6 +31,9 @@ export default function ProgressPage() {
   const [downQuery, setDownQuery] = useState('');
   const [upQuery, setUpQuery] = useState('');
   const [averages, setAverages] = useState<Record<string, { avg: number; prevAvg?: number }>>({});
+  const [historyUser, setHistoryUser] = useState<string | null>(null);
+  const [historyData, setHistoryData] = useState<Record<string, SessionRecord[]>>({});
+  const [historyView, setHistoryView] = useState<'list' | 'chart'>('list');
 
   useEffect(() => {
     setDownQuery('');
@@ -157,6 +170,23 @@ export default function ProgressPage() {
     }
   };
 
+  const toggleHistory = async (id: string) => {
+    if (historyUser === id) {
+      setHistoryUser(null);
+      return;
+    }
+    setHistoryUser(id);
+    setHistoryView('list');
+    if (!historyData[id]) {
+      try {
+        const data = await getUserSessions(id);
+        setHistoryData(prev => ({ ...prev, [id]: data }));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
   const getVisitedCount = (username: string) =>
     prog.filter(p => p.username === username)
        .reduce((n, p) => n + p.visited.length, 0);
@@ -198,6 +228,12 @@ export default function ProgressPage() {
           onClick={() => setOpen(isOpen ? null : c.id)}
         >
           {isOpen ? '⬆️' : '⬇️'}
+        </button>
+        <button
+          className="history"
+          onClick={() => toggleHistory(c.id)}
+        >
+          🕒
         </button>
       </div>
             {supervising ? (
@@ -268,6 +304,63 @@ export default function ProgressPage() {
                 <RadarTracker modules={mods} progress={prog} username={c.username} site={c.site}  />
               </div>
               </>
+            )}
+            {historyUser === c.id && (
+              <div className="history_box">
+                <div className="history_tabs">
+                  <button className={historyView === 'list' ? 'active' : ''} onClick={() => setHistoryView('list')}>Liste</button>
+                  <button className={historyView === 'chart' ? 'active' : ''} onClick={() => setHistoryView('chart')}>Graph</button>
+                </div>
+                {historyView === 'list' ? (
+                  historyData[c.id]?.length ? (
+                    <ul className="session-list">
+                      {historyData[c.id].map((s, idx) => {
+                        const login = new Date(s.login);
+                        const logout = s.logout ? new Date(s.logout) : null;
+                        const duration = logout ? Math.ceil((logout.getTime() - login.getTime()) / 60000) : 0;
+                        const label = login.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) +
+                          ' à ' + login.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+                        return (
+                          <li key={idx} style={{ '--i': idx } as React.CSSProperties}>
+                            {label} pendant {duration} min
+                          </li>
+                        );
+                      })
+                    </ul>
+                  ) : (
+                    <p>Aucune session</p>
+                  )
+                ) : (
+                  <ResponsiveContainer width="100%" height={200}>
+                    <ScatterChart>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis
+                        dataKey="login"
+                        tickFormatter={v => {
+                          const d = new Date(v as any);
+                          return d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' }) + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+                        }}
+                      />
+                      <YAxis dataKey="duration" allowDecimals={false} />
+                      <Tooltip
+                        labelFormatter={v => {
+                          const d = new Date(v as any);
+                          return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) +
+                            ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+                        }}
+                        formatter={(val: number) => [`${val} min`]}
+                      />
+                      <Scatter
+                        data={historyData[c.id]?.map(s => ({
+                          login: s.login,
+                          duration: s.logout ? Math.ceil((new Date(s.logout).getTime() - new Date(s.login).getTime()) / 60000) : 0,
+                        })) || []}
+                        fill="#8884d8"
+                      />
+                    </ScatterChart>
+                  </ResponsiveContainer>
+                )}
+              </div>
             )}
           </div>
         );
