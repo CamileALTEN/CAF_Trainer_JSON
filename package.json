@@ -9,7 +9,7 @@
     "scripts": {
         "start:backend": "npm --workspace backend start",
         "start:client": "npm --workspace client start",
-        "start": "concurrently \"npm run start:backend\" \"npm run start:client\""
+        "start": "node scripts/start.js"
     },
     "devDependencies": {
         "@types/highlight.js": "^10.1.0",
