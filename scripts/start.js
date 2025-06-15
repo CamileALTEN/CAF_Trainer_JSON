@@ -5,7 +5,7 @@ const ora = require('ora');
 const open = require('open');
 
 function ascii(text) {
-  return figlet.textSync(text, { font: 'Standard' });
+  return figlet.textSync(text, { font: 'Slant' });
 }
 
 console.log(ascii('CAF Trainer'));
@@ -31,8 +31,8 @@ rl.question('Voulez-vous les logs ? (o/n) ', answer => {
     if (!opened && str.includes('Compiled successfully')) {
       opened = true;
       spinner.stop();
-      console.log('\n' + ascii('Operationnel'));
-      open('http://localhost:3000');
+      console.log('Opérationnel sur http://localhost:3000');
+      
     }
   });
 });
