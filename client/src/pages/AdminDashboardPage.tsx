@@ -22,6 +22,7 @@ import {
 import { IUser, Role } from '../api/auth';
 import { IModule } from '../api/modules';
 import { IAnalytics } from '../api/analytics';
+import { ISite, getSites } from '../api/sites';
    import './AdminDashboardPage.css';
 
    export default function AdminDashboardPage() {
@@ -29,11 +30,12 @@ import { IAnalytics } from '../api/analytics';
   const [modules, setModules] = useState<IModule[]>([]);
   const [analytics, setAnalytics] = useState<IAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
-   const [managers, setManagers] = useState<IUser[]>([]);
-   const [editingId, setEditingId] = useState<string | null>(null);
+  const [managers, setManagers] = useState<IUser[]>([]);
+  const [sites, setSites] = useState<ISite[]>([]);
+  const [editingId, setEditingId] = useState<string | null>(null);
    const [editUsername, setEditUsername] = useState('');
   const [editRole, setEditRole] = useState<Role>('caf');
-  const [editSite, setEditSite] = useState('Nantes');     // site CAF
+  const [editSite, setEditSite] = useState('');     // site CAF
   const [editSites, setEditSites] = useState<string[]>([]); // sites manager
   const [editManagerIds, setEditManagerIds] = useState<string[]>([]);
 
@@ -58,6 +60,10 @@ import { IAnalytics } from '../api/analytics';
       .finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    getSites().then(setSites);
+  }, []);
+
      /* ───────── helpers ───────── */
      const deleteUser = async (id: string) => {
        if (!window.confirm('Supprimer ce compte ?')) return;
@@ -80,7 +86,7 @@ import { IAnalytics } from '../api/analytics';
       setEditingId(u.id);
       setEditUsername(u.username);
       setEditRole(u.role);
-      setEditSite(u.site || 'Nantes');
+      setEditSite(u.site || sites[0]?.name || '');
       setEditSites(u.sites || []);
       setEditManagerIds(u.managerIds || []);
     };
@@ -143,7 +149,8 @@ import { IAnalytics } from '../api/analytics';
          
                  <div className="quick">
           <Link to="/admin/create"><button>+ Créer un compte</button></Link>
-          <Link to="/admin/modules"><button>📝 Modules</button></Link>
+        <Link to="/admin/modules"><button>📝 Modules</button></Link>
+        <Link to="/admin/sites"><button>🏢 Sites</button></Link>
         <Link to="/admin/notifications"><button>🔔 Notifications</button></Link>
         <Link to="/admin/tickets"><button>📋 Tickets</button></Link>
         <Link to="/admin/checklist-url"><button>URL Checklist 📋</button></Link>
@@ -209,7 +216,8 @@ import { IAnalytics } from '../api/analytics';
 
         <div className="quick">
           <Link to="/admin/create"><button>+ Créer un compte</button></Link>
-          <Link to="/admin/modules"><button>📝 Modules</button></Link>
+        <Link to="/admin/modules"><button>📝 Modules</button></Link>
+        <Link to="/admin/sites"><button>🏢 Sites</button></Link>
         <Link to="/admin/notifications"><button>🔔 Notifications</button></Link>
         <Link to="/admin/tickets"><button>📋 Tickets</button></Link>
         <Link to="/admin/checklist-url"><button>URL Checklist 📋</button></Link>
@@ -243,17 +251,17 @@ import { IAnalytics } from '../api/analytics';
                   <td>
                     {editRole === 'caf' ? (
                       <select value={editSite} onChange={e => setEditSite(e.target.value)}>
-                        <option>Nantes</option>
-                        <option>Montoir</option>
+                        {sites.map(s => (
+                          <option key={s.id}>{s.name}</option>
+                        ))}
                       </select>
                     ) : editRole === 'manager' ? (
                       <div className="check">
-                        <label>
-                          <input type="checkbox" value="Nantes" checked={editSites.includes('Nantes')} onChange={e=>toggleEditSite(e.target.value)} /> Nantes
-                        </label>
-                        <label>
-                          <input type="checkbox" value="Montoir" checked={editSites.includes('Montoir')} onChange={e=>toggleEditSite(e.target.value)} /> Montoir
-                        </label>
+                        {sites.map(s => (
+                          <label key={s.id}>
+                            <input type="checkbox" value={s.name} checked={editSites.includes(s.name)} onChange={e=>toggleEditSite(e.target.value)} /> {s.name}
+                          </label>
+                        ))}
                       </div>
                     ) : '—'}
                   </td>
