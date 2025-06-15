@@ -38,7 +38,7 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
   const [editUsername, setEditUsername] = useState('');
   const [editRole, setEditRole] = useState<Role>('caf');
   const [editSite, setEditSite] = useState('');     // site CAF
-  const [editCafTypeId, setEditCafTypeId] = useState('');
+  const [editCafTypeId, setEditCafTypeId] = useState('1');
   const [editSites, setEditSites] = useState<string[]>([]); // sites manager
   const [editManagerIds, setEditManagerIds] = useState<string[]>([]);
 
@@ -93,7 +93,7 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
       setEditUsername(u.username);
       setEditRole(u.role);
       setEditSite(u.site || sites[0]?.name || '');
-      setEditCafTypeId(u.cafTypeId ?? '');
+      setEditCafTypeId(u.cafTypeId ?? '1');
       setEditSites(u.sites || []);
       setEditManagerIds(u.managerIds || []);
     };

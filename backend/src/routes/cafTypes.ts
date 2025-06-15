@@ -31,6 +31,8 @@ router.patch('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
+  if (req.params.id === '1')
+    return res.status(400).json({ error: 'Type standard non supprimable' });
   const list = load();
   const idx = findIndex(req.params.id, list);
   if (idx === -1) return res.status(404).json({ error: 'Introuvable' });

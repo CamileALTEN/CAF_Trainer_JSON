@@ -349,21 +349,23 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
 
                             {/* types CAF */}
                             <div className="prof-select">
-                              {cafTypes.map(t => (
-                                <label key={t.id}>
-                                  <input
-                                    type="checkbox"
-                                    value={t.id}
-                                    checked={(current.cafTypes ?? []).includes(t.id)}
-                                    onChange={e => {
-                                      const set = new Set(current.cafTypes ?? []);
-                                      e.target.checked ? set.add(t.id) : set.delete(t.id);
-                                      patchItem({ cafTypes: Array.from(set) });
-                                    }}
-                                  />{' '}
-                                  {t.name}
-                                </label>
-                              ))}
+                              {cafTypes
+                                .filter(t => t.id !== '1')
+                                .map(t => (
+                                  <label key={t.id}>
+                                    <input
+                                      type="checkbox"
+                                      value={t.id}
+                                      checked={(current.cafTypes ?? []).includes(t.id)}
+                                      onChange={e => {
+                                        const set = new Set(current.cafTypes ?? []);
+                                        e.target.checked ? set.add(t.id) : set.delete(t.id);
+                                        patchItem({ cafTypes: Array.from(set) });
+                                      }}
+                                    />{' '}
+                                    {t.name}
+                                  </label>
+                                ))}
                             </div>
       
                             {/* liens --------------------------------------------------- */}

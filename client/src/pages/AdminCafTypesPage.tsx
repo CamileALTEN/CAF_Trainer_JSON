@@ -27,6 +27,7 @@ export default function AdminCafTypesPage() {
   };
 
   const remove = async (id: string) => {
+    if (id === '1') return;
     if (!window.confirm('Supprimer ce type ?')) return;
     await deleteCafType(id);
     setTypes(prev => prev.filter(t => t.id !== id));
@@ -47,7 +48,9 @@ export default function AdminCafTypesPage() {
             <span>{t.name}</span>
             <span>
               <button onClick={() => startEdit(t)}>✏️</button>{' '}
-              <button onClick={() => remove(t.id)}>🗑️</button>
+              {t.id !== '1' && (
+                <button onClick={() => remove(t.id)}>🗑️</button>
+              )}
             </span>
           </li>
         ))}
