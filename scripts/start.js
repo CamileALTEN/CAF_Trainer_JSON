@@ -21,7 +21,7 @@ function ascii(text) {
 
 
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-rl.question('Voulez-vous les logs ? (o/n) ', answer => {
+rl.question('Lancer CAF-Trainer avec les logs ? (o/n) ', answer => {
   rl.close();
   const wantLogs = answer.trim().toLowerCase() === 'o';
 
