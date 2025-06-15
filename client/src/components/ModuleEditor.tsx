@@ -9,10 +9,7 @@ import {
 } from '../api/modules';
 import './ModuleEditor.css';
 
-const PROFILE_COLORS: Record<string, string> = {
-  Nantes: '#ff461e',
-  Montoir: '#33fb22',
-};
+import { ISite, getSites } from '../api/sites';
       
                 /* ═════════════════════════ HELPERS GÉNÉRIAUX ═════════════════════════ */
       
@@ -76,6 +73,15 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
   const [curId, setCurId] = useState<string>('');
   const [useAdv, setUseAdv] = useState(true);
   const [dirty, setDirty] = useState(false);
+  const [sites, setSites] = useState<ISite[]>([]);
+
+  useEffect(() => { getSites().then(setSites); }, []);
+
+  const PROFILE_COLORS = useMemo(() => {
+    const map: Record<string, string> = {};
+    sites.forEach(s => { map[s.name] = s.color; });
+    return map;
+  }, [sites]);
 
   useEffect(() => {
     setDirty(JSON.stringify(edit) !== JSON.stringify(module));
@@ -320,18 +326,19 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
       
                             {/* profils */}
                             <div className="prof-select">
-                              {['Nantes', 'Montoir'].map((p) => (
-                                <label key={p}>
+                              {sites.map(s => (
+                                <label key={s.id}>
                                   <input
                                     type="checkbox"
-                                    checked={(current.profiles ?? []).includes(p)}
+                                    value={s.name}
+                                    checked={(current.profiles ?? []).includes(s.name)}
                                     onChange={(e) => {
                                       const set = new Set(current.profiles ?? []);
-                                      e.target.checked ? set.add(p) : set.delete(p);
+                                      e.target.checked ? set.add(s.name) : set.delete(s.name);
                                       patchItem({ profiles: Array.from(set) });
                                     }}
                                   />{' '}
-                                  {p}
+                                  {s.name}
                                 </label>
                               ))}
                             </div>
