@@ -13,19 +13,21 @@ import { getModules,
    import './HomePage.css';
 
    /* ───────── util : filtre profils / enabled ───────── */
-   const matchSite = (site?: string) => (it: IItem) =>
-     it.enabled &&
-     (it.profiles?.length ? it.profiles.includes(site!) : true);
+const matchSite = (site?: string, typeId?: string) => (it: IItem) =>
+  it.enabled &&
+  (it.profiles?.length ? it.profiles.includes(site!) : true) &&
+  (it.cafTypes?.length ? it.cafTypes.includes(typeId!) : true);
 
-   const filterBySite = (branch: IItem[], site?: string): IItem[] =>
-     branch
-       .filter(matchSite(site))
-       .map(it => ({ ...it, children: filterBySite(it.children ?? [], site) }));
+const filterBySite = (branch: IItem[], site?: string, typeId?: string): IItem[] =>
+  branch
+    .filter(matchSite(site, typeId))
+    .map(it => ({ ...it, children: filterBySite(it.children ?? [], site, typeId) }));
 
    /* ─────────────────────────────────────────────────── */
-   export default function HomePage() {
-     const { user } = useAuth();           // ← on connaît le site du CAF
-     const site = user?.site;              // « Nantes » | « Montoir » | undefined
+  export default function HomePage() {
+    const { user } = useAuth();           // ← on connaît le site du CAF
+    const site = user?.site;              // « Nantes » | « Montoir » | undefined
+    const cafTypeId = user?.cafTypeId;
 
     const [modules, setModules] = useState<IModule[]>([]);
     const [loading, setLoading] = useState(true);
@@ -40,9 +42,9 @@ import { getModules,
 
            /* garde seulement les modules actifs et au moins 1 item valable */
            const filtered = mods
-             .filter(m => m.enabled)
-             .map(m => ({ ...m, items: filterBySite(m.items, site) }))
-             .filter(m => flatten(m.items).length > 0);
+            .filter(m => m.enabled)
+            .map(m => ({ ...m, items: filterBySite(m.items, site, cafTypeId) }))
+            .filter(m => flatten(m.items).length > 0);
 
            setModules(filtered);
          })

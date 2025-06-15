@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { Role, IUser } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
+import { ISite, getSites } from '../api/sites';
+import { ICafType, getCafTypes } from '../api/cafTypes';
 
 export default function RegisterUserPage() {
   const { user } = useAuth();                     // admin ou manager
@@ -13,8 +15,11 @@ export default function RegisterUserPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [role,     setRole]     = useState<Role>('caf');
-  const [site,      setSite]      = useState('Nantes');             // site du CAF
-  const [sites,     setSites]     = useState<string[]>([]);         // sites du manager
+  const [site,      setSite]      = useState('');             // site du CAF
+  const [cafTypeId, setCafTypeId] = useState('');
+  const [selectedSites, setSelectedSites] = useState<string[]>([]); // sites du manager
+  const [availableSites, setAvailableSites] = useState<ISite[]>([]);
+  const [cafTypes, setCafTypes] = useState<ICafType[]>([]);
 
   const [managers,  setManagers]  = useState<IUser[]>([]);
   const [managerIds,setManagerIds]= useState<string[]>([]);
@@ -23,7 +28,7 @@ export default function RegisterUserPage() {
   const [loading,  setLoading]  = useState(false);
 
   function toggleSite(value: string) {
-    setSites(prev =>
+    setSelectedSites(prev =>
       prev.includes(value) ? prev.filter(s => s !== value) : [...prev, value]
     );
   }
@@ -41,6 +46,20 @@ export default function RegisterUserPage() {
       .then(r => r.json())
       .then((list: IUser[]) => setManagers(list.filter(u => u.role === 'manager')));
   }, [user]);
+
+  useEffect(() => {
+    getSites().then(setAvailableSites);
+  }, []);
+  useEffect(() => {
+    getCafTypes().then(setCafTypes);
+  }, []);
+
+  useEffect(() => {
+    if (!site && availableSites.length > 0) setSite(availableSites[0].name);
+  }, [availableSites, site]);
+  useEffect(() => {
+    if (!cafTypeId && cafTypes.length > 0) setCafTypeId(cafTypes[0].id);
+  }, [cafTypes, cafTypeId]);
 
   useEffect(() => {
     if (user?.role === 'manager') setManagerIds([user.id]);
@@ -68,7 +87,8 @@ export default function RegisterUserPage() {
         password,
         role,
         site: role === 'caf' ? site : undefined,
-        sites: role === 'manager' ? sites : undefined,
+        cafTypeId: role === 'caf' ? cafTypeId : undefined,
+        sites: role === 'manager' ? selectedSites : undefined,
         managerIds: role === 'caf'
           ? (user?.role === 'manager' ? [user.id] : managerIds)
           : undefined,
@@ -82,7 +102,7 @@ export default function RegisterUserPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Erreur');
       setMsg(`✅ Compte créé : ${data.username}`);
-      setUsername(''); setPassword(''); setManagerIds([]); setSites([]);
+      setUsername(''); setPassword(''); setManagerIds([]); setSelectedSites([]); setSite(''); setCafTypeId('');
     } catch (err:any) {
       setMsg(`❌ ${err.message}`);
     } finally {
@@ -106,8 +126,18 @@ export default function RegisterUserPage() {
         {role === 'caf' && (
           <label>Site
             <select value={site} onChange={e=>setSite(e.target.value)}>
-              <option>Nantes</option>
-              <option>Montoir</option>
+              {availableSites.map(s => (
+                <option key={s.id}>{s.name}</option>
+              ))}
+            </select>
+          </label>
+        )}
+        {role === 'caf' && (
+          <label>Type
+            <select value={cafTypeId} onChange={e=>setCafTypeId(e.target.value)}>
+              {cafTypes.map(t => (
+                <option key={t.id} value={t.id}>{t.name}</option>
+              ))}
             </select>
           </label>
         )}
@@ -115,18 +145,14 @@ export default function RegisterUserPage() {
         {role === 'manager' && (
           <fieldset>
             <legend>Sites</legend>
-            <label>
-              <input type="checkbox" value="Nantes"
-                     checked={sites.includes('Nantes')}
-                     onChange={e=>toggleSite(e.target.value)} />
-              Nantes
-            </label>
-            <label>
-              <input type="checkbox" value="Montoir"
-                     checked={sites.includes('Montoir')}
-                     onChange={e=>toggleSite(e.target.value)} />
-              Montoir
-            </label>
+            {availableSites.map(s => (
+              <label key={s.id}>
+                <input type="checkbox" value={s.name}
+                       checked={selectedSites.includes(s.name)}
+                       onChange={e=>toggleSite(e.target.value)} />
+                {s.name}
+              </label>
+            ))}
           </fieldset>
         )}
 

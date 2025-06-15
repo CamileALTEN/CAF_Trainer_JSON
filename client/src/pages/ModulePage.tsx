@@ -24,13 +24,15 @@ import './ModulePage.css';
 /* ------------------------------------------------------------------ */
 /*  Helpers profils                                                    */
 /* ------------------------------------------------------------------ */
-const matchSite = (site?: string) => (it: IItem) =>
-  it.enabled && (it.profiles?.length ? it.profiles.includes(site!) : true);
+const matchSite = (site?: string, typeId?: string) => (it: IItem) =>
+  it.enabled &&
+  (it.profiles?.length ? it.profiles.includes(site!) : true) &&
+  (it.cafTypes?.length ? it.cafTypes.includes(typeId!) : true);
 
-const filterBySite = (branch: IItem[], site?: string): IItem[] =>
+const filterBySite = (branch: IItem[], site?: string, typeId?: string): IItem[] =>
   branch
-    .filter(matchSite(site))
-    .map((it) => ({ ...it, children: filterBySite(it.children ?? [], site) }));
+    .filter(matchSite(site, typeId))
+    .map((it) => ({ ...it, children: filterBySite(it.children ?? [], site, typeId) }));
 
 /* ------------------------------------------------------------------ */
 /*  Composant                                                          */
@@ -39,6 +41,7 @@ export default function ModulePage() {
   const { moduleId }   = useParams<{ moduleId: string }>();
   const { user }       = useAuth();
   const site           = user?.site;
+  const cafTypeId      = user?.cafTypeId;
   const username       = user?.username;
   const quizKey        = username ? `quiz_${username}_${moduleId}` : `quiz_${moduleId}`;
 
@@ -95,7 +98,7 @@ export default function ModulePage() {
     setBusy(true);
     getModule(moduleId)
       .then((m) => {
-        const filtered = filterBySite(m.items, site);
+        const filtered = filterBySite(m.items, site, cafTypeId);
         setMod({ ...m, items: filtered });
         setIt(filtered);
         setSel(filtered[0]?.id ?? '');

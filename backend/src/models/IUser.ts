@@ -11,6 +11,7 @@ export interface IUser {
 
     // ---- CAF fields ----
     site?:        string;           // site d'affectation du CAF
+    cafTypeId?:   string;           // type de CAF
     managerIds?:  string[];         // CAF → plusieurs managers référents
 
     // ---- manager fields ----

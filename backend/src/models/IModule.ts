@@ -27,8 +27,9 @@ content:   string;
 
 links:     ILink[];
 images:    IImage[];
-videos:    string[];
+  videos:    string[];
   profiles:  string[];
+  cafTypes?: string[];
   enabled:   boolean;
 
   needValidation?: boolean;

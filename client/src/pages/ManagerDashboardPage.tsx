@@ -7,6 +7,7 @@
   import ProgressBar   from '../components/ProgressBar';
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import CircleMenu from '../components/CircleMenu';
+import { ICafType, getCafTypes } from '../api/cafTypes';
 import './ManagerDashboardPage.css';
 const COLORS = ['#043962', '#008bd2', '#00c49f'];
 
@@ -16,6 +17,7 @@ const COLORS = ['#043962', '#008bd2', '#00c49f'];
   const [prog,setProg]       = useState<IProgress[]>([]);
   const [mods,setMods]       = useState<IModule[]>([]);
   const [loading,setLoading] = useState(true);
+  const [cafTypes, setCafTypes] = useState<ICafType[]>([]);
 
     useEffect(()=>{
       Promise.all([
@@ -25,6 +27,7 @@ const COLORS = ['#043962', '#008bd2', '#00c49f'];
       ]).then(([u,p,m])=>{ setCaf(u); setProg(p); setMods(m); })
         .finally(()=>setLoading(false));
     },[user]);
+    useEffect(()=>{ getCafTypes().then(setCafTypes); },[]);
 
     /* répartition par site */
     const siteMap = caf.reduce<Record<string, number>>((acc, c) => {
@@ -72,22 +75,29 @@ const COLORS = ['#043962', '#008bd2', '#00c49f'];
 
          <h2>Changer un mot de passe</h2>
          <table>
-           <thead><tr><th>Utilisateur</th><th>Site</th><th>Réinit. MDP</th></tr></thead>
+           <thead><tr><th>Utilisateur</th><th>Site</th><th>Type</th><th>Réinit. MDP</th></tr></thead>
            <tbody>
-             {caf.map(c=>(
-               <tr key={c.id}>
-                 <td>{c.username}</td><td>{c.site}</td>
-                 <td>
-                   <button onClick={()=>resetPwd(c.id)}>🔑</button>
-                 </td>
-               </tr>
+            {caf.map(c=>(
+              <tr key={c.id}>
+                <td>{c.username}</td><td>{c.site}</td>
+                <td>
+                  <select value={c.cafTypeId} onChange={e=>changeType(c.id, e.target.value)}>
+                    {cafTypes.map(t => (
+                      <option key={t.id} value={t.id}>{t.name}</option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  <button onClick={()=>resetPwd(c.id)}>🔑</button>
+                </td>
+              </tr>
              ))}
            </tbody>
          </table>
        </div>
-     );
+  );
 
-     async function resetPwd(id:string){
+  async function resetPwd(id:string){
        const pwd = prompt('Nouveau mot de passe :');
        if(!pwd) return;
        await fetch(`/api/users/${id}/password`,{
@@ -96,7 +106,16 @@ const COLORS = ['#043962', '#008bd2', '#00c49f'];
          body:JSON.stringify({password:pwd}),
        });
        alert('Mot de passe modifié');
-     }
+  }
+
+  async function changeType(id: string, typeId: string) {
+    await fetch(`/api/users/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cafTypeId: typeId }),
+    });
+    setCaf(prev => prev.map(c => c.id === id ? { ...c, cafTypeId: typeId } : c));
+  }
    }
 
   const StatCard = ({label,value}:{label:string;value:number})=>(

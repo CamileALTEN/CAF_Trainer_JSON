@@ -9,10 +9,8 @@ import {
 } from '../api/modules';
 import './ModuleEditor.css';
 
-const PROFILE_COLORS: Record<string, string> = {
-  Nantes: '#ff461e',
-  Montoir: '#33fb22',
-};
+import { ISite, getSites } from '../api/sites';
+import { ICafType, getCafTypes } from '../api/cafTypes';
       
                 /* ═════════════════════════ HELPERS GÉNÉRIAUX ═════════════════════════ */
       
@@ -32,6 +30,7 @@ const PROFILE_COLORS: Record<string, string> = {
                                typeof img === 'string' ? defaultImg({ src: img }) : defaultImg(img)),
                   videos:    it.videos    ?? [],
                   profiles:  it.profiles  ?? [],
+                  cafTypes: it.cafTypes ?? [],
                   enabled:   it.enabled   ?? true,
                   needValidation: it.needValidation ?? false,
                   quiz:      it.quiz      ?? { enabled: false, questions: [] },
@@ -76,6 +75,17 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
   const [curId, setCurId] = useState<string>('');
   const [useAdv, setUseAdv] = useState(true);
   const [dirty, setDirty] = useState(false);
+  const [sites, setSites] = useState<ISite[]>([]);
+  const [cafTypes, setCafTypes] = useState<ICafType[]>([]);
+
+  useEffect(() => { getSites().then(setSites); }, []);
+  useEffect(() => { getCafTypes().then(setCafTypes); }, []);
+
+  const PROFILE_COLORS = useMemo(() => {
+    const map: Record<string, string> = {};
+    sites.forEach(s => { map[s.name] = s.color; });
+    return map;
+  }, [sites]);
 
   useEffect(() => {
     setDirty(JSON.stringify(edit) !== JSON.stringify(module));
@@ -320,18 +330,38 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
       
                             {/* profils */}
                             <div className="prof-select">
-                              {['Nantes', 'Montoir'].map((p) => (
-                                <label key={p}>
+                              {sites.map(s => (
+                                <label key={s.id}>
                                   <input
                                     type="checkbox"
-                                    checked={(current.profiles ?? []).includes(p)}
+                                    value={s.name}
+                                    checked={(current.profiles ?? []).includes(s.name)}
                                     onChange={(e) => {
                                       const set = new Set(current.profiles ?? []);
-                                      e.target.checked ? set.add(p) : set.delete(p);
+                                      e.target.checked ? set.add(s.name) : set.delete(s.name);
                                       patchItem({ profiles: Array.from(set) });
                                     }}
                                   />{' '}
-                                  {p}
+                                  {s.name}
+                                </label>
+                              ))}
+                            </div>
+
+                            {/* types CAF */}
+                            <div className="prof-select">
+                              {cafTypes.map(t => (
+                                <label key={t.id}>
+                                  <input
+                                    type="checkbox"
+                                    value={t.id}
+                                    checked={(current.cafTypes ?? []).includes(t.id)}
+                                    onChange={e => {
+                                      const set = new Set(current.cafTypes ?? []);
+                                      e.target.checked ? set.add(t.id) : set.delete(t.id);
+                                      patchItem({ cafTypes: Array.from(set) });
+                                    }}
+                                  />{' '}
+                                  {t.name}
                                 </label>
                               ))}
                             </div>
