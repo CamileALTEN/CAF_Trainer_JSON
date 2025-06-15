@@ -325,7 +325,7 @@ export default function ProgressPage() {
                             {label} pendant {duration} min
                           </li>
                         );
-                      })
+                      })}
                     </ul>
                   ) : (
                     <p>Aucune session</p>
