@@ -81,7 +81,7 @@ const COLORS = ['#043962', '#008bd2', '#00c49f'];
               <tr key={c.id}>
                 <td>{c.username}</td><td>{c.site}</td>
                 <td>
-                  <select value={c.cafTypeId} onChange={e=>changeType(c.id, e.target.value)}>
+                  <select value={c.cafTypeId ?? '1'} onChange={e=>changeType(c.id, e.target.value)}>
                     {cafTypes.map(t => (
                       <option key={t.id} value={t.id}>{t.name}</option>
                     ))}

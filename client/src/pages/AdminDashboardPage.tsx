@@ -93,7 +93,7 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
       setEditUsername(u.username);
       setEditRole(u.role);
       setEditSite(u.site || sites[0]?.name || '');
-      setEditCafTypeId(u.cafTypeId || cafTypes[0]?.id || '');
+      setEditCafTypeId(u.cafTypeId ?? '');
       setEditSites(u.sites || []);
       setEditManagerIds(u.managerIds || []);
     };
@@ -113,11 +113,15 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
     const saveEdit = async (id: string) => {
       if (!mailRx.test(editUsername)) return alert('Email invalide');
 
+      const orig = users.find(u => u.id === id);
       const body = {
         username: editUsername,
         role: editRole,
         site: editRole === 'caf' ? editSite : undefined,
-        cafTypeId: editRole === 'caf' ? editCafTypeId : undefined,
+        cafTypeId:
+          editRole === 'caf'
+            ? editCafTypeId || orig?.cafTypeId || '1'
+            : undefined,
         sites: editRole === 'manager' ? editSites : undefined,
         managerIds: editRole === 'caf' ? editManagerIds : undefined,
       };

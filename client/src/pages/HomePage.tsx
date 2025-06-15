@@ -25,9 +25,9 @@ const filterBySite = (branch: IItem[], site?: string, typeId?: string): IItem[] 
 
    /* ─────────────────────────────────────────────────── */
   export default function HomePage() {
-    const { user } = useAuth();           // ← on connaît le site du CAF
-    const site = user?.site;              // « Nantes » | « Montoir » | undefined
-    const cafTypeId = user?.cafTypeId;
+  const { user } = useAuth();           // ← on connaît le site du CAF
+  const site = user?.site;              // « Nantes » | « Montoir » | undefined
+  const cafTypeId = user?.cafTypeId ?? '1';
 
     const [modules, setModules] = useState<IModule[]>([]);
     const [loading, setLoading] = useState(true);
@@ -50,7 +50,7 @@ const filterBySite = (branch: IItem[], site?: string, typeId?: string): IItem[] 
          })
          .catch((e) => setError(e.message ?? 'Erreur réseau'))
         .finally(() => setLoading(false));
-    }, [site]);
+    }, [site, cafTypeId]);
 
     useEffect(() => {
       if (user) {

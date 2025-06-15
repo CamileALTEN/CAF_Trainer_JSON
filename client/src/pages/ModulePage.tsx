@@ -41,7 +41,7 @@ export default function ModulePage() {
   const { moduleId }   = useParams<{ moduleId: string }>();
   const { user }       = useAuth();
   const site           = user?.site;
-  const cafTypeId      = user?.cafTypeId;
+  const cafTypeId      = user?.cafTypeId ?? '1';
   const username       = user?.username;
   const quizKey        = username ? `quiz_${username}_${moduleId}` : `quiz_${moduleId}`;
 
@@ -158,7 +158,7 @@ export default function ModulePage() {
       })
       .catch(() => navigate('/'))
       .finally(() => setTimeout(() => setBusy(false), 450)); // petit délai pour le loader
-  }, [moduleId, site, username, navigate]);
+  }, [moduleId, site, cafTypeId, username, navigate]);
 
   /* ---------------- indexation rapide ---------------- */
   const find = useMemo(() => {

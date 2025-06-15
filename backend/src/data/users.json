@@ -5,6 +5,7 @@
     "password": "$2b$08$S1UuW2Cv98yFwiT7HruPxOC/qxloCEgDmbQHKozx0ZOXwQrfpUypq",
     "role": "caf",
     "site": "Nantes",
+    "cafTypeId": "1",
     "managerIds": [
       "1747838393929"
     ]
@@ -24,6 +25,7 @@
     "password": "$2b$08$6Qoxb8fbAOIdAoSCA4znXe6Q/oRZhG4b3jQRhz9bLnXvrC/ie9f7y",
     "role": "caf",
     "site": "Nantes",
+    "cafTypeId": "1",
     "managerIds": [
       "1747838393929"
     ]
@@ -46,6 +48,7 @@
     "password": "$2b$08$jx1eTFqpRuWka0b3U0Rsx.T.x6VZeJ.ezsJqzckbwyNcyWzLH8x/.",
     "role": "caf",
     "site": "Montoir",
+    "cafTypeId": "1",
     "managerIds": [
       "1747914779153",
       "1747838393929"
@@ -75,6 +78,7 @@
     "password": "$2b$08$2gXy/vGhv87SWkayLneAPOq8cCUUbvooxNSpPGXZPHzgD4ML0fbua",
     "role": "caf",
     "site": "Nantes",
+    "cafTypeId": "1",
     "managerIds": [
       "1747838393929"
     ]
@@ -85,6 +89,7 @@
     "password": "$2b$08$M5ic/74.EmJHQ1BT5t/3Ke/cJSuRMUX7NTumQGXvnI4tg8rDl6j1W",
     "role": "caf",
     "site": "Montoir",
+    "cafTypeId": "1",
     "managerIds": [
       "1747838393929"
     ]
