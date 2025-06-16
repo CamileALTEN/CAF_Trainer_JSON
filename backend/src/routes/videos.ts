@@ -4,9 +4,12 @@ import path from 'path';
 
 const router = Router();
 // Stocke les vidéos dans le dossier défini par VIDEO_DIR ou à côté du backend
-const DEFAULT_DIR = path.resolve('A:/CAF-Trainer/backend/video');
-const DIR = process.env.VIDEO_DIR
-  ? path.resolve(process.env.VIDEO_DIR)
+const DEFAULT_DIR = 'A:/CAF-Trainer/backend/video';
+const vidEnv = process.env.VIDEO_DIR;
+const DIR = vidEnv
+  ? /[a-zA-Z]:[\\/]/.test(vidEnv)
+    ? vidEnv
+    : path.resolve(vidEnv)
   : DEFAULT_DIR;
 
 if (!fs.existsSync(DIR)) fs.mkdirSync(DIR, { recursive: true });
@@ -26,3 +29,4 @@ router.post('/', (req, res) => {
 });
 
 export default router;
+

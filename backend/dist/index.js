@@ -26,15 +26,21 @@ const sites_1 = __importDefault(require("./routes/sites"));
 const cafTypes_1 = __importDefault(require("./routes/cafTypes"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
-const DEFAULT_IMG_DIR = path_1.default.resolve('A:/CAF-Trainer/backend/image');
-const IMG_DIR = process.env.IMAGE_DIR
-    ? path_1.default.resolve(process.env.IMAGE_DIR)
+const DEFAULT_IMG_DIR = 'A:/CAF-Trainer/backend/image';
+const imgEnv = process.env.IMAGE_DIR;
+const IMG_DIR = imgEnv
+    ? /[a-zA-Z]:[\\/]/.test(imgEnv)
+        ? imgEnv
+        : path_1.default.resolve(imgEnv)
     : DEFAULT_IMG_DIR;
 if (!fs_1.default.existsSync(IMG_DIR))
     fs_1.default.mkdirSync(IMG_DIR, { recursive: true });
-const DEFAULT_VID_DIR = path_1.default.resolve('A:/CAF-Trainer/backend/video');
-const VID_DIR = process.env.VIDEO_DIR
-    ? path_1.default.resolve(process.env.VIDEO_DIR)
+const DEFAULT_VID_DIR = 'A:/CAF-Trainer/backend/video';
+const vidEnv = process.env.VIDEO_DIR;
+const VID_DIR = vidEnv
+    ? /[a-zA-Z]:[\\/]/.test(vidEnv)
+        ? vidEnv
+        : path_1.default.resolve(vidEnv)
     : DEFAULT_VID_DIR;
 if (!fs_1.default.existsSync(VID_DIR))
     fs_1.default.mkdirSync(VID_DIR, { recursive: true });

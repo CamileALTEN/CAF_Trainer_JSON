@@ -4,9 +4,12 @@ import path from 'path';
 
 const router = Router();
 // Stocke les images dans le dossier défini par IMAGE_DIR ou à côté du backend
-const DEFAULT_DIR = path.resolve('A:/CAF-Trainer/backend/image');
-const DIR = process.env.IMAGE_DIR
-  ? path.resolve(process.env.IMAGE_DIR)
+const DEFAULT_DIR = 'A:/CAF-Trainer/backend/image';
+const imgEnv = process.env.IMAGE_DIR;
+const DIR = imgEnv
+  ? /[a-zA-Z]:[\\/]/.test(imgEnv)
+    ? imgEnv
+    : path.resolve(imgEnv)
   : DEFAULT_DIR;
 
 if (!fs.existsSync(DIR)) fs.mkdirSync(DIR, { recursive: true });
@@ -26,3 +29,4 @@ router.post('/', (req, res) => {
 });
 
 export default router;
+

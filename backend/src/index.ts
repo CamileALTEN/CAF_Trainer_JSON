@@ -26,14 +26,20 @@ import cafTypesRouter from './routes/cafTypes';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const DEFAULT_IMG_DIR = path.resolve('A:/CAF-Trainer/backend/image');
-const IMG_DIR = process.env.IMAGE_DIR
-  ? path.resolve(process.env.IMAGE_DIR)
+const DEFAULT_IMG_DIR = 'A:/CAF-Trainer/backend/image';
+const imgEnv = process.env.IMAGE_DIR;
+const IMG_DIR = imgEnv
+  ? /[a-zA-Z]:[\\/]/.test(imgEnv)
+    ? imgEnv
+    : path.resolve(imgEnv)
   : DEFAULT_IMG_DIR;
 if (!fs.existsSync(IMG_DIR)) fs.mkdirSync(IMG_DIR, { recursive: true });
-const DEFAULT_VID_DIR = path.resolve('A:/CAF-Trainer/backend/video');
-const VID_DIR = process.env.VIDEO_DIR
-  ? path.resolve(process.env.VIDEO_DIR)
+const DEFAULT_VID_DIR = 'A:/CAF-Trainer/backend/video';
+const vidEnv = process.env.VIDEO_DIR;
+const VID_DIR = vidEnv
+  ? /[a-zA-Z]:[\\/]/.test(vidEnv)
+    ? vidEnv
+    : path.resolve(vidEnv)
   : DEFAULT_VID_DIR;
 if (!fs.existsSync(VID_DIR)) fs.mkdirSync(VID_DIR, { recursive: true });
 

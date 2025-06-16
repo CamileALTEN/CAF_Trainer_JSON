@@ -8,9 +8,12 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const router = (0, express_1.Router)();
 // Stocke les vidéos dans le dossier défini par VIDEO_DIR ou à côté du backend
-const DEFAULT_DIR = path_1.default.resolve('A:/CAF-Trainer/backend/video');
-const DIR = process.env.VIDEO_DIR
-    ? path_1.default.resolve(process.env.VIDEO_DIR)
+const DEFAULT_DIR = 'A:/CAF-Trainer/backend/video';
+const vidEnv = process.env.VIDEO_DIR;
+const DIR = vidEnv
+    ? /[a-zA-Z]:[\\/]/.test(vidEnv)
+        ? vidEnv
+        : path_1.default.resolve(vidEnv)
     : DEFAULT_DIR;
 if (!fs_1.default.existsSync(DIR))
     fs_1.default.mkdirSync(DIR, { recursive: true });
