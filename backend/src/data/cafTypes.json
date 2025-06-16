@@ -1,5 +1,18 @@
 [
-  { "id": "1", "name": "Standard" },
-  { "id": "2", "name": "Élec" },
-  { "id": "3", "name": "Machine" }
+  {
+    "id": "1",
+    "name": "Standard"
+  },
+  {
+    "id": "2",
+    "name": "Élec"
+  },
+  {
+    "id": "3",
+    "name": "Machine"
+  },
+  {
+    "id": "1750063191730",
+    "name": "Méca"
+  }
 ]
