@@ -16,4 +16,7 @@ export interface IUser {
 
     // ---- manager fields ----
     sites?:       string[];         // manager en charge de plusieurs sites
+
+    // ---- RGPD ----
+    deletedAt?:  string;            // ISO date de suppression
 }

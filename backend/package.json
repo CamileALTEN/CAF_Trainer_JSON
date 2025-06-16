@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "main": "dist/index.js",
     "scripts": {
+        "prebuild": "node ../scripts/rgpdCleanup.js",
         "build": "tsc",
         "start": "ts-node-dev --respawn --transpile-only src/index.ts"
     },

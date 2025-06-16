@@ -20,11 +20,12 @@ router.post('/login', (req, res) => {
     const users = read<IUser>(USERS);
 
     const user = users.find(u => {
-    if (u.username !== username) return false;
-    /* mot de passe haché ? → bcrypt.compare */
-    if (u.password.startsWith('$2')) return bcrypt.compareSync(password, u.password);
-    /* anciens comptes demo non hachés */
-    return u.password === password;
+      if (u.deletedAt) return false;
+      if (u.username !== username) return false;
+      /* mot de passe haché ? → bcrypt.compare */
+      if (u.password.startsWith('$2')) return bcrypt.compareSync(password, u.password);
+      /* anciens comptes demo non hachés */
+      return u.password === password;
     });
 
     if (!user) return res.status(401).json({ error: 'Identifiants invalides' });
@@ -44,7 +45,7 @@ router.post('/register', (req, res) => {
     return res.status(400).json({ error: 'Format attendu : prenom.nom@alten.com' });
 
     const users = read<IUser>(USERS);
-    if (users.some(u => u.username === username))
+    if (users.some(u => !u.deletedAt && u.username === username))
     return res.status(409).json({ error: 'Nom déjà pris' });
 
     const id = Date.now().toString();

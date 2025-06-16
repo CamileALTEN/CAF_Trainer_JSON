@@ -18,6 +18,8 @@ router.post('/login', (req, res) => {
     const { username, password } = req.body;
     const users = (0, dataStore_1.read)(USERS);
     const user = users.find(u => {
+        if (u.deletedAt)
+            return false;
         if (u.username !== username)
             return false;
         /* mot de passe haché ? → bcrypt.compare */
@@ -28,19 +30,19 @@ router.post('/login', (req, res) => {
     });
     if (!user)
         return res.status(401).json({ error: 'Identifiants invalides' });
-    const { id, role, site } = user;
+    const { id, role, site, cafTypeId } = user;
     (0, analytics_1.startSession)(id, role).catch(() => undefined);
-    res.json({ id, username, role, site });
+    res.json({ id, username, role, site, cafTypeId });
 });
 /* ───────────────────────── REGISTER ────────────────────── */
 router.post('/register', (req, res) => {
-    const { username, password, role, site, managerIds, sites } = req.body;
+    const { username, password, role, site, managerIds, sites, cafTypeId } = req.body;
     if (!username || !password || !role)
         return res.status(400).json({ error: 'Champs manquants' });
     if (!mailRx.test(username))
         return res.status(400).json({ error: 'Format attendu : prenom.nom@alten.com' });
     const users = (0, dataStore_1.read)(USERS);
-    if (users.some(u => u.username === username))
+    if (users.some(u => !u.deletedAt && u.username === username))
         return res.status(409).json({ error: 'Nom déjà pris' });
     const id = Date.now().toString();
     const newUser = {
@@ -49,12 +51,13 @@ router.post('/register', (req, res) => {
         password: bcrypt_1.default.hashSync(password, 8),
         role,
         site: role === 'caf' ? site : undefined,
+        cafTypeId: role === 'caf' ? cafTypeId : undefined,
         sites: role === 'manager' ? sites : undefined,
         managerIds: role === 'caf' ? managerIds : undefined,
     };
     users.push(newUser);
     (0, dataStore_1.write)(USERS, users);
-    res.status(201).json({ id, username, role, site: newUser.site, managerIds: newUser.managerIds, sites: newUser.sites });
+    res.status(201).json({ id, username, role, site: newUser.site, cafTypeId: newUser.cafTypeId, managerIds: newUser.managerIds, sites: newUser.sites });
 });
 /* ───────────────────────── FORGOT PWD ───────────────────── */
 router.post('/forgot', (req, res) => {

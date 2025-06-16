@@ -13,7 +13,7 @@ const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 /* ───────────── GET liste complète ───────────── */
 router.get('/', (_req, res) => {
     const { managerId } = _req.query as { managerId?: string };
-    let list = read<IUser>(TABLE);
+    let list = read<IUser>(TABLE).filter(u => !u.deletedAt);
     if (managerId) list = list.filter(u => u.managerIds?.includes(managerId));
     res.json(list.map(({ password, ...u }) => u));
 });
@@ -28,7 +28,7 @@ if (!mailRx.test(username))
     return res.status(400).json({ error: 'Username doit être prenom.nom@alten.com' });
 
 const list = read<IUser>(TABLE);
-if (list.some(u => u.username === username))
+if (list.some(u => !u.deletedAt && u.username === username))
     return res.status(409).json({ error: 'Nom déjà pris' });
 
 if (role === 'manager' && managerIds?.length)
@@ -79,7 +79,7 @@ if (idx === -1) return res.status(404).json({ error: 'Introuvable' });
 if (data.username) {
     if (!mailRx.test(data.username))
     return res.status(400).json({ error: 'Username doit être prenom.nom@alten.com' });
-    if (list.some(u => u.username === data.username && u.id !== req.params.id))
+    if (list.some(u => !u.deletedAt && u.username === data.username && u.id !== req.params.id))
     return res.status(409).json({ error: 'Nom déjà pris' });
 }
 
@@ -127,12 +127,12 @@ res.json(clean);
 
 /* ───────────── DELETE ────────────────────────── */
 router.delete('/:id', (req, res) => {
-const list  = read<IUser>(TABLE);
-const after = list.filter(u => u.id !== req.params.id);
-if (after.length === list.length)
-    return res.status(404).json({ error: 'Introuvable' });
-write(TABLE, after);
-res.status(204).end();
+  const list = read<IUser>(TABLE);
+  const user = list.find(u => u.id === req.params.id);
+  if (!user) return res.status(404).json({ error: 'Introuvable' });
+  if (!user.deletedAt) user.deletedAt = new Date().toISOString();
+  write(TABLE, list);
+  res.status(204).end();
 });
 
 export default router;
