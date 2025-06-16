@@ -25,3 +25,13 @@ export interface IAnalytics {
 
 export const getAnalytics = async (): Promise<IAnalytics> =>
   (await axios.get('/api/analytics')).data;
+
+export interface SessionRecord {
+  userId: string;
+  role: string;
+  login: string;
+  logout?: string;
+}
+
+export const getUserSessions = async (userId: string): Promise<SessionRecord[]> =>
+  (await axios.get(`/api/analytics/sessions/${userId}`)).data;

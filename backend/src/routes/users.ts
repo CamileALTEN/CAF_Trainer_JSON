@@ -20,7 +20,7 @@ router.get('/', (_req, res) => {
 
 /* ───────────── POST création ─────────────────── */
 router.post('/', (req, res) => {
-const { username, password, role, site, managerIds, sites } = req.body as Partial<IUser>;
+const { username, password, role, site, managerIds, sites, cafTypeId } = req.body as Partial<IUser>;
 
 if (!username || !password || !role)
     return res.status(400).json({ error: 'Champs manquants' });
@@ -35,6 +35,8 @@ if (role === 'manager' && managerIds?.length)
     return res.status(400).json({ error: 'Un manager ne peut avoir de managerIds' });
 if (role === 'caf' && (!managerIds || managerIds.length === 0))
     return res.status(400).json({ error: 'managerIds requis pour un CAF' });
+if (role === 'caf' && !cafTypeId)
+    return res.status(400).json({ error: 'cafTypeId requis pour un CAF' });
 if (role === 'manager' && (!sites || sites.length === 0))
     return res.status(400).json({ error: 'sites requis pour un manager' });
 
@@ -44,6 +46,7 @@ const user: IUser = {
     password: hash(password),
     role: role as Role,
     site: role === 'caf' ? site : undefined,
+    cafTypeId: role === 'caf' ? cafTypeId : undefined,
     managerIds: role === 'caf' ? managerIds : undefined,
     sites: role === 'manager' ? sites : undefined,
 };
@@ -87,12 +90,14 @@ let updated = { ...list[idx], ...data } as IUser;
     if (data.role === 'manager') {
       updated.managerIds = undefined;
       updated.site = undefined;
+      updated.cafTypeId = undefined;
     } else if (data.role === 'caf') {
       updated.sites = undefined;
     } else {
       updated.managerIds = undefined;
       updated.site = undefined;
       updated.sites = undefined;
+      updated.cafTypeId = undefined;
     }
   }
 
@@ -100,6 +105,8 @@ let updated = { ...list[idx], ...data } as IUser;
     return res.status(400).json({ error: 'Un manager ne peut avoir de managerIds' });
   if (updated.role === 'caf' && (!updated.managerIds || updated.managerIds.length === 0))
     return res.status(400).json({ error: 'managerIds requis pour un CAF' });
+  if (updated.role === 'caf' && !updated.cafTypeId)
+    return res.status(400).json({ error: 'cafTypeId requis pour un CAF' });
   if (updated.role === 'manager' && (!updated.sites || updated.sites.length === 0))
     return res.status(400).json({ error: 'sites requis pour un manager' });
 

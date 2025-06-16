@@ -33,6 +33,19 @@ router.post('/favorite', async (req, res) => {
   res.json({ ok: true });
 });
 
+router.get('/sessions/:userId', (req, res) => {
+  try {
+    const { userId } = req.params as { userId: string };
+    const { sessions } = getAnalyticsFile();
+    const list = sessions
+      .filter(s => s.userId === userId)
+      .sort((a, b) => new Date(b.login).getTime() - new Date(a.login).getTime());
+    res.json(list);
+  } catch {
+    res.status(500).json({ error: 'Cannot load sessions' });
+  }
+});
+
 router.get('/averages', (_req, res) => {
   try {
     const { averages } = getAnalyticsFile();

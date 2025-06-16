@@ -29,14 +29,14 @@ router.post('/login', (req, res) => {
 
     if (!user) return res.status(401).json({ error: 'Identifiants invalides' });
 
-    const { id, role, site } = user;
+    const { id, role, site, cafTypeId } = user;
     startSession(id, role as any).catch(() => undefined);
-    res.json({ id, username, role, site });
+    res.json({ id, username, role, site, cafTypeId });
 });
 
 /* ───────────────────────── REGISTER ────────────────────── */
 router.post('/register', (req, res) => {
-    const { username, password, role, site, managerIds, sites } = req.body as Partial<IUser>;
+    const { username, password, role, site, managerIds, sites, cafTypeId } = req.body as Partial<IUser>;
 
     if (!username || !password || !role)
     return res.status(400).json({ error: 'Champs manquants' });
@@ -54,13 +54,14 @@ router.post('/register', (req, res) => {
     password: bcrypt.hashSync(password, 8),
     role,
     site: role === 'caf' ? site : undefined,
+    cafTypeId: role === 'caf' ? cafTypeId : undefined,
     sites: role === 'manager' ? sites : undefined,
     managerIds: role === 'caf' ? managerIds : undefined,
     } as IUser;
 
     users.push(newUser);
     write(USERS, users);
-    res.status(201).json({ id, username, role, site: newUser.site, managerIds: newUser.managerIds, sites: newUser.sites });
+    res.status(201).json({ id, username, role, site: newUser.site, cafTypeId: newUser.cafTypeId, managerIds: newUser.managerIds, sites: newUser.sites });
 });
 
 /* ───────────────────────── FORGOT PWD ───────────────────── */

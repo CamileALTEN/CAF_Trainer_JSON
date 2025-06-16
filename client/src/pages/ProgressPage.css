@@ -59,6 +59,19 @@
   cursor: pointer;
 }
 
+.name_box .history {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+.name_box .history:hover {
+  background: #d0eaff;
+}
+
 
 .stat_box {
   margin-top: 0.5rem;
@@ -149,9 +162,52 @@
   margin-bottom: 0.3rem;
 }
 
+.history_box {
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.75rem;
+  background: #fff;
+}
+
+.history_tabs {
+  margin-bottom: 0.5rem;
+}
+.history_tabs button {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.history_tabs .active {
+  background: #003869;
+}
+
+.session-list li {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fade-in 0.3s forwards;
+  animation-delay: calc(var(--i) * 50ms);
+}
+
+@keyframes fade-in {
+  to { opacity: 1; transform: none; }
+}
+
 /* État de chargement */
 .progress-wrapper p {
   text-align: center;
   font-style: italic;
   color: #666;
+}
+
+/* Tooltip for session chart */
+.session-tip {
+  background-color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-size: 0.85rem;
 }
