@@ -6,7 +6,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.computeAnalytics = exports.getAnalyticsFile = exports.recordFavorite = exports.endSession = exports.startSession = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const DATA_FILE = path_1.default.resolve(__dirname, '../data/analytics.json');
+const DEFAULT_DATA_DIR = 'A:/CAF-Trainer/backend/src/data';
+const envDataDir = process.env.DATA_DIR;
+const DATA_DIR = envDataDir
+    ? /[a-zA-Z]:[\\/]/.test(envDataDir)
+        ? envDataDir
+        : path_1.default.resolve(envDataDir)
+    : DEFAULT_DATA_DIR;
+if (!fs_1.default.existsSync(DATA_DIR))
+    fs_1.default.mkdirSync(DATA_DIR, { recursive: true });
+const DATA_FILE = path_1.default.join(DATA_DIR, 'analytics.json');
 function load() {
     if (!fs_1.default.existsSync(DATA_FILE)) {
         fs_1.default.writeFileSync(DATA_FILE, JSON.stringify({ sessions: [], favorites: [], averages: {} }, null, 2), 'utf8');
@@ -94,11 +103,11 @@ function computeAnalytics() {
     let users = [];
     let modules = [];
     try {
-        users = JSON.parse(fs_1.default.readFileSync(path_1.default.resolve(__dirname, '../data/users.json'), 'utf8'));
+        users = JSON.parse(fs_1.default.readFileSync(path_1.default.join(DATA_DIR, 'users.json'), 'utf8'));
     }
     catch { }
     try {
-        modules = JSON.parse(fs_1.default.readFileSync(path_1.default.resolve(__dirname, '../data/modules.json'), 'utf8'));
+        modules = JSON.parse(fs_1.default.readFileSync(path_1.default.join(DATA_DIR, 'modules.json'), 'utf8'));
     }
     catch { }
     const userRoles = {};
@@ -161,7 +170,7 @@ function computeAnalytics() {
     const favMap = {};
     let favLists = [];
     try {
-        favLists = JSON.parse(fs_1.default.readFileSync(path_1.default.resolve(__dirname, '../data/favorites.json'), 'utf8'));
+        favLists = JSON.parse(fs_1.default.readFileSync(path_1.default.join(DATA_DIR, 'favorites.json'), 'utf8'));
     }
     catch { }
     favLists.forEach(f => {

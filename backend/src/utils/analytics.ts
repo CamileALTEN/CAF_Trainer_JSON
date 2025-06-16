@@ -3,7 +3,15 @@ import path from 'path';
 import { Request } from 'express';
 import { IAnalytics, SessionRecord, FavoriteRecord, Role } from '../models/IAnalytics';
 
-const DATA_FILE = path.resolve(__dirname, '../data/analytics.json');
+const DEFAULT_DATA_DIR = 'A:/CAF-Trainer/backend/src/data';
+const envDataDir = process.env.DATA_DIR;
+const DATA_DIR = envDataDir
+  ? /[a-zA-Z]:[\\/]/.test(envDataDir)
+    ? envDataDir
+    : path.resolve(envDataDir)
+  : DEFAULT_DATA_DIR;
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+const DATA_FILE = path.join(DATA_DIR, 'analytics.json');
 
 function load(): IAnalytics {
   if (!fs.existsSync(DATA_FILE)) {
@@ -125,10 +133,10 @@ export function computeAnalytics(): AnalyticsSummary {
   let users: any[] = [];
   let modules: any[] = [];
   try {
-    users = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../data/users.json'), 'utf8'));
+    users = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'users.json'), 'utf8'));
   } catch {}
   try {
-    modules = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../data/modules.json'), 'utf8'));
+    modules = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'modules.json'), 'utf8'));
   } catch {}
 
   const userRoles: Record<string,string> = {};
@@ -192,7 +200,7 @@ export function computeAnalytics(): AnalyticsSummary {
   let favLists: any[] = [];
   try {
     favLists = JSON.parse(
-      fs.readFileSync(path.resolve(__dirname, '../data/favorites.json'), 'utf8'),
+      fs.readFileSync(path.join(DATA_DIR, 'favorites.json'), 'utf8'),
     );
   } catch {}
   favLists.forEach(f => {
