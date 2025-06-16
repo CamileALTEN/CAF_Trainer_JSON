@@ -8,8 +8,8 @@ import RadarTracker from '../components/RadarTracker';
 import { flatten } from '../utils/items';
 import { fuzzySearch } from '../utils/fuzzySearch';
 import {
-  ScatterChart,
-  Scatter,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -332,32 +332,35 @@ export default function ProgressPage() {
                   )
                 ) : (
                   <ResponsiveContainer width="100%" height={200}>
-                    <ScatterChart>
+                    <LineChart
+                      data={(historyData[c.id]?.map(s => ({
+                        login: new Date(s.login).getTime(),
+                        duration: s.logout ? Math.ceil((new Date(s.logout).getTime() - new Date(s.login).getTime()) / 60000) : 0,
+                      })) || []).sort((a, b) => a.login - b.login)}
+                    >
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
                         dataKey="login"
+                        type="number"
+                        domain={['dataMin', 'dataMax']}
                         tickFormatter={v => {
-                          const d = new Date(v as any);
+                          const d = new Date(v as number);
                           return d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' }) + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
                         }}
                       />
                       <YAxis dataKey="duration" allowDecimals={false} />
-                      <Tooltip
-                        labelFormatter={v => {
-                          const d = new Date(v as any);
-                          return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) +
-                            ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-                        }}
-                        formatter={(val: number) => [`${val} min`]}
-                      />
-                      <Scatter
-                        data={historyData[c.id]?.map(s => ({
-                          login: s.login,
-                          duration: s.logout ? Math.ceil((new Date(s.logout).getTime() - new Date(s.login).getTime()) / 60000) : 0,
-                        })) || []}
-                        fill="#8884d8"
-                      />
-                    </ScatterChart>
+                      <Tooltip content={({ active, payload }) => {
+                        if (active && payload && payload.length) {
+                          const { login, duration } = payload[0].payload as { login: number; duration: number };
+                          const d = new Date(login);
+                          const label = d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) +
+                            ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) + ` pendant ${duration} min`;
+                          return <div className="session-tip">{label}</div>;
+                        }
+                        return null;
+                      }} />
+                      <Line type="monotone" dataKey="duration" stroke="#8884d8" dot />
+                    </LineChart>
                   </ResponsiveContainer>
                 )}
               </div>

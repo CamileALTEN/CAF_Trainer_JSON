@@ -202,3 +202,12 @@
   font-style: italic;
   color: #666;
 }
+
+/* Tooltip for session chart */
+.session-tip {
+  background-color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-size: 0.85rem;
+}
