@@ -3,10 +3,13 @@ import fs from 'fs';
 import path from 'path';
 
 const router = Router();
-// Stocke les vidéos dans le même dossier que celui exposé par index.ts
-const DIR = path.resolve(__dirname, '../..', 'video');
+// Stocke les vidéos dans le dossier défini par VIDEO_DIR ou à côté du backend
+const DEFAULT_DIR = path.resolve('A:/CAF-Trainer/backend/video');
+const DIR = process.env.VIDEO_DIR
+  ? path.resolve(process.env.VIDEO_DIR)
+  : DEFAULT_DIR;
 
-if (!fs.existsSync(DIR)) fs.mkdirSync(DIR);
+if (!fs.existsSync(DIR)) fs.mkdirSync(DIR, { recursive: true });
 
 router.post('/', (req, res) => {
   const { data } = req.body as { data?: string };

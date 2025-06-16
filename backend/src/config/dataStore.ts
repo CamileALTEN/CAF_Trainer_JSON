@@ -1,7 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
-const DATA_DIR = path.resolve(__dirname, '..', 'data');
+const DEFAULT_DATA_DIR = path.resolve('A:/CAF-Trainer/backend/src/data');
+const DATA_DIR = process.env.DATA_DIR
+  ? path.resolve(process.env.DATA_DIR)
+  : DEFAULT_DATA_DIR;
 
 export function read<T = any>(name: string): T[] {
     const file = path.join(DATA_DIR, `${name}.json`);

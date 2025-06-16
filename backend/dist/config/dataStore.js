@@ -6,7 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.write = exports.read = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const DATA_DIR = path_1.default.resolve(__dirname, '..', 'data');
+const DEFAULT_DATA_DIR = path_1.default.resolve('A:/CAF-Trainer/backend/src/data');
+const DATA_DIR = process.env.DATA_DIR
+    ? path_1.default.resolve(process.env.DATA_DIR)
+    : DEFAULT_DATA_DIR;
 function read(name) {
     const file = path_1.default.join(DATA_DIR, `${name}.json`);
     if (!fs_1.default.existsSync(file)) {

@@ -1,9 +1,17 @@
 
 const fs = require('fs');
 const path = require('path');
+const dotenv = require('dotenv');
 
-const DATA_DIR = path.join(__dirname, '../backend/src/data');
-const ARCHIVE_DIR = path.join(__dirname, '../backend/archive');
+dotenv.config({ path: path.resolve(__dirname, '../backend/.env') });
+const DEFAULT_DATA_DIR = path.resolve('A:/CAF-Trainer/backend/src/data');
+const DATA_DIR = process.env.DATA_DIR
+  ? path.resolve(process.env.DATA_DIR)
+  : DEFAULT_DATA_DIR;
+const DEFAULT_ARCHIVE_DIR = path.resolve('A:/CAF-Trainer/backend/src/archive');
+const ARCHIVE_DIR = process.env.ARCHIVE_DIR
+  ? path.resolve(process.env.ARCHIVE_DIR)
+  : DEFAULT_ARCHIVE_DIR;
 
 if (!fs.existsSync(ARCHIVE_DIR)) fs.mkdirSync(ARCHIVE_DIR, { recursive: true });
 
