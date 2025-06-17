@@ -22,6 +22,7 @@ export default function AlertMajPage() {
   const [search, setSearch] = useState('');
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [saving, setSaving] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [freqValue, setFreqValue] = useState(0);
   const [freqUnit, setFreqUnit] = useState<'s'|'min'|'d'|'mo'>('d');
   const [maxOutdated, setMaxOutdated] = useState(5);
@@ -127,6 +128,7 @@ export default function AlertMajPage() {
   };
 
   const markDone = async () => {
+    setSubmitting(true);
     const items = Object.entries(checked)
       .filter(([, v]) => v)
       .map(([k]) => k);
@@ -138,6 +140,7 @@ export default function AlertMajPage() {
     setConf(updated);
     const mods = await getModules();
     setModules(mods);
+    setSubmitting(false);
     window.location.reload();
   };
 
@@ -218,7 +221,13 @@ export default function AlertMajPage() {
               </div>
             ))}
           </div>
-          <button className="validate" onClick={markDone}>Soumettre</button>
+          <button
+            className={`validate${submitting ? ' loading' : ''}`}
+            onClick={markDone}
+            disabled={submitting}
+          >
+            Soumettre
+          </button>
         </div>
         <div className="right">
           <h3>Alertes de mise à jour</h3>
@@ -239,7 +248,13 @@ export default function AlertMajPage() {
             </div>
             <label>Seuil items non à jour</label>
             <input type="number" value={maxOutdated} onChange={e=>setMaxOutdated(parseInt(e.target.value,10)||0)} />
-            <button type="submit" disabled={saving}>{saving?'…':'Enregistrer'}</button>
+            <button
+              type="submit"
+              className={saving ? 'loading' : ''}
+              disabled={saving}
+            >
+              {saving ? 'Enregistrement…' : 'Enregistrer'}
+            </button>
           </form>
         </div>
       </div>
@@ -336,6 +351,10 @@ const Wrapper = styled.div`
   .conf-form input[type="number"], .conf-form input[type="text"], .conf-form input[type="url"], .conf-form input:not([type]){padding:.5rem;border:1px solid #bbb;border-radius:4px;}
   .conf-form button{padding:.5rem;background:#008bd2;color:#fff;border:none;border-radius:4px;}
   .conf-form button:hover:not(:disabled){background:#006fa1;}
+    .loading{position:relative;color:transparent !important;}
+  .loading::after{
+    content:'';position:absolute;top:50%;left:50%;width:16px;height:16px;margin-top:-8px;margin-left:-8px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;
+  }
   .search{width:100%;margin-bottom:.5rem;padding:.25rem;}
   .list{max-height:300px;overflow:auto;margin-bottom:.5rem;}
   .module h4{margin:0.25rem 0;}
@@ -356,5 +375,6 @@ const Wrapper = styled.div`
   .out-table{width:100%;border-collapse:collapse;}
   .out-table th,.out-table td{border:1px solid #ddd;padding:4px 8px;text-align:left;}
   .out-table th{background:#f5f5f5;}
+  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 `;
 
