@@ -44,6 +44,7 @@ export interface IItem  {
     reason: string;
     date: string;
     user: string;
+    site?: string;
   } | null;
 
   quiz?: IQuiz;

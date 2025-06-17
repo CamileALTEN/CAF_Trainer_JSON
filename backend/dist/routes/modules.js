@@ -56,7 +56,8 @@ router.patch('/:moduleId/items/:itemId/outdated', (req, res) => {
         item.outdatedInfo = {
             reason: String(info.reason || ''),
             date: String(info.date || new Date().toISOString()),
-            user: String(info.user || '')
+            user: String(info.user || ''),
+            site: info.site ? String(info.site) : undefined,
         };
     }
     else {

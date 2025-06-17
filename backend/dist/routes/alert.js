@@ -11,6 +11,7 @@ function loadConf() {
         url: '#',
         frequency: 0,
         active: false,
+        maxOutdated: 5,
     };
 }
 function saveConf(c) {
@@ -27,7 +28,7 @@ router.get('/', (_req, res) => {
 });
 router.put('/', (req, res) => {
     const conf = loadConf();
-    const { text, url, frequency, active } = req.body;
+    const { text, url, frequency, active, maxOutdated } = req.body;
     if (text !== undefined)
         conf.text = text;
     if (url !== undefined)
@@ -36,6 +37,8 @@ router.put('/', (req, res) => {
         conf.frequency = frequency;
     if (typeof active === 'boolean')
         conf.active = active;
+    if (typeof maxOutdated === 'number')
+        conf.maxOutdated = maxOutdated;
     saveConf(conf);
     res.json(conf);
 });
