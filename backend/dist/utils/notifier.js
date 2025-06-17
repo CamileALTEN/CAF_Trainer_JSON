@@ -10,7 +10,11 @@ async function notify(options) {
         id: Date.now().toString(),
         username: options.username,
         date: new Date().toISOString(),
+        dateEnvoi: new Date().toISOString(),
         category: options.category,
+        type: options.type,
+        cible: options.cible,
+        etat: { luPar: [], nonLuPar: options.cible ? [...options.cible] : [] },
         message: options.message,
     };
     list.push(entry);

@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 interface INotification {
   id: string;
-  username: string;
-  date: string;
-  category: string;
+  username?: string;
+  date?: string;
+  dateEnvoi?: string;
+  type?: string;
   message?: string;
 }
 
 export default function NotificationsPage() {
   const [notifs, setNotifs] = useState<INotification[]>([]);
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   useEffect(() => {
-    fetch('/api/notifications')
+    if (!user) return;
+    fetch(`/api/notifications/for/${user.username}`)
       .then(r => r.json())
       .then(setNotifs)
       .catch(console.error);
-  }, []);
+  }, [user]);
 
   return (
     <Wrapper>
@@ -29,12 +33,24 @@ export default function NotificationsPage() {
         ? <p>Aucune notification.</p>
         : (
           <ul>
-            {notifs.map(n => (
-              <li key={n.id}>
-                {n.username} – {new Date(n.date).toLocaleString()}
-                {n.message ? ` – ${n.message}` : ''}
-              </li>
-            ))}
+            {notifs.map(n => {
+              const d = n.dateEnvoi || n.date || '';
+              const markRead = () => {
+                if (!user) return;
+                fetch(`/api/notifications/${n.id}/read`, {
+                  method: 'PATCH',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ username: user.username }),
+                }).catch(console.error);
+              };
+              return (
+                <li key={n.id}>
+                  {n.username || 'Système'} – {d ? new Date(d).toLocaleString() : ''}
+                  {n.message ? ` – ${n.message}` : ''}
+                  <button onClick={markRead} style={{ marginLeft: '0.5rem' }}>Lu</button>
+                </li>
+              );
+            })}
           </ul>
         )}
     </Wrapper>
