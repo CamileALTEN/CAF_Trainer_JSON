@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { read, write } from '../config/dataStore';
 import { ITicket, TicketStatus, TicketPriority, TicketReply } from '../models/ITicket';
 import { IUser } from '../models/IUser';
-import { notify } from '../utils/notifier';
+import { notify, createNotificationAuto } from '../utils/notifier';
 
 const router = Router();
 const TABLE = 'tickets';
@@ -53,6 +53,14 @@ router.post('/', (req, res) => {
   const list = load();
   list.push(ticket);
   save(list);
+  if (ticket.managerId) {
+    createNotificationAuto({
+      type: 'alert',
+      message: `Nouveau ticket de ${username} : ${title}`,
+      cible: [ticket.managerId],
+      origine: 'ticket_new',
+    });
+  }
   // Les notifications par mail sont désactivées
   const to: string[] = [];
 
@@ -132,6 +140,14 @@ router.patch('/:id', (req, res) => {
   if (priority !== undefined) list[idx].priority = priority as TicketPriority;
   save(list);
   const ticket = list[idx];
+  if (status === 'pending') {
+    createNotificationAuto({
+      type: 'rappel',
+      message: `Ticket "${ticket.title}" en attente de votre action`,
+      cible: [ticket.username],
+      origine: 'ticket_pending',
+    });
+  }
   // Pas d'envoi d'email
   const to: string[] = [];
 

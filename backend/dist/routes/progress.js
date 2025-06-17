@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const dataStore_1 = require("../config/dataStore");
+const notifier_1 = require("../utils/notifier");
 const router = (0, express_1.Router)();
 const TABLE = 'progress';
 // GET /api/progress/:username – lecture complète d’un CAF
@@ -21,6 +22,11 @@ router.patch('/', (req, res) => {
         .filter((id) => !uniqVisited.includes(id) && !uniqNeedVal.includes(id));
     const list = (0, dataStore_1.read)(TABLE);
     const idx = list.findIndex((p) => p.username === username && p.moduleId === moduleId);
+    const modules = (0, dataStore_1.read)('modules');
+    const mod = modules.find((m) => m.id === moduleId);
+    const collectIds = (items) => items.reduce((arr, it) => [...arr, it.id, ...(it.children ? collectIds(it.children) : [])], []);
+    const allIds = mod ? collectIds(mod.items) : [];
+    const previouslyVisited = idx === -1 ? [] : list[idx].visited;
     if (idx === -1) {
         list.push({ username, moduleId, visited: uniqVisited, started: uniqStarted, needValidation: uniqNeedVal });
     }
@@ -28,6 +34,16 @@ router.patch('/', (req, res) => {
         list[idx].visited = uniqVisited;
         list[idx].started = uniqStarted;
         list[idx].needValidation = uniqNeedVal;
+    }
+    const nowCompleted = allIds.length > 0 && allIds.every((id) => uniqVisited.includes(id));
+    const wasCompleted = allIds.length > 0 && allIds.every((id) => previouslyVisited.includes(id));
+    if (mod && nowCompleted && !wasCompleted) {
+        (0, notifier_1.createNotificationAuto)({
+            type: 'success',
+            message: `Bravo, vous avez terminé le module "${mod.title}" !`,
+            cible: [username],
+            origine: 'module_completed',
+        });
     }
     (0, dataStore_1.write)(TABLE, list);
     res.json({ ok: true });

@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { read, write } from '../config/dataStore';
 import { IProgress } from '../models/IProgress';
 import { IUser } from '../models/IUser';
+import { IModule, IItem } from '../models/IModule';
+import { createNotificationAuto } from '../utils/notifier';
 
 const router = Router();
 const TABLE = 'progress';
@@ -33,6 +35,12 @@ router.patch('/', (req, res) => {
 
   const list = read<IProgress>(TABLE);
   const idx = list.findIndex((p) => p.username === username && p.moduleId === moduleId);
+  const modules = read<IModule>('modules');
+  const mod = modules.find((m) => m.id === moduleId);
+  const collectIds = (items: IItem[]): string[] =>
+    items.reduce((arr, it) => [...arr, it.id, ...(it.children ? collectIds(it.children) : [])], [] as string[]);
+  const allIds = mod ? collectIds(mod.items) : [];
+  const previouslyVisited = idx === -1 ? [] : list[idx].visited;
 
   if (idx === -1) {
     list.push({ username, moduleId, visited: uniqVisited, started: uniqStarted, needValidation: uniqNeedVal });
@@ -40,6 +48,17 @@ router.patch('/', (req, res) => {
     list[idx].visited = uniqVisited;
     list[idx].started = uniqStarted;
     list[idx].needValidation = uniqNeedVal;
+  }
+
+  const nowCompleted = allIds.length > 0 && allIds.every((id) => uniqVisited.includes(id));
+  const wasCompleted = allIds.length > 0 && allIds.every((id) => previouslyVisited.includes(id));
+  if (mod && nowCompleted && !wasCompleted) {
+    createNotificationAuto({
+      type: 'success',
+      message: `Bravo, vous avez terminé le module "${mod.title}" !`,
+      cible: [username],
+      origine: 'module_completed',
+    });
   }
 
   write(TABLE, list);

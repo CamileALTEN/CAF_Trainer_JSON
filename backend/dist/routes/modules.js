@@ -2,8 +2,23 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const dataStore_1 = require("../config/dataStore");
+const notifier_1 = require("../utils/notifier");
 const router = (0, express_1.Router)();
 const TABLE = 'modules';
+function notifyReaders(moduleId, message, origine) {
+    const progress = (0, dataStore_1.read)('progress');
+    const users = progress
+        .filter(p => p.moduleId === moduleId && p.visited.length > 0)
+        .map(p => p.username);
+    if (users.length) {
+        (0, notifier_1.createNotificationAuto)({
+            type: 'system',
+            message,
+            cible: Array.from(new Set(users)),
+            origine,
+        });
+    }
+}
 // ----- utilitaires -----
 function load() {
     return (0, dataStore_1.read)(TABLE);
@@ -64,6 +79,7 @@ router.patch('/:moduleId/items/:itemId/outdated', (req, res) => {
         delete item.outdatedInfo;
     }
     save(list);
+    notifyReaders(mod.id, `Le module "${mod.title}" a été mis à jour`, 'module_update');
     res.json(item);
 });
 // POST /api/modules
@@ -79,6 +95,16 @@ router.post('/', (req, res) => {
     };
     list.push(mod);
     save(list);
+    const users = (0, dataStore_1.read)('users').filter(u => u.role === 'caf').map(u => u.username);
+    if (users.length) {
+        (0, notifier_1.createNotificationAuto)({
+            type: 'recommandation',
+            message: `Nouveau module disponible : ${mod.title}`,
+            cible: users,
+            action: { type: 'link', url: `/modules/${mod.id}` },
+            origine: 'new_module',
+        });
+    }
     res.status(201).json(mod);
 });
 // PUT /api/modules/:id
@@ -89,6 +115,7 @@ router.put('/:id', (req, res) => {
         return res.status(404).json({ error: 'Module non trouvé' });
     list[index] = req.body;
     save(list);
+    notifyReaders(req.params.id, `Le module "${list[index].title}" a été mis à jour`, 'module_update');
     res.json(list[index]);
 });
 // PATCH /api/modules/:id
@@ -99,6 +126,7 @@ router.patch('/:id', (req, res) => {
         return res.status(404).json({ error: 'Module non trouvé' });
     Object.assign(mod, req.body);
     save(list);
+    notifyReaders(mod.id, `Le module "${mod.title}" a été mis à jour`, 'module_update');
     res.json(mod);
 });
 // DELETE /api/modules/:id

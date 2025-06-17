@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { computeAnalytics, startSession, endSession, recordFavorite, getAnalyticsFile } from '../utils/analytics';
+import { createNotificationAuto } from '../utils/notifier';
 
 const router = Router();
 
@@ -15,7 +16,23 @@ router.get('/', (_req, res) => {
 router.post('/login', async (req, res) => {
   const { userId, role } = req.body as { userId: string; role: any };
   if (!userId || !role) return res.status(400).json({ error: 'Missing data' });
+  const { sessions } = getAnalyticsFile();
+  const last = sessions
+    .filter(s => s.userId === userId)
+    .sort((a, b) => new Date(b.login).getTime() - new Date(a.login).getTime())[0];
   await startSession(userId, role);
+  if (role === 'caf' && last) {
+    const diffDays = Math.floor((Date.now() - new Date(last.login).getTime()) / 86400000);
+    if (diffDays >= 7) {
+      createNotificationAuto({
+        type: 'boost',
+        message: "Un petit rappel pour ne pas perdre le fil",
+        cible: [userId],
+        tags: ['inactivité'],
+        origine: 'inactive_7d',
+      });
+    }
+  }
   res.json({ ok: true });
 });
 

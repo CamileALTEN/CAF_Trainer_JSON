@@ -44,6 +44,14 @@ router.post('/', (req, res) => {
     const list = load();
     list.push(ticket);
     save(list);
+    if (ticket.managerId) {
+        (0, notifier_1.createNotificationAuto)({
+            type: 'alert',
+            message: `Nouveau ticket de ${username} : ${title}`,
+            cible: [ticket.managerId],
+            origine: 'ticket_new',
+        });
+    }
     // Les notifications par mail sont désactivées
     const to = [];
     (0, notifier_1.notify)({
@@ -110,6 +118,14 @@ router.patch('/:id', (req, res) => {
         list[idx].priority = priority;
     save(list);
     const ticket = list[idx];
+    if (status === 'pending') {
+        (0, notifier_1.createNotificationAuto)({
+            type: 'rappel',
+            message: `Ticket "${ticket.title}" en attente de votre action`,
+            cible: [ticket.username],
+            origine: 'ticket_pending',
+        });
+    }
     // Pas d'envoi d'email
     const to = [];
     (0, notifier_1.notify)({

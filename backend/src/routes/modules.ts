@@ -1,9 +1,26 @@
 import { Router, Request, Response } from 'express';
 import { read, write } from '../config/dataStore';
 import { IModule, IItem } from '../models/IModule';
+import { IProgress } from '../models/IProgress';
+import { createNotificationAuto } from '../utils/notifier';
 
 const router = Router();
 const TABLE = 'modules';
+
+function notifyReaders(moduleId: string, message: string, origine: string) {
+  const progress = read<IProgress>('progress');
+  const users = progress
+    .filter(p => p.moduleId === moduleId && p.visited.length > 0)
+    .map(p => p.username);
+  if (users.length) {
+    createNotificationAuto({
+      type: 'system',
+      message,
+      cible: Array.from(new Set(users)),
+      origine,
+    });
+  }
+}
 
 // ----- utilitaires -----
 function load(): IModule[] {
@@ -64,6 +81,7 @@ router.patch('/:moduleId/items/:itemId/outdated', (req, res) => {
     delete item.outdatedInfo;
   }
   save(list);
+  notifyReaders(mod.id, `Le module "${mod.title}" a été mis à jour`, 'module_update');
   res.json(item);
 });
 
@@ -80,6 +98,16 @@ router.post('/', (req, res) => {
   };
   list.push(mod);
   save(list);
+  const users = read<any>('users').filter(u => u.role === 'caf').map(u => u.username);
+  if (users.length) {
+    createNotificationAuto({
+      type: 'recommandation',
+      message: `Nouveau module disponible : ${mod.title}`,
+      cible: users,
+      action: { type: 'link', url: `/modules/${mod.id}` },
+      origine: 'new_module',
+    });
+  }
   res.status(201).json(mod);
 });
 
@@ -91,6 +119,7 @@ router.put('/:id', (req, res) => {
 
   list[index] = req.body as IModule;
   save(list);
+  notifyReaders(req.params.id, `Le module "${list[index].title}" a été mis à jour`, 'module_update');
   res.json(list[index]);
 });
 
@@ -102,6 +131,7 @@ router.patch('/:id', (req, res) => {
 
   Object.assign(mod, req.body);
   save(list);
+  notifyReaders(mod.id, `Le module "${mod.title}" a été mis à jour`, 'module_update');
   res.json(mod);
 });
 
