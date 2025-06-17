@@ -3,10 +3,10 @@
   background-color: none;
   top: 140px;
   left: -4%;
-  width: 200px;
+  width: 170px;
   height: 220px;
   pointer-events: none;
-  --distance: 90px;
+  --distance: 100px;
 }
 
 .menu__toggle {
