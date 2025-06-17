@@ -13,15 +13,15 @@ function save(list: ITicket[]) { write(TABLE, list); }
 
 router.get('/', (req, res) => {
   const q = (req.query.search as string)?.toLowerCase();
-  const list = load().filter(t => !t.archived);
+  const username = req.query.username as string | undefined;
+  let list = load().filter(t => !t.archived);
+  if (username) list = list.filter(t => t.username === username);
   if (q) {
-    return res.json(
-      list.filter(
-        t =>
-          t.title.toLowerCase().includes(q) ||
-          t.message.toLowerCase().includes(q) ||
-          t.replies.some(r => r.message.toLowerCase().includes(q))
-      )
+    list = list.filter(
+      t =>
+        t.title.toLowerCase().includes(q) ||
+        t.message.toLowerCase().includes(q) ||
+        t.replies.some(r => r.message.toLowerCase().includes(q))
     );
   }
   res.json(list);

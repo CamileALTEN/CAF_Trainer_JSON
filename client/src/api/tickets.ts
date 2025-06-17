@@ -24,8 +24,11 @@ export interface ITicket {
   archived?: boolean;
 }
 
-export async function getTickets(search?: string): Promise<ITicket[]> {
-  const query = search ? `?search=${encodeURIComponent(search)}` : '';
+export async function getTickets(search?: string, username?: string): Promise<ITicket[]> {
+  const params = new URLSearchParams();
+  if (search) params.set('search', search);
+  if (username) params.set('username', username);
+  const query = params.toString() ? `?${params.toString()}` : '';
   const res = await fetch(`/api/tickets${query}`);
   return res.json();
 }

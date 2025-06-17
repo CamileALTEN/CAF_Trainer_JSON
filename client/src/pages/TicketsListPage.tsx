@@ -24,10 +24,11 @@ export default function TicketsListPage() {
   const [editPriority, setEditPriority] = useState<TicketPriority>('normal');
 
   useEffect(() => {
-    getTickets(search)
+    const username = user?.role === 'caf' ? user.username : undefined;
+    getTickets(search, username)
       .then(setTickets)
       .catch(console.error);
-  }, [search]);
+  }, [search, user]);
 
 
   const changeStatus = async (id: string, status: TicketStatus) => {

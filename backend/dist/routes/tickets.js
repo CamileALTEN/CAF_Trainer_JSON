@@ -10,11 +10,14 @@ function load() { return (0, dataStore_1.read)(TABLE); }
 function save(list) { (0, dataStore_1.write)(TABLE, list); }
 router.get('/', (req, res) => {
     const q = req.query.search?.toLowerCase();
-    const list = load().filter(t => !t.archived);
+    const username = req.query.username;
+    let list = load().filter(t => !t.archived);
+    if (username)
+        list = list.filter(t => t.username === username);
     if (q) {
-        return res.json(list.filter(t => t.title.toLowerCase().includes(q) ||
+        list = list.filter(t => t.title.toLowerCase().includes(q) ||
             t.message.toLowerCase().includes(q) ||
-            t.replies.some(r => r.message.toLowerCase().includes(q))));
+            t.replies.some(r => r.message.toLowerCase().includes(q)));
     }
     res.json(list);
 });
