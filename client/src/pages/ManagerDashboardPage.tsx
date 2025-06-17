@@ -18,7 +18,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts';
-import CircleMenu from '../components/CircleMenu';
+import ManagerSideMenu from '../components/ManagerSideMenu';
 import { ICafType, getCafTypes } from '../api/cafTypes';
 import { IAnalytics, getAnalytics } from '../api/analytics';
 import './ManagerDashboardPage.css';
@@ -84,7 +84,7 @@ const COLORS = ['#043962', '#008bd2', '#00c49f'];
         </section>
 
       {/* ----------- actions rapides ----------- */}
-      <CircleMenu />
+      <ManagerSideMenu />
 
         <div className="card progress-card">
           <h3>Avancée globale</h3>
