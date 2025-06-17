@@ -1,0 +1,19 @@
+.notif-bell{position:relative;}
+.notif-bell .icon-btn{background:none;border:none;position:relative;color:#fff;cursor:pointer;}
+.notif-bell .badge{position:absolute;top:-4px;right:-4px;background:#d32f2f;color:#fff;border-radius:10px;font-size:0.7rem;padding:2px 6px;}
+
+.notif-drawer{position:fixed;top:64px;right:-340px;width:320px;height:calc(100vh - 64px);background:#fff;border-left:1px solid #ccc;box-shadow:-2px 0 6px rgba(0,0,0,0.1);transition:right .25s ease;z-index:1500;display:flex;flex-direction:column;}
+.notif-drawer.open{right:0;}
+.notif-drawer header{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid #e0e0e0;background:#f7f7f7;}
+.notif-drawer .filters{display:flex;gap:8px;padding:8px;border-bottom:1px solid #eee;}
+.notif-drawer .list{flex:1;overflow-y:auto;}
+.notif-drawer ul{list-style:none;margin:0;padding:0;}
+.notif-drawer li{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid #eee;}
+.notif-drawer li.pinned{background:#fff7e0;}
+.notif-drawer .icon{flex-shrink:0;width:24px;height:24px;display:flex;align-items:center;justify-content:center;}
+.notif-drawer .msg{flex:1;display:flex;flex-direction:column;}
+.notif-drawer .msg .text{font-size:.9rem;}
+.notif-drawer .msg .date{font-size:.75rem;color:#666;}
+.notif-drawer .actions{display:flex;gap:4px;margin-left:auto;}
+.notif-drawer button{background:none;border:none;color:#043962;cursor:pointer;padding:4px;border-radius:4px;}
+.notif-drawer button:hover{background:#e9f2ff;}

@@ -1,9 +1,10 @@
              /* client/src/components/PageHeader.tsx
                 ──────────────────────────────────── */
 import React, { useEffect, useState } from 'react';
-                import { Link, useNavigate } from 'react-router-dom';
-                import { useAuth }           from '../context/AuthContext';
-                import './PageHeader.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import NotificationBell from './NotificationBell';
+import './PageHeader.css';
       
 export default function PageHeader() {
   const { user, logout } = useAuth();
@@ -79,6 +80,8 @@ export default function PageHeader() {
                           >
                             📋 Tickets
                           </Link>
+
+                          <NotificationBell />
       
                           <span className="header-user">{user.username}</span>
                           {user.role === 'caf' && (

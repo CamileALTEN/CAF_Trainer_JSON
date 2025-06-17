@@ -19,7 +19,7 @@ export default function NotificationsPage() {
 
   useEffect(() => {
     if (!user) return;
-    fetch(`/api/notifications/for/${user.username}`)
+    fetch(`/api/notifications/${user.id}`)
       .then(r => r.json())
       .then(setNotifs)
       .catch(console.error);
@@ -37,10 +37,8 @@ export default function NotificationsPage() {
               const d = n.dateEnvoi || n.date || '';
               const markRead = () => {
                 if (!user) return;
-                fetch(`/api/notifications/${n.id}/read`, {
+                fetch(`/api/notifications/${n.id}/lu/${user.id}`, {
                   method: 'PATCH',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ username: user.username }),
                 }).catch(console.error);
               };
               return (
