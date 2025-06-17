@@ -24,6 +24,7 @@ import ManagerDashboardPage from './pages/ManagerDashboardPage';
 import ProgressPage         from './pages/ProgressPage';
 import RegisterUserPage     from './pages/RegisterUserPage';
 import NotificationsPage    from './pages/NotificationsPage';
+import AdminNotificationsPage from './pages/AdminNotificationsPage';
 import TicketsListPage      from './pages/TicketsListPage';
 import CreateTicketPage     from './pages/CreateTicketPage';
 import ChecklistUrlPage     from './pages/ChecklistUrlPage';
@@ -82,7 +83,7 @@ function RoleRoutes() {
         <Route path="/admin/modules"               element={<AdminModulesPage />} />
         <Route path="/admin/modules/:moduleId"     element={<AdminModuleEditor />} />
         <Route path="/admin/prerequis"             element={<PrerequisAdminPage />} />
-        <Route path="/admin/notifications"         element={<NotificationsPage />} />
+        <Route path="/admin/notifications"         element={<AdminNotificationsPage />} />
         <Route path="/admin/tickets"               element={<TicketsListPage />} />
         <Route path="/admin/sites"                 element={<AdminSitesPage />} />
         <Route path="/admin/caf-types"            element={<AdminCafTypesPage />} />
