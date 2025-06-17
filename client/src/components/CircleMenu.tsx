@@ -11,6 +11,7 @@ export default function CircleMenu() {
     { to: '/manager/modules', icon: '📝', label: 'Modules' },
     { to: '/manager/tickets', icon: '📋', label: 'Tickets' },
     { to: '/manager/checklist-url', icon: '🔗', label: 'Checklist' },
+    { to: '/manager/alert', icon: '⚠️', label: 'Alerte' },
     { to: '/manager/progress', icon: '📊', label: 'Progress' },
   ];
 

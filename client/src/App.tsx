@@ -6,6 +6,7 @@ import {
 
 import { useAuth }          from './context/AuthContext';
 import PageHeader           from './components/PageHeader';
+import AlertBanner         from './components/AlertBanner';
 
 import HomePage             from './pages/HomePage';
 import ModulePage           from './pages/ModulePage';
@@ -28,6 +29,7 @@ import CreateTicketPage     from './pages/CreateTicketPage';
 import ChecklistUrlPage     from './pages/ChecklistUrlPage';
 import AdminSitesPage       from './pages/AdminSitesPage';
 import AdminCafTypesPage    from './pages/AdminCafTypesPage';
+import AlertMajPage         from './pages/AlertMajPage';
 
 import Footer from './components/Footer';
 
@@ -64,6 +66,7 @@ function RoleRoutes() {
         <Route path="/manager/tickets/new"        element={<CreateTicketPage />} />
         <Route path="/manager/progress"           element={<ProgressPage />} />
         <Route path="/manager/checklist-url"      element={<ChecklistUrlPage />} />
+        <Route path="/manager/alert"             element={<AlertMajPage />} />
         <Route path="/admin/*"                     element={<Navigate to="/manager" replace />} />
         <Route path="*"                            element={<Navigate to="/manager" replace />} />
       </Routes>
@@ -85,6 +88,7 @@ function RoleRoutes() {
         <Route path="/admin/caf-types"            element={<AdminCafTypesPage />} />
         <Route path="/admin/create"                element={<RegisterUserPage />} />
         <Route path="/admin/checklist-url"         element={<ChecklistUrlPage />} />
+        <Route path="/admin/alert"                element={<AlertMajPage />} />
 
         <Route path="/"   element={<Navigate to="/admin" replace />} />
         <Route path="*"   element={<Navigate to="/admin" replace />} />
@@ -116,6 +120,7 @@ export default function App() {
   return (
     <>
       {!hideHeader && <PageHeader />}
+      {!hideHeader && <AlertBanner />}
       <div className="main-content">
         <RoleRoutes />
       </div>

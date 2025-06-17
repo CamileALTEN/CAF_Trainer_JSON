@@ -167,6 +167,7 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
         <Link to="/admin/notifications"><button>🔔 Notifications</button></Link>
         <Link to="/admin/tickets"><button>📋 Tickets</button></Link>
         <Link to="/admin/checklist-url"><button>URL Checklist 📋</button></Link>
+        <Link to="/admin/alert"><button>Alerte MaJ</button></Link>
       </div>
 <h2>Analytics</h2>
         <section className="analytics-grid">
@@ -235,6 +236,7 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
         <Link to="/admin/notifications"><button>🔔 Notifications</button></Link>
         <Link to="/admin/tickets"><button>📋 Tickets</button></Link>
         <Link to="/admin/checklist-url"><button>URL Checklist 📋</button></Link>
+        <Link to="/admin/alert"><button>Alerte MaJ</button></Link>
       </div>
 
          <h2>Comptes</h2>
