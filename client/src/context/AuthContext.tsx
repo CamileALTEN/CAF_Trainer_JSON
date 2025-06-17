@@ -1,5 +1,5 @@
 import React, {
-        createContext, useContext, useState, ReactNode,
+        createContext, useContext, useState, ReactNode, useEffect,
       } from 'react';
       import axios from 'axios';
     
@@ -54,6 +54,19 @@ import React, {
             }
           }
         };
+
+        useEffect(() => {
+          const handler = () => {
+            if (!user) return;
+            const data = JSON.stringify({ userId: user.id });
+            navigator.sendBeacon(
+              '/api/analytics/logout',
+              new Blob([data], { type: 'application/json' }),
+            );
+          };
+          window.addEventListener('beforeunload', handler);
+          return () => window.removeEventListener('beforeunload', handler);
+        }, [user]);
     
         return (
           <AuthContext.Provider value={{ user, login, logout }}>
