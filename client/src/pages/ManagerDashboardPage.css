@@ -11,7 +11,7 @@
 
 .manager-dashboard .cards {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
