@@ -110,8 +110,6 @@ export default function AlertMajPage() {
     setConfirmText('');
   };
 
-  if (!conf) return <p style={{padding:'2rem'}}>Chargement…</p>;
-
   const itemMap = React.useMemo(() => {
     const map: Record<string, { module: string; title: string }> = {};
     modules.forEach(m => {
@@ -135,6 +133,10 @@ export default function AlertMajPage() {
 
   return (
     <Wrapper>
+      {!conf ? (
+        <p style={{padding:'2rem'}}>Chargement…</p>
+      ) : (
+        <>
       <button className="btn-back" onClick={() => navigate(-1)}>← Retour</button>
       <h2>Alerte de mise à jour</h2>
       <form onSubmit={saveConf} className="conf-form">
@@ -210,6 +212,8 @@ export default function AlertMajPage() {
             </div>
           </div>
         </div>
+      )}
+        </>
       )}
     </Wrapper>
   );
