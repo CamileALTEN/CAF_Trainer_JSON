@@ -3,6 +3,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import AdminSideMenu from '../components/AdminSideMenu';
 import {
   PieChart,
   Pie,
@@ -156,20 +157,10 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
   const favTicks = Array.from({ length: favMax + 1 }, (_, i) => i);
 
      return (
-       <div className="admin-dashboard">
-         <h1>Tableau de bord admin</h1>
-         
-                 <div className="quick">
-          <Link to="/admin/create"><button>+ Créer un compte</button></Link>
-        <Link to="/admin/modules"><button>📝 Modules</button></Link>
-        <Link to="/admin/sites"><button>🏢 Sites</button></Link>
-        <Link to="/admin/caf-types"><button>☕ Type CAF</button></Link>
-        <Link to="/admin/notifications"><button>🔔 Notifications</button></Link>
-        <Link to="/admin/tickets"><button>📋 Tickets</button></Link>
-        <Link to="/admin/checklist-url"><button>URL Checklist 📋</button></Link>
-        <Link to="/admin/alert"><button>Alerte MaJ</button></Link>
-      </div>
-<h2>Analytics</h2>
+      <div className="admin-dashboard">
+        <h1>Tableau de bord admin</h1>
+        <AdminSideMenu />
+        <h2>Analytics</h2>
         <section className="analytics-grid">
           <Stat label="Comptes" value={analytics.counts.accounts} />
           <Stat label="Modules" value={analytics.counts.modules} />
@@ -228,16 +219,7 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
           </ResponsiveContainer>
         </section>
 
-        <div className="quick">
-          <Link to="/admin/create"><button>+ Créer un compte</button></Link>
-        <Link to="/admin/modules"><button>📝 Modules</button></Link>
-        <Link to="/admin/sites"><button>🏢 Sites</button></Link>
-        <Link to="/admin/caf-types"><button>☕ Type CAF</button></Link>
-        <Link to="/admin/notifications"><button>🔔 Notifications</button></Link>
-        <Link to="/admin/tickets"><button>📋 Tickets</button></Link>
-        <Link to="/admin/checklist-url"><button>URL Checklist 📋</button></Link>
-        <Link to="/admin/alert"><button>Alerte MaJ</button></Link>
-      </div>
+
 
          <h2>Comptes</h2>
          <table>
