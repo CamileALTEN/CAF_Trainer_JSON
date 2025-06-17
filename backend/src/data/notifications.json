@@ -3,13 +3,25 @@
     "id": "1746780767747",
     "username": "camile.briard@alten.com",
     "date": "2025-05-09T08:52:47.747Z",
-    "message": "Demande de réinitialisation de mot de passe"
+    "message": "Demande de réinitialisation de mot de passe",
+    "etat": {
+      "luPar": [
+        "carla.ledeux@alten.com"
+      ],
+      "nonLuPar": []
+    }
   },
   {
     "id": "1746781008943",
     "username": "camile.briard@alten.com",
     "date": "2025-05-09T08:56:48.943Z",
-    "message": "Demande de réinitialisation de mot de passe"
+    "message": "Demande de réinitialisation de mot de passe",
+    "etat": {
+      "luPar": [
+        "carla.ledeux@alten.com"
+      ],
+      "nonLuPar": []
+    }
   },
   {
     "id": "1746781115632",
@@ -410,7 +422,13 @@
     "username": "logan",
     "date": "2025-05-28T11:23:42.528Z",
     "category": "validation",
-    "message": "Item 60f65965-ef9e-4541-8086-2569210ddab2 invalide"
+    "message": "Item 60f65965-ef9e-4541-8086-2569210ddab2 invalide",
+    "etat": {
+      "luPar": [
+        "1747039012242"
+      ],
+      "nonLuPar": []
+    }
   },
   {
     "id": "1748940616905",
@@ -494,7 +512,13 @@
     "username": "logan",
     "date": "2025-06-17T17:20:04.808Z",
     "category": "ticket",
-    "message": "Mise à jour du ticket \"testtt\""
+    "message": "Mise à jour du ticket \"testtt\"",
+    "etat": {
+      "luPar": [
+        "1747039012242"
+      ],
+      "nonLuPar": []
+    }
   },
   {
     "id": "1750180821299",

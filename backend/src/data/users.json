@@ -17,7 +17,8 @@
     "role": "manager",
     "sites": [
       "Nantes"
-    ]
+    ],
+    "deletedAt": "2025-06-17T22:03:55.829Z"
   },
   {
     "id": "1746634829314",
@@ -93,5 +94,11 @@
     "managerIds": [
       "1747838393929"
     ]
+  },
+  {
+    "id": "1750197813462",
+    "username": "nicolas.martinez2@alten.com",
+    "password": "$2b$08$3k4/jMJNMk1Oo5LhLKkJk.K4NnLCpCUET5peIUvnyIO3yCh31dbxG",
+    "role": "admin"
   }
 ]
