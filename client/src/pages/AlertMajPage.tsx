@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getModules, IModule } from '../api/modules';
+import { ISite, getSites } from '../api/sites';
 import { flatten } from '../utils/items';
 import {
   getAlertConfig,
@@ -26,6 +27,7 @@ export default function AlertMajPage() {
   const [freqValue, setFreqValue] = useState(0);
   const [freqUnit, setFreqUnit] = useState<'s'|'min'|'d'|'mo'>('d');
   const [maxOutdated, setMaxOutdated] = useState(5);
+  const [sites, setSites] = useState<ISite[]>([]);
   const [details, setDetails] = useState<IAlertAction|null>(null);
   const [resetOpen, setResetOpen] = useState(false);
   const [confirmText, setConfirmText] = useState('');
@@ -45,6 +47,14 @@ export default function AlertMajPage() {
     if (m) return `${m[1]} ${m[2]}`;
     return u;
   };
+
+  useEffect(() => { getSites().then(setSites); }, []);
+
+  const SITE_COLORS = useMemo(() => {
+    const map: Record<string, string> = {};
+    sites.forEach(s => { map[s.name] = s.color; });
+    return map;
+  }, [sites]);
 
   useEffect(() => {
     getAlertConfig().then(c => {
@@ -204,6 +214,13 @@ export default function AlertMajPage() {
         <div className="left">
           <h3>Sélection des items mis à jour</h3>
           <input className="search" placeholder="rechercher" value={search} onChange={e=>setSearch(e.target.value)} />
+          <div className="legend">
+            {sites.map(s => (
+              <span key={s.id}>
+                <span className="color-dot" style={{ background: s.color }} /> {s.name}
+              </span>
+            ))}
+          </div>
           <div className="list">
             {filteredModules.map(mod => (
               <div key={mod.title} className="module">
@@ -216,6 +233,14 @@ export default function AlertMajPage() {
                     onClick={() => toggleItem(it.id)}
                   >
                     {it.title}
+                    {(it.profiles ?? []).map(p => (
+                      <span
+                        key={p}
+                        className="color-dot"
+                        style={{ background: SITE_COLORS[p] || '#ccc' }}
+                        title={p}
+                      />
+                    ))}
                   </button>
                 ))}
               </div>
@@ -356,6 +381,8 @@ const Wrapper = styled.div`
     content:'';position:absolute;top:50%;left:50%;width:16px;height:16px;margin-top:-8px;margin-left:-8px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;
   }
   .search{width:100%;margin-bottom:.5rem;padding:.25rem;}
+  .legend{display:flex;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap;font-size:.85rem;}
+  .color-dot{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:middle;}
   .list{max-height:300px;overflow:auto;margin-bottom:.5rem;}
   .module h4{margin:0.25rem 0;}
   .item-btn{display:block;width:100%;text-align:left;border:none;padding:.25rem .5rem;margin-bottom:2px;background:#f5f5f5;border-radius:4px;cursor:pointer;color:#043962;}
