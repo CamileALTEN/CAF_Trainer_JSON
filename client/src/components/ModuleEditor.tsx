@@ -151,7 +151,7 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
         .then(r => r.json())
         .then(d => d.datetime)
         .catch(() => new Date().toISOString());
-      const info = { reason, date: time, user: parseName(user?.username || '') };
+      const info = { reason, date: time, user: parseName(user?.username || ''), site: user?.site };
       await setItemOutdated(module.id, current.id, info);
       patchItem({ outdatedInfo: info });
     } else {
@@ -572,6 +572,7 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                                 type="button"
                                 onClick={toggleOutdated}
                                 style={{ marginLeft: 8 }}
+                                className={current.outdatedInfo ? 'btn-updated' : 'btn-outdated'}
                               >
                                 {current.outdatedInfo ? 'Item mis à jour' : 'Item non à jour'}
                               </button>

@@ -4,6 +4,7 @@
   padding:4px 0;
   text-align:center;
   position:sticky;
+.alert-banner.violet{background:purple;}
   top:75px;
   z-index:1999;
 }

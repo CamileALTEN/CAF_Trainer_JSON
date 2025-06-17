@@ -4,6 +4,7 @@ export interface IAlertConfig {
   frequency: number; // seconds
   active: boolean;
   lastAck?: string; // ISO date when banner was deactivated
+  maxOutdated?: number;
 }
 
 export interface IAlertAction {

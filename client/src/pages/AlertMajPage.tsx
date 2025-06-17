@@ -24,10 +24,11 @@ export default function AlertMajPage() {
   const [saving, setSaving] = useState(false);
   const [freqValue, setFreqValue] = useState(0);
   const [freqUnit, setFreqUnit] = useState<'s'|'min'|'d'|'mo'>('d');
+  const [maxOutdated, setMaxOutdated] = useState(5);
   const [details, setDetails] = useState<IAlertAction|null>(null);
   const [resetOpen, setResetOpen] = useState(false);
   const [confirmText, setConfirmText] = useState('');
-  const [outdated, setOutdated] = useState<{id:string;module:string;title:string;date:string;user:string;reason:string}[]>([]);
+  const [outdated, setOutdated] = useState<{id:string;module:string;title:string;date:string;user:string;reason:string;site:string}[]>([]);
   const [commentView,setCommentView]=useState<string|null>(null);
 
   useEffect(() => {
@@ -61,11 +62,12 @@ export default function AlertMajPage() {
         setFreqUnit('s');
         setFreqValue(c.frequency);
       }
+      setMaxOutdated(c.maxOutdated ?? 5);
     });
     getAlertActions().then(setActions);
     getModules().then(ms => {
       setModules(ms);
-      const list: {id:string;module:string;title:string;date:string;user:string;reason:string}[] = [];
+      const list: {id:string;module:string;title:string;date:string;user:string;reason:string;site:string}[] = [];
       ms.forEach(m => {
         flatten(m.items).forEach(it => {
           if (it.outdatedInfo) {
@@ -75,7 +77,8 @@ export default function AlertMajPage() {
               title: it.title,
               date: it.outdatedInfo.date,
               user: it.outdatedInfo.user,
-              reason: it.outdatedInfo.reason
+              reason: it.outdatedInfo.reason,
+              site: it.outdatedInfo.site || ''
             });
           }
         });
@@ -85,7 +88,7 @@ export default function AlertMajPage() {
   }, []);
 
   useEffect(() => {
-    const list: {id:string;module:string;title:string;date:string;user:string;reason:string}[] = [];
+    const list: {id:string;module:string;title:string;date:string;user:string;reason:string;site:string}[] = [];
     modules.forEach(m => {
       flatten(m.items).forEach(it => {
         if (it.outdatedInfo) {
@@ -95,7 +98,8 @@ export default function AlertMajPage() {
             title: it.title,
             date: it.outdatedInfo.date,
             user: it.outdatedInfo.user,
-            reason: it.outdatedInfo.reason
+            reason: it.outdatedInfo.reason,
+            site: it.outdatedInfo.site || ''
           });
         }
       });
@@ -115,6 +119,7 @@ export default function AlertMajPage() {
       text: conf.text,
       url: conf.url,
       frequency: freqValue * UNITS[freqUnit],
+      maxOutdated,
     };
     const saved = await saveAlertConfig(payload);
     setConf(saved);
@@ -231,6 +236,8 @@ export default function AlertMajPage() {
                 <option value="mo">mois</option>
               </select>
             </div>
+            <label>Seuil items non à jour</label>
+            <input type="number" value={maxOutdated} onChange={e=>setMaxOutdated(parseInt(e.target.value,10)||0)} />
             <button type="submit" disabled={saving}>{saving?'…':'Enregistrer'}</button>
           </form>
         </div>
@@ -241,7 +248,7 @@ export default function AlertMajPage() {
         <table className="out-table">
           <thead>
             <tr>
-              <th>Item</th><th>Module</th><th>Date</th><th>Par</th><th>Commentaire</th>
+              <th>Item</th><th>Module</th><th>Site</th><th>Date</th><th>Par</th><th>Commentaire</th>
             </tr>
           </thead>
           <tbody>
@@ -249,6 +256,7 @@ export default function AlertMajPage() {
               <tr key={it.id}>
                 <td>{it.title}</td>
                 <td>{it.module}</td>
+                <td>{it.site}</td>
                 <td>{new Date(it.date).toLocaleDateString()}</td>
                 <td>{it.user}</td>
                 <td><button onClick={()=>setCommentView(it.reason)}>Voir</button></td>
@@ -264,7 +272,7 @@ export default function AlertMajPage() {
         <button className="danger" onClick={()=>setResetOpen(true)}>Vider l'historique</button>
       </div>
       <ul className="history">
-        {[...actions].sort((a,b)=>new Date(a.date).getTime()-new Date(b.date).getTime()).map(a => (
+        {[...actions].sort((a,b)=>new Date(b.date).getTime()-new Date(a.date).getTime()).map(a => (
           <li key={a.id}>
             <span>{new Date(a.date).toLocaleString()} – {a.user}</span>
             <button onClick={()=>setDetails(a)}>Voir</button>

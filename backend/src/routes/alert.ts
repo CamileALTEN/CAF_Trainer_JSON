@@ -12,6 +12,7 @@ function loadConf(): IAlertConfig {
     url: '#',
     frequency: 0,
     active: false,
+    maxOutdated: 5,
   };
 }
 
@@ -33,11 +34,12 @@ router.get('/', (_req, res) => {
 
 router.put('/', (req, res) => {
   const conf = loadConf();
-  const { text, url, frequency, active } = req.body as Partial<IAlertConfig>;
+  const { text, url, frequency, active, maxOutdated } = req.body as Partial<IAlertConfig>;
   if (text !== undefined) conf.text = text;
   if (url !== undefined) conf.url = url;
   if (typeof frequency === 'number') conf.frequency = frequency;
   if (typeof active === 'boolean') conf.active = active;
+  if (typeof maxOutdated === 'number') conf.maxOutdated = maxOutdated;
   saveConf(conf);
   res.json(conf);
 });

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getAlertConfig, saveAlertConfig, IAlertConfig } from '../api/alert';
+import { getModules } from '../api/modules';
+import { flatten } from '../utils/items';
 import './AlertBanner.css';
 
 export default function AlertBanner() {
   const { user } = useAuth();
   const location = useLocation();
   const [conf, setConf] = useState<IAlertConfig | null>(null);
+  const [outCount, setOutCount] = useState(0);
 
   useEffect(() => {
     getAlertConfig().then(setConf).catch(() => null);
@@ -29,14 +32,40 @@ export default function AlertBanner() {
       .catch(() => { /* ignore */ });
   }, [location, conf]);
 
+  useEffect(() => {
+    getModules()
+      .then(ms => {
+        let c = 0;
+        ms.forEach(m => {
+          flatten(m.items).forEach(it => { if (it.outdatedInfo) c++; });
+        });
+        setOutCount(c);
+      })
+      .catch(() => setOutCount(0));
+  }, [location, conf]);
+
   if (!user || (user.role !== 'admin' && user.role !== 'manager')) return null;
-  if (!conf || !conf.active) return null;
+  if (!conf) return null;
+
+  const banners: {key:string; text:string; url?:string; className?:string}[] = [];
+  if (conf.active) banners.push({ key:'time', text: conf.text, url: conf.url });
+  if (outCount >= (conf.maxOutdated ?? 5)) banners.push({ key:'out', text: 'Trop d\'items ne sont pas à jour', className:'violet' });
+
+  if (!banners.length) return null;
 
   return (
-    <div className="alert-banner">
-      <a href={conf.url} target="_blank" rel="noopener noreferrer">
-        <marquee>{conf.text}</marquee>
-      </a>
-    </div>
+    <>
+      {banners.map((b,i)=>(
+        <div key={b.key} className={`alert-banner ${b.className||''}`} style={{ top: 100 + i*32 }}>
+          {b.url ? (
+            <a href={b.url} target="_blank" rel="noopener noreferrer">
+              <marquee>{b.text}</marquee>
+            </a>
+          ) : (
+            <marquee>{b.text}</marquee>
+          )}
+        </div>
+      ))}
+    </>
   );
 }
