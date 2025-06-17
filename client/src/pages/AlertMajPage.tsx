@@ -21,6 +21,11 @@ export default function AlertMajPage() {
   const [search, setSearch] = useState('');
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [saving, setSaving] = useState(false);
+  const [freqValue, setFreqValue] = useState(0);
+  const [freqUnit, setFreqUnit] = useState<'s'|'min'|'d'|'mo'>('d');
+  const [details, setDetails] = useState<IAlertAction|null>(null);
+  const [resetOpen, setResetOpen] = useState(false);
+  const [confirmText, setConfirmText] = useState('');
 
   useEffect(() => {
     if (!user || (user.role !== 'admin' && user.role !== 'manager')) {
@@ -28,8 +33,26 @@ export default function AlertMajPage() {
     }
   }, [user, navigate]);
 
+  const UNITS = { s: 1, min: 60, d: 86400, mo: 2592000 } as const;
+
   useEffect(() => {
-    getAlertConfig().then(setConf);
+    getAlertConfig().then(c => {
+      setConf(c);
+      // derive value/unit from seconds
+      if (c.frequency % UNITS.mo === 0) {
+        setFreqUnit('mo');
+        setFreqValue(c.frequency / UNITS.mo);
+      } else if (c.frequency % UNITS.d === 0) {
+        setFreqUnit('d');
+        setFreqValue(c.frequency / UNITS.d);
+      } else if (c.frequency % UNITS.min === 0) {
+        setFreqUnit('min');
+        setFreqValue(c.frequency / UNITS.min);
+      } else {
+        setFreqUnit('s');
+        setFreqValue(c.frequency);
+      }
+    });
     getAlertActions().then(setActions);
     getModules().then(setModules);
   }, []);
@@ -42,7 +65,12 @@ export default function AlertMajPage() {
     e.preventDefault();
     if (!conf) return;
     setSaving(true);
-    const saved = await saveAlertConfig(conf);
+    const payload = {
+      text: conf.text,
+      url: conf.url,
+      frequency: freqValue * UNITS[freqUnit],
+    };
+    const saved = await saveAlertConfig(payload);
     setConf(saved);
     setSaving(false);
   };
@@ -58,7 +86,41 @@ export default function AlertMajPage() {
     setConf(updated);
   };
 
+  const exportCsv = () => {
+    const rows = ['date,module,item'];
+    actions.forEach(a => {
+      a.items.forEach(id => {
+        const info = itemMap[id];
+        if (info) rows.push(`${new Date(a.date).toLocaleString()},${info.module.replace(/,/g,' ')},${info.title.replace(/,/g,' ')}`);
+      });
+    });
+    const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'alert-history.csv';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const resetHistory = async () => {
+    await fetch('/api/alert/actions', { method: 'DELETE' });
+    setActions([]);
+    setResetOpen(false);
+    setConfirmText('');
+  };
+
   if (!conf) return <p style={{padding:'2rem'}}>Chargement…</p>;
+
+  const itemMap = React.useMemo(() => {
+    const map: Record<string, { module: string; title: string }> = {};
+    modules.forEach(m => {
+      m.items.forEach(it => {
+        map[it.id] = { module: m.title, title: it.title };
+      });
+    });
+    return map;
+  }, [modules]);
 
   const listItems = modules.flatMap(m => m.items.map(it => ({
     id: it.id,
@@ -80,12 +142,16 @@ export default function AlertMajPage() {
         <input value={conf.text} onChange={e=>setConf({...conf,text:e.target.value})} />
         <label>URL</label>
         <input value={conf.url} onChange={e=>setConf({...conf,url:e.target.value})} />
-        <label>Rappel (s)</label>
-        <input type="number" value={conf.frequency} onChange={e=>setConf({...conf,frequency:parseInt(e.target.value,10)})} />
-        <label>
-          <input type="checkbox" checked={conf.active} onChange={e=>setConf({...conf,active:e.target.checked})} />
-          Bandeau actif
-        </label>
+        <label>Rappel</label>
+        <div className="freq">
+          <input type="number" value={freqValue} onChange={e=>setFreqValue(parseInt(e.target.value,10)||0)} />
+          <select value={freqUnit} onChange={e=>setFreqUnit(e.target.value as any)}>
+            <option value="s">secondes</option>
+            <option value="min">minutes</option>
+            <option value="d">jours</option>
+            <option value="mo">mois</option>
+          </select>
+        </div>
         <button type="submit" disabled={saving}>{saving?'…':'Enregistrer'}</button>
       </form>
 
@@ -94,8 +160,9 @@ export default function AlertMajPage() {
         <input placeholder="rechercher" value={search} onChange={e=>setSearch(e.target.value)} />
         <div className="list">
           {filtered.map(it => (
-            <label key={it.id}>
-              <input type="checkbox" checked={!!checked[it.id]} onChange={()=>toggleItem(it.id)} /> {it.title}
+            <label key={it.id} className="item">
+              <input type="checkbox" checked={!!checked[it.id]} onChange={()=>toggleItem(it.id)} />
+              <span>{it.title}</span>
             </label>
           ))}
         </div>
@@ -103,14 +170,47 @@ export default function AlertMajPage() {
       </div>
 
       <h3>Historique</h3>
+      <div className="history-actions">
+        <button onClick={exportCsv}>Exporter CSV</button>
+        <button className="danger" onClick={()=>setResetOpen(true)}>Vider l'historique</button>
+      </div>
       <ul className="history">
         {actions.map(a => (
           <li key={a.id}>
             <span>{new Date(a.date).toLocaleString()}</span>
-            <button onClick={()=>alert(a.items.join(', '))}>Voir</button>
+            <button onClick={()=>setDetails(a)}>Voir</button>
           </li>
         ))}
       </ul>
+      {details && (
+        <div className="history-popup">
+          <div className="box">
+            <h4>Détails</h4>
+            <ul>
+              {details.items
+                .map(id => itemMap[id])
+                .sort((a,b)=>a.module.localeCompare(b.module))
+                .map((it,i)=> (
+                  <li key={i}><strong>{it.module}</strong> - {it.title}</li>
+                ))}
+            </ul>
+            <button onClick={()=>setDetails(null)}>Fermer</button>
+          </div>
+        </div>
+      )}
+      {resetOpen && (
+        <div className="history-popup warn">
+          <div className="box">
+            <p className="warning">Cette action est <strong>irréversible</strong> !</p>
+            <p>Veuillez taper&nbsp;: <code>CONFIRMER</code></p>
+            <input value={confirmText} onChange={e=>setConfirmText(e.target.value)} />
+            <div className="actions">
+              <button onClick={()=>setResetOpen(false)}>Annuler</button>
+              <button disabled={confirmText!=="CONFIRMER"} onClick={resetHistory}>Supprimer</button>
+            </div>
+          </div>
+        </div>
+      )}
     </Wrapper>
   );
 }
@@ -127,5 +227,13 @@ const Wrapper = styled.div`
   .popup input{width:100%;margin-bottom:.5rem;padding:.25rem;}
   .popup .list{max-height:150px;overflow:auto;margin-bottom:.5rem;}
   .history li{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:.25rem 0;}
+  .popup .list label.item{display:flex;align-items:center;gap:.25rem;}
+  .freq{display:flex;gap:.25rem;align-items:center;}
+  .history-actions{display:flex;gap:.5rem;margin-bottom:.5rem;}
+  .history-popup{background:rgba(0,0,0,0.6);position:fixed;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;}
+  .history-popup .box{background:#fff;padding:1rem;border-radius:8px;max-height:80vh;overflow:auto;}
+  .history-popup.warn .box{background:#ffe6e6;border:2px solid #c00;}
+  .history-popup.warn .warning{color:#c00;font-weight:bold;margin-bottom:.5rem;}
+  .history-popup .actions{display:flex;gap:.5rem;margin-top:.5rem;}
 `;
 

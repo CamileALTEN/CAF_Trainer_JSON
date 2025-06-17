@@ -33,7 +33,7 @@ export default function AlertBanner() {
 
   return (
     <div style={{background:'#c00',color:'#fff',padding:'4px 0',textAlign:'center'}}>
-      <a href={conf.url} style={{color:'#fff'}}>
+      <a href={conf.url} target="_blank" rel="noopener noreferrer" style={{color:'#fff'}}>
         <marquee>{conf.text}</marquee>
       </a>
     </div>

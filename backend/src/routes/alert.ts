@@ -65,4 +65,9 @@ router.post('/actions', (req, res) => {
   res.status(201).json(entry);
 });
 
+router.delete('/actions', (_req, res) => {
+  saveActs([]);
+  res.status(204).end();
+});
+
 export default router;
