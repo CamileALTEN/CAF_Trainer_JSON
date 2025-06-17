@@ -18,8 +18,12 @@
         ],
         "cafTypes": [],
         "enabled": true,
-        "needValidation": false,
-        "outdatedInfo": null,
+        "needValidation": true,
+        "outdatedInfo": {
+          "reason": "il est vide",
+          "date": "2025-06-17T19:18:04.393244+02:00",
+          "user": "camile briard"
+        },
         "quiz": {
           "enabled": false,
           "questions": []

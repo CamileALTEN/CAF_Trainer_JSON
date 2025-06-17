@@ -61,5 +61,33 @@
     "date": "2025-05-22T17:46:53.638Z",
     "replies": [],
     "archived": false
+  },
+  {
+    "id": "1750179581620",
+    "username": "eline.castiglione@alten.com",
+    "managerId": "1747838393929",
+    "target": "manager",
+    "category": "ee",
+    "priority": "normal",
+    "title": "ee",
+    "message": "<p>eee</p>",
+    "status": "open",
+    "date": "2025-06-17T16:59:41.620Z",
+    "replies": [],
+    "archived": false
+  },
+  {
+    "id": "1750180779482",
+    "username": "logan",
+    "managerId": "1747838393929",
+    "target": "manager",
+    "category": "h",
+    "priority": "normal",
+    "title": "testtt",
+    "message": "<p><strong><mark>dd</mark></strong></p>",
+    "status": "open",
+    "date": "2025-06-17T17:19:39.482Z",
+    "replies": [],
+    "archived": false
   }
 ]
