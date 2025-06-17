@@ -16,8 +16,10 @@
           "Nantes",
           "Montoir"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": false,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -42,8 +44,10 @@
           "Nantes",
           "Montoir"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": false,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -72,8 +76,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -94,8 +100,10 @@
             "images": [],
             "videos": [],
             "profiles": [],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": true,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -113,8 +121,10 @@
             "profiles": [
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -137,8 +147,10 @@
             "profiles": [
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -172,8 +184,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": true,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -203,8 +217,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -236,8 +252,10 @@
           "Nantes",
           "Montoir"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": false,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -266,8 +284,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -301,8 +321,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -340,8 +362,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -377,8 +401,10 @@
           "Nantes",
           "Montoir"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": false,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -410,8 +436,10 @@
             "profiles": [
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -444,8 +472,10 @@
             "profiles": [
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -478,8 +508,10 @@
             "profiles": [
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": true,
               "questions": [
@@ -524,8 +556,10 @@
             "profiles": [
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -557,8 +591,10 @@
           "Montoir",
           "Nantes"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": false,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -591,8 +627,10 @@
         "profiles": [
           "Nantes"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": false,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -633,8 +671,10 @@
         "profiles": [
           "Montoir"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": false,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -659,8 +699,10 @@
           "Nantes",
           "Montoir"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": false,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -684,8 +726,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -710,8 +754,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": true,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -736,8 +782,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": true,
               "questions": [
@@ -783,8 +831,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": true,
               "questions": [
