@@ -50,12 +50,13 @@ function parseName(u) {
 }
 router.post('/actions', (req, res) => {
     const list = loadActs();
-    const { items, user } = req.body;
+    const { items, user, comment } = req.body;
     const entry = {
         id: Date.now().toString(),
         date: new Date().toISOString(),
         items: items || [],
-        user: parseName(user || '')
+        user: parseName(user || ''),
+        comment: comment ?? ''
     };
     list.push(entry);
     saveActs(list);

@@ -45,6 +45,27 @@ router.get('/:moduleId/items/:itemId', (req, res) => {
   return item ? res.json(item) : res.status(404).json({ error: 'Item non trouvé' });
 });
 
+// PATCH /api/modules/:moduleId/items/:itemId/outdated
+router.patch('/:moduleId/items/:itemId/outdated', (req, res) => {
+  const list = load();
+  const mod = byId(req.params.moduleId, list);
+  if (!mod) return res.status(404).json({ error: 'Module non trouvé' });
+  const item = findItem(mod.items, req.params.itemId);
+  if (!item) return res.status(404).json({ error: 'Item non trouvé' });
+  const info = req.body || null;
+  if (info) {
+    item.outdatedInfo = {
+      reason: String(info.reason || ''),
+      date: String(info.date || new Date().toISOString()),
+      user: String(info.user || '')
+    };
+  } else {
+    delete item.outdatedInfo;
+  }
+  save(list);
+  res.json(item);
+});
+
 // POST /api/modules
 router.post('/', (req, res) => {
   const list = load();

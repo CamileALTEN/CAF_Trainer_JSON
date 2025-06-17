@@ -55,12 +55,13 @@ function parseName(u: string) {
 
 router.post('/actions', (req, res) => {
   const list = loadActs();
-  const { items, user } = req.body as { items: string[]; user: string };
+  const { items, user, comment } = req.body as { items: string[]; user: string; comment?: string };
   const entry: IAlertAction = {
     id: Date.now().toString(),
     date: new Date().toISOString(),
     items: items || [],
-    user: parseName(user || '')
+    user: parseName(user || ''),
+    comment: comment ?? ''
   };
   list.push(entry);
   saveActs(list);

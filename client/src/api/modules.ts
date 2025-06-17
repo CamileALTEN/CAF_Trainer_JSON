@@ -40,6 +40,12 @@ export interface IItem  {
 
   needValidation?: boolean;
 
+  outdatedInfo?: {
+    reason: string;
+    date: string;
+    user: string;
+  } | null;
+
   quiz?: IQuiz;
 
   children?: IItem[];
@@ -95,4 +101,12 @@ export const getItem = async (
   moduleId: string,
   itemId: string,
 ): Promise<IItem> => (await axios.get(`/api/modules/${moduleId}/items/${itemId}`)).data;
+
+export const setItemOutdated = async (
+  moduleId: string,
+  itemId: string,
+  info: IItem['outdatedInfo']
+): Promise<IItem> => (
+  await axios.patch(`/api/modules/${moduleId}/items/${itemId}/outdated`, info)
+).data;
 

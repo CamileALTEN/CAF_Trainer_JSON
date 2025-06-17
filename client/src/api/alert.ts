@@ -11,6 +11,7 @@ export interface IAlertAction {
   date: string;
   items: string[];
   user: string;
+  comment?: string;
 }
 
 export async function getAlertConfig(): Promise<IAlertConfig> {
@@ -32,11 +33,11 @@ export async function getAlertActions(): Promise<IAlertAction[]> {
   return res.json();
 }
 
-export async function createAlertAction(items: string[], user: string): Promise<IAlertAction> {
+export async function createAlertAction(items: string[], user: string, comment: string = ''): Promise<IAlertAction> {
   const res = await fetch('/api/alert/actions', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ items, user }),
+    body: JSON.stringify({ items, user, comment }),
   });
   return res.json();
 }

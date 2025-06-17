@@ -27,6 +27,8 @@ export default function AlertMajPage() {
   const [details, setDetails] = useState<IAlertAction|null>(null);
   const [resetOpen, setResetOpen] = useState(false);
   const [confirmText, setConfirmText] = useState('');
+  const [outdated, setOutdated] = useState<{id:string;module:string;title:string;date:string;user:string;reason:string}[]>([]);
+  const [commentView,setCommentView]=useState<string|null>(null);
 
   useEffect(() => {
     if (!user || (user.role !== 'admin' && user.role !== 'manager')) {
@@ -61,8 +63,45 @@ export default function AlertMajPage() {
       }
     });
     getAlertActions().then(setActions);
-    getModules().then(setModules);
+    getModules().then(ms => {
+      setModules(ms);
+      const list: {id:string;module:string;title:string;date:string;user:string;reason:string}[] = [];
+      ms.forEach(m => {
+        flatten(m.items).forEach(it => {
+          if (it.outdatedInfo) {
+            list.push({
+              id: it.id,
+              module: m.title,
+              title: it.title,
+              date: it.outdatedInfo.date,
+              user: it.outdatedInfo.user,
+              reason: it.outdatedInfo.reason
+            });
+          }
+        });
+      });
+      setOutdated(list);
+    });
   }, []);
+
+  useEffect(() => {
+    const list: {id:string;module:string;title:string;date:string;user:string;reason:string}[] = [];
+    modules.forEach(m => {
+      flatten(m.items).forEach(it => {
+        if (it.outdatedInfo) {
+          list.push({
+            id: it.id,
+            module: m.title,
+            title: it.title,
+            date: it.outdatedInfo.date,
+            user: it.outdatedInfo.user,
+            reason: it.outdatedInfo.reason
+          });
+        }
+      });
+    });
+    setOutdated(list);
+  }, [modules]);
 
   const toggleItem = (id: string) => {
     setChecked(prev => ({ ...prev, [id]: !prev[id] }));
@@ -87,20 +126,22 @@ export default function AlertMajPage() {
       .filter(([, v]) => v)
       .map(([k]) => k);
     const name = parseName(user?.username || '');
-    const act = await createAlertAction(items, name);
+    const act = await createAlertAction(items, name, '');
     setActions(prev => [...prev, act]);
     setChecked({});
     const updated = await getAlertConfig();
     setConf(updated);
+    const mods = await getModules();
+    setModules(mods);
     window.location.reload();
   };
 
   const exportCsv = () => {
-    const rows = ['date,utilisateur,module,item'];
+    const rows = ['date,utilisateur,module,item,commentaire'];
     actions.forEach(a => {
       a.items.forEach(id => {
         const info = itemMap[id];
-        if (info) rows.push(`${new Date(a.date).toLocaleString()},${a.user.replace(/,/g,' ')},${info.module.replace(/,/g,' ')},${info.title.replace(/,/g,' ')}`);
+        if (info) rows.push(`${new Date(a.date).toLocaleString()},${a.user.replace(/,/g,' ')},${info.module.replace(/,/g,' ')},${info.title.replace(/,/g,' ')},${a.comment?.replace(/,/g,' ') ?? ''}`);
       });
     });
     const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
@@ -195,6 +236,28 @@ export default function AlertMajPage() {
         </div>
       </div>
 
+      <h3 className="history-title">Items non à jour</h3>
+      <div className="out-table-wrapper">
+        <table className="out-table">
+          <thead>
+            <tr>
+              <th>Item</th><th>Module</th><th>Date</th><th>Par</th><th>Commentaire</th>
+            </tr>
+          </thead>
+          <tbody>
+            {outdated.map(it => (
+              <tr key={it.id}>
+                <td>{it.title}</td>
+                <td>{it.module}</td>
+                <td>{new Date(it.date).toLocaleDateString()}</td>
+                <td>{it.user}</td>
+                <td><button onClick={()=>setCommentView(it.reason)}>Voir</button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <h3 className="history-title">Historique</h3>
       <div className="history-actions">
         <button onClick={exportCsv}>Exporter CSV</button>
@@ -213,6 +276,7 @@ export default function AlertMajPage() {
           <div className="box">
             <h4>Détails</h4>
             <p>Validé par {details.user} le {new Date(details.date).toLocaleString()}</p>
+            {details.comment && <p><em>{details.comment}</em></p>}
             <ul>
               {details.items
                 .map(id => itemMap[id])
@@ -222,6 +286,14 @@ export default function AlertMajPage() {
                 ))}
             </ul>
             <button onClick={()=>setDetails(null)}>Fermer</button>
+          </div>
+        </div>
+      )}
+      {commentView && (
+        <div className="history-popup">
+          <div className="box">
+            <p>{commentView}</p>
+            <button onClick={()=>setCommentView(null)}>Fermer</button>
           </div>
         </div>
       )}
@@ -271,5 +343,9 @@ const Wrapper = styled.div`
   .history-popup.warn .box{background:#ffe6e6;border:2px solid #c00;}
   .history-popup.warn .warning{color:#c00;font-weight:bold;margin-bottom:.5rem;}
   .history-popup .actions{display:flex;gap:.5rem;margin-top:.5rem;}
+  .out-table-wrapper{max-height:200px;overflow:auto;margin-bottom:1rem;}
+  .out-table{width:100%;border-collapse:collapse;}
+  .out-table th,.out-table td{border:1px solid #ddd;padding:4px 8px;text-align:left;}
+  .out-table th{background:#f5f5f5;}
 `;
 

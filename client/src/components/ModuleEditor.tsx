@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 import AdvancedEditor                  from './AdvancedEditor';
       
 import {
-  IModule, IItem, ILink, IImage, IQuiz, getItem,
+  IModule, IItem, ILink, IImage, IQuiz, getItem, setItemOutdated,
 } from '../api/modules';
 import './ModuleEditor.css';
 
 import { ISite, getSites } from '../api/sites';
 import { ICafType, getCafTypes } from '../api/cafTypes';
+import { createAlertAction } from '../api/alert';
+import { useAuth } from '../context/AuthContext';
       
                 /* ═════════════════════════ HELPERS GÉNÉRIAUX ═════════════════════════ */
       
@@ -33,6 +35,7 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
                   cafTypes: it.cafTypes ?? [],
                   enabled:   it.enabled   ?? true,
                   needValidation: it.needValidation ?? false,
+                  outdatedInfo: it.outdatedInfo ?? null,
                   quiz:      it.quiz      ?? { enabled: false, questions: [] },
                   children:  (it.children ?? []).map(ensureDefaults),
                 });
@@ -67,6 +70,7 @@ interface Props {
 
 const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
 ({ module, onChange, onDirtyChange, hideSaveButton }, ref) => {
+  const { user } = useAuth();
                   /* état local --------------------------------------------- */
   const [edit, setEdit] = useState<IModule>(() => ({
     ...module,
@@ -131,6 +135,32 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
   const patchQuiz = (quizPatch: Partial<IQuiz>) => {
     const q = { enabled: false, questions: [], ...(current?.quiz ?? {}) };
     patchItem({ quiz: { ...q, ...quizPatch } });
+  };
+
+  const parseName = (u: string) => {
+    const m = u.match(/^(\w+)\.(\w+)@/);
+    return m ? `${m[1]} ${m[2]}` : u;
+  };
+
+  const toggleOutdated = async () => {
+    if (!current || !module) return;
+    if (!current.outdatedInfo) {
+      const reason = prompt("Pourquoi l'item n'est-il pas à jour ?")?.trim();
+      if (!reason) return;
+      const time = await fetch('https://worldtimeapi.org/api/timezone/Europe/Paris')
+        .then(r => r.json())
+        .then(d => d.datetime)
+        .catch(() => new Date().toISOString());
+      const info = { reason, date: time, user: parseName(user?.username || '') };
+      await setItemOutdated(module.id, current.id, info);
+      patchItem({ outdatedInfo: info });
+    } else {
+      const comment = prompt('Que avez-vous modifié ?')?.trim();
+      if (!comment) return;
+      await setItemOutdated(module.id, current.id, null);
+      patchItem({ outdatedInfo: null });
+      createAlertAction([current.id], parseName(user?.username || ''), comment).catch(() => null);
+    }
   };
       
                   /* CRUD items --------------------------------------------- */
@@ -224,7 +254,7 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                   const renderTree = (branch: IItem[]) => (
                     <ul>
                       {branch.map((it) => (
-                        <li key={it.id} className={it.id === curId ? 'sel' : ''}>
+                        <li key={it.id} className={`${it.id === curId ? 'sel' : ''}${it.outdatedInfo ? ' outdated' : ''}`}>
                           <button
                             className="item-delete"
                             onClick={() => delItem(it.id)}
@@ -538,6 +568,13 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                               >
                                 Prévisualiser
                               </Link>
+                              <button
+                                type="button"
+                                onClick={toggleOutdated}
+                                style={{ marginLeft: 8 }}
+                              >
+                                {current.outdatedInfo ? 'Item mis à jour' : 'Item non à jour'}
+                              </button>
                             </div>
                           </>
                         ) : (

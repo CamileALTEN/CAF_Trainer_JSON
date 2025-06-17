@@ -34,6 +34,12 @@ images:    IImage[];
 
   needValidation?: boolean;
 
+  outdatedInfo?: {
+    reason: string;
+    date: string;
+    user: string;
+  } | null;
+
   quiz?: IQuiz;
 
   children?: IItem[];
