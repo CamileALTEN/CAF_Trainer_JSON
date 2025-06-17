@@ -109,9 +109,10 @@ Le client contacte l'API sous `http://localhost:5000/api/` (ou un autre port si 
 - `POST /api/auth/register` : cree un nouvel utilisateur (reserve aux managers).
 - `GET /api/modules` : liste tous les modules disponibles.
 - `PATCH /api/progress` : met a jour la progression d'un utilisateur dans un module.
-- `GET /api/notifications` : recupere les notifications non lues.
-- `GET /api/notifications/for/:username` : renvoie uniquement les notifications ciblant l'utilisateur.
-- `PATCH /api/notifications/:id/read` : marque une notification comme lue par un utilisateur.
+ - `GET /api/notifications/:userId` : liste les notifications d'un utilisateur (triées, filtrables par type).
+ - `POST /api/notifications` : création d'une notification (admin).
+ - `PATCH /api/notifications/:notifId/lu/:userId` : marque une notification comme lue.
+ - `DELETE /api/notifications/:notifId` : supprime une notification (admin).
 - `POST /api/analytics/logout` : enregistre la deconnexion effective.
 
 Le backend renvoie toujours des objets JSON simples. Il n'y a pas de couche ORM ni de base SQL : toutes les donnees sont directement lues depuis les fichiers presents dans `backend/src/data` et sauvegardees immediatement apres toute mise a jour. Cela rend le code tres facile a deployer sur une simple machine sans base de donnees.

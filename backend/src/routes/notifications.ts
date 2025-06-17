@@ -1,62 +1,101 @@
 import { Router } from 'express';
 import { read, write } from '../config/dataStore';
-import { INotification } from '../models/INotification';
+import { NotificationJSON } from '../models/NotificationJSON';
+import { buildIndexes } from '../utils/notificationIndex';
 
 const router = Router();
-const NOTIFS = 'notifications';
+const TABLE = 'notifications';
 
-/**
-  * GET /api/notifications
-  */
-router.get('/', (req, res) => {
-  res.json(read<INotification>(NOTIFS));
-});
+function load() {
+  const list = read<NotificationJSON>(TABLE);
+  const indexes = buildIndexes(list);
+  return { list, indexes };
+}
 
-// GET /api/notifications/for/:username – toutes les notifs ciblant l'utilisateur
-router.get('/for/:username', (req, res) => {
-  const list = read<INotification>(NOTIFS);
-  const { username } = req.params;
-  const result = list.filter((n) =>
-    !n.cible || n.cible.includes(username) || n.username === username
+function save(list: NotificationJSON[]) {
+  write(TABLE, list);
+}
+
+// GET /api/notifications/:userId?type=boost
+router.get('/:userId', (req, res) => {
+  const { userId } = req.params;
+  const { type } = req.query as { type?: string };
+  const { list, indexes } = load();
+  const targetIds = new Set([
+    ...(indexes.byUserId[userId] || []),
+    ...(indexes.byUserId['*'] || []),
+  ]);
+  let ids = Array.from(targetIds);
+  if (type) {
+    const fromType = (indexes.byType as Record<string, string[]>)[type] || [];
+    ids = ids.filter((id) => fromType.includes(id));
+  }
+  const result = list.filter((n) => ids.includes(n.id));
+  result.sort(
+    (a, b) =>
+      new Date(b.dateEnvoi).valueOf() - new Date(a.dateEnvoi).valueOf()
   );
   res.json(result);
 });
 
 /**
-* POST /api/notifications
-* Body: { username, date, message? }
+* POST /api/notifications (admin)
 */
 router.post('/', (req, res) => {
-  const notifs = read<INotification>(NOTIFS);
-  const entry: INotification = {
+  if (req.headers['x-role'] !== 'admin')
+    return res.status(403).json({ error: 'Forbidden' });
+
+  const data = req.body as Partial<NotificationJSON>;
+  if (!data.type || !data.message)
+    return res.status(400).json({ error: 'type et message requis' });
+
+  const { list } = load();
+  const entry: NotificationJSON = {
     id: Date.now().toString(),
+    type: data.type,
+    message: data.message,
+    cible: data.cible || { userIds: [] },
+    action: data.action,
+    tags: data.tags,
+    origine: data.origine || 'manual',
     dateEnvoi: new Date().toISOString(),
-    date: new Date().toISOString(), // compat old clients
-    ...req.body as Omit<INotification, 'id'>,
+    expireraLe: data.expireraLe,
     etat: {
       luPar: [],
-      nonLuPar: req.body.cible ? [...req.body.cible] : [],
+      nonLuPar: data.cible?.userIds ? [...data.cible.userIds] : [],
     },
   };
-  notifs.push(entry);
-  write(NOTIFS, notifs);
+  list.push(entry);
+  save(list);
   res.status(201).json(entry);
 });
 
-// PATCH /api/notifications/:id/read – marque une notif comme lue par username
-router.patch('/:id/read', (req, res) => {
-  const { id } = req.params;
-  const { username } = req.body as { username: string };
-  const notifs = read<INotification>(NOTIFS);
-  const idx = notifs.findIndex((n) => n.id === id);
-  if (idx === -1) {
-    return res.status(404).json({ error: 'Not found' });
-  }
-  const state = notifs[idx].etat || { luPar: [], nonLuPar: [] };
-  if (!state.luPar.includes(username)) state.luPar.push(username);
-  state.nonLuPar = state.nonLuPar.filter((u) => u !== username);
-  notifs[idx].etat = state;
-  write(NOTIFS, notifs);
+// PATCH /api/notifications/:notifId/lu/:userId
+router.patch('/:notifId/lu/:userId', (req, res) => {
+  const { notifId, userId } = req.params;
+  const { list } = load();
+  const idx = list.findIndex((n) => n.id === notifId);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+
+  const state = list[idx].etat || { luPar: [], nonLuPar: [] };
+  if (!state.luPar.includes(userId)) state.luPar.push(userId);
+  state.nonLuPar = state.nonLuPar.filter((u) => u !== userId);
+  list[idx].etat = state;
+  save(list);
+  res.json({ ok: true });
+});
+
+// DELETE /api/notifications/:notifId (admin)
+router.delete('/:notifId', (req, res) => {
+  if (req.headers['x-role'] !== 'admin')
+    return res.status(403).json({ error: 'Forbidden' });
+
+  const { notifId } = req.params;
+  const { list } = load();
+  const idx = list.findIndex((n) => n.id === notifId);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  list.splice(idx, 1);
+  save(list);
   res.json({ ok: true });
 });
 
