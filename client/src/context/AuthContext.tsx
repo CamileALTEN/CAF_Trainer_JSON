@@ -57,24 +57,40 @@ import React, {
 
         useEffect(() => {
           let reloading = false;
+          let hideTime = 0;
+
           const markReload = (e: KeyboardEvent) => {
             const key = e.key.toLowerCase();
             if (key === 'f5' || ((e.ctrlKey || e.metaKey) && key === 'r')) {
               reloading = true;
             }
           };
+
+          const detectButtonRefresh = () => {
+            if (document.visibilityState === 'hidden') {
+              hideTime = Date.now();
+            } else if (hideTime && Date.now() - hideTime < 500) {
+              reloading = true;
+            }
+          };
+
           const handler = () => {
-            if (!user || reloading) return;
+            if (!user) return;
+            if (reloading) return;
             const data = JSON.stringify({ userId: user.id });
             navigator.sendBeacon(
               '/api/analytics/logout',
               new Blob([data], { type: 'application/json' }),
             );
           };
+
           window.addEventListener('keydown', markReload);
+          document.addEventListener('visibilitychange', detectButtonRefresh);
           window.addEventListener('beforeunload', handler);
+
           return () => {
             window.removeEventListener('keydown', markReload);
+            document.removeEventListener('visibilitychange', detectButtonRefresh);
             window.removeEventListener('beforeunload', handler);
           };
         }, [user]);
