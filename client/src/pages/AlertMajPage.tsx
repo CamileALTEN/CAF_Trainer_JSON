@@ -258,8 +258,8 @@ const Wrapper = styled.div`
   .search{width:100%;margin-bottom:.5rem;padding:.25rem;}
   .list{max-height:300px;overflow:auto;margin-bottom:.5rem;}
   .module h4{margin:0.25rem 0;}
-  .item-btn{display:block;width:100%;text-align:left;border:none;padding:.25rem .5rem;margin-bottom:2px;background:#f5f5f5;border-radius:4px;cursor:pointer;}
-  .item-btn.selected{background:#cce8ff;}
+  .item-btn{display:block;width:100%;text-align:left;border:none;padding:.25rem .5rem;margin-bottom:2px;background:#f5f5f5;border-radius:4px;cursor:pointer;color:#043962;}
+  .item-btn.selected{background:#043962;color:#fff;}
   .validate{padding:.5rem;background:#008bd2;color:#fff;border:none;border-radius:4px;}
   .validate:hover{background:#006fa1;}
   .history li{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:.25rem 0;}
