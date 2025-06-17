@@ -46,7 +46,7 @@
     "category": "Autre",
     "priority": "high",
     "replies": [],
-    "archived": false
+    "archived": true
   },
   {
     "id": "1747936013638",
@@ -57,10 +57,10 @@
     "priority": "high",
     "title": "test1245",
     "message": "<p>test1254</p>",
-    "status": "pending",
+    "status": "closed",
     "date": "2025-05-22T17:46:53.638Z",
     "replies": [],
-    "archived": false
+    "archived": true
   },
   {
     "id": "1750179581620",
@@ -74,7 +74,7 @@
     "status": "open",
     "date": "2025-06-17T16:59:41.620Z",
     "replies": [],
-    "archived": false
+    "archived": true
   },
   {
     "id": "1750180779482",
@@ -88,6 +88,6 @@
     "status": "open",
     "date": "2025-06-17T17:19:39.482Z",
     "replies": [],
-    "archived": false
+    "archived": true
   }
 ]
