@@ -27,12 +27,16 @@ const cafTypes_1 = __importDefault(require("./routes/cafTypes"));
 const alert_1 = __importDefault(require("./routes/alert"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
-const IMG_DIR = path_1.default.resolve(__dirname, '../image');
+const IMG_DIR = process.env.IMG_DIR
+    ? path_1.default.resolve(process.env.IMG_DIR)
+    : path_1.default.resolve(__dirname, '../image');
 if (!fs_1.default.existsSync(IMG_DIR))
-    fs_1.default.mkdirSync(IMG_DIR);
-const VID_DIR = path_1.default.resolve(__dirname, '../video');
+    fs_1.default.mkdirSync(IMG_DIR, { recursive: true });
+const VID_DIR = process.env.VIDEO_DIR
+    ? path_1.default.resolve(process.env.VIDEO_DIR)
+    : path_1.default.resolve(__dirname, '../video');
 if (!fs_1.default.existsSync(VID_DIR))
-    fs_1.default.mkdirSync(VID_DIR);
+    fs_1.default.mkdirSync(VID_DIR, { recursive: true });
 app.use((0, cors_1.default)());
 app.use(express_1.default.json({ limit: '200mb' }));
 app.use('/images', express_1.default.static(IMG_DIR));

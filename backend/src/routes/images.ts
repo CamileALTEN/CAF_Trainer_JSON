@@ -3,10 +3,12 @@ import fs from 'fs';
 import path from 'path';
 
 const router = Router();
-// Stocke les images dans le même dossier que celui exposé par index.ts
-const DIR = path.resolve(__dirname, '../..', 'image');
+// Dossier de stockage des images
+const DIR = process.env.IMG_DIR
+  ? path.resolve(process.env.IMG_DIR)
+  : path.resolve(__dirname, '../..', 'image');
 
-if (!fs.existsSync(DIR)) fs.mkdirSync(DIR);
+if (!fs.existsSync(DIR)) fs.mkdirSync(DIR, { recursive: true });
 
 router.post('/', (req, res) => {
   const { data } = req.body as { data?: string };

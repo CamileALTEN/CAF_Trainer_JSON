@@ -1,9 +1,11 @@
 
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
-const DATA_DIR = path.join(__dirname, '../backend/src/data');
-const ARCHIVE_DIR = path.join(__dirname, '../backend/archive');
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '../backend/src/data');
+const ARCHIVE_DIR = process.env.ARCHIVE_DIR || path.join(__dirname, '../backend/archive');
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
 if (!fs.existsSync(ARCHIVE_DIR)) fs.mkdirSync(ARCHIVE_DIR, { recursive: true });
 

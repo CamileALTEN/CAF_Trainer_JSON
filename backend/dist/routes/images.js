@@ -7,10 +7,12 @@ const express_1 = require("express");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const router = (0, express_1.Router)();
-// Stocke les images dans le même dossier que celui exposé par index.ts
-const DIR = path_1.default.resolve(__dirname, '../..', 'image');
+// Dossier de stockage des images
+const DIR = process.env.IMG_DIR
+    ? path_1.default.resolve(process.env.IMG_DIR)
+    : path_1.default.resolve(__dirname, '../..', 'image');
 if (!fs_1.default.existsSync(DIR))
-    fs_1.default.mkdirSync(DIR);
+    fs_1.default.mkdirSync(DIR, { recursive: true });
 router.post('/', (req, res) => {
     const { data } = req.body;
     if (!data)

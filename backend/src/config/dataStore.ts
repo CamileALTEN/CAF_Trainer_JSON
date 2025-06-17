@@ -1,7 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
-const DATA_DIR = path.resolve(__dirname, '..', 'data');
+const DATA_DIR = process.env.DATA_DIR
+  ? path.resolve(process.env.DATA_DIR)
+  : path.resolve(__dirname, '..', 'data');
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
 export function read<T = any>(name: string): T[] {
     const file = path.join(DATA_DIR, `${name}.json`);

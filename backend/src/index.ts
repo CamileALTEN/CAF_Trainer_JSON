@@ -27,10 +27,14 @@ import alertRouter from './routes/alert';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const IMG_DIR = path.resolve(__dirname, '../image');
-if (!fs.existsSync(IMG_DIR)) fs.mkdirSync(IMG_DIR);
-const VID_DIR = path.resolve(__dirname, '../video');
-if (!fs.existsSync(VID_DIR)) fs.mkdirSync(VID_DIR);
+const IMG_DIR = process.env.IMG_DIR
+  ? path.resolve(process.env.IMG_DIR)
+  : path.resolve(__dirname, '../image');
+if (!fs.existsSync(IMG_DIR)) fs.mkdirSync(IMG_DIR, { recursive: true });
+const VID_DIR = process.env.VIDEO_DIR
+  ? path.resolve(process.env.VIDEO_DIR)
+  : path.resolve(__dirname, '../video');
+if (!fs.existsSync(VID_DIR)) fs.mkdirSync(VID_DIR, { recursive: true });
 
 app.use(cors());
 app.use(express.json({ limit: '200mb' }));

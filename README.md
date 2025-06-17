@@ -73,7 +73,7 @@ Les routes implementent toutes les fonctionnalites de l'outil :
 - `sites.ts` et `cafTypes.ts` classent les utilisateurs par site ou par type de caf.
 - `alert.ts` diffuse un message a tous les utilisateurs connectes.
 
-Chaque route s'appuie sur `config/dataStore.ts`, un petit utilitaire lisant et ecrivant simplement des tableaux JSON dans `backend/src/data`. Un dossier `archive` permet de deplacer d'anciens enregistrements pour respecter la legislation RGPD.
+Chaque route s'appuie sur `config/dataStore.ts`, un petit utilitaire lisant et ecrivant simplement des tableaux JSON dans le dossier defini par `DATA_DIR` (par defaut `A:\CAF-Trainer\backend\src\data`). Un dossier `archive` permet de deplacer d'anciens enregistrements pour respecter la legislation RGPD.
 
 ### 2.2 Scripts back
 
@@ -112,7 +112,7 @@ Le client contacte l'API sous `http://localhost:5000/api/` (ou un autre port si 
 - `GET /api/notifications` : recupere les notifications non lues.
 - `POST /api/analytics/logout` : enregistre la deconnexion effective.
 
-Le backend renvoie toujours des objets JSON simples. Il n'y a pas de couche ORM ni de base SQL : toutes les donnees sont directement lues depuis les fichiers presents dans `backend/src/data` et sauvegardees immediatement apres toute mise a jour. Cela rend le code tres facile a deployer sur une simple machine sans base de donnees.
+Le backend renvoie toujours des objets JSON simples. Il n'y a pas de couche ORM ni de base SQL : toutes les donnees sont directement lues depuis les fichiers presentes dans le repertoire `DATA_DIR` et sauvegardees immediatement apres toute mise a jour. Cela rend le code tres facile a deployer sur une simple machine sans base de donnees.
 
 ## 4. Variables d'environnement
 
@@ -123,15 +123,18 @@ MAIL_USER=services@conforea.fr
 MAIL_PASS=Test2025!
 PORT=5000
 JWT_SECRET=MaCleSuperSecrete
-DATA_DIR=./src/data
+DATA_DIR=A:\CAF-Trainer\backend\src\data
+IMG_DIR=A:\CAF-Trainer\backend\image
+VIDEO_DIR=A:\CAF-Trainer\backend\video
+ARCHIVE_DIR=A:\CAF-Trainer\backend\src\archive
 ```
 
-`MAIL_USER` et `MAIL_PASS` servent a l'envoi de mails automatiques (notifications et alertes). `PORT` indique sur quel port demarre Express. `JWT_SECRET` est prevu pour de futures evolutions utilisant JSON Web Tokens. Enfin, `DATA_DIR` precise l'emplacement des fichiers JSON si vous souhaitez en changer.
+`MAIL_USER` et `MAIL_PASS` servent a l'envoi de mails automatiques (notifications et alertes). `PORT` indique sur quel port demarre Express. `JWT_SECRET` est prevu pour de futures evolutions utilisant JSON Web Tokens. Les variables `DATA_DIR`, `IMG_DIR`, `VIDEO_DIR` et `ARCHIVE_DIR` permettent de definir les emplacements distants de tous les fichiers dynamiques.
 
 ## 5. Conseils de developpement
 
 1. **Ne modifiez pas directement les fichiers de `backend/src/data`** tant que le serveur tourne, au risque d'ecraser les modifications en cours.
-2. **Gardez un oeil sur les scripts de nettoyage** : `rgpdCleanup.js` peut deplacer des donnees dans `backend/archive`. Cela permet de conserver un historique sans encombrer les fichiers principaux.
+2. **Gardez un oeil sur les scripts de nettoyage** : `rgpdCleanup.js` peut deplacer des donnees dans le dossier defini par `ARCHIVE_DIR` (par defaut `A:\CAF-Trainer\backend\src\archive`). Cela permet de conserver un historique sans encombrer les fichiers principaux.
 3. **Utilisez les outils integres** : le projet fournit des commandes npm dans le `package.json` racine pour lancer le backend seul (`npm run start:backend`) ou juste le client (`npm run start:client`).
 
 ## 6. Conclusion

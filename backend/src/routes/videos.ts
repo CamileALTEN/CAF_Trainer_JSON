@@ -3,10 +3,12 @@ import fs from 'fs';
 import path from 'path';
 
 const router = Router();
-// Stocke les vidéos dans le même dossier que celui exposé par index.ts
-const DIR = path.resolve(__dirname, '../..', 'video');
+// Dossier de stockage des vidéos
+const DIR = process.env.VIDEO_DIR
+  ? path.resolve(process.env.VIDEO_DIR)
+  : path.resolve(__dirname, '../..', 'video');
 
-if (!fs.existsSync(DIR)) fs.mkdirSync(DIR);
+if (!fs.existsSync(DIR)) fs.mkdirSync(DIR, { recursive: true });
 
 router.post('/', (req, res) => {
   const { data } = req.body as { data?: string };

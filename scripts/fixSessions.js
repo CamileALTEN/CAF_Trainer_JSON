@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
-const FILE = path.join(__dirname, '../backend/src/data/analytics.json');
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '../backend/src/data');
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+const FILE = path.join(DATA_DIR, 'analytics.json');
 
 function load() {
   try {
