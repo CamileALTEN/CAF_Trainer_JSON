@@ -56,16 +56,27 @@ import React, {
         };
 
         useEffect(() => {
+          let reloading = false;
+          const markReload = (e: KeyboardEvent) => {
+            const key = e.key.toLowerCase();
+            if (key === 'f5' || ((e.ctrlKey || e.metaKey) && key === 'r')) {
+              reloading = true;
+            }
+          };
           const handler = () => {
-            if (!user) return;
+            if (!user || reloading) return;
             const data = JSON.stringify({ userId: user.id });
             navigator.sendBeacon(
               '/api/analytics/logout',
               new Blob([data], { type: 'application/json' }),
             );
           };
+          window.addEventListener('keydown', markReload);
           window.addEventListener('beforeunload', handler);
-          return () => window.removeEventListener('beforeunload', handler);
+          return () => {
+            window.removeEventListener('keydown', markReload);
+            window.removeEventListener('beforeunload', handler);
+          };
         }, [user]);
     
         return (
