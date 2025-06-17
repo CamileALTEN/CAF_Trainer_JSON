@@ -46,13 +46,21 @@ router.get('/actions', (_req, res) => {
   res.json(loadActs());
 });
 
+function parseName(u: string) {
+  const m = u.match(/^(\w+)\.(\w+)@/);
+  if (m)
+    return `${m[1]} ${m[2]}`;
+  return u;
+}
+
 router.post('/actions', (req, res) => {
   const list = loadActs();
-  const { items } = req.body as { items: string[] };
+  const { items, user } = req.body as { items: string[]; user: string };
   const entry: IAlertAction = {
     id: Date.now().toString(),
     date: new Date().toISOString(),
     items: items || [],
+    user: parseName(user || '')
   };
   list.push(entry);
   saveActs(list);

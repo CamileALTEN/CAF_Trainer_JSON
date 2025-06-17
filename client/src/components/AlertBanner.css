@@ -1,0 +1,10 @@
+.alert-banner{
+  background:#c00;
+  color:#fff;
+  padding:4px 0;
+  text-align:center;
+  position:sticky;
+  top:100px;
+  z-index:1999;
+}
+.alert-banner a{color:#fff;text-decoration:none;}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getAlertConfig, saveAlertConfig, IAlertConfig } from '../api/alert';
+import './AlertBanner.css';
 
 export default function AlertBanner() {
   const { user } = useAuth();
@@ -32,8 +33,8 @@ export default function AlertBanner() {
   if (!conf || !conf.active) return null;
 
   return (
-    <div style={{background:'#c00',color:'#fff',padding:'4px 0',textAlign:'center'}}>
-      <a href={conf.url} target="_blank" rel="noopener noreferrer" style={{color:'#fff'}}>
+    <div className="alert-banner">
+      <a href={conf.url} target="_blank" rel="noopener noreferrer">
         <marquee>{conf.text}</marquee>
       </a>
     </div>

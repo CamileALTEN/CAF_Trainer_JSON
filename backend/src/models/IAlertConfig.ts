@@ -10,4 +10,5 @@ export interface IAlertAction {
   id: string;
   date: string;
   items: string[];
+  user: string;
 }

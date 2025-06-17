@@ -42,13 +42,20 @@ router.put('/', (req, res) => {
 router.get('/actions', (_req, res) => {
     res.json(loadActs());
 });
+function parseName(u) {
+    const m = u.match(/^(\w+)\.(\w+)@/);
+    if (m)
+        return `${m[1]} ${m[2]}`;
+    return u;
+}
 router.post('/actions', (req, res) => {
     const list = loadActs();
-    const { items } = req.body;
+    const { items, user } = req.body;
     const entry = {
         id: Date.now().toString(),
         date: new Date().toISOString(),
         items: items || [],
+        user: parseName(user || '')
     };
     list.push(entry);
     saveActs(list);

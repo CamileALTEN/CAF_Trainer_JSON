@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getModules, IModule } from '../api/modules';
+import { flatten } from '../utils/items';
 import {
   getAlertConfig,
   saveAlertConfig,
@@ -34,6 +35,12 @@ export default function AlertMajPage() {
   }, [user, navigate]);
 
   const UNITS = { s: 1, min: 60, d: 86400, mo: 2592000 } as const;
+
+  const parseName = (u: string) => {
+    const m = u.match(/^(\w+)\.(\w+)@/);
+    if (m) return `${m[1]} ${m[2]}`;
+    return u;
+  };
 
   useEffect(() => {
     getAlertConfig().then(c => {
@@ -79,19 +86,21 @@ export default function AlertMajPage() {
     const items = Object.entries(checked)
       .filter(([, v]) => v)
       .map(([k]) => k);
-    const act = await createAlertAction(items);
+    const name = parseName(user?.username || '');
+    const act = await createAlertAction(items, name);
     setActions(prev => [...prev, act]);
     setChecked({});
     const updated = await getAlertConfig();
     setConf(updated);
+    window.location.reload();
   };
 
   const exportCsv = () => {
-    const rows = ['date,module,item'];
+    const rows = ['date,utilisateur,module,item'];
     actions.forEach(a => {
       a.items.forEach(id => {
         const info = itemMap[id];
-        if (info) rows.push(`${new Date(a.date).toLocaleString()},${info.module.replace(/,/g,' ')},${info.title.replace(/,/g,' ')}`);
+        if (info) rows.push(`${new Date(a.date).toLocaleString()},${a.user.replace(/,/g,' ')},${info.module.replace(/,/g,' ')},${info.title.replace(/,/g,' ')}`);
       });
     });
     const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
@@ -113,17 +122,16 @@ export default function AlertMajPage() {
   const itemMap = React.useMemo(() => {
     const map: Record<string, { module: string; title: string }> = {};
     modules.forEach(m => {
-      m.items.forEach(it => {
+      flatten(m.items).forEach(it => {
         map[it.id] = { module: m.title, title: it.title };
       });
     });
     return map;
   }, [modules]);
 
-  const listItems = modules.flatMap(m => m.items.map(it => ({
-    id: it.id,
-    title: it.title,
-  })));
+  const listItems = modules.flatMap(m =>
+    flatten(m.items).map(it => ({ id: it.id, title: it.title }))
+  );
   const filtered = search
     ? listItems.filter(it =>
         it.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -177,9 +185,9 @@ export default function AlertMajPage() {
         <button className="danger" onClick={()=>setResetOpen(true)}>Vider l'historique</button>
       </div>
       <ul className="history">
-        {actions.map(a => (
+        {[...actions].sort((a,b)=>new Date(a.date).getTime()-new Date(b.date).getTime()).map(a => (
           <li key={a.id}>
-            <span>{new Date(a.date).toLocaleString()}</span>
+            <span>{new Date(a.date).toLocaleString()} – {a.user}</span>
             <button onClick={()=>setDetails(a)}>Voir</button>
           </li>
         ))}
@@ -188,6 +196,7 @@ export default function AlertMajPage() {
         <div className="history-popup">
           <div className="box">
             <h4>Détails</h4>
+            <p>Validé par {details.user} le {new Date(details.date).toLocaleString()}</p>
             <ul>
               {details.items
                 .map(id => itemMap[id])
@@ -229,9 +238,9 @@ const Wrapper = styled.div`
   .conf-form button:hover:not(:disabled){background:#006fa1;}
   .popup{border:1px solid #ccc;padding:.5rem;border-radius:4px;margin-bottom:1rem;}
   .popup input{width:100%;margin-bottom:.5rem;padding:.25rem;}
-  .popup .list{max-height:150px;overflow:auto;margin-bottom:.5rem;}
+  .popup .list{max-height:300px;overflow:auto;margin-bottom:.5rem;}
   .history li{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:.25rem 0;}
-  .popup .list label.item{display:flex;align-items:center;gap:.25rem;}
+  .popup .list label.item{display:flex;align-items:center;gap:.5rem;padding:2px 0;}
   .freq{display:flex;gap:.25rem;align-items:center;}
   .history-actions{display:flex;gap:.5rem;margin-bottom:.5rem;}
   .history-popup{background:rgba(0,0,0,0.6);position:fixed;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;}
