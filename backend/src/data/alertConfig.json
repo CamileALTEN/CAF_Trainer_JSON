@@ -4,9 +4,7 @@
     "url": "https://docs.google.com.rproxy.goskope.com/spreadsheets/d/1CNAl7-GU3FVelXssNFr1NaVXGfrTPexl_iC3yDHPt_Y/edit?usp=sharing",
     "frequency": 600,
     "active": false,
-    "maxOutdated": 5
-    "frequency": 120,
-    "active": false,
+    "maxOutdated": 5,
     "lastAck": "2025-06-17T15:18:28.877Z"
   }
 ]
