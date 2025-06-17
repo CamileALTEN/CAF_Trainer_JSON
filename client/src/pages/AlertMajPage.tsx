@@ -196,10 +196,10 @@ export default function AlertMajPage() {
       ) : (
         <>
       <button className="btn-back" onClick={() => navigate(-1)}>← Retour</button>
-      <h2>Alerte de mise à jour</h2>
+      <h2>Outils de gestion des mises à jour</h2>
       <div className="layout">
         <div className="left">
-          <h3>Documents à jour</h3>
+          <h3>Sélection des items mis à jour</h3>
           <input className="search" placeholder="rechercher" value={search} onChange={e=>setSearch(e.target.value)} />
           <div className="list">
             {filteredModules.map(mod => (
@@ -218,9 +218,10 @@ export default function AlertMajPage() {
               </div>
             ))}
           </div>
-          <button className="validate" onClick={markDone}>Valider</button>
+          <button className="validate" onClick={markDone}>Soumettre</button>
         </div>
         <div className="right">
+          <h3>Alertes de mise à jour</h3>
           <form onSubmit={saveConf} className="conf-form">
             <label>Texte</label>
             <input value={conf.text} onChange={e=>setConf({...conf,text:e.target.value})} />
@@ -243,7 +244,7 @@ export default function AlertMajPage() {
         </div>
       </div>
 
-      <h3 className="history-title">Items non à jour</h3>
+      <h3 className="history-title">Items à mettre à jour</h3>
       <div className="out-table-wrapper">
         <table className="out-table">
           <thead>

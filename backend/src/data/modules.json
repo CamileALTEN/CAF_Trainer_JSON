@@ -103,7 +103,11 @@
             "cafTypes": [],
             "enabled": true,
             "needValidation": true,
-            "outdatedInfo": null,
+            "outdatedInfo": {
+              "reason": "a supprimer",
+              "date": "2025-06-17T15:47:35.787Z",
+              "user": "camile briard"
+            },
             "quiz": {
               "enabled": false,
               "questions": []

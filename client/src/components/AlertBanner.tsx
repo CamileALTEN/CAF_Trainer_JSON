@@ -56,7 +56,7 @@ export default function AlertBanner() {
   return (
     <>
       {banners.map((b,i)=>(
-        <div key={b.key} className={`alert-banner ${b.className||''}`} style={{ top: 100 + i*32 }}>
+        <div key={b.key} className={`alert-banner ${b.className||''}`} style={{ top: 75 + i*40 }}>
           {b.url ? (
             <a href={b.url} target="_blank" rel="noopener noreferrer">
               <marquee>{b.text}</marquee>
