@@ -44,17 +44,8 @@ router.post('/', (req, res) => {
     const list = load();
     list.push(ticket);
     save(list);
-    const admins = users
-        .filter(u => u.role === 'admin' && mailRx.test(u.username))
-        .map(u => u.username);
-    const managerMail = ticket.managerId
-        ? users.find(u => u.id === ticket.managerId)?.username
-        : undefined;
+    // Les notifications par mail sont désactivées
     const to = [];
-    if (ticket.target === 'admin' || ticket.target === 'both')
-        to.push(...admins);
-    if ((ticket.target === 'manager' || ticket.target === 'both') && managerMail && mailRx.test(managerMail))
-        to.push(managerMail);
     (0, notifier_1.notify)({
         username,
         category: 'ticket',
@@ -74,7 +65,8 @@ router.post('/:id/reply', (req, res) => {
     const reply = { author, role, message, date: new Date().toISOString() };
     ticket.replies.push(reply);
     save(list);
-    const to = mailRx.test(ticket.username) ? [ticket.username] : [];
+    // Pas d'envoi d'email
+    const to = [];
     (0, notifier_1.notify)({
         username: author,
         category: 'ticket',
@@ -118,7 +110,8 @@ router.patch('/:id', (req, res) => {
         list[idx].priority = priority;
     save(list);
     const ticket = list[idx];
-    const to = mailRx.test(ticket.username) ? [ticket.username] : [];
+    // Pas d'envoi d'email
+    const to = [];
     (0, notifier_1.notify)({
         username: ticket.username,
         category: 'ticket',

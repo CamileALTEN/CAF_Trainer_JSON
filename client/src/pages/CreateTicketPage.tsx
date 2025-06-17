@@ -77,5 +77,5 @@ const Wrapper = styled.div`
   .new-ticket input,
   .new-ticket select{display:block;width:100%;margin-bottom:.5rem;padding:.5rem;}
   .advanced-editor{margin-bottom:.5rem;}
-  .new-ticket button{padding:.5rem 1rem;}
+  .new-ticket > button{padding:.5rem 1rem;}
 `;
