@@ -28,7 +28,7 @@ export default function RegisterUserPage() {
   const [loading,  setLoading]  = useState(false);
 
   const pwdRules = [
-    '10–16 caractères',
+    '10–12 caractères',
     'au moins trois types : majuscules, minuscules, chiffres, symboles',
     'pas d’infos perso ni suites faciles',
   ];

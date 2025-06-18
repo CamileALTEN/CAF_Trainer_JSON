@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isStrongPassword = void 0;
 function isStrongPassword(pwd, username) {
-    if (pwd.length < 10 || pwd.length > 16)
+    if (pwd.length < 10 || pwd.length > 12)
         return false;
     let types = 0;
     if (/[a-z]/.test(pwd))

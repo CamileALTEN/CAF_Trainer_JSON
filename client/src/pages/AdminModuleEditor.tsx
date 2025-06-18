@@ -70,7 +70,7 @@ export default function AdminModuleEditor() {
           <button
             onClick={() => {
               if (!dirty || window.confirm('Quitter sans sauvegarder ?')) {
-                navigate('/admin/modules');
+                navigate(-1);
               }
             }}
           >
