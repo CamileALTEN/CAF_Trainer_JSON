@@ -7,31 +7,52 @@ function ask(question) {
   return new Promise(resolve => rl.question(question, answer => { rl.close(); resolve(answer); }));
 }
 
-(async () => {
-  const driveInput = await ask('Lettre du lecteur cible (ex: C): ');
-  const folderInput = await ask('Nom du dossier principal (CAF-Trainer par defaut): ');
+async function main() {
+  const localInput = await ask('Utiliser les chemins locaux du projet ? (O/n) ');
+  const useLocal = !localInput || localInput.trim().toLowerCase().startsWith('o');
 
-  const drive = (driveInput || 'C').trim().replace(/[^a-zA-Z]/g, '').toUpperCase();
-  const folder = (folderInput || 'CAF-Trainer').trim() || 'CAF-Trainer';
+  let rootUpdates;
+  let backendUpdates;
 
-  let rootPath;
-  if (drive === 'C') {
-    const base = process.env.USERPROFILE || `${drive}:\\Users\\Default`;
-    rootPath = path.join(base, folder);
+  if (useLocal) {
+    rootUpdates = {
+      DATA_DIR: './backend/src/data',
+      IMAGE_DIR: './backend/image',
+      VIDEO_DIR: './backend/video',
+      ARCHIVE_DIR: './backend/archive',
+    };
+    backendUpdates = {
+      DATA_DIR: './src/data',
+      IMAGE_DIR: '../image',
+      VIDEO_DIR: '../video',
+      ARCHIVE_DIR: '../archive',
+    };
   } else {
-    rootPath = `${drive}:\\${folder}`;
+    const driveInput = await ask('Lettre du lecteur cible (ex: C): ');
+    const drive = (driveInput || 'C').trim().replace(/[^a-zA-Z]/g, '').toUpperCase();
+    let rootPath;
+    if (drive === 'C') {
+      const base = process.env.USERPROFILE || `${drive}:\\Users\\Default`;
+      rootPath = path.join(base, 'CAF-Trainer');
+    } else {
+      rootPath = `${drive}:\\CAF-Trainer`;
+    }
+    const abs = {
+      DATA_DIR: `${rootPath}\\backend\\src\\data`,
+      IMAGE_DIR: `${rootPath}\\backend\\image`,
+      VIDEO_DIR: `${rootPath}\\backend\\video`,
+      ARCHIVE_DIR: `${rootPath}\\backend\\archive`,
+    };
+    rootUpdates = abs;
+    backendUpdates = abs;
   }
 
-  const envUpdates = {
-    DATA_DIR: `${rootPath}\\backend\\src\\data`,
-    IMAGE_DIR: `${rootPath}\\backend\\image`,
-    VIDEO_DIR: `${rootPath}\\backend\\video`,
-    ARCHIVE_DIR: `${rootPath}\\backend\\archive`,
-  };
+  const envFiles = [
+    { file: path.join(__dirname, '.env'), updates: rootUpdates },
+    { file: path.join(__dirname, 'backend', '.env'), updates: backendUpdates },
+  ];
 
-  const envFiles = [path.join(__dirname, '.env'), path.join(__dirname, 'backend', '.env')];
-
-  for (const file of envFiles) {
+  for (const { file, updates } of envFiles) {
     let content = '';
     if (fs.existsSync(file)) content = fs.readFileSync(file, 'utf8');
     const lines = content.split(/\r?\n/).filter(Boolean);
@@ -40,9 +61,11 @@ function ask(question) {
       const m = line.match(/^([^=]+)=(.*)$/);
       if (m) env[m[1]] = m[2];
     }
-    Object.assign(env, envUpdates);
+    Object.assign(env, updates);
     const newContent = Object.entries(env).map(([k,v]) => `${k}=${v}`).join('\n');
     fs.writeFileSync(file, newContent);
     console.log(`Mis a jour: ${file}`);
   }
-})();
+}
+
+main();

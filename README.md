@@ -16,11 +16,11 @@ npm run setup-env  # configure les chemins des fichiers
 npm start          # demarre le serveur et l'appli React
 ```
 
-`setup-env.js` vous demande la lettre du lecteur et le dossier racine dans
-lequel seront ecrites toutes les donnees (JSON, images, videos et archives).
-Si vous indiquez la lettre `C`, le chemin est base sur votre variable
-d'environnement `%USERPROFILE%` pour enregistrer les fichiers dans votre
-repertoire utilisateur.
+`setup-env.js` vous propose d'utiliser les chemins locaux du projet ou de
+rediger ces donnees dans un emplacement centralise. Si vous choisissez cette
+deuxieme option, il suffit d'indiquer la lettre du lecteur. Le dossier
+`CAF-Trainer` y sera cree automatiquement. Avec la lettre `C`, les fichiers sont
+places sous `%USERPROFILE%\CAF-Trainer`.
 
 Le script `npm start` fait appel a `scripts/start.js`. Ce dernier propose de
 lancer les deux processus (serveur et client) en mode "verbose" pour afficher les
@@ -157,7 +157,7 @@ VIDEO_DIR=./backend/video
 ARCHIVE_DIR=./backend/archive
 ```
 
-`MAIL_USER` et `MAIL_PASS` servent a l'envoi de mails automatiques (notifications et alertes). `PORT` indique sur quel port demarre Express. `JWT_SECRET` est prevu pour de futures evolutions utilisant JSON Web Tokens. `DATA_DIR`, `IMAGE_DIR`, `VIDEO_DIR` et `ARCHIVE_DIR` definissent les emplacements des donnees, images, videos et archives. Le script `setup-env.js` permet de les reconfigurer et place les fichiers dans `%USERPROFILE%` si vous choisissez la lettre `C`.
+`MAIL_USER` et `MAIL_PASS` servent a l'envoi de mails automatiques (notifications et alertes). `PORT` indique sur quel port demarre Express. `JWT_SECRET` est prevu pour de futures evolutions utilisant JSON Web Tokens. `DATA_DIR`, `IMAGE_DIR`, `VIDEO_DIR` et `ARCHIVE_DIR` pointent par defaut vers le projet. Le script `setup-env.js` peut les rediriger vers un lecteur de votre choix : il suffit de renseigner la lettre desiree et le dossier `CAF-Trainer` sera utilise (avec `%USERPROFILE%` pour la lettre `C`).
 
 ## 5. Conseils de developpement
 
