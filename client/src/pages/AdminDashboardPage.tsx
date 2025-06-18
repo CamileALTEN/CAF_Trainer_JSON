@@ -170,15 +170,9 @@ import { getSettings, saveSettings, ISettings } from '../api/settings';
      return (
       <div className="admin-dashboard">
         <h1>Tableau de bord admin</h1>
-        <div className="mail-switch">
-          <span>Mailing</span>
-          <label className="switch">
-            <input type="checkbox" checked={settings?.mailEnabled ?? true} onChange={toggleMail} />
-            <span className="slider" />
-          </label>
-        </div>
+        
         <AdminSideMenu />
-        <h2>Analytics</h2>
+        <h2>Statistiques</h2>
         <section className="analytics-grid">
           <Stat label="Comptes" value={analytics.counts.accounts} />
           <Stat label="Modules" value={analytics.counts.modules} />
@@ -327,6 +321,13 @@ import { getSettings, saveSettings, ISettings } from '../api/settings';
             ))}
            </tbody>
          </table>
+         <div className="mail-switch">
+          <span>Mailing</span>
+          <label className="switch">
+            <input type="checkbox" checked={settings?.mailEnabled ?? true} onChange={toggleMail} />
+            <span className="slider" />
+          </label>
+        </div>
        </div>
      );
    }

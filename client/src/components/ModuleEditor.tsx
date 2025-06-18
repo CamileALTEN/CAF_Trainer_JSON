@@ -317,16 +317,13 @@ const selectItem = (id: string) => {
                         {/* -------- Métadonnées module -------- */}
                         <section className="meta">
                           <h2>Module</h2>
+                        
                           <input
                             value={edit.title}
                             placeholder="Titre du module"
                             onChange={(e) => setEdit({ ...edit, title: e.target.value })}
                           />
-                          <AdvancedEditor
-                            value={edit.summary}
-                            onChange={(html) => setEdit({ ...edit, summary: html })}
-                          />
-                          <label className="inline-row">
+                           <label className="inline-row">
                             <input
                               type="checkbox"
                               checked={edit.enabled}
@@ -334,45 +331,43 @@ const selectItem = (id: string) => {
                             />{' '}
                             Module actif
                           </label>
+                          <AdvancedEditor
+                            value={edit.summary}
+                            onChange={(html) => setEdit({ ...edit, summary: html })}
+                          />
+                         
                         </section>
+
+                        
+                        <hr style={{ margin: "40px 0", borderColor: "#ccc" }} />
       
                         {/* -------- Formulaire item -------- */}
                         {current ? (
                           <>
                             <h2>Item « {current.title || '∅'} »</h2>
+
+
+
                             <input
                               value={current.title}
                               placeholder="Titre"
                               onChange={(e) => patchItem({ title: e.target.value })}
                             />
-      
-                            <label className="inline-row" style={{marginBottom:4}}>
-                              <input
-                                type="checkbox"
-                                checked={useAdv}
-                                onChange={e => setUseAdv(e.target.checked)}
+
+                            <fieldset>
+                            <legend>Paramètres</legend>
+                            <label className="inline-row">
+                            <input
+                              type="checkbox"
+                              checked={current.enabled}
+                                onChange={(e) => patchItem({ enabled: e.target.checked })}
                               />{' '}
-                              Utiliser l'éditeur avancé
+                              Item actif
                             </label>
-                            <div style={{ marginBottom: 12 }}>
-                              <div style={{ marginBottom: 4 }}>Description (HTML enrichi)</div>
-                              {useAdv ? (
-                                <AdvancedEditor
-                                   value={current.content}
-                                   onChange={html => patchItem({ content: html })}
-                                 />
-                              ) : (
-                                <textarea
-                                  value={current.content}
-                                  placeholder="Collez ici le code HTML"
-                                  onChange={e => patchItem({ content: e.target.value })}
-                                  style={{ minHeight: 200 }}
-                                />
-                              )}
-                             </div>
-      
-                            {/* profils */}
+
+                            {/* sites */}
                             <div className="prof-select">
+                              <h4>Sites :</h4>
                               {sites.map(s => (
                                 <label key={s.id}>
                                   <input
@@ -392,6 +387,7 @@ const selectItem = (id: string) => {
 
                             {/* types CAF */}
                             <div className="prof-select">
+                              <h4>Typologie de métier :</h4>
                               {cafTypes
                                 .filter(t => t.id !== '1')
                                 .map(t => (
@@ -409,7 +405,81 @@ const selectItem = (id: string) => {
                                     {t.name}
                                   </label>
                                 ))}
+                              
                             </div>
+
+                            <label className="inline-row">
+                            <input
+                              type="checkbox"
+                              checked={current.needValidation ?? false}
+                              onChange={e => patchItem({ needValidation: e.target.checked })}
+                            />{' '}
+                            Soumettre à validation <span style={{ fontStyle: 'italic' , fontSize:"10pt" }}>(ne pas cocher si Quiz activé)</span>
+                          </label>
+                            </fieldset>
+
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                marginTop: "35px",
+                                marginBottom: "15px",
+                                gap : "5vh"
+                              }}
+                            >
+                              <Link
+                                to={`/preview/${module.id}/${current.id}`}
+                                className="btn-secondary"
+                              >
+                                Prévisualiser
+                              </Link>
+
+
+                              <button
+                                type="button"
+                                onClick={toggleOutdated}
+                                style={{ marginLeft: 8 }}
+                                className={current.outdatedInfo ? 'btn-updated' : 'btn-outdated'}
+                              >
+                                {current.outdatedInfo ? 'Item mis à jour' : 'Item non à jour'}
+                              </button>
+                            </div>
+
+
+                            <fieldset>
+                            <legend>Description</legend>
+                            <label className="inline-row" style={{marginBottom:4}}>
+                              <input
+                                type="checkbox"
+                                checked={useAdv}
+                                onChange={e => setUseAdv(e.target.checked)}
+                              />{' '}
+                              Utiliser l'éditeur avancé
+                            </label>
+
+
+
+                            <div style={{ marginBottom: 12 }}>
+                              <div style={{ marginBottom: 10 }}></div>
+                              {useAdv ? (
+                                <AdvancedEditor
+                                   value={current.content}
+                                   onChange={html => patchItem({ content: html })}
+                                 />
+                              ) : (
+                                <textarea
+                                  value={current.content}
+                                  placeholder="Collez ici le code HTML"
+                                  onChange={e => patchItem({ content: e.target.value })}
+                                  style={{ minHeight: 200 }}
+                                />
+                              )}
+                             </div>
+                            </fieldset>
+
+      
+                            
+
       
                             {/* liens --------------------------------------------------- */}
                             <fieldset>
@@ -432,6 +502,9 @@ const selectItem = (id: string) => {
                               <button onClick={addLink}>＋ ajouter un lien</button>
                             </fieldset>
       
+
+
+
                             {/* images -------------------------------------------------- */}
                             <fieldset>
                               <legend>Images</legend>
@@ -480,6 +553,10 @@ const selectItem = (id: string) => {
                               ))}
                             <button onClick={addImage}>＋ ajouter une image</button>
                           </fieldset>
+
+
+
+
 
                           {/* quiz ------------------------------------------- */}
                           <fieldset>
@@ -556,41 +633,19 @@ const selectItem = (id: string) => {
                           )}
                           </fieldset>
       
-                            
-                          <label className="inline-row">
-                            <input
-                              type="checkbox"
-                              checked={current.needValidation ?? false}
-                              onChange={e => patchItem({ needValidation: e.target.checked })}
-                            />{' '}
-                            Soumettre à validation
-                          </label>
 
-                          <label className="inline-row">
-                            <input
-                              type="checkbox"
-                              checked={current.enabled}
-                                onChange={(e) => patchItem({ enabled: e.target.checked })}
-                              />{' '}
-                              Item actif
-                            </label>
-                            <div style={{ marginTop: 8 }}>
-                              <Link
-                                to={`/preview/${module.id}/${current.id}`}
-                                className="btn-secondary"
-                              >
-                                Prévisualiser
-                              </Link>
-                              <button
-                                type="button"
-                                onClick={toggleOutdated}
-                                style={{ marginLeft: 8 }}
-                                className={current.outdatedInfo ? 'btn-updated' : 'btn-outdated'}
-                              >
-                                {current.outdatedInfo ? 'Item mis à jour' : 'Item non à jour'}
-                              </button>
-                            </div>
+
+
+
+
+
+                            
+
+
+                            
                           </>
+
+
                         ) : (
                           <p>Sélectionnez un item dans l’arborescence…</p>
                         )}

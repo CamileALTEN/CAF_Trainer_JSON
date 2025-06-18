@@ -27,8 +27,8 @@ export default function AdminSideMenu() {
     { to: '/admin/notifications', icon: <Bell size={18} />, label: 'Notifs' },
     { to: '/admin/tickets', icon: <ClipboardList size={18} />, label: 'Tickets' },
     { to: '/admin/checklist-url', icon: <LinkIcon size={18} />, label: 'Checklist' },
-    { to: '/admin/alert', icon: <AlertTriangle size={18} />, label: 'Alerte' },
-  ];
+    { to: '/admin/alert', icon: <AlertTriangle size={18} />, label: 'MàJ' },
+  ]; 
 
   return (
     <nav className="admin-side-menu">
