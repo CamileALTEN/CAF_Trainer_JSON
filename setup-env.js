@@ -2,6 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
+if (process.env.NODE_EXTRA_CA_CERTS &&
+    !fs.existsSync(process.env.NODE_EXTRA_CA_CERTS)) {
+  delete process.env.NODE_EXTRA_CA_CERTS;
+}
+
 function ask(question) {
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
   return new Promise(resolve => rl.question(question, answer => { rl.close(); resolve(answer); }));
