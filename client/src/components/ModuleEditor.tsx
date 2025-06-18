@@ -205,15 +205,28 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                   };
       
                   /* item courant ------------------------------------------- */
-                  const find = (xs: IItem[], id: string): IItem | null => {
+const find = (xs: IItem[], id: string): IItem | null => {
                     for (const x of xs) {
                       if (x.id === id) return x;
                       const sub = find(x.children ?? [], id);
                       if (sub) return sub;
                     }
                     return null;
-                  };
-                  const current = useMemo(() => find(edit.items, curId), [edit.items, curId]);
+};
+const current = useMemo(() => find(edit.items, curId), [edit.items, curId]);
+const originalCurrent = useMemo(
+  () => find(module.items, curId),
+  [module.items, curId],
+);
+const currentDirty = useMemo(
+  () => JSON.stringify(current) !== JSON.stringify(originalCurrent),
+  [current, originalCurrent],
+);
+const selectItem = (id: string) => {
+  if (id === curId) return;
+  if (currentDirty && !window.confirm('Quitter sans sauvegarder ?')) return;
+  setCurId(id);
+};
       
                   /* liens -------------------------------------------------- */
                   const addLink = () =>
@@ -263,7 +276,7 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                             🗑️
                           </button>
 
-                          <span onClick={() => setCurId(it.id)}>
+                          <span onClick={() => selectItem(it.id)}>
                             {it.title || '∅'}
                             {(it.profiles ?? []).map((p) => (
                               <span
