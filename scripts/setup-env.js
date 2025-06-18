@@ -30,7 +30,7 @@ function saveEnv(file, env) {
     const letter = (await ask('Lettre du lecteur monté (ex: Z): ')).trim().toUpperCase();
     base = `${letter}:\\CAF-Trainer\\backend`;
   } else {
-    base = path.resolve(__dirname, '..', 'backend');
+    base = 'backend';
   }
 
   const envVars = {
