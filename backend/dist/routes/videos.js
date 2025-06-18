@@ -8,9 +8,11 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const router = (0, express_1.Router)();
 // Stocke les vidéos dans le même dossier que celui exposé par index.ts
-const DIR = path_1.default.resolve(__dirname, '../..', 'video');
+const DIR = process.env.VIDEO_DIR
+    ? path_1.default.resolve(process.env.VIDEO_DIR)
+    : path_1.default.resolve(__dirname, '../..', 'video');
 if (!fs_1.default.existsSync(DIR))
-    fs_1.default.mkdirSync(DIR);
+    fs_1.default.mkdirSync(DIR, { recursive: true });
 router.post('/', (req, res) => {
     const { data } = req.body;
     if (!data)

@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../backend/.env') });
 
-const FILE = path.join(__dirname, '../backend/src/data/analytics.json');
+const FILE = process.env.DATA_DIR
+  ? path.join(path.resolve(process.env.DATA_DIR), 'analytics.json')
+  : path.join(__dirname, '../backend/src/data/analytics.json');
 
 function load() {
   try {

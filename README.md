@@ -12,8 +12,12 @@ l'architecture du projet et son fonctionnement.
 
 ```bash
 npm install        # installe les dependances de tous les workspaces
+npm run setup-env  # configure les chemins des fichiers
 npm start          # demarre le serveur et l'appli React
 ```
+
+`setup-env.js` vous demande la lettre du lecteur et le dossier racine dans
+lequel seront ecrites toutes les donnees (JSON, images, videos et archives).
 
 Le script `npm start` fait appel a `scripts/start.js`. Ce dernier propose de
 lancer les deux processus (serveur et client) en mode "verbose" pour afficher les
@@ -144,10 +148,13 @@ MAIL_USER=services@conforea.fr
 MAIL_PASS=Test2025!
 PORT=5000
 JWT_SECRET=MaCleSuperSecrete
-DATA_DIR=./src/data
+DATA_DIR=./backend/src/data
+IMAGE_DIR=./backend/image
+VIDEO_DIR=./backend/video
+ARCHIVE_DIR=./backend/src/archive
 ```
 
-`MAIL_USER` et `MAIL_PASS` servent a l'envoi de mails automatiques (notifications et alertes). `PORT` indique sur quel port demarre Express. `JWT_SECRET` est prevu pour de futures evolutions utilisant JSON Web Tokens. Enfin, `DATA_DIR` precise l'emplacement des fichiers JSON si vous souhaitez en changer.
+`MAIL_USER` et `MAIL_PASS` servent a l'envoi de mails automatiques (notifications et alertes). `PORT` indique sur quel port demarre Express. `JWT_SECRET` est prevu pour de futures evolutions utilisant JSON Web Tokens. `DATA_DIR`, `IMAGE_DIR`, `VIDEO_DIR` et `ARCHIVE_DIR` definissent les emplacements des donnees, images, videos et archives. Vous pouvez facilement les modifier via le script `setup-env.js`.
 
 ## 5. Conseils de developpement
 

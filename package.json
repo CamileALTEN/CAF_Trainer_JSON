@@ -12,7 +12,8 @@
         "start:combined": "concurrently \"npm run start:backend\" \"npm run start:client\"",
         "prestart": "node scripts/rgpdCleanup.js && node scripts/fixSessions.js",
         "start": "node scripts/start.js",
-        "fix:sessions": "node scripts/fixSessions.js"
+        "fix:sessions": "node scripts/fixSessions.js",
+        "setup-env": "node setup-env.js"
     },
     "devDependencies": {
         "@types/highlight.js": "^10.1.0",
