@@ -8,6 +8,7 @@ import { read, write }   from '../config/dataStore';
 import { IUser }         from '../models/IUser';
 import { notify }        from '../utils/notifier';
 import { NotificationCategory } from '../models/INotification';
+import { isStrongPassword } from '../utils/password';
 
 const router   = Router();
 const USERS    = 'users';
@@ -47,6 +48,8 @@ router.post('/register', (req, res) => {
     const users = read<IUser>(USERS);
     if (users.some(u => !u.deletedAt && u.username === username))
     return res.status(409).json({ error: 'Nom déjà pris' });
+    if (!isStrongPassword(password, username))
+    return res.status(400).json({ error: 'Mot de passe trop faible' });
 
     const id = Date.now().toString();
     const newUser: IUser = {

@@ -114,6 +114,23 @@ Le client contacte l'API sous `http://localhost:5000/api/` (ou un autre port si 
 
 Le backend renvoie toujours des objets JSON simples. Il n'y a pas de couche ORM ni de base SQL : toutes les donnees sont directement lues depuis les fichiers presents dans `backend/src/data` et sauvegardees immediatement apres toute mise a jour. Cela rend le code tres facile a deployer sur une simple machine sans base de donnees.
 
+## 3.1 Politique de mot de passe
+
+Les nouveaux comptes et tout changement de mot de passe doivent respecter les criteres suivants :
+
+1. **Longueur** : entre 10 et 16 caracteres.
+2. **Complexite** : au moins **trois types** parmi majuscules, minuscules, chiffres et symboles.
+3. **Pas d'informations personnelles** ni mots du dictionnaire connus.
+4. **Pas de repetitions ni suites evidentes** (`aaaa`, `abcd`, `1234`, `password`, etc.).
+
+### Astuce memotechnique
+
+Transformez une phrase facile a retenir en mot de passe :
+
+> *"J’ai acheté 3 livres pour 27€, c’est fou !"*
+
+donne par exemple `JaA3Lp27€,cf!` – court et robuste.
+
 ## 4. Variables d'environnement
 
 Le fichier `.env` rassemble plusieurs reglages importants :

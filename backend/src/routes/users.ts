@@ -3,6 +3,7 @@ import bcrypt          from 'bcrypt';
 import { read, write } from '../config/dataStore';
 import { IUser, Role } from '../models/IUser';
 import { IProgress } from '../models/IProgress';
+import { isStrongPassword } from '../utils/password';
 
 const router   = Router();
 const TABLE    = 'users';
@@ -30,6 +31,8 @@ if (!mailRx.test(username))
 const list = read<IUser>(TABLE);
 if (list.some(u => !u.deletedAt && u.username === username))
     return res.status(409).json({ error: 'Nom déjà pris' });
+if (!isStrongPassword(password, username))
+    return res.status(400).json({ error: 'Mot de passe trop faible' });
 
 if (role === 'manager' && managerIds?.length)
     return res.status(400).json({ error: 'Un manager ne peut avoir de managerIds' });
@@ -63,6 +66,9 @@ if (!password) return res.status(400).json({ error: 'pwd manquant' });
 const list = read<IUser>(TABLE);
 const idx  = list.findIndex(u => u.id === req.params.id);
 if (idx === -1) return res.status(404).json({ error: 'Introuvable' });
+const user = list[idx];
+if (!isStrongPassword(password, user.username))
+    return res.status(400).json({ error: 'Mot de passe trop faible' });
 
 list[idx].password = hash(password);
 write(TABLE, list);

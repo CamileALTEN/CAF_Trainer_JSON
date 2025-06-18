@@ -10,6 +10,7 @@ const analytics_1 = require("../utils/analytics");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const dataStore_1 = require("../config/dataStore");
 const notifier_1 = require("../utils/notifier");
+const password_1 = require("../utils/password");
 const router = (0, express_1.Router)();
 const USERS = 'users';
 const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
@@ -44,6 +45,8 @@ router.post('/register', (req, res) => {
     const users = (0, dataStore_1.read)(USERS);
     if (users.some(u => !u.deletedAt && u.username === username))
         return res.status(409).json({ error: 'Nom déjà pris' });
+    if (!(0, password_1.isStrongPassword)(password, username))
+        return res.status(400).json({ error: 'Mot de passe trop faible' });
     const id = Date.now().toString();
     const newUser = {
         id,
