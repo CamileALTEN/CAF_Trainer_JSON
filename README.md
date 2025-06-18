@@ -18,6 +18,9 @@ npm start          # demarre le serveur et l'appli React
 
 `setup-env.js` vous demande la lettre du lecteur et le dossier racine dans
 lequel seront ecrites toutes les donnees (JSON, images, videos et archives).
+Si vous indiquez la lettre `C`, le chemin est base sur votre variable
+d'environnement `%USERPROFILE%` pour enregistrer les fichiers dans votre
+repertoire utilisateur.
 
 Le script `npm start` fait appel a `scripts/start.js`. Ce dernier propose de
 lancer les deux processus (serveur et client) en mode "verbose" pour afficher les
@@ -151,10 +154,10 @@ JWT_SECRET=MaCleSuperSecrete
 DATA_DIR=./backend/src/data
 IMAGE_DIR=./backend/image
 VIDEO_DIR=./backend/video
-ARCHIVE_DIR=./backend/src/archive
+ARCHIVE_DIR=./backend/archive
 ```
 
-`MAIL_USER` et `MAIL_PASS` servent a l'envoi de mails automatiques (notifications et alertes). `PORT` indique sur quel port demarre Express. `JWT_SECRET` est prevu pour de futures evolutions utilisant JSON Web Tokens. `DATA_DIR`, `IMAGE_DIR`, `VIDEO_DIR` et `ARCHIVE_DIR` definissent les emplacements des donnees, images, videos et archives. Vous pouvez facilement les modifier via le script `setup-env.js`.
+`MAIL_USER` et `MAIL_PASS` servent a l'envoi de mails automatiques (notifications et alertes). `PORT` indique sur quel port demarre Express. `JWT_SECRET` est prevu pour de futures evolutions utilisant JSON Web Tokens. `DATA_DIR`, `IMAGE_DIR`, `VIDEO_DIR` et `ARCHIVE_DIR` definissent les emplacements des donnees, images, videos et archives. Le script `setup-env.js` permet de les reconfigurer et place les fichiers dans `%USERPROFILE%` si vous choisissez la lettre `C`.
 
 ## 5. Conseils de developpement
 

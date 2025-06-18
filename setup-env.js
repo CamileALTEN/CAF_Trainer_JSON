@@ -14,13 +14,19 @@ function ask(question) {
   const drive = (driveInput || 'C').trim().replace(/[^a-zA-Z]/g, '').toUpperCase();
   const folder = (folderInput || 'CAF-Trainer').trim() || 'CAF-Trainer';
 
-  const rootPath = `${drive}:\\${folder}`;
+  let rootPath;
+  if (drive === 'C') {
+    const base = process.env.USERPROFILE || `${drive}:\\Users\\Default`;
+    rootPath = path.join(base, folder);
+  } else {
+    rootPath = `${drive}:\\${folder}`;
+  }
 
   const envUpdates = {
     DATA_DIR: `${rootPath}\\backend\\src\\data`,
     IMAGE_DIR: `${rootPath}\\backend\\image`,
     VIDEO_DIR: `${rootPath}\\backend\\video`,
-    ARCHIVE_DIR: `${rootPath}\\backend\\src\\archive`,
+    ARCHIVE_DIR: `${rootPath}\\backend\\archive`,
   };
 
   const envFiles = [path.join(__dirname, '.env'), path.join(__dirname, 'backend', '.env')];
