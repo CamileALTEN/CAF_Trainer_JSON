@@ -27,6 +27,14 @@ export default function RegisterUserPage() {
   const [msg,      setMsg]      = useState('');
   const [loading,  setLoading]  = useState(false);
 
+  const pwdRules = [
+    '10–16 caractères',
+    'au moins trois types : majuscules, minuscules, chiffres, symboles',
+    'pas d’infos perso ni suites faciles',
+  ];
+
+  const mnemonic = 'JaA3Lp27€,cf!';
+
   function toggleSite(value: string) {
     setSelectedSites(prev =>
       prev.includes(value) ? prev.filter(s => s !== value) : [...prev, value]
@@ -116,6 +124,12 @@ export default function RegisterUserPage() {
       <button className="btn-back" onClick={() => navigate(-1)}>← Retour</button>
       <h2>Créer un compte</h2>
 
+      <Alert>
+        ⚠️ Seuls un <strong>manager</strong> ou un <strong>admin</strong> peuvent
+        modifier le mot de passe d’un CAF. L’admin peut aussi changer ceux des
+        autres rôles sans la personne concernée.
+      </Alert>
+
       <Form onSubmit={submit}>
         <label>Rôle
           <select value={role} onChange={e=>setRole(e.target.value as Role)}>
@@ -187,6 +201,12 @@ export default function RegisterUserPage() {
             required
           />
         </label>
+        <PwdInfo>
+          <ul>
+            {pwdRules.map(r => <li key={r}>{r}</li>)}
+          </ul>
+          <p>Astuce : "J’ai acheté 3 livres pour 27€, c’est fou !" → <code>{mnemonic}</code></p>
+        </PwdInfo>
 
         <button type="submit" disabled={loading}>
           {loading ? '…' : 'Créer'}
@@ -198,7 +218,8 @@ export default function RegisterUserPage() {
 }
 
 /* ───────── styles ───────── */
-const Wrapper = styled.div`  padding:2rem; max-width:360px; margin:auto;
+const Wrapper = styled.div`
+  padding:2rem; max-width:480px; margin:auto;
   .btn-back{background:none;border:none;color:#043962;font-size:1rem;cursor:pointer;padding:6px 8px;border-radius:4px;transition:background .15s;}
   .btn-back:hover{background:#e9f2ff;}
       `;
@@ -207,3 +228,14 @@ const Form    = styled.form`  display:flex; flex-direction:column; gap:.75rem;
   button{padding:.6rem; background:#008bd2; color:#fff; border:none; border-radius:4px;}
   button:hover:not(:disabled){background:#006fa1;}
       `;
+const Alert = styled.p`
+  background:#ffe6e6; border:2px solid #c00; padding:1rem; border-radius:8px;
+  color:#c00; font-weight:bold; margin-bottom:1rem; text-align:center;
+`;
+const PwdInfo = styled.div`
+  background:#f1f8ff; border-left:4px solid #008bd2; padding:.5rem .75rem;
+  border-radius:4px; margin-bottom:.75rem; font-size:.9rem;
+  ul{margin:0 0 .25rem 1.2rem; padding:0;}
+  li{list-style:disc;}
+  code{background:#eef; padding:2px 4px; border-radius:4px;}
+`;

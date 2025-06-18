@@ -131,6 +131,10 @@ Transformez une phrase facile a retenir en mot de passe :
 
 donne par exemple `JaA3Lp27€,cf!` – court et robuste.
 
+**Important :** seuls un manager ou un admin peuvent changer le mot de passe
+d'un CAF. L'admin peut également modifier ceux des autres rôles directement
+depuis son espace.
+
 ## 4. Variables d'environnement
 
 Le fichier `.env` rassemble plusieurs reglages importants :
