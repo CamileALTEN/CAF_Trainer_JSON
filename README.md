@@ -144,10 +144,15 @@ MAIL_USER=services@conforea.fr
 MAIL_PASS=Test2025!
 PORT=5000
 JWT_SECRET=MaCleSuperSecrete
-DATA_DIR=./src/data
+DATA_DIR=/chemin/vers/src/data
+IMAGE_DIR=/chemin/vers/image
+VIDEO_DIR=/chemin/vers/video
+ARCHIVE_DIR=/chemin/vers/archive
 ```
 
-`MAIL_USER` et `MAIL_PASS` servent a l'envoi de mails automatiques (notifications et alertes). `PORT` indique sur quel port demarre Express. `JWT_SECRET` est prevu pour de futures evolutions utilisant JSON Web Tokens. Enfin, `DATA_DIR` precise l'emplacement des fichiers JSON si vous souhaitez en changer.
+`MAIL_USER` et `MAIL_PASS` servent a l'envoi de mails automatiques (notifications et alertes). `PORT` indique sur quel port demarre Express. `JWT_SECRET` est prevu pour de futures evolutions utilisant JSON Web Tokens. Les variables `DATA_DIR`, `IMAGE_DIR`, `VIDEO_DIR` et `ARCHIVE_DIR` permettent de rediriger toutes les écritures du backend vers un emplacement local ou distant.
+
+Pour configurer ces chemins, exécutez `npm run setup:env` et répondez aux questions (utilisation d'un dossier local ou d'un lecteur réseau). Le script mettra à jour les fichiers `.env` concernés.
 
 ## 5. Conseils de developpement
 

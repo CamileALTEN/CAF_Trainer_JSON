@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const FILE = path.join(__dirname, '../backend/src/data/analytics.json');
+const DATA_DIR = process.env.DATA_DIR
+  ? path.resolve(process.env.DATA_DIR)
+  : path.join(__dirname, '../backend/src/data');
+const FILE = path.join(DATA_DIR, 'analytics.json');
 
 function load() {
   try {

@@ -2,8 +2,12 @@
 const fs = require('fs');
 const path = require('path');
 
-const DATA_DIR = path.join(__dirname, '../backend/src/data');
-const ARCHIVE_DIR = path.join(__dirname, '../backend/archive');
+const DATA_DIR = process.env.DATA_DIR
+  ? path.resolve(process.env.DATA_DIR)
+  : path.join(__dirname, '../backend/src/data');
+const ARCHIVE_DIR = process.env.ARCHIVE_DIR
+  ? path.resolve(process.env.ARCHIVE_DIR)
+  : path.join(__dirname, '../backend/archive');
 
 if (!fs.existsSync(ARCHIVE_DIR)) fs.mkdirSync(ARCHIVE_DIR, { recursive: true });
 
