@@ -7,6 +7,7 @@ import {
 import { useAuth }          from './context/AuthContext';
 import PageHeader           from './components/PageHeader';
 import AlertBanner         from './components/AlertBanner';
+import MailBanner          from './components/MailBanner';
 
 import HomePage             from './pages/HomePage';
 import ModulePage           from './pages/ModulePage';
@@ -120,6 +121,7 @@ export default function App() {
   return (
     <>
       {!hideHeader && <PageHeader />}
+      {!hideHeader && <MailBanner />}
       {!hideHeader && <AlertBanner />}
       <div className="main-content">
         <RoleRoutes />

@@ -25,6 +25,7 @@ import { IModule } from '../api/modules';
 import { IAnalytics } from '../api/analytics';
 import { ISite, getSites } from '../api/sites';
 import { ICafType, getCafTypes } from '../api/cafTypes';
+import { getSettings, saveSettings, ISettings } from '../api/settings';
    import './AdminDashboardPage.css';
 
    export default function AdminDashboardPage() {
@@ -42,6 +43,7 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
   const [editCafTypeId, setEditCafTypeId] = useState('1');
   const [editSites, setEditSites] = useState<string[]>([]); // sites manager
   const [editManagerIds, setEditManagerIds] = useState<string[]>([]);
+  const [settings, setSettings] = useState<ISettings | null>(null);
 
    const mailRx = /^[a-z0-9]+(\.[a-z0-9]+)?@alten\.com$/i;
 
@@ -69,6 +71,9 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
   }, []);
   useEffect(() => {
     getCafTypes().then(setCafTypes);
+  }, []);
+  useEffect(() => {
+    getSettings().then(setSettings);
   }, []);
 
      /* ───────── helpers ───────── */
@@ -105,11 +110,17 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
       );
     };
 
-    const toggleEditManager = (id: string) => {
-      setEditManagerIds(prev =>
-        prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
-      );
-    };
+  const toggleEditManager = (id: string) => {
+    setEditManagerIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
+  };
+
+  const toggleMail = async () => {
+    if (!settings) return;
+    const updated = await saveSettings({ mailEnabled: !settings.mailEnabled });
+    setSettings(updated);
+  };
 
     const saveEdit = async (id: string) => {
       if (!mailRx.test(editUsername)) return alert('Email invalide');
@@ -159,6 +170,13 @@ import { ICafType, getCafTypes } from '../api/cafTypes';
      return (
       <div className="admin-dashboard">
         <h1>Tableau de bord admin</h1>
+        <div className="mail-switch">
+          <span>Mailing</span>
+          <label className="switch">
+            <input type="checkbox" checked={settings?.mailEnabled ?? true} onChange={toggleMail} />
+            <span className="slider" />
+          </label>
+        </div>
         <AdminSideMenu />
         <h2>Analytics</h2>
         <section className="analytics-grid">

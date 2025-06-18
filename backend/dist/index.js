@@ -25,6 +25,7 @@ const quiz_1 = __importDefault(require("./routes/quiz"));
 const sites_1 = __importDefault(require("./routes/sites"));
 const cafTypes_1 = __importDefault(require("./routes/cafTypes"));
 const alert_1 = __importDefault(require("./routes/alert"));
+const settings_1 = __importDefault(require("./routes/settings"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
 const IMG_DIR = path_1.default.resolve(__dirname, '../image');
@@ -52,6 +53,7 @@ app.use('/api/quiz-results', quiz_1.default);
 app.use('/api/sites', sites_1.default);
 app.use('/api/caf-types', cafTypes_1.default);
 app.use('/api/alert', alert_1.default);
+app.use('/api/settings', settings_1.default);
 app.get('/', (_req, res) => {
     res.send('🚀 Backend TS démarré !');
 });

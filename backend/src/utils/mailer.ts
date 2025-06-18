@@ -5,6 +5,8 @@
 
 import nodemailer, { Transporter } from 'nodemailer';
 import SMTPTransport               from 'nodemailer/lib/smtp-transport';
+import { read }                    from '../config/dataStore';
+import { ISettings }               from '../models/ISettings';
 
 /* ---------- variables d’env. ---------- */
 const {
@@ -17,10 +19,16 @@ const PORTS = [ 587];     // ordre de tentative
 
 /* ---------- helper exporté ---------- */
 export async function sendMail(
-to:      string | string[],     // accepte tableau ou chaîne
-subject: string,
-html:    string,
+  to:      string | string[],     // accepte tableau ou chaîne
+  subject: string,
+  html:    string,
 ): Promise<void> {
+
+  const settings = read<ISettings>('settings')[0];
+  if (settings && settings.mailEnabled === false) {
+    console.log('[MAIL] Envoi bloqué : système désactivé');
+    return;
+  }
 
 if (!MAIL_USER || !MAIL_PASS) {
     throw new Error('MAIL_USER ou MAIL_PASS manquant dans .env');

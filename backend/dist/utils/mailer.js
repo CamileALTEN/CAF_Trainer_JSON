@@ -9,6 +9,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendMail = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
+const dataStore_1 = require("../config/dataStore");
 /* ---------- variables d’env. ---------- */
 const { MAIL_USER = '', // ex. services@conforea.fr
 MAIL_PASS = '', // ex. Test2025!
@@ -18,6 +19,11 @@ const PORTS = [587]; // ordre de tentative
 /* ---------- helper exporté ---------- */
 async function sendMail(to, // accepte tableau ou chaîne
 subject, html) {
+    const settings = (0, dataStore_1.read)('settings')[0];
+    if (settings && settings.mailEnabled === false) {
+        console.log('[MAIL] Envoi bloqué : système désactivé');
+        return;
+    }
     if (!MAIL_USER || !MAIL_PASS) {
         throw new Error('MAIL_USER ou MAIL_PASS manquant dans .env');
     }
