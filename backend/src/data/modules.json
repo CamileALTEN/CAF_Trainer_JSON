@@ -103,7 +103,9 @@
             ],
             "images": [],
             "videos": [],
-            "profiles": [],
+            "profiles": [
+              "Nantes"
+            ],
             "cafTypes": [],
             "enabled": true,
             "needValidation": true,
@@ -112,27 +114,6 @@
               "date": "2025-06-17T15:47:35.787Z",
               "user": "camile briard"
             },
-            "quiz": {
-              "enabled": false,
-              "questions": []
-            },
-            "children": []
-          },
-          {
-            "id": "bb9398a0-26d8-4c72-8f46-05e56c94ce03",
-            "title": "Livret d'accueil",
-            "subtitle": "",
-            "content": "<p>Pour comprendre le fonctionnement ALTEN et les règles des consultants, tu peux lire le <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://docs.google.com.rproxy.goskope.com/document/d/1a51Yat24EKrz9AeQdDnMxfgPhm8G8BFPqsQ9d4aMyWw/edit?usp=sharing\">livret d'accueil du site de Nantes</a>.</p><p></p><img src=\"/images/1749546669779-va9ckaa3n5.png\" width=\"754px\" height=\"390px\"><p></p>",
-            "links": [],
-            "images": [],
-            "videos": [],
-            "profiles": [
-              "Nantes"
-            ],
-            "cafTypes": [],
-            "enabled": true,
-            "needValidation": false,
-            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -169,17 +150,8 @@
             "id": "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
             "title": "Présentation d'accueil",
             "subtitle": "",
-            "content": "<p>Le jour de ton arrivée, le Team Leader (TL) a fait une présentation pour introduire ton environnement de travail.</p><p>Tu peux la retrouver ci-dessous.</p><ul data-type=\"taskList\"><li data-checked=\"false\" data-type=\"taskItem\"><label><input type=\"checkbox\"><span></span></label><div><p>qwqwq</p></div></li><li data-checked=\"false\" data-type=\"taskItem\"><label><input type=\"checkbox\"><span></span></label><div><p>qwWQXQ</p></div></li><li data-checked=\"false\" data-type=\"taskItem\"><label><input type=\"checkbox\"><span></span></label><div><p></p></div></li></ul>",
-            "links": [
-              {
-                "label": "Présentation accueil Nantes",
-                "url": "https://"
-              },
-              {
-                "label": "Présentation accueil Montoir",
-                "url": "https://"
-              }
-            ],
+            "content": "<p>Le jour de ton arrivée, le Team Leader (TL) a fait une présentation pour introduire ton environnement de travail.</p><p>Tu peux la retrouver ci-dessous : </p><ul><li><p>Nantes</p></li><li><p>Montoir</p></li></ul>",
+            "links": [],
             "images": [
               {
                 "src": "https://www.alten.com/wp-content/uploads/2024/02/Aeronautics.jpg",
@@ -195,7 +167,11 @@
             "cafTypes": [],
             "enabled": true,
             "needValidation": true,
-            "outdatedInfo": null,
+            "outdatedInfo": {
+              "reason": "Mettre lien Slides",
+              "date": "2025-06-19T07:06:23.221Z",
+              "user": "carla ledeux"
+            },
             "quiz": {
               "enabled": false,
               "questions": []
@@ -297,8 +273,20 @@
             "needValidation": false,
             "outdatedInfo": null,
             "quiz": {
-              "enabled": false,
-              "questions": []
+              "enabled": true,
+              "questions": [
+                {
+                  "question": "Le Responsable Commercial (RC) est lié :",
+                  "options": [
+                    "À ta mission ?",
+                    "À ta carrière au sein de Alten ?",
+                    "Aux livrables rendus ?"
+                  ],
+                  "correct": [
+                    0
+                  ]
+                }
+              ]
             },
             "children": []
           },
@@ -332,7 +320,11 @@
             "cafTypes": [],
             "enabled": true,
             "needValidation": false,
-            "outdatedInfo": null,
+            "outdatedInfo": {
+              "reason": "Mettre lien organigramme équipe ET organisation projet",
+              "date": "2025-06-19T07:06:46.647Z",
+              "user": "carla ledeux"
+            },
             "quiz": {
               "enabled": false,
               "questions": []
@@ -567,7 +559,11 @@
             "cafTypes": [],
             "enabled": true,
             "needValidation": false,
-            "outdatedInfo": null,
+            "outdatedInfo": {
+              "reason": "Faire la présentation & Mettre le lien",
+              "date": "2025-06-19T09:07:05.286736+02:00",
+              "user": "carla ledeux"
+            },
             "quiz": {
               "enabled": false,
               "questions": []
@@ -604,8 +600,19 @@
         "needValidation": false,
         "outdatedInfo": null,
         "quiz": {
-          "enabled": false,
-          "questions": []
+          "enabled": true,
+          "questions": [
+            {
+              "question": "As-tu fait tous les e-learnings mandatory ET déposé l'attestation sur le Drive ?",
+              "options": [
+                "Non",
+                "Oui"
+              ],
+              "correct": [
+                1
+              ]
+            }
+          ]
         },
         "children": []
       },
@@ -765,7 +772,11 @@
             "cafTypes": [],
             "enabled": true,
             "needValidation": true,
-            "outdatedInfo": null,
+            "outdatedInfo": {
+              "reason": "A faire",
+              "date": "2025-06-19T07:07:12.738Z",
+              "user": "carla ledeux"
+            },
             "quiz": {
               "enabled": false,
               "questions": []
@@ -795,17 +806,12 @@
             "needValidation": false,
             "outdatedInfo": null,
             "quiz": {
-              "enabled": true,
+              "enabled": false,
               "questions": [
                 {
                   "question": "oui",
-                  "options": [
-                    "o",
-                    "n"
-                  ],
-                  "correct": [
-                    0
-                  ]
+                  "options": [],
+                  "correct": []
                 },
                 {
                   "question": "n",
@@ -825,7 +831,7 @@
             "id": "b83a25cb-12ac-4e4c-ad6b-6a1a4e324a8a",
             "title": "Process et Machine",
             "subtitle": "",
-            "content": "<img src=\"/images/1748990479665-99oeac0xphn.png\" width=\"515px\" height=\"353px\"><ol><li><p>1234</p></li></ol><p></p><p></p><p>ligne1</p><p>saut de ligne</p><p>saut 2</p><p></p><ul><li><p>lkjhgf</p></li></ul><p></p><blockquote><p>kijhgf</p></blockquote>",
+            "content": "<p></p>",
             "links": [],
             "images": [
               {
@@ -890,8 +896,10 @@
           "Nantes",
           "Montoir"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": false,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -915,8 +923,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -935,8 +945,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -961,8 +973,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -986,8 +1000,10 @@
                   "Nantes",
                   "Montoir"
                 ],
+                "cafTypes": [],
                 "enabled": true,
                 "needValidation": false,
+                "outdatedInfo": null,
                 "quiz": {
                   "enabled": false,
                   "questions": []
@@ -1017,8 +1033,10 @@
                   "Nantes",
                   "Montoir"
                 ],
+                "cafTypes": [],
                 "enabled": true,
                 "needValidation": false,
+                "outdatedInfo": null,
                 "quiz": {
                   "enabled": false,
                   "questions": []
@@ -1041,8 +1059,10 @@
           "Nantes",
           "Montoir"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": true,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -1066,18 +1086,25 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
-              "enabled": false,
+              "enabled": true,
               "questions": [
                 {
-                  "question": "",
+                  "question": "Quel(s) jalon(s) ne fait(font) pas partie(s) du process Airbus ?",
                   "options": [
-                    "",
-                    ""
+                    "LOP",
+                    "ACAF",
+                    "PDC",
+                    "RUS"
                   ],
-                  "correct": []
+                  "correct": [
+                    0,
+                    1
+                  ]
                 }
               ]
             },
@@ -1105,8 +1132,10 @@
                   "Nantes",
                   "Montoir"
                 ],
+                "cafTypes": [],
                 "enabled": true,
                 "needValidation": false,
+                "outdatedInfo": null,
                 "quiz": {
                   "enabled": false,
                   "questions": []
@@ -1125,8 +1154,10 @@
                   "Nantes",
                   "Montoir"
                 ],
+                "cafTypes": [],
                 "enabled": true,
                 "needValidation": false,
+                "outdatedInfo": null,
                 "quiz": {
                   "enabled": false,
                   "questions": []
@@ -1151,8 +1182,10 @@
                   "Montoir",
                   "Nantes"
                 ],
+                "cafTypes": [],
                 "enabled": true,
                 "needValidation": false,
+                "outdatedInfo": null,
                 "quiz": {
                   "enabled": false,
                   "questions": []
@@ -1177,8 +1210,10 @@
                   "Nantes",
                   "Montoir"
                 ],
+                "cafTypes": [],
                 "enabled": true,
                 "needValidation": false,
+                "outdatedInfo": null,
                 "quiz": {
                   "enabled": false,
                   "questions": []
@@ -1198,8 +1233,10 @@
             "profiles": [
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1217,8 +1254,10 @@
             "profiles": [
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1236,8 +1275,10 @@
             "profiles": [
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1255,8 +1296,10 @@
             "profiles": [
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1283,8 +1326,10 @@
           "Nantes",
           "Montoir"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": false,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -1313,8 +1358,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1344,8 +1391,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1367,8 +1416,10 @@
             ],
             "videos": [],
             "profiles": [],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1395,8 +1446,10 @@
           "Nantes",
           "Montoir"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": false,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -1433,8 +1486,10 @@
               "Montoir",
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1462,8 +1517,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1487,8 +1544,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1506,8 +1565,10 @@
             "profiles": [
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1536,8 +1597,10 @@
             "profiles": [
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1567,8 +1630,10 @@
               "Nantes",
               "Montoir"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1587,8 +1652,10 @@
               "Montoir",
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": true,
               "questions": [
@@ -1619,8 +1686,10 @@
         "profiles": [
           "Nantes"
         ],
+        "cafTypes": [],
         "enabled": true,
         "needValidation": false,
+        "outdatedInfo": null,
         "quiz": {
           "enabled": false,
           "questions": []
@@ -1637,8 +1706,10 @@
             "profiles": [
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": true,
               "questions": [
@@ -1668,8 +1739,10 @@
             "profiles": [
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1687,8 +1760,10 @@
             "profiles": [
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1706,8 +1781,10 @@
             "profiles": [
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
@@ -1725,8 +1802,10 @@
             "profiles": [
               "Nantes"
             ],
+            "cafTypes": [],
             "enabled": true,
             "needValidation": false,
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []
