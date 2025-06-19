@@ -1,34 +1,13 @@
 
 const fs = require('fs');
 const path = require('path');
-const dotenv = require('dotenv');
+const { load, resolveDir } = require('./env');
 
-// Charge les variables d'environnement depuis le .env racine
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
-// Puis surcharge avec celles du backend si disponibles
-dotenv.config({ path: path.resolve(__dirname, '../backend/.env'), override: true });
+// Charge les variables d'environnement (.env racine puis backend)
+load();
 
-function isAbsolute(p) {
-  return path.isAbsolute(p) || /^[A-Za-z]:[\\/]/.test(p);
-}
-
-function normalize(p) {
-  return p.split(/[\\/]+/).join(path.sep);
-}
-
-function getDir(envVar, fallback) {
-  const value = process.env[envVar];
-  if (value) {
-    const norm = normalize(value);
-    return isAbsolute(value)
-      ? path.normalize(norm)
-      : path.resolve(__dirname, '../backend', norm);
-  }
-  return path.resolve(__dirname, '../backend', fallback);
-}
-
-const DATA_DIR = getDir('DATA_DIR', 'src/data');
-const ARCHIVE_DIR = getDir('ARCHIVE_DIR', 'archive');
+const DATA_DIR = resolveDir('DATA_DIR', 'src/data');
+const ARCHIVE_DIR = resolveDir('ARCHIVE_DIR', 'archive');
 
 if (!fs.existsSync(ARCHIVE_DIR)) fs.mkdirSync(ARCHIVE_DIR, { recursive: true });
 
