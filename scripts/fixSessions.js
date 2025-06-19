@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 
 // Charger les variables d'environnement depuis le .env racine
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
+// Puis, si present, complete avec le .env du backend sans ecraser
+dotenv.config({ path: path.resolve(__dirname, '../backend/.env') });
 
 function isAbsolute(p) {
   return path.isAbsolute(p) || /^[A-Za-z]:[\\/]/.test(p);
