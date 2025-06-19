@@ -320,11 +320,7 @@
             "cafTypes": [],
             "enabled": true,
             "needValidation": false,
-            "outdatedInfo": {
-              "reason": "Mettre lien organigramme équipe ET organisation projet",
-              "date": "2025-06-19T07:06:46.647Z",
-              "user": "carla ledeux"
-            },
+            "outdatedInfo": null,
             "quiz": {
               "enabled": false,
               "questions": []

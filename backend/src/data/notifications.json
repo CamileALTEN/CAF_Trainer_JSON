@@ -551,5 +551,12 @@
     "date": "2025-06-17T18:05:31.227Z",
     "category": "ticket",
     "message": "Mise à jour du ticket \"Test 2\""
+  },
+  {
+    "id": "1750322900013",
+    "username": "landry.delalande@alten.com",
+    "date": "2025-06-19T08:48:20.013Z",
+    "category": "ticket",
+    "message": "Nouveau ticket de landry.delalande@alten.com intitulé \"Ticket Test\" :       <p>Ceci <strong>est</strong> <em>un </em><u>test</u>.</p><h1>On peut y mettre des titres</h1><h2>ou des plus petits</h2><h3>et encore plus</h3><p></p><blockquote><p>On peut ajouter des citations</p></blockquote><p></p><p>Mais aussi des liste</p><ul><li><p>Comme ici</p></li></ul><ol><li><p>Ou là</p></li></ol><p style=\"text-align: center\">On peut écrire au centre</p><p style=\"text-align: right\">ou a droite</p><p style=\"text-align: left\">On peut même ajouter une image (comme une capture d'écran par exemple)</p><img src=\"/images/1750322877762-b2rmeuk6nwt.png\" width=\"194px\" height=\"167px\">."
   }
 ]
