@@ -1,13 +1,13 @@
 
 const fs = require('fs');
 const path = require('path');
+const { load, resolveDir } = require('./env');
 
-const DATA_DIR = process.env.DATA_DIR
-  ? path.resolve(process.env.DATA_DIR)
-  : path.join(__dirname, '../backend/src/data');
-const ARCHIVE_DIR = process.env.ARCHIVE_DIR
-  ? path.resolve(process.env.ARCHIVE_DIR)
-  : path.join(__dirname, '../backend/archive');
+// Charge les variables d'environnement (.env racine puis backend)
+load();
+
+const DATA_DIR = resolveDir('DATA_DIR', 'src/data');
+const ARCHIVE_DIR = resolveDir('ARCHIVE_DIR', 'archive');
 
 if (!fs.existsSync(ARCHIVE_DIR)) fs.mkdirSync(ARCHIVE_DIR, { recursive: true });
 

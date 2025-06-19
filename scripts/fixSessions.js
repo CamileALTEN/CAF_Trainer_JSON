@@ -1,12 +1,14 @@
 const fs = require('fs');
 const path = require('path');
+const { load, resolveDir } = require('./env');
 
-const DATA_DIR = process.env.DATA_DIR
-  ? path.resolve(process.env.DATA_DIR)
-  : path.join(__dirname, '../backend/src/data');
+// Charge les variables d'environnement (.env racine puis backend)
+load();
+
+const DATA_DIR = resolveDir('DATA_DIR', 'src/data');
 const FILE = path.join(DATA_DIR, 'analytics.json');
 
-function load() {
+function loadFile() {
   try {
     return JSON.parse(fs.readFileSync(FILE, 'utf8'));
   } catch {
@@ -14,12 +16,12 @@ function load() {
   }
 }
 
-function save(data) {
+function saveFile(data) {
   fs.writeFileSync(FILE, JSON.stringify(data, null, 2));
 }
 
 function addMissingLogouts() {
-  const data = load();
+  const data = loadFile();
   if (!Array.isArray(data.sessions)) return;
 
   let changed = false;
@@ -41,7 +43,7 @@ function addMissingLogouts() {
   });
 
   if (changed) {
-    save(data);
+    saveFile(data);
     console.log('Analytics updated.');
   } else {
     console.log('No missing logouts found.');

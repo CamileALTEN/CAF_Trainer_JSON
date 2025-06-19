@@ -1,12 +1,15 @@
 import path from 'path';
+import fs from 'fs';
 import dotenv from 'dotenv';
 
-// Charger **immédiatement** le .env du dossier backend
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+// Charger le .env racine puis celui du backend (ce dernier a priorité)
+const ROOT_ENV = path.resolve(__dirname, '../..', '.env');
+const BACK_ENV = path.resolve(__dirname, '../.env');
+if (fs.existsSync(ROOT_ENV)) dotenv.config({ path: ROOT_ENV });
+if (fs.existsSync(BACK_ENV)) dotenv.config({ path: BACK_ENV, override: true });
 
 import express from 'express';
 import cors from 'cors';
-import fs from 'fs';
 
 import authRouter from './routes/auth';
 import usersRouter from './routes/users';
