@@ -1,9 +1,30 @@
 const fs = require('fs');
 const path = require('path');
+const dotenv = require('dotenv');
 
-const DATA_DIR = process.env.DATA_DIR
-  ? path.resolve(process.env.DATA_DIR)
-  : path.join(__dirname, '../backend/src/data');
+// Charger les variables d'environnement depuis le .env racine
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+function isAbsolute(p) {
+  return path.isAbsolute(p) || /^[A-Za-z]:[\\/]/.test(p);
+}
+
+function normalize(p) {
+  return p.split(/[\\/]+/).join(path.sep);
+}
+
+function getDir(envVar, fallback) {
+  const value = process.env[envVar];
+  if (value) {
+    const norm = normalize(value);
+    return isAbsolute(value)
+      ? path.normalize(norm)
+      : path.resolve(__dirname, '../backend', norm);
+  }
+  return path.resolve(__dirname, '../backend', fallback);
+}
+
+const DATA_DIR = getDir('DATA_DIR', 'src/data');
 const FILE = path.join(DATA_DIR, 'analytics.json');
 
 function load() {
