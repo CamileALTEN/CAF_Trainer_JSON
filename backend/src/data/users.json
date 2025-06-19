@@ -93,5 +93,16 @@
     "managerIds": [
       "1747838393929"
     ]
+  },
+  {
+    "id": "1750316295984",
+    "username": "landry.delalande@alten.com",
+    "password": "$2b$08$qcxwhxzEKqoSXWymaA6JVutR07f.kGneof1.otynGk1um46qopn1W",
+    "role": "caf",
+    "site": "Montoir",
+    "cafTypeId": "1750063191730",
+    "managerIds": [
+      "1747838393929"
+    ]
   }
 ]
