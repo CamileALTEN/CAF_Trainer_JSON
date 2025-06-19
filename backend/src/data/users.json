@@ -104,5 +104,17 @@
     "managerIds": [
       "1747838393929"
     ]
+  },
+  {
+    "id": "1750338539359",
+    "username": "test.test@alten.com",
+    "password": "$2b$08$vAabEuGSq8yxT4ebknfCYevkRruBFPvUgg42iLZH91EdPEIYVrS8.",
+    "role": "caf",
+    "site": "Nantes",
+    "cafTypeId": "1",
+    "managerIds": [
+      "1747838393929"
+    ],
+    "deletedAt": "2025-06-19T13:09:12.661Z"
   }
 ]

@@ -183,5 +183,23 @@
     "items": [],
     "user": "camile briard",
     "comment": ""
+  },
+  {
+    "id": "1750340003096",
+    "date": "2025-06-19T13:33:23.096Z",
+    "items": [
+      "efb049f4-bb0b-4fd8-aaff-7b6a7218976a"
+    ],
+    "user": "carla ledeux",
+    "comment": "Fini"
+  },
+  {
+    "id": "1750340022833",
+    "date": "2025-06-19T13:33:42.833Z",
+    "items": [
+      "60f65965-ef9e-4541-8086-2569210ddab2"
+    ],
+    "user": "carla ledeux",
+    "comment": "OBS enlevé"
   }
 ]
