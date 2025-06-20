@@ -1,6 +1,6 @@
              /* client/src/components/ModuleEditor.tsx
                 ─────────────────────────────────────── */
-import React, { useMemo, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import React, { useMemo, useState, useEffect, forwardRef, useImperativeHandle, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import AdvancedEditor                  from './AdvancedEditor';
       
@@ -82,6 +82,14 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
   const [sites, setSites] = useState<ISite[]>([]);
   const [cafTypes, setCafTypes] = useState<ICafType[]>([]);
 
+  const editRef = useRef(edit);
+  const saveTimer = useRef<NodeJS.Timeout | null>(null);
+  useEffect(() => { editRef.current = edit; }, [edit]);
+  const autoSave = useCallback(() => {
+    if (saveTimer.current) clearTimeout(saveTimer.current);
+    saveTimer.current = setTimeout(() => onChange(editRef.current), 300);
+  }, [onChange]);
+
   useEffect(() => { getSites().then(setSites); }, []);
   useEffect(() => { getCafTypes().then(setCafTypes); }, []);
 
@@ -135,6 +143,7 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
   const patchQuiz = (quizPatch: Partial<IQuiz>) => {
     const q = { enabled: false, questions: [], ...(current?.quiz ?? {}) };
     patchItem({ quiz: { ...q, ...quizPatch } });
+    autoSave();
   };
 
   const parseName = (u: string) => {
