@@ -33,7 +33,7 @@ export default function AdminModuleEditor() {
 
   if (!mod) return <p style={{ padding: '2rem' }}>Chargement…</p>;
 
-  const save = async (m: IModule) => {
+  const save = async (m: IModule, auto = false) => {
     if (moduleId === 'new') {                       // 1ʳᵉ sauvegarde => POST
       const created = await fetch('/api/modules', {
         method: 'POST',
@@ -41,12 +41,12 @@ export default function AdminModuleEditor() {
         body: JSON.stringify(m),
       }).then(r => r.json());
 
-      navigate(`/admin/modules/${created.id}`, { replace: true }); 
-      alert('Module sauvegardé'); // redirige vers l’URL “normale”
+      navigate(`/admin/modules/${created.id}`, { replace: true });
+      if (!auto) alert('Module sauvegardé'); // redirige vers l’URL “normale”
     } else {
       updateModule(m).then(saved => {
         setMod(saved);                 // mises‑à‑jour suivantes => PUT
-        alert('Module sauvegardé');
+        if (!auto) alert('Module sauvegardé');
       });                 // mises‑à‑jour suivantes => PUT
     }
   };

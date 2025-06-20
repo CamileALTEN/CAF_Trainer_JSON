@@ -18,7 +18,7 @@ export default function PrerequisAdminPage() {
       .catch(() => navigate('/'));
   }, [navigate]);
 
-  const handleSave = (m: IModule) => {
+  const handleSave = (m: IModule, _auto?: boolean) => {
     fetch(`/api/modules/${m.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },

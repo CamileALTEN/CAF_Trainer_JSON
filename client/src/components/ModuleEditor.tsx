@@ -63,7 +63,7 @@ export interface ModuleEditorHandle { save: () => void; }
 
 interface Props {
   module:   IModule;
-  onChange: (m: IModule) => void;
+  onChange: (m: IModule, auto?: boolean) => void;
   onDirtyChange?: (dirty: boolean) => void;
   hideSaveButton?: boolean;
 }
@@ -87,7 +87,7 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
   useEffect(() => { editRef.current = edit; }, [edit]);
   const autoSave = useCallback(() => {
     if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(() => onChange(editRef.current), 300);
+    saveTimer.current = setTimeout(() => onChange(editRef.current, true), 300);
   }, [onChange]);
 
   useEffect(() => { getSites().then(setSites); }, []);
@@ -269,7 +269,7 @@ const selectItem = (id: string) => {
                     });
       
                   /* push au parent ----------------------------------------- */
-                  const save = () => onChange(edit);
+                  const save = () => onChange(edit, false);
                   useImperativeHandle(ref, () => ({ save }));
       
                   /* rendu récursif de l’arbre ------------------------------ */
