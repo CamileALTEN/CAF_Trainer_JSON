@@ -203,14 +203,60 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                     }));
                   };
       
-                  const move = (id: string, dir: -1 | 1) => {
-                    const reorder = (xs: IItem[]): IItem[] => {
-                      const idx = xs.findIndex((x) => x.id === id);
-                      if (idx !== -1 && xs[idx + dir])
-                        [xs[idx], xs[idx + dir]] = [xs[idx + dir], xs[idx]];
-                      return xs.map((x) => ({ ...x, children: reorder(x.children ?? []) }));
-                    };
-                    setEdit((prev) => ({ ...prev, items: reorder([...prev.items]) }));
+                  const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
+                  const [dragId, setDragId] = useState<string | null>(null);
+                  const [overId, setOverId] = useState<string | null>(null);
+
+                  const toggleCollapse = (id: string) =>
+                    setCollapsed(prev => {
+                      const s = new Set(prev);
+                      s.has(id) ? s.delete(id) : s.add(id);
+                      return s;
+                    });
+
+                  const findParent = (xs: IItem[], id: string): { arr: IItem[]; index: number } | null => {
+                    const idx = xs.findIndex(x => x.id === id);
+                    if (idx !== -1) return { arr: xs, index: idx };
+                    for (const x of xs) {
+                      const res = findParent(x.children ?? [], id);
+                      if (res) return res;
+                    }
+                    return null;
+                  };
+
+                  const moveDrag = (fromId: string, toId: string) => {
+                    setEdit(prev => {
+                      const items = JSON.parse(JSON.stringify(prev.items)) as IItem[];
+                      const from = findParent(items, fromId);
+                      const to = findParent(items, toId);
+                      if (!from || !to || from.arr !== to.arr) return prev;
+                      const [it] = from.arr.splice(from.index, 1);
+                      let idx = to.index;
+                      if (from.index < to.index) idx--;
+                      from.arr.splice(idx, 0, it);
+                      return { ...prev, items };
+                    });
+                  };
+
+                  const handleDragStart = (id: string) => (e: React.DragEvent) => {
+                    setDragId(id);
+                    e.dataTransfer.effectAllowed = 'move';
+                  };
+                  const handleDragOver = (id: string) => (e: React.DragEvent) => {
+                    if (dragId && dragId !== id) {
+                      e.preventDefault();
+                      setOverId(id);
+                    }
+                  };
+                  const handleDrop = (id: string) => (e: React.DragEvent) => {
+                    e.preventDefault();
+                    if (dragId && dragId !== id) moveDrag(dragId, id);
+                    setDragId(null);
+                    setOverId(null);
+                  };
+                  const handleDragEnd = () => {
+                    setDragId(null);
+                    setOverId(null);
                   };
       
                   /* item courant ------------------------------------------- */
@@ -276,7 +322,15 @@ const selectItem = (id: string) => {
                   const renderTree = (branch: IItem[]) => (
                     <ul>
                       {branch.map((it) => (
-                        <li key={it.id} className={`${it.id === curId ? 'sel' : ''}${it.outdatedInfo ? ' outdated' : ''}`}>
+                        <li
+                          key={it.id}
+                          className={`${it.id === curId ? 'sel' : ''}${it.outdatedInfo ? ' outdated' : ''}${overId === it.id ? ' drag-over' : ''}`}
+                          draggable
+                          onDragStart={handleDragStart(it.id)}
+                          onDragOver={handleDragOver(it.id)}
+                          onDrop={handleDrop(it.id)}
+                          onDragEnd={handleDragEnd}
+                        >
                           <button
                             className="item-delete"
                             onClick={() => delItem(it.id)}
@@ -284,6 +338,16 @@ const selectItem = (id: string) => {
                           >
                             🗑️
                           </button>
+
+                          {(it.children?.length ?? 0) > 0 && (
+                            <button
+                              className="collapse-toggle"
+                              onClick={() => toggleCollapse(it.id)}
+                              title={collapsed.has(it.id) ? 'Déplier' : 'Replier'}
+                            >
+                              {collapsed.has(it.id) ? '▶' : '▼'}
+                            </button>
+                          )}
 
                           <span onClick={() => selectItem(it.id)}>
                             {it.title || '∅'}
@@ -299,11 +363,9 @@ const selectItem = (id: string) => {
 
                           <div className="item-acts">
                             <button onClick={() => addItem(it)} title="Ajouter">＋</button>
-                            <button onClick={() => move(it.id, -1)} title="Monter">↑</button>
-                            <button onClick={() => move(it.id, +1)} title="Descendre">↓</button>
                           </div>
-      
-                          {(it.children?.length ?? 0) > 0 && renderTree(it.children ?? [])}
+
+                          {!collapsed.has(it.id) && (it.children?.length ?? 0) > 0 && renderTree(it.children ?? [])}
                         </li>
                       ))}
                     </ul>

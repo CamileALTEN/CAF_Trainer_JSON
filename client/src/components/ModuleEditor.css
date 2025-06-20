@@ -17,8 +17,12 @@
 .tree-scroll li.outdated>span { background:#c00; color:#fff; }
              .tree-scroll li>span{ cursor:pointer; padding:2px 4px; border-radius:4px;
                                    display:inline-block; transition:background .15s; }
-             .tree-scroll li>span:hover
-      
+.tree-scroll li>span:hover
+
+.tree-scroll li.drag-over>span { background:#ffe8a3; }
+.collapse-toggle  { background:none; border:none; cursor:pointer; padding:0 2px; margin-right:4px; color:#555; }
+.collapse-toggle:hover { color:#000; }
+
 .item-acts          { display:inline-flex; gap:4px; margin-left:6px; }
 .item-acts button   { background:none; border:none; cursor:pointer; padding:0 2px;
                                   color:#555; }
