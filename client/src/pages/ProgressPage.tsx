@@ -301,7 +301,12 @@ export default function ProgressPage() {
               </div>
               <div className="stat_box progress_tracker">
                 <h3>Progress Tracker</h3>
-                <RadarTracker modules={mods} progress={prog} username={c.username} site={c.site}  />
+                <RadarTracker
+                  modules={mods.filter(m => m.enabled)}
+                  progress={prog}
+                  username={c.username}
+                  site={c.site}
+                />
               </div>
               </>
             )}
