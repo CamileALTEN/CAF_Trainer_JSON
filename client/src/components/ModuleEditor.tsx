@@ -310,6 +310,13 @@ const selectItem = (id: string) => {
                           <button onClick={() => addItem()}>＋ racine</button>
                         </header>
                         <nav className="tree-scroll">{renderTree(edit.items)}</nav>
+                        <div className="color-legend">
+                          {sites.map(s => (
+                            <span key={s.id} className="legend-item">
+                              <span className="profile-dot" style={{ background: s.color }} /> {s.name}
+                            </span>
+                          ))}
+                        </div>
                       </aside>
       
                       {/* -------- panneau formulaire -------- */}
@@ -625,6 +632,11 @@ const selectItem = (id: string) => {
                                       qs[qi].options.push('');
                                       patchQuiz({ questions: qs });
                                     }}>＋ réponse</button>
+                                    <button style={{ marginLeft: 8 }} onClick={() => {
+                                      const qs = [...current.quiz!.questions];
+                                      qs.splice(qi, 1);
+                                      patchQuiz({ questions: qs });
+                                    }}>🗑️ question</button>
                                     <hr />
                                   </div>
                                 ))}

@@ -27,6 +27,11 @@
 .item-delete        { background:none; border:none; cursor:pointer; padding:0 2px;
                                    color:#555; margin-right:6px; }
 .item-delete:hover  { color:#000; }
+
+/* légende des couleurs des sites */
+.color-legend        { border-top:1px solid #eee; padding:8px 12px; font-size:.85rem; }
+.legend-item         { display:inline-flex; align-items:center; margin-right:8px; }
+.legend-item .profile-dot { margin-left:0; margin-right:4px; }
       
              /* ----------------- zone formulaire ----------------- */
              .editor             { flex:1; overflow-y:auto; padding:24px; }
