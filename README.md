@@ -99,7 +99,7 @@ client/
 └─ public/
 ```
 
-Le contexte `AuthContext` centralise les informations de l'utilisateur connecte. Lorsqu'un onglet se ferme, il appelle `/api/analytics/logout` afin d'enregistrer la fin de la session. Les differentes pages (liste des modules, progression, dashboard manager, etc.) font toutes appel aux fonctions situees dans `src/api` qui elles-memes contactent le serveur.
+Le contexte `AuthContext` centralise les informations de l'utilisateur connecte. Lorsqu'un onglet se ferme, il appelle `/api/analytics/logout` afin d'enregistrer la fin de la session et vide le stockage local. Ce mecanisme fonctionne pour tous les roles (caf, managers et admins). Les differentes pages (liste des modules, progression, dashboard manager, etc.) font toutes appel aux fonctions situees dans `src/api` qui elles-memes contactent le serveur.
 
 ## 3. Dialogue entre front et back
 

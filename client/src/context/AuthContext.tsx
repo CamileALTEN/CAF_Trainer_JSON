@@ -66,13 +66,17 @@ import React, {
             }
           };
 
-          const sendLogout = () => {
+          const sendLogout = (closing = false) => {
             if (!user || reloading) return;
             const data = JSON.stringify({ userId: user.id });
             navigator.sendBeacon(
               '/api/analytics/logout',
               new Blob([data], { type: 'application/json' }),
             );
+            if (closing) {
+              sessionStorage.removeItem('caf-user');
+              sessionStorage.removeItem('login-time');
+            }
           };
 
           const handleVisibility = () => {
@@ -87,7 +91,7 @@ import React, {
 
           const handlePageHide = () => {
             if (!reloading) {
-              sendLogout();
+              sendLogout(true);
             }
           };
 
