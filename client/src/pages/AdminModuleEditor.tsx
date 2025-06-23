@@ -54,8 +54,8 @@ export default function AdminModuleEditor() {
     <div style={{
       position:      'sticky',    // ← on fixe la racine à tout l’écran
       top:            '68px',
-      left:           200,
-      right:          200,
+      left:           0,
+      right:          0,
       bottom:         0,
       display:       'flex',
       flexDirection: 'column',
