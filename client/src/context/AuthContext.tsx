@@ -58,11 +58,18 @@ import React, {
         useEffect(() => {
           let reloading = false;
           let hideTime = 0;
-          let timer: number | undefined;
 
           const markReload = (e: KeyboardEvent) => {
             const key = e.key.toLowerCase();
             if (key === 'f5' || ((e.ctrlKey || e.metaKey) && key === 'r')) {
+              reloading = true;
+            }
+          };
+
+          const trackVisibility = () => {
+            if (document.visibilityState === 'hidden') {
+              hideTime = Date.now();
+            } else if (hideTime && Date.now() - hideTime < 500) {
               reloading = true;
             }
           };
@@ -76,31 +83,14 @@ import React, {
             );
           };
 
-          const handleVisibility = () => {
-            if (document.visibilityState === 'hidden') {
-              hideTime = Date.now();
-              timer = window.setTimeout(sendLogout, 300);
-            } else {
-              if (hideTime && Date.now() - hideTime < 500) {
-                reloading = true;
-              }
-              hideTime = 0;
-              if (timer) {
-                clearTimeout(timer);
-                timer = undefined;
-              }
-            }
-          };
-
           window.addEventListener('keydown', markReload);
-          document.addEventListener('visibilitychange', handleVisibility);
-          window.addEventListener('pagehide', handleVisibility);
+          document.addEventListener('visibilitychange', trackVisibility);
+          window.addEventListener('beforeunload', sendLogout);
 
           return () => {
             window.removeEventListener('keydown', markReload);
-            document.removeEventListener('visibilitychange', handleVisibility);
-            window.removeEventListener('pagehide', handleVisibility);
-            if (timer) clearTimeout(timer);
+            document.removeEventListener('visibilitychange', trackVisibility);
+            window.removeEventListener('beforeunload', sendLogout);
           };
         }, [user]);
     
