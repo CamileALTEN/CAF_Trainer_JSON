@@ -58,6 +58,7 @@ import React, {
         useEffect(() => {
           let reloading = false;
           let hideTime = 0;
+          let timer: number | undefined;
 
           const markReload = (e: KeyboardEvent) => {
             const key = e.key.toLowerCase();
@@ -78,22 +79,28 @@ import React, {
           const handleVisibility = () => {
             if (document.visibilityState === 'hidden') {
               hideTime = Date.now();
+              timer = window.setTimeout(sendLogout, 300);
             } else {
               if (hideTime && Date.now() - hideTime < 500) {
                 reloading = true;
               }
               hideTime = 0;
+              if (timer) {
+                clearTimeout(timer);
+                timer = undefined;
+              }
             }
           };
 
           window.addEventListener('keydown', markReload);
           document.addEventListener('visibilitychange', handleVisibility);
-          window.addEventListener('pagehide', sendLogout);
+          window.addEventListener('pagehide', handleVisibility);
 
           return () => {
             window.removeEventListener('keydown', markReload);
             document.removeEventListener('visibilitychange', handleVisibility);
-            window.removeEventListener('pagehide', sendLogout);
+            window.removeEventListener('pagehide', handleVisibility);
+            if (timer) clearTimeout(timer);
           };
         }, [user]);
     
