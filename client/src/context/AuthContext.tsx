@@ -56,19 +56,12 @@ import React, {
         };
 
         useEffect(() => {
-          let reloading = false;
-          let hideTime = 0;
+          if (!user) return;
+
           let timer: number | undefined;
 
-          const markReload = (e: KeyboardEvent) => {
-            const key = e.key.toLowerCase();
-            if (key === 'f5' || ((e.ctrlKey || e.metaKey) && key === 'r')) {
-              reloading = true;
-            }
-          };
-
           const sendLogout = () => {
-            if (!user || reloading) return;
+            if (sessionStorage.getItem('pending-logout') !== user.id) return;
             const data = JSON.stringify({ userId: user.id });
             navigator.sendBeacon(
               '/api/analytics/logout',
@@ -76,31 +69,31 @@ import React, {
             );
           };
 
-          const handleVisibility = () => {
-            if (document.visibilityState === 'hidden') {
-              hideTime = Date.now();
-              timer = window.setTimeout(sendLogout, 300);
-            } else {
-              if (hideTime && Date.now() - hideTime < 500) {
-                reloading = true;
-              }
-              hideTime = 0;
-              if (timer) {
-                clearTimeout(timer);
-                timer = undefined;
-              }
+          const clearPending = () => {
+            sessionStorage.removeItem('pending-logout');
+            if (timer) {
+              clearTimeout(timer);
+              timer = undefined;
             }
           };
 
-          window.addEventListener('keydown', markReload);
+          const handleVisibility = () => {
+            if (document.visibilityState === 'hidden') {
+              sessionStorage.setItem('pending-logout', user.id);
+              timer = window.setTimeout(sendLogout, 1000);
+            } else {
+              clearPending();
+            }
+          };
+
+          sessionStorage.removeItem('pending-logout');
           document.addEventListener('visibilitychange', handleVisibility);
           window.addEventListener('pagehide', handleVisibility);
 
           return () => {
-            window.removeEventListener('keydown', markReload);
+            clearPending();
             document.removeEventListener('visibilitychange', handleVisibility);
             window.removeEventListener('pagehide', handleVisibility);
-            if (timer) clearTimeout(timer);
           };
         }, [user]);
     
