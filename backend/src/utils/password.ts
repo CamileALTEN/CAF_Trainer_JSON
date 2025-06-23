@@ -1,5 +1,5 @@
 export function isStrongPassword(pwd: string, username?: string): boolean {
-  if (pwd.length < 10 || pwd.length > 12) return false;
+  if (pwd.length < 10 || pwd.length > 14) return false;
 
   let types = 0;
   if (/[a-z]/.test(pwd)) types++;

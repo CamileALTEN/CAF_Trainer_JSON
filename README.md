@@ -118,7 +118,7 @@ Le backend renvoie toujours des objets JSON simples. Il n'y a pas de couche ORM 
 
 Les nouveaux comptes et tout changement de mot de passe doivent respecter les criteres suivants :
 
-1. **Longueur** : entre 10 et 12 caracteres.
+1. **Longueur** : entre 10 et 14 caracteres.
 2. **Complexite** : au moins **trois types** parmi majuscules, minuscules, chiffres et symboles.
 3. **Pas d'informations personnelles** ni mots du dictionnaire connus.
 4. **Pas de repetitions ni suites evidentes** (`aaaa`, `abcd`, `1234`, `password`, etc.).
