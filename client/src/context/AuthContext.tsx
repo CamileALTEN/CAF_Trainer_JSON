@@ -75,7 +75,9 @@ import React, {
           };
 
           const sendLogout = () => {
-            if (!user || reloading) return;
+            const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+            const pageReloaded = nav?.type === 'reload';
+            if (!user || reloading || pageReloaded) return;
             const data = JSON.stringify({ userId: user.id });
             navigator.sendBeacon(
               '/api/analytics/logout',
