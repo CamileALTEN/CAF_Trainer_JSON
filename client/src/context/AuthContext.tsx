@@ -58,6 +58,7 @@ import React, {
         useEffect(() => {
           let reloading = false;
           let hideTime = 0;
+          let timer: number | undefined;
 
           const markReload = (e: KeyboardEvent) => {
             const key = e.key.toLowerCase();
@@ -66,18 +67,8 @@ import React, {
             }
           };
 
-          const trackVisibility = () => {
-            if (document.visibilityState === 'hidden') {
-              hideTime = Date.now();
-            } else if (hideTime && Date.now() - hideTime < 500) {
-              reloading = true;
-            }
-          };
-
           const sendLogout = () => {
-            const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
-            const pageReloaded = nav?.type === 'reload';
-            if (!user || reloading || pageReloaded) return;
+            if (!user || reloading) return;
             const data = JSON.stringify({ userId: user.id });
             navigator.sendBeacon(
               '/api/analytics/logout',
@@ -85,14 +76,31 @@ import React, {
             );
           };
 
+          const handleVisibility = () => {
+            if (document.visibilityState === 'hidden') {
+              hideTime = Date.now();
+              timer = window.setTimeout(sendLogout, 300);
+            } else {
+              if (hideTime && Date.now() - hideTime < 500) {
+                reloading = true;
+              }
+              hideTime = 0;
+              if (timer) {
+                clearTimeout(timer);
+                timer = undefined;
+              }
+            }
+          };
+
           window.addEventListener('keydown', markReload);
-          document.addEventListener('visibilitychange', trackVisibility);
-          window.addEventListener('beforeunload', sendLogout);
+          document.addEventListener('visibilitychange', handleVisibility);
+          window.addEventListener('pagehide', handleVisibility);
 
           return () => {
             window.removeEventListener('keydown', markReload);
-            document.removeEventListener('visibilitychange', trackVisibility);
-            window.removeEventListener('beforeunload', sendLogout);
+            document.removeEventListener('visibilitychange', handleVisibility);
+            window.removeEventListener('pagehide', handleVisibility);
+            if (timer) clearTimeout(timer);
           };
         }, [user]);
     
