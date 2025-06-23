@@ -78,23 +78,30 @@ import React, {
           const handleVisibility = () => {
             if (document.visibilityState === 'hidden') {
               hideTime = Date.now();
+            } else {
+              hideTime = 0;
+            }
+          };
+
+          const handleBeforeUnload = () => {
+            if (!hideTime) {
+              reloading = true;
             }
           };
 
           const handlePageHide = () => {
-            if (hideTime && Date.now() - hideTime < 500) {
-              reloading = true;
-            }
             sendLogout();
           };
 
           window.addEventListener('keydown', markReload);
           document.addEventListener('visibilitychange', handleVisibility);
+          window.addEventListener('beforeunload', handleBeforeUnload);
           window.addEventListener('pagehide', handlePageHide);
 
           return () => {
             window.removeEventListener('keydown', markReload);
             document.removeEventListener('visibilitychange', handleVisibility);
+            window.removeEventListener('beforeunload', handleBeforeUnload);
             window.removeEventListener('pagehide', handlePageHide);
           };
         }, [user]);
