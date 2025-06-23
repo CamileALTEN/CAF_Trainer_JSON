@@ -57,7 +57,6 @@ import React, {
 
         useEffect(() => {
           let reloading = false;
-          let hideTime = 0;
 
           const markReload = (e: KeyboardEvent) => {
             const key = e.key.toLowerCase();
@@ -75,34 +74,24 @@ import React, {
             );
           };
 
-          const handleVisibility = () => {
-            if (document.visibilityState === 'hidden') {
-              hideTime = Date.now();
-            } else {
-              hideTime = 0;
-            }
-          };
-
           const handleBeforeUnload = () => {
-            if (!hideTime || Date.now() - hideTime > 200) {
+            if (document.visibilityState === 'visible') {
               reloading = true;
             }
           };
 
           const handlePageHide = () => {
-            if (!reloading || hideTime) {
+            if (!reloading) {
               sendLogout();
             }
           };
 
           window.addEventListener('keydown', markReload);
-          document.addEventListener('visibilitychange', handleVisibility);
           window.addEventListener('beforeunload', handleBeforeUnload);
           window.addEventListener('pagehide', handlePageHide);
 
           return () => {
             window.removeEventListener('keydown', markReload);
-            document.removeEventListener('visibilitychange', handleVisibility);
             window.removeEventListener('beforeunload', handleBeforeUnload);
             window.removeEventListener('pagehide', handlePageHide);
           };
