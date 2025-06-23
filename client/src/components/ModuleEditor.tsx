@@ -241,18 +241,25 @@ const ModuleEditor = forwardRef<ModuleEditorHandle, Props>(
                   const handleDragStart = (id: string) => (e: React.DragEvent) => {
                     setDragId(id);
                     e.dataTransfer.effectAllowed = 'move';
+                    e.stopPropagation();
                   };
                   const handleDragOver = (id: string) => (e: React.DragEvent) => {
                     if (dragId && dragId !== id) {
                       e.preventDefault();
+                      e.stopPropagation();
                       setOverId(id);
                     }
                   };
                   const handleDrop = (id: string) => (e: React.DragEvent) => {
                     e.preventDefault();
+                    e.stopPropagation();
                     if (dragId && dragId !== id) moveDrag(dragId, id);
                     setDragId(null);
                     setOverId(null);
+                  };
+                  const handleDragLeave = (id: string) => (e: React.DragEvent) => {
+                    e.stopPropagation();
+                    if (overId === id) setOverId(null);
                   };
                   const handleDragEnd = () => {
                     setDragId(null);
@@ -324,10 +331,11 @@ const selectItem = (id: string) => {
                       {branch.map((it) => (
                         <li
                           key={it.id}
-                          className={`${it.id === curId ? 'sel' : ''}${it.outdatedInfo ? ' outdated' : ''}${overId === it.id ? ' drag-over' : ''}`}
+                          className={`${it.id === curId ? 'sel' : ''}${it.outdatedInfo ? ' outdated' : ''}${overId === it.id ? ' drag-over' : ''}${dragId === it.id ? ' dragging' : ''}`}
                           draggable
                           onDragStart={handleDragStart(it.id)}
                           onDragOver={handleDragOver(it.id)}
+                          onDragLeave={handleDragLeave(it.id)}
                           onDrop={handleDrop(it.id)}
                           onDragEnd={handleDragEnd}
                         >
