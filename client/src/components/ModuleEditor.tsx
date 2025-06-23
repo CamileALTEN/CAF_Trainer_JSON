@@ -388,7 +388,6 @@ const selectItem = (id: string) => {
                           <strong>Items du module</strong>
                           <button onClick={() => addItem()}>＋ racine</button>
                         </header>
-                        <nav className="tree-scroll">{renderTree(edit.items)}</nav>
                         <div className="color-legend">
                           {sites.map(s => (
                             <span key={s.id} className="legend-item">
@@ -396,6 +395,8 @@ const selectItem = (id: string) => {
                             </span>
                           ))}
                         </div>
+                        <nav className="tree-scroll">{renderTree(edit.items)}</nav>
+                        
                       </aside>
       
                       {/* -------- panneau formulaire -------- */}
