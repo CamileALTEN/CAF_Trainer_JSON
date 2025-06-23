@@ -84,13 +84,15 @@ import React, {
           };
 
           const handleBeforeUnload = () => {
-            if (!hideTime) {
+            if (!hideTime || Date.now() - hideTime > 200) {
               reloading = true;
             }
           };
 
           const handlePageHide = () => {
-            sendLogout();
+            if (!reloading || hideTime) {
+              sendLogout();
+            }
           };
 
           window.addEventListener('keydown', markReload);
