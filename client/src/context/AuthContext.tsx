@@ -58,10 +58,8 @@ import React, {
         useEffect(() => {
           if (!user) return;
 
-          let timer: number | undefined;
-
-          const sendLogout = () => {
-            if (sessionStorage.getItem('pending-logout') !== user.id) return;
+          const handlePageHide = () => {
+            if (document.visibilityState === 'visible') return; // ignore reload
             const data = JSON.stringify({ userId: user.id });
             navigator.sendBeacon(
               '/api/analytics/logout',
@@ -69,31 +67,10 @@ import React, {
             );
           };
 
-          const clearPending = () => {
-            sessionStorage.removeItem('pending-logout');
-            if (timer) {
-              clearTimeout(timer);
-              timer = undefined;
-            }
-          };
-
-          const handleVisibility = () => {
-            if (document.visibilityState === 'hidden') {
-              sessionStorage.setItem('pending-logout', user.id);
-              timer = window.setTimeout(sendLogout, 1000);
-            } else {
-              clearPending();
-            }
-          };
-
-          sessionStorage.removeItem('pending-logout');
-          document.addEventListener('visibilitychange', handleVisibility);
-          window.addEventListener('pagehide', handleVisibility);
+          window.addEventListener('pagehide', handlePageHide);
 
           return () => {
-            clearPending();
-            document.removeEventListener('visibilitychange', handleVisibility);
-            window.removeEventListener('pagehide', handleVisibility);
+            window.removeEventListener('pagehide', handlePageHide);
           };
         }, [user]);
     
