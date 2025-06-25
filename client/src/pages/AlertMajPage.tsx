@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getModules, IModule } from '../api/modules';
@@ -13,6 +12,8 @@ import {
   IAlertAction,
   IAlertConfig,
 } from '../api/alert';
+import InfoTooltip from '../components/InfoTooltip';
+import './AlertMajPage.css';
 
 export default function AlertMajPage() {
   const { user } = useAuth();
@@ -203,7 +204,7 @@ export default function AlertMajPage() {
   }, [modules, search]);
 
   return (
-    <Wrapper>
+    <div className="alert-maj-page">
       {!conf ? (
         <p style={{padding:'2rem'}}>Chargement…</p>
       ) : (
@@ -222,20 +223,23 @@ export default function AlertMajPage() {
       <div className="layout">
         <div className="left">
           <h2>Revue périodique du contenu</h2>
-          <p>
-            Cette page permet de sélectionner les items qui ont été inspectés lors de la revue périodique du contenu de CAF-Trainer.
-            Les items sélectionnés seront marqués comme mis à jour et enregistrés dans l'historique. Il faudra faire de même avec les documents situés dans le Drive et mettre à jour le GSheet de suivi accesible en cliquant sur la bannière en haut de la page.
-            <br />
-
-            <strong>Attention</strong> : il est nécessaire de comprendre que lorsque l'inspection périodique s'active, les items ne sont pas nécessairement obsolètes. 
-            Il s'agit simplement de vérifier que les items sont toujours à jour et pertinents. Si un item est obsolète, il doit être marqué comme tel dans la page d'édition de contenu.
-          </p>
+          <InfoTooltip>
+            <div>
+              Cette page permet de sélectionner les items qui ont été inspectés lors de la revue périodique du contenu de CAF-Trainer.
+              Les items sélectionnés seront marqués comme mis à jour et enregistrés dans l'historique. Il faudra faire de même avec les documents situés dans le Drive et mettre à jour le GSheet de suivi accesible en cliquant sur la bannière en haut de la page.
+              <br />
+              <strong>Attention</strong> : il est nécessaire de comprendre que lorsque l'inspection périodique s'active, les items ne sont pas nécessairement obsolètes.
+              Il s'agit simplement de vérifier que les items sont toujours à jour et pertinents. Si un item est obsolète, il doit être marqué comme tel dans la page d'édition de contenu.
+            </div>
+          </InfoTooltip>
           <div style={{ marginTop: '20px' }} />
           <h3>Sélection des items inspectés</h3>
-          <i>
-            Sélectionnez les items qui ont été inspectés lors de la revue périodique du contenu. 
-            Les items sélectionnés seront marqués comme mis à jour et enregistrés dans l'historique.
-          </i>
+          <InfoTooltip>
+            <i>
+              Sélectionnez les items qui ont été inspectés lors de la revue périodique du contenu.
+              Les items sélectionnés seront marqués comme mis à jour et enregistrés dans l'historique.
+            </i>
+          </InfoTooltip>
           <div style={{ marginTop: '20px' }} />
           <h4>Liste des items</h4>
           <input className="search" placeholder="rechercher" value={search} onChange={e=>setSearch(e.target.value)} />
@@ -285,18 +289,17 @@ export default function AlertMajPage() {
 
 
           <h2>Configuration des alertes</h2>
-          <p>
-            Cette page permet de configurer les alertes de revue périodique de contenu.
-          </p>
+          <InfoTooltip>
+            <div>Cette page permet de configurer les alertes de revue périodique de contenu.</div>
+          </InfoTooltip>
 
             <div style={{ marginTop: '20px' }} />
 
 
           <h3>Alerte de revue périodique de contenu</h3>
-          <p><i>
-            Cette alerte est déclenchée périodiquement pour rappeler aux utilisateurs de vérifier les mises à jour du contenu.
-            </i>
-          </p>  
+          <InfoTooltip>
+            <i>Cette alerte est déclenchée périodiquement pour rappeler aux utilisateurs de vérifier les mises à jour du contenu.</i>
+          </InfoTooltip>
           <div style={{ marginTop: '20px' }} />
         
 
@@ -326,11 +329,10 @@ export default function AlertMajPage() {
 
 
             <h3>Alerte sur le seuil d'items indiqués comme obsolètes dans CAF-Trainer</h3>
-          <p><i>
-            Cette alerte est déclenchée lorsque le nombre d'items obsolètes dépasse un seuil défini. Les items sont déclarés obsolètes
-            par les utilisateurs dans le page d'édition de contenu. 
-            </i>
-          </p>  
+          <InfoTooltip>
+            <i>Cette alerte est déclenchée lorsque le nombre d'items obsolètes dépasse un seuil défini. Les items sont déclarés obsolètes
+            par les utilisateurs dans le page d'édition de contenu.</i>
+          </InfoTooltip>
           <div style={{ marginTop: '10px' }} />
             <label>Seuil items non à jour</label>
             <input type="number" value={maxOutdated} onChange={e=>setMaxOutdated(parseInt(e.target.value,10)||0)} />
@@ -425,47 +427,7 @@ export default function AlertMajPage() {
       )}
         </>
       )}
-    </Wrapper>
+    </div>
   );
 }
-
-const Wrapper = styled.div`
-  padding:2rem;max-width:1000px;margin:auto;
-  .btn-back{background:none;border:none;color:#043962;font-size:1rem;cursor:pointer;padding:6px 8px;border-radius:4px;transition:background .15s;}
-  .btn-back:hover{background:#e9f2ff;}
-  .layout{display:flex;gap:2rem;margin-bottom:1rem;}
-  .left{flex:1;}
-  .right{flex:1;border-left:2px solid #ccc;padding-left:2rem;}
-  .conf-form{display:flex;flex-direction:column;gap:.5rem;}
-  .conf-form input[type="number"], .conf-form input[type="text"], .conf-form input[type="url"], .conf-form input:not([type]){padding:.5rem;border:1px solid #bbb;border-radius:4px;}
-  .conf-form button{padding:.5rem;background:#008bd2;color:#fff;border:none;border-radius:4px;}
-  .conf-form button:hover:not(:disabled){background:#006fa1;}
-    .loading{position:relative;color:transparent !important;}
-  .loading::after{
-    content:'';position:absolute;top:50%;left:50%;width:16px;height:16px;margin-top:-8px;margin-left:-8px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;
-  }
-  .search{width:100%;margin-bottom:.5rem;padding:.25rem;}
-  .legend{display:flex;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap;font-size:.85rem;}
-  .color-dot{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:middle;}
-  .list{max-height:300px;overflow:auto;margin-bottom:.5rem;}
-  .module h4{margin:0.25rem 0;}
-  .item-btn{display:block;width:100%;text-align:left;border:none;padding:.25rem .5rem;margin-bottom:2px;background:#f5f5f5;border-radius:4px;cursor:pointer;color:#043962;}
-  .item-btn.selected{background:#043962;color:#fff;}
-  .validate{padding:.5rem;background:#008bd2;color:#fff;border:none;border-radius:4px;}
-  .validate:hover{background:#006fa1;}
-  .history li{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:.25rem 0;}
-  .freq{display:flex;gap:.25rem;align-items:center;}
-  .history-actions{display:flex;gap:.5rem;margin-bottom:.5rem;}
-  .history-title{text-align:center;margin-top:1rem;}
-  .history-popup{background:rgba(0,0,0,0.6);position:fixed;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;}
-  .history-popup .box{background:#fff;padding:1rem;border-radius:8px;max-height:80vh;overflow:auto;}
-  .history-popup.warn .box{background:#ffe6e6;border:2px solid #c00;}
-  .history-popup.warn .warning{color:#c00;font-weight:bold;margin-bottom:.5rem;}
-  .history-popup .actions{display:flex;gap:.5rem;margin-top:.5rem;}
-  .out-table-wrapper{max-height:200px;overflow:auto;margin-bottom:1rem;}
-  .out-table{width:100%;border-collapse:collapse;}
-  .out-table th,.out-table td{border:1px solid #ddd;padding:4px 8px;text-align:left;}
-  .out-table th{background:#f5f5f5;}
-  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-`;
 

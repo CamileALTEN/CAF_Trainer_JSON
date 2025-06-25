@@ -1,0 +1,26 @@
+.info-tooltip {
+  position: relative;
+  display: inline-block;
+  color: #043962;
+  cursor: pointer;
+}
+.info-tooltip svg {
+  vertical-align: middle;
+}
+.info-tooltip .tooltip {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 10;
+  width: 260px;
+}
+.info-tooltip:hover .tooltip {
+  display: block;
+}
