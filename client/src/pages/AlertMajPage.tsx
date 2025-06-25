@@ -222,24 +222,28 @@ export default function AlertMajPage() {
 
       <div className="layout">
         <div className="left">
-          <h2>Revue périodique du contenu</h2>
-          <InfoTooltip>
-            <div>
-              Cette page permet de sélectionner les items qui ont été inspectés lors de la revue périodique du contenu de CAF-Trainer.
-              Les items sélectionnés seront marqués comme mis à jour et enregistrés dans l'historique. Il faudra faire de même avec les documents situés dans le Drive et mettre à jour le GSheet de suivi accesible en cliquant sur la bannière en haut de la page.
-              <br />
-              <strong>Attention</strong> : il est nécessaire de comprendre que lorsque l'inspection périodique s'active, les items ne sont pas nécessairement obsolètes.
-              Il s'agit simplement de vérifier que les items sont toujours à jour et pertinents. Si un item est obsolète, il doit être marqué comme tel dans la page d'édition de contenu.
-            </div>
-          </InfoTooltip>
+          <h2>
+            Revue périodique du contenu
+            <InfoTooltip>
+              <div>
+                Cette page permet de sélectionner les items qui ont été inspectés lors de la revue périodique du contenu de CAF-Trainer.
+                Les items sélectionnés seront marqués comme mis à jour et enregistrés dans l'historique. Il faudra faire de même avec les documents situés dans le Drive et mettre à jour le GSheet de suivi accesible en cliquant sur la bannière en haut de la page.
+                <br />
+                <strong>Attention</strong> : il est nécessaire de comprendre que lorsque l'inspection périodique s'active, les items ne sont pas nécessairement obsolètes.
+                Il s'agit simplement de vérifier que les items sont toujours à jour et pertinents. Si un item est obsolète, il doit être marqué comme tel dans la page d'édition de contenu.
+              </div>
+            </InfoTooltip>
+          </h2>
           <div style={{ marginTop: '20px' }} />
-          <h3>Sélection des items inspectés</h3>
-          <InfoTooltip>
-            <i>
-              Sélectionnez les items qui ont été inspectés lors de la revue périodique du contenu.
-              Les items sélectionnés seront marqués comme mis à jour et enregistrés dans l'historique.
-            </i>
-          </InfoTooltip>
+          <h3>
+            Sélection des items inspectés
+            <InfoTooltip>
+              <i>
+                Sélectionnez les items qui ont été inspectés lors de la revue périodique du contenu.
+                Les items sélectionnés seront marqués comme mis à jour et enregistrés dans l'historique.
+              </i>
+            </InfoTooltip>
+          </h3>
           <div style={{ marginTop: '20px' }} />
           <h4>Liste des items</h4>
           <input className="search" placeholder="rechercher" value={search} onChange={e=>setSearch(e.target.value)} />
@@ -288,18 +292,22 @@ export default function AlertMajPage() {
         <div className="right">
 
 
-          <h2>Configuration des alertes</h2>
-          <InfoTooltip>
-            <div>Cette page permet de configurer les alertes de revue périodique de contenu.</div>
-          </InfoTooltip>
+          <h2>
+            Configuration des alertes
+            <InfoTooltip>
+              <div>Cette page permet de configurer les alertes de revue périodique de contenu.</div>
+            </InfoTooltip>
+          </h2>
 
             <div style={{ marginTop: '20px' }} />
 
 
-          <h3>Alerte de revue périodique de contenu</h3>
-          <InfoTooltip>
-            <i>Cette alerte est déclenchée périodiquement pour rappeler aux utilisateurs de vérifier les mises à jour du contenu.</i>
-          </InfoTooltip>
+          <h3>
+            Alerte de revue périodique de contenu
+            <InfoTooltip>
+              <i>Cette alerte est déclenchée périodiquement pour rappeler aux utilisateurs de vérifier les mises à jour du contenu.</i>
+            </InfoTooltip>
+          </h3>
           <div style={{ marginTop: '20px' }} />
         
 
@@ -328,11 +336,13 @@ export default function AlertMajPage() {
             <div style={{ marginTop: '20px' }} />
 
 
-            <h3>Alerte sur le seuil d'items indiqués comme obsolètes dans CAF-Trainer</h3>
-          <InfoTooltip>
-            <i>Cette alerte est déclenchée lorsque le nombre d'items obsolètes dépasse un seuil défini. Les items sont déclarés obsolètes
-            par les utilisateurs dans le page d'édition de contenu.</i>
-          </InfoTooltip>
+            <h3>
+              Alerte sur le seuil d'items indiqués comme obsolètes dans CAF-Trainer
+              <InfoTooltip>
+                <i>Cette alerte est déclenchée lorsque le nombre d'items obsolètes dépasse un seuil défini. Les items sont déclarés obsolètes
+                par les utilisateurs dans le page d'édition de contenu.</i>
+              </InfoTooltip>
+            </h3>
           <div style={{ marginTop: '10px' }} />
             <label>Seuil items non à jour</label>
             <input type="number" value={maxOutdated} onChange={e=>setMaxOutdated(parseInt(e.target.value,10)||0)} />
