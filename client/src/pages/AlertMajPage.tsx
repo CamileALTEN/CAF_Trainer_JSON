@@ -209,11 +209,37 @@ export default function AlertMajPage() {
       ) : (
         <>
       <button className="btn-back" onClick={() => navigate(-1)}>← Retour</button>
-      <h2>Outils de gestion des mises à jour</h2>
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '10vh', 
+        marginBottom: '1vh',
+        }}>
+        <h1>Outils de gestion des mises à jour</h1>
+      </div>
+
       <div className="layout">
         <div className="left">
-          <h3>Sélection des items mis à jour</h3>
+          <h2>Revue périodique du contenu</h2>
+          <p>
+            Cette page permet de sélectionner les items qui ont été inspectés lors de la revue périodique du contenu de CAF-Trainer.
+            Les items sélectionnés seront marqués comme mis à jour et enregistrés dans l'historique. Il faudra faire de même avec les documents situés dans le Drive et mettre à jour le GSheet de suivi accesible en cliquant sur la bannière en haut de la page.
+            <br />
+
+            <strong>Attention</strong> : il est nécessaire de comprendre que lorsque l'inspection périodique s'active, les items ne sont pas nécessairement obsolètes. 
+            Il s'agit simplement de vérifier que les items sont toujours à jour et pertinents. Si un item est obsolète, il doit être marqué comme tel dans la page d'édition de contenu.
+          </p>
+          <div style={{ marginTop: '20px' }} />
+          <h3>Sélection des items inspectés</h3>
+          <i>
+            Sélectionnez les items qui ont été inspectés lors de la revue périodique du contenu. 
+            Les items sélectionnés seront marqués comme mis à jour et enregistrés dans l'historique.
+          </i>
+          <div style={{ marginTop: '20px' }} />
+          <h4>Liste des items</h4>
           <input className="search" placeholder="rechercher" value={search} onChange={e=>setSearch(e.target.value)} />
+          
           <div className="legend">
             {sites.map(s => (
               <span key={s.id}>
@@ -222,6 +248,7 @@ export default function AlertMajPage() {
             ))}
           </div>
           <div className="list">
+            
             {filteredModules.map(mod => (
               <div key={mod.title} className="module">
                 <h4>{mod.title}</h4>
@@ -255,13 +282,37 @@ export default function AlertMajPage() {
           </button>
         </div>
         <div className="right">
-          <h3>Alertes de mise à jour</h3>
+
+
+          <h2>Configuration des alertes</h2>
+          <p>
+            Cette page permet de configurer les alertes de revue périodique de contenu.
+          </p>
+
+            <div style={{ marginTop: '20px' }} />
+
+
+          <h3>Alerte de revue périodique de contenu</h3>
+          <p><i>
+            Cette alerte est déclenchée périodiquement pour rappeler aux utilisateurs de vérifier les mises à jour du contenu.
+            </i>
+          </p>  
+          <div style={{ marginTop: '20px' }} />
+        
+
           <form onSubmit={saveConf} className="conf-form">
-            <label>Texte</label>
+
+
+            <label>Texte de l'alerte :</label>
             <input value={conf.text} onChange={e=>setConf({...conf,text:e.target.value})} />
-            <label>URL</label>
+
+            <div style={{ marginTop: '5px' }} />
+
+            <label>URL du fichier de suivi des mises à jours des docs du drive :</label>
             <input value={conf.url} onChange={e=>setConf({...conf,url:e.target.value})} />
-            <label>Rappel</label>
+
+            <div style={{ marginTop: '5px' }} />
+            <label>Fréquence :</label>
             <div className="freq">
               <input type="number" value={freqValue} onChange={e=>setFreqValue(parseInt(e.target.value,10)||0)} />
               <select value={freqUnit} onChange={e=>setFreqUnit(e.target.value as any)}>
@@ -271,6 +322,16 @@ export default function AlertMajPage() {
                 <option value="mo">mois</option>
               </select>
             </div>
+            <div style={{ marginTop: '20px' }} />
+
+
+            <h3>Alerte sur le seuil d'items indiqués comme obsolètes dans CAF-Trainer</h3>
+          <p><i>
+            Cette alerte est déclenchée lorsque le nombre d'items obsolètes dépasse un seuil défini. Les items sont déclarés obsolètes
+            par les utilisateurs dans le page d'édition de contenu. 
+            </i>
+          </p>  
+          <div style={{ marginTop: '10px' }} />
             <label>Seuil items non à jour</label>
             <input type="number" value={maxOutdated} onChange={e=>setMaxOutdated(parseInt(e.target.value,10)||0)} />
             <button
@@ -283,6 +344,9 @@ export default function AlertMajPage() {
           </form>
         </div>
       </div>
+
+
+      <div style={{ marginTop: '20px' }} />
 
       <h3 className="history-title">Items à mettre à jour</h3>
       <div className="out-table-wrapper">
