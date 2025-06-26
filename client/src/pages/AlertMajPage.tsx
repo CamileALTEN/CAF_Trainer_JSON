@@ -229,12 +229,13 @@ export default function AlertMajPage() {
                 Cette page permet de sélectionner les items qui ont été inspectés lors de la revue périodique du contenu de CAF-Trainer.
                 Les items sélectionnés seront marqués comme mis à jour et enregistrés dans l'historique. Il faudra faire de même avec les documents situés dans le Drive et mettre à jour le GSheet de suivi accesible en cliquant sur la bannière en haut de la page.
                 <br />
-                <strong>Attention</strong> : il est nécessaire de comprendre que lorsque l'inspection périodique s'active, les items ne sont pas nécessairement obsolètes.
-                Il s'agit simplement de vérifier que les items sont toujours à jour et pertinents. Si un item est obsolète, il doit être marqué comme tel dans la page d'édition de contenu.
+                <div style={{ marginTop: '10px' }} />
+                <strong>⚠️Attention⚠️</strong>: il est nécessaire de comprendre que lorsque l'inspection périodique s'active, les items ne sont pas nécessairement obsolètes.
+                <br /> ➡️ Il s'agit simplement de vérifier que les items sont toujours à jour et pertinents. Si un item est obsolète, il doit être marqué comme tel dans la page d'édition de contenu.
               </div>
             </InfoTooltip>
           </h2>
-          <div style={{ marginTop: '20px' }} />
+         
           <h3>
             Sélection des items inspectés
             <InfoTooltip>
@@ -267,7 +268,7 @@ export default function AlertMajPage() {
                     className={checked[it.id] ? 'item-btn selected' : 'item-btn'}
                     onClick={() => toggleItem(it.id)}
                   >
-                    {it.title}
+                    {it.title}&nbsp;&nbsp;&nbsp;
                     {(it.profiles ?? []).map(p => (
                       <span
                         key={p}
@@ -308,7 +309,7 @@ export default function AlertMajPage() {
               <i>Cette alerte est déclenchée périodiquement pour rappeler aux utilisateurs de vérifier les mises à jour du contenu.</i>
             </InfoTooltip>
           </h3>
-          <div style={{ marginTop: '20px' }} />
+           
         
 
           <form onSubmit={saveConf} className="conf-form">
@@ -317,15 +318,15 @@ export default function AlertMajPage() {
             <label>Texte de l'alerte :</label>
             <input value={conf.text} onChange={e=>setConf({...conf,text:e.target.value})} />
 
-            <div style={{ marginTop: '5px' }} />
+            
 
             <label>URL du fichier de suivi des mises à jours des docs du drive :</label>
             <input value={conf.url} onChange={e=>setConf({...conf,url:e.target.value})} />
 
-            <div style={{ marginTop: '5px' }} />
+            
             <label>Fréquence :</label>
             <div className="freq">
-              <input type="number" value={freqValue} onChange={e=>setFreqValue(parseInt(e.target.value,10)||0)} />
+              <input type="number" value={freqValue} onChange={e=>setFreqValue(parseInt(e.target.value,10)||0)} />&nbsp;&nbsp;&nbsp;
               <select value={freqUnit} onChange={e=>setFreqUnit(e.target.value as any)}>
                 <option value="s">secondes</option>
                 <option value="min">minutes</option>
@@ -343,7 +344,7 @@ export default function AlertMajPage() {
                 par les utilisateurs dans le page d'édition de contenu.</i>
               </InfoTooltip>
             </h3>
-          <div style={{ marginTop: '10px' }} />
+       
             <label>Seuil items non à jour</label>
             <input type="number" value={maxOutdated} onChange={e=>setMaxOutdated(parseInt(e.target.value,10)||0)} />
             <button
@@ -356,11 +357,23 @@ export default function AlertMajPage() {
           </form>
         </div>
       </div>
-
-
       <div style={{ marginTop: '20px' }} />
+      <hr style={{ border: 'none', borderTop: '1px solid #ccc', margin: '1rem 0' }} />
 
-      <h3 className="history-title">Items à mettre à jour</h3>
+
+      <div style={{ marginTop: '15px' }} />
+
+
+      <h3 className="history-title">Informations des items à mettre à jour
+        <InfoTooltip>
+          <p>
+            Cette section affiche les items qui ont été marqués comme obsolètes dans CAF-Trainer.
+            Vous pouvez consulter les détails de chaque item, y compris la date de la dernière mise à jour, l'utilisateur qui l'a marqué comme obsolète et le commentaire associé.
+          </p>
+        </InfoTooltip>
+      </h3>
+      <div style={{ marginTop: '10px' }} />
+
       <div className="out-table-wrapper">
         <table className="out-table">
           <thead>
@@ -382,10 +395,10 @@ export default function AlertMajPage() {
           </tbody>
         </table>
       </div>
-
+      <hr style={{ border: 'none', borderTop: '1px solid #ccc', margin: '1rem 0' }} />
       <h3 className="history-title">Historique</h3>
       <div className="history-actions">
-        <button onClick={exportCsv}>Exporter CSV</button>
+        <button onClick={exportCsv}>Exporter au format CSV</button>&nbsp;&nbsp;&nbsp;
         <button className="danger" onClick={()=>setResetOpen(true)}>Vider l'historique</button>
       </div>
       <ul className="history">
