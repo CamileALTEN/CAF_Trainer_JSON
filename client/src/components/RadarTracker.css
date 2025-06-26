@@ -10,7 +10,7 @@
 .radar-carousel {
   position: relative;
   overflow: hidden;
-  height: 220px;
+  height: clamp(200px, 30vh, 300px);
 }
 
 .radar-track {

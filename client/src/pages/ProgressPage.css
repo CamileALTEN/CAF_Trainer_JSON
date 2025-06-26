@@ -1,6 +1,6 @@
 .progress-wrapper {
   padding: 1rem;
-  width: 60%;
+  width: clamp(300px, 90vw, 1200px);
   margin: auto;
 }
 
@@ -41,12 +41,12 @@
 }
 
 .name_box .user {
-  width: 120px;
+  flex: 0 0 clamp(80px, 20vw, 140px);
   font-weight: bold;
   margin-right: 7rem;
 }
 .name_box .kpi {
-  width: 140px;
+  flex: 0 0 clamp(100px, 25vw, 180px);
   font-size: 0.9rem;
 }
 
