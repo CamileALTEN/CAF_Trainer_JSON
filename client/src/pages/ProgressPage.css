@@ -31,7 +31,7 @@
 
 .name_box .row {
   display: grid;
-  grid-template-columns: clamp(80px, 20vw, 140px)
+  grid-template-columns: clamp(250px, 20vw, 300px)
                          clamp(100px, 25vw, 180px)
                          1fr auto auto auto;
   align-items: center;
