@@ -32,7 +32,7 @@ export default function AlertMajPage() {
   const [details, setDetails] = useState<IAlertAction|null>(null);
   const [resetOpen, setResetOpen] = useState(false);
   const [confirmText, setConfirmText] = useState('');
-  const [outdated, setOutdated] = useState<{id:string;module:string;title:string;date:string;user:string;reason:string;site:string}[]>([]);
+  const [outdated, setOutdated] = useState<{id:string;module:string;title:string;date:string;user:string;reason:string;sites:string[]}[]>([]);
   const [commentView,setCommentView]=useState<string|null>(null);
 
   useEffect(() => {
@@ -79,10 +79,11 @@ export default function AlertMajPage() {
     getAlertActions().then(setActions);
     getModules().then(ms => {
       setModules(ms);
-      const list: {id:string;module:string;title:string;date:string;user:string;reason:string;site:string}[] = [];
+      const list: {id:string;module:string;title:string;date:string;user:string;reason:string;sites:string[]}[] = [];
       ms.forEach(m => {
         flatten(m.items).forEach(it => {
           if (it.outdatedInfo) {
+            const sites = it.outdatedInfo.site ? [it.outdatedInfo.site] : (it.profiles ?? []);
             list.push({
               id: it.id,
               module: m.title,
@@ -90,7 +91,7 @@ export default function AlertMajPage() {
               date: it.outdatedInfo.date,
               user: it.outdatedInfo.user,
               reason: it.outdatedInfo.reason,
-              site: it.outdatedInfo.site || ''
+              sites,
             });
           }
         });
@@ -100,10 +101,11 @@ export default function AlertMajPage() {
   }, []);
 
   useEffect(() => {
-    const list: {id:string;module:string;title:string;date:string;user:string;reason:string;site:string}[] = [];
+    const list: {id:string;module:string;title:string;date:string;user:string;reason:string;sites:string[]}[] = [];
     modules.forEach(m => {
       flatten(m.items).forEach(it => {
         if (it.outdatedInfo) {
+          const sites = it.outdatedInfo.site ? [it.outdatedInfo.site] : (it.profiles ?? []);
           list.push({
             id: it.id,
             module: m.title,
@@ -111,7 +113,7 @@ export default function AlertMajPage() {
             date: it.outdatedInfo.date,
             user: it.outdatedInfo.user,
             reason: it.outdatedInfo.reason,
-            site: it.outdatedInfo.site || ''
+            sites,
           });
         }
       });
@@ -222,6 +224,7 @@ export default function AlertMajPage() {
 
       <div className="layout">
         <div className="left">
+          <div className="section-box">
           <h2>
             Revue périodique du contenu
             <InfoTooltip>
@@ -289,8 +292,10 @@ export default function AlertMajPage() {
           >
             Soumettre
           </button>
+          </div>
         </div>
         <div className="right">
+          <div className="section-box">
 
 
           <h2>
@@ -355,6 +360,7 @@ export default function AlertMajPage() {
               {saving ? 'Enregistrement…' : 'Enregistrer'}
             </button>
           </form>
+          </div>
         </div>
       </div>
       <div style={{ marginTop: '20px' }} />
@@ -364,6 +370,7 @@ export default function AlertMajPage() {
       <div style={{ marginTop: '15px' }} />
 
 
+      <div className="section-box">
       <h3 className="history-title">Informations des items à mettre à jour
         <InfoTooltip>
           <p>
@@ -386,7 +393,13 @@ export default function AlertMajPage() {
               <tr key={it.id}>
                 <td>{it.title}</td>
                 <td>{it.module}</td>
-                <td>{it.site}</td>
+                <td className="site-cell">
+                  {it.sites.map(s => (
+                    <span key={s} className="site-badge">
+                      <span className="color-dot" style={{ background: SITE_COLORS[s] || '#ccc' }} /> {s}
+                    </span>
+                  ))}
+                </td>
                 <td>{new Date(it.date).toLocaleDateString()}</td>
                 <td>{it.user}</td>
                 <td><button onClick={()=>setCommentView(it.reason)}>Voir</button></td>
@@ -395,7 +408,10 @@ export default function AlertMajPage() {
           </tbody>
         </table>
       </div>
+      </div>
       <hr style={{ border: 'none', borderTop: '1px solid #ccc', margin: '1rem 0' }} />
+
+      <div className="section-box">
       <h3 className="history-title">Historique</h3>
       <div className="history-actions">
         <button onClick={exportCsv}>Exporter au format CSV</button>&nbsp;&nbsp;&nbsp;
@@ -409,6 +425,7 @@ export default function AlertMajPage() {
           </li>
         ))}
       </ul>
+      </div>
       {details && (
         <div className="history-popup">
           <div className="box">
