@@ -447,7 +447,9 @@ export default function AlertMajPage() {
       {commentView && (
         <div className="history-popup">
           <div className="box">
+            <h4>Détails :</h4>
             <p>{commentView}</p>
+            <div style={{ marginTop: '10px' }} />
             <button onClick={()=>setCommentView(null)}>Fermer</button>
           </div>
         </div>
