@@ -13,6 +13,8 @@ import {
 } from '../api/tickets';
 import AdvancedEditor                  from '../components/AdvancedEditor';
 import { roleLabel } from '../utils/roleLabels';
+import { displayName } from '../utils/displayName';
+import { IUser } from '../api/auth';
 export default function TicketsListPage() {
   const { user } = useAuth();
   const [tickets, setTickets] = useState<ITicket[]>([]);
@@ -23,6 +25,7 @@ export default function TicketsListPage() {
   const [editMessage, setEditMessage] = useState('');
   const [editCategory, setEditCategory] = useState('');
   const [editPriority, setEditPriority] = useState<TicketPriority>('normal');
+  const [users, setUsers] = useState<IUser[]>([]);
 
   useEffect(() => {
     const username = user?.role === 'caf' ? user.username : undefined;
@@ -30,6 +33,13 @@ export default function TicketsListPage() {
       .then(setTickets)
       .catch(console.error);
   }, [search, user]);
+
+  useEffect(() => {
+    fetch('/api/users')
+      .then(r => r.json())
+      .then(setUsers)
+      .catch(console.error);
+  }, []);
 
 
   const changeStatus = async (id: string, status: TicketStatus) => {
@@ -60,6 +70,20 @@ export default function TicketsListPage() {
   const toggleArchive = async (id: string, value: boolean) => {
     const data = await updateTicket(id, { archived: value });
     setTickets(prev => prev.filter(t => t.id !== id));
+  };
+
+  const recipientNames = (t: ITicket): string[] => {
+    const names: string[] = [];
+    if ((t.target === 'admin' || t.target === 'both')) {
+      names.push(
+        ...users.filter(u => u.role === 'admin').map(u => displayName(u.username))
+      );
+    }
+    if ((t.target === 'manager' || t.target === 'both') && t.managerId) {
+      const m = users.find(u => u.id === t.managerId);
+      if (m) names.push(displayName(m.username));
+    }
+    return names;
   };
 
   const doExport = async (id: string) => {
@@ -94,6 +118,7 @@ export default function TicketsListPage() {
                 {t.username} – {new Date(t.date).toLocaleString()} – {t.status}
               </span>
             </div>
+            <p className="meta">Envoyé à {recipientNames(t).join(', ')} – <em>noms affichés uniquement pour le POC</em></p>
             {editingId === t.id ? (
               <form onSubmit={e => submitEdit(e, t.id)} className="edit-form">
                 <input value={editTitle} onChange={e=>setEditTitle(e.target.value)} required />
