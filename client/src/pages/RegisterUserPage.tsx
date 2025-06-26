@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
 import { Role, IUser } from '../api/auth';
+import { roleLabel } from '../utils/roleLabels';
 import { useAuth } from '../context/AuthContext';
 import { ISite, getSites } from '../api/sites';
 import { ICafType, getCafTypes } from '../api/cafTypes';
@@ -86,7 +87,7 @@ export default function RegisterUserPage() {
     if (!mailRx.test(username))
       return setMsg('❌ Le nom doit être de la forme prenom.nom@alten.com');
     if (role === 'caf' && managerIds.length === 0 && user?.role === 'admin')
-      return setMsg('❌ Sélectionnez un manager pour le CAF');
+      return setMsg('❌ Sélectionnez un référent pour le CAF');
 
     setLoading(true);
     try {
@@ -125,15 +126,17 @@ export default function RegisterUserPage() {
       <h2>Créer un compte</h2>
 
       <Alert>
-        ⚠️ Seuls un <strong>manager</strong> ou un <strong>admin</strong> peuvent
+        ⚠️ Seuls un <strong>référent</strong> ou un <strong>admin</strong> peuvent
         modifier le mot de passe d’un CAF. L’admin peut aussi changer ceux des
         autres rôles sans la personne concernée.
       </Alert>
 
       <Form onSubmit={submit}>
         <label>Rôle
-          <select value={role} onChange={e=>setRole(e.target.value as Role)}>
-            {allowed.map(r=><option key={r}>{r}</option>)}
+          <select value={role} onChange={e => setRole(e.target.value as Role)}>
+            {allowed.map(r => (
+              <option key={r} value={r}>{roleLabel(r)}</option>
+            ))}
           </select>
         </label>
 
@@ -172,7 +175,7 @@ export default function RegisterUserPage() {
 
         {role === 'caf' && user?.role === 'admin' && (
           <fieldset>
-            <legend>Managers</legend>
+            <legend>Référents</legend>
             {managers.map(m => (
               <label key={m.id}>
                 <input type="checkbox" value={m.id}

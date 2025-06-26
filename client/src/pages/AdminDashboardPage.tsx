@@ -21,6 +21,7 @@ import {
   LabelList,
 } from 'recharts';
 import { IUser, Role } from '../api/auth';
+import { roleLabel } from '../utils/roleLabels';
 import { IModule } from '../api/modules';
 import { IAnalytics } from '../api/analytics';
 import { ISite, getSites } from '../api/sites';
@@ -181,7 +182,7 @@ import { getSettings, saveSettings, ISettings } from '../api/settings';
           <Stat label="Visiteurs semaine" value={analytics.visitors.week} />
           <Stat label={`Visiteurs ${analytics.visitors.month.label}`} value={analytics.visitors.month.count} />
           <Stat label="Durée CAF (min)" value={Math.round(analytics.sessions.avgDurationCaf)} />
-          <Stat label="Durée manager (min)" value={Math.round(analytics.sessions.avgDurationManager)} />
+          <Stat label="Durée référent (min)" value={Math.round(analytics.sessions.avgDurationManager)} />
         </section>
 
         <section className="chart-area">
@@ -236,7 +237,7 @@ import { getSettings, saveSettings, ISettings } from '../api/settings';
          <h2>Comptes</h2>
          <table>
            <thead>
-             <tr><th>User 👤</th><th>Rôle 💬</th><th>Site📍</th><th>Type</th><th>Manager 👨‍💼</th><th/></tr>
+            <tr><th>User 👤</th><th>Rôle 💬</th><th>Site📍</th><th>Type</th><th>Référent 👨‍💼</th><th/></tr>
            </thead>
            <tbody>
             {sortedUsers.map(u => (
@@ -254,7 +255,7 @@ import { getSettings, saveSettings, ISettings } from '../api/settings';
                       onChange={e => setEditRole(e.target.value as Role)}
                     >
                       <option value="admin">admin</option>
-                      <option value="manager">manager</option>
+                      <option value="manager">référent</option>
                       <option value="caf">caf</option>
                     </select>
                   </td>
@@ -303,7 +304,7 @@ import { getSettings, saveSettings, ISettings } from '../api/settings';
               ) : (
                 <tr key={u.id}>
                   <td>{u.username}</td>
-                  <td>{u.role}</td>
+                  <td>{roleLabel(u.role)}</td>
                   <td>{u.role === 'manager' ? u.sites?.join(', ') ?? '—' : u.site ?? '—'}</td>
                   <td>{u.role === 'caf' ? cafTypes.find(t=>t.id===u.cafTypeId)?.name || '—' : '—'}</td>
                   <td>{u.role === 'caf' ?

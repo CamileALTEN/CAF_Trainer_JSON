@@ -57,7 +57,7 @@ export default function CreateTicketPage() {
         </select>
         {user.role !== 'manager' && (
           <select value={target} onChange={e => setTarget(e.target.value as any)}>
-            <option value="manager">Manager</option>
+            <option value="manager">Référent</option>
             <option value="admin">Admin</option>
             <option value="both">Les deux</option>
           </select>

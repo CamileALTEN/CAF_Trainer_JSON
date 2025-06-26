@@ -64,7 +64,7 @@ const COLORS = ['#043962', '#008bd2', '#00c49f'];
 
      return (
        <div className="manager-dashboard">
-         <h1>Dashboard manager</h1>
+         <h1>Dashboard référent</h1>
 
         <section className="cards">
           <StatCard label="CAF supervisés" value={caf.length} />

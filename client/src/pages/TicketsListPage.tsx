@@ -12,6 +12,7 @@ import {
   exportTicket,
 } from '../api/tickets';
 import AdvancedEditor                  from '../components/AdvancedEditor';
+import { roleLabel } from '../utils/roleLabels';
 export default function TicketsListPage() {
   const { user } = useAuth();
   const [tickets, setTickets] = useState<ITicket[]>([]);
@@ -119,7 +120,7 @@ export default function TicketsListPage() {
             {t.replies.length > 0 && (
               <ul className="replies">
                 {t.replies.map((r,idx)=>(
-                  <li key={idx}><strong>{r.author}</strong> ({r.role}) : {r.message}</li>
+                  <li key={idx}><strong>{r.author}</strong> ({roleLabel(r.role)}) : {r.message}</li>
                 ))}
               </ul>
             )}
