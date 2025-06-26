@@ -30,29 +30,29 @@
 }
 
 .name_box .row {
-  display: flex;            /* <-- passe en flexbox */
-  align-items: center;      /* centre verticalement */
-  width: 100%;              /* prend toute la largeur du parent */
-  gap: 1rem;                /* espace régulier entre les items */
+  display: grid;
+  grid-template-columns: clamp(80px, 20vw, 140px)
+                         clamp(100px, 25vw, 180px)
+                         1fr auto auto auto;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
 }
 
 .name_box .row .progress-container {
-  flex: 1;                  /* pousse les côtés à l'extrémité */
+  width: 100%;
 }
 
 .name_box .user {
-  flex: 0 0 clamp(80px, 20vw, 140px);
   font-weight: bold;
-  margin-right: 7rem;
 }
+
 .name_box .kpi {
-  flex: 0 0 clamp(100px, 25vw, 180px);
   font-size: 0.9rem;
 }
 
 
 .name_box .toggle {
-  margin-left: auto;  /* ← pousse ce bouton à l’extrémité droite */
   background: none;
   border: none;
   font-size: 1.5rem;
