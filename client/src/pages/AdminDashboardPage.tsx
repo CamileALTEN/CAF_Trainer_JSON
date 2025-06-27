@@ -196,7 +196,7 @@ import { getSettings, saveSettings, ISettings } from '../api/settings';
                 return <YAxis ticks={ticks} domain={[0, 100]} allowDecimals={false} />;
               })()}
               <Tooltip />
-              <Line type="monotone" dataKey="avg" stroke="#8884d8" />
+              <Line type="monotone" dataKey="percent" stroke="#8884d8" />
             </LineChart>
           </ResponsiveContainer>
         </section>

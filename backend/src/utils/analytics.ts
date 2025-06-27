@@ -107,8 +107,8 @@ export interface AnalyticsSummary {
     manager: number;
     avgDurationCaf: number;
     avgDurationManager: number;
-    // avg represents the percentage of logins for the hour slot (last 100 sessions)
-    byHour: { hour: string; avg: number }[];
+    // percent represents the share of logins for the hour slot (last 100 sessions)
+    byHour: { hour: string; percent: number }[];
   };
   favorites: { itemId: string; title: string; count: number }[];
   sites: { site: string; count: number }[];
@@ -192,7 +192,7 @@ export function computeAnalytics(): AnalyticsSummary {
   const byHour = Array.from({ length: 24 }, (_, h) => {
     const label = `${h.toString().padStart(2, '0')}:00`;
     const pct = ((hourCounts[h] || 0) / totalConsidered) * 100;
-    return { hour: label, avg: pct };
+    return { hour: label, percent: pct };
   });
 
   const favMap: Record<string, Set<string>> = {};

@@ -161,7 +161,7 @@ function computeAnalytics() {
     const byHour = Array.from({ length: 24 }, (_, h) => {
         const label = `${h.toString().padStart(2, '0')}:00`;
         const pct = ((hourCounts[h] || 0) / totalConsidered) * 100;
-        return { hour: label, avg: pct };
+        return { hour: label, percent: pct };
     });
     const favMap = {};
     let favLists = [];
