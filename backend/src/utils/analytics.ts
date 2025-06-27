@@ -107,7 +107,7 @@ export interface AnalyticsSummary {
     manager: number;
     avgDurationCaf: number;
     avgDurationManager: number;
-    // avg represents the number of connections for the hour slot
+    // avg represents the percentage of logins for the hour slot (last 100 sessions)
     byHour: { hour: string; avg: number }[];
   };
   favorites: { itemId: string; title: string; count: number }[];
@@ -155,12 +155,6 @@ export function computeAnalytics(): AnalyticsSummary {
 
   const cafDurations: number[] = [];
   const managerDurations: number[] = [];
-  const hourBuckets: Record<string, number[]> = {};
-  // One-hour buckets between 08:00 and 18:00
-  for (let h = 8; h <= 18; h++) {
-    const label = `${h.toString().padStart(2,'0')}:00`;
-    hourBuckets[label] = [];
-  }
 
   const sessionsArr = Array.isArray(file.sessions) ? file.sessions : [];
   sessionsArr.forEach((s) => {
@@ -178,18 +172,28 @@ export function computeAnalytics(): AnalyticsSummary {
     if (logout) {
       const durationMin = Math.ceil((logout.getTime() - login.getTime()) / 60000);
       if (s.role === 'caf') cafDurations.push(durationMin); else if (s.role === 'manager') managerDurations.push(durationMin);
-      const hour = login.getHours();
-      if (hour >= 8 && hour <= 18) {
-        const label = `${hour.toString().padStart(2,'0')}:00`;
-        hourBuckets[label].push(1);
-      }
+      // duration is only recorded for completed sessions
     }
   });
 
   const avg = (list: number[]) =>
     list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0;
 
-  const byHour = Object.entries(hourBuckets).map(([hour,list])=>({hour, avg: list.length}));
+  const sortedSessions = [...sessionsArr].sort(
+    (a, b) => new Date(b.login).getTime() - new Date(a.login).getTime(),
+  );
+  const lastSessions = sortedSessions.slice(0, 100);
+  const hourCounts: Record<number, number> = {};
+  lastSessions.forEach(s => {
+    const h = parseDate(s.login).getHours();
+    hourCounts[h] = (hourCounts[h] || 0) + 1;
+  });
+  const totalConsidered = lastSessions.length || 1;
+  const byHour = Array.from({ length: 24 }, (_, h) => {
+    const label = `${h.toString().padStart(2, '0')}:00`;
+    const pct = ((hourCounts[h] || 0) / totalConsidered) * 100;
+    return { hour: label, avg: pct };
+  });
 
   const favMap: Record<string, Set<string>> = {};
   let favLists: any[] = [];

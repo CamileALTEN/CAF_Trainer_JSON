@@ -186,15 +186,14 @@ import { getSettings, saveSettings, ISettings } from '../api/settings';
         </section>
 
         <section className="chart-area">
-          <h3>Moyenne de connexion par heure</h3>
+          <h3>Connexion par heure (100 dernières sessions)</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={analytics.sessions.byHour}>
               <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
               <XAxis dataKey="hour" />
               {(() => {
-                const max = Math.max(...analytics.sessions.byHour.map(h => h.avg), 0);
-                const ticks = Array.from({ length: Math.ceil(max) + 1 }, (_, i) => i);
-                return <YAxis ticks={ticks} domain={[0, Math.ceil(max)]} allowDecimals={false} />;
+                const ticks = Array.from({ length: 11 }, (_, i) => i * 10);
+                return <YAxis ticks={ticks} domain={[0, 100]} allowDecimals={false} />;
               })()}
               <Tooltip />
               <Line type="monotone" dataKey="avg" stroke="#8884d8" />

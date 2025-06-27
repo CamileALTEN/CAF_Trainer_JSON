@@ -6,7 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.computeAnalytics = exports.getAnalyticsFile = exports.recordFavorite = exports.endSession = exports.startSession = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const DATA_FILE = path_1.default.resolve(__dirname, '../data/analytics.json');
+const DATA_DIR = process.env.DATA_DIR
+    ? path_1.default.resolve(process.env.DATA_DIR)
+    : path_1.default.resolve(__dirname, '..', 'data');
+const DATA_FILE = path_1.default.join(DATA_DIR, 'analytics.json');
 function load() {
     if (!fs_1.default.existsSync(DATA_FILE)) {
         fs_1.default.writeFileSync(DATA_FILE, JSON.stringify({ sessions: [], favorites: [], averages: {} }, null, 2), 'utf8');
@@ -94,11 +97,11 @@ function computeAnalytics() {
     let users = [];
     let modules = [];
     try {
-        users = JSON.parse(fs_1.default.readFileSync(path_1.default.resolve(__dirname, '../data/users.json'), 'utf8'));
+        users = JSON.parse(fs_1.default.readFileSync(path_1.default.join(DATA_DIR, 'users.json'), 'utf8'));
     }
     catch { }
     try {
-        modules = JSON.parse(fs_1.default.readFileSync(path_1.default.resolve(__dirname, '../data/modules.json'), 'utf8'));
+        modules = JSON.parse(fs_1.default.readFileSync(path_1.default.join(DATA_DIR, 'modules.json'), 'utf8'));
     }
     catch { }
     const userRoles = {};
@@ -119,12 +122,6 @@ function computeAnalytics() {
     const sessionsMonth = new Set();
     const cafDurations = [];
     const managerDurations = [];
-    const hourBuckets = {};
-    // One-hour buckets between 08:00 and 18:00
-    for (let h = 8; h <= 18; h++) {
-        const label = `${h.toString().padStart(2, '0')}:00`;
-        hourBuckets[label] = [];
-    }
     const sessionsArr = Array.isArray(file.sessions) ? file.sessions : [];
     sessionsArr.forEach((s) => {
         const login = parseDate(s.login);
@@ -149,19 +146,27 @@ function computeAnalytics() {
                 cafDurations.push(durationMin);
             else if (s.role === 'manager')
                 managerDurations.push(durationMin);
-            const hour = login.getHours();
-            if (hour >= 8 && hour <= 18) {
-                const label = `${hour.toString().padStart(2, '0')}:00`;
-                hourBuckets[label].push(1);
-            }
+            // duration is only recorded for completed sessions
         }
     });
     const avg = (list) => list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0;
-    const byHour = Object.entries(hourBuckets).map(([hour, list]) => ({ hour, avg: list.length }));
+    const sortedSessions = [...sessionsArr].sort((a, b) => new Date(b.login).getTime() - new Date(a.login).getTime());
+    const lastSessions = sortedSessions.slice(0, 100);
+    const hourCounts = {};
+    lastSessions.forEach(s => {
+        const h = parseDate(s.login).getHours();
+        hourCounts[h] = (hourCounts[h] || 0) + 1;
+    });
+    const totalConsidered = lastSessions.length || 1;
+    const byHour = Array.from({ length: 24 }, (_, h) => {
+        const label = `${h.toString().padStart(2, '0')}:00`;
+        const pct = ((hourCounts[h] || 0) / totalConsidered) * 100;
+        return { hour: label, avg: pct };
+    });
     const favMap = {};
     let favLists = [];
     try {
-        favLists = JSON.parse(fs_1.default.readFileSync(path_1.default.resolve(__dirname, '../data/favorites.json'), 'utf8'));
+        favLists = JSON.parse(fs_1.default.readFileSync(path_1.default.join(DATA_DIR, 'favorites.json'), 'utf8'));
     }
     catch { }
     favLists.forEach(f => {
