@@ -190,12 +190,15 @@ import { getSettings, saveSettings, ISettings } from '../api/settings';
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={analytics.sessions.byHour}>
               <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
-              <XAxis dataKey="hour" />
+              <XAxis dataKey="hour" tickFormatter={h => `${h}H`} />
               {(() => {
                 const ticks = Array.from({ length: 11 }, (_, i) => i * 10);
                 return <YAxis ticks={ticks} domain={[0, 100]} allowDecimals={false} />;
               })()}
-              <Tooltip />
+              <Tooltip
+                formatter={(v:number)=>`${v}%`}
+                labelFormatter={(label:number)=>`${label}H`}
+              />
               <Line type="monotone" dataKey="percent" stroke="#8884d8" />
             </LineChart>
           </ResponsiveContainer>
