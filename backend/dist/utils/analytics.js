@@ -152,16 +152,30 @@ function computeAnalytics() {
     const avg = (list) => list.length ? list.reduce((a, b) => a + b, 0) / list.length : 0;
     const sortedSessions = [...sessionsArr].sort((a, b) => new Date(b.login).getTime() - new Date(a.login).getTime());
     const lastSessions = sortedSessions.slice(0, 100);
-    const hourCounts = {};
+    const repartition = {};
+    for (let h = 8; h <= 18; h++)
+        repartition[h] = 0;
     lastSessions.forEach(s => {
-        const h = parseDate(s.login).getHours();
-        hourCounts[h] = (hourCounts[h] || 0) + 1;
+        const d = parseDate(s.login);
+        let h = d.getUTCHours() + d.getUTCMinutes() / 60;
+        if (h < 8)
+            h = 8;
+        if (h > 18.999)
+            h = 18;
+        const hInf = Math.floor(h);
+        const hSup = Math.ceil(h);
+        const wInf = hSup - h;
+        const wSup = h - hInf;
+        if (hInf >= 8 && hInf <= 18)
+            repartition[hInf] += wInf;
+        if (hSup >= 8 && hSup <= 18)
+            repartition[hSup] += wSup;
     });
-    const totalConsidered = lastSessions.length || 1;
-    const byHour = Array.from({ length: 24 }, (_, h) => {
-        const label = `${h.toString().padStart(2, '0')}:00`;
-        const pct = ((hourCounts[h] || 0) / totalConsidered) * 100;
-        return { hour: label, percent: pct };
+    const totalConsidered = Object.values(repartition).reduce((a, b) => a + b, 0) || 1;
+    const byHour = Array.from({ length: 11 }, (_, i) => {
+        const hour = 8 + i;
+        const percent = Math.round((repartition[hour] / totalConsidered) * 1000) / 10;
+        return { hour, percent };
     });
     const favMap = {};
     let favLists = [];

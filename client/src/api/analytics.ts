@@ -17,7 +17,7 @@ export interface IAnalytics {
     avgDurationCaf: number;
     avgDurationManager: number;
     // percent represents the share of logins for the hour slot (last 100 sessions)
-    byHour: { hour: string; percent: number }[];
+    byHour: { hour: number; percent: number }[];
   };
   favorites: { itemId: string; title: string; count: number }[];
   sites: { site: string; count: number }[];
