@@ -21,7 +21,7 @@ export default function ManagerSideMenu() {
     { to: '/manager/create', icon: <Plus size={18} />, label: 'Créer' },
     { to: '/manager/modules', icon: <FileText size={18} />, label: 'Modules' },
     { to: '/manager/tickets', icon: <ClipboardList size={18} />, label: 'Tickets' },
-    { to: '/manager/checklist-url', icon: <LinkIcon size={18} />, label: 'Checklist' },
+    { to: '/manager/checklist-url', icon: <LinkIcon size={18} />, label: "Plan d'intégration" },
     { to: '/manager/alert', icon: <AlertTriangle size={18} />, label: 'MàJ' },
     { to: '/manager/progress', icon: <BarChart2 size={18} />, label: 'Progress' },
   ];

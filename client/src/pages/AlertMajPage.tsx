@@ -352,11 +352,13 @@ export default function AlertMajPage() {
        
             <label>Seuil items non à jour</label>
             <input type="number" value={maxOutdated} onChange={e=>setMaxOutdated(parseInt(e.target.value,10)||0)} />
+            <div style={{ marginTop: '20px' }} />
             <button
               type="submit"
               className={saving ? 'loading' : ''}
               disabled={saving}
             >
+              
               {saving ? 'Enregistrement…' : 'Enregistrer'}
             </button>
           </form>
