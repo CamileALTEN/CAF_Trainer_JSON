@@ -186,18 +186,20 @@ import { getSettings, saveSettings, ISettings } from '../api/settings';
         </section>
 
         <section className="chart-area">
-          <h3>Connexion par heure (100 dernières sessions)</h3>
+          <h3>Connexion par heure </h3>
           <ResponsiveContainer width="100%" height={200}>
+
             <LineChart data={analytics.sessions.byHour}>
               <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
-              <XAxis dataKey="hour" tickFormatter={h => `${h}H`} />
+              <XAxis dataKey="hour" tickFormatter={h => `${h}h`} />
+
               {(() => {
                 const ticks = Array.from({ length: 11 }, (_, i) => i * 10);
                 return <YAxis ticks={ticks} domain={[0, 100]} allowDecimals={false} />;
               })()}
               <Tooltip
                 formatter={(v:number)=>`${v}%`}
-                labelFormatter={(label:number)=>`${label}H`}
+                labelFormatter={(label:number)=>`${label}h`}
               />
               <Line type="monotone" dataKey="percent" stroke="#8884d8" />
             </LineChart>
@@ -240,6 +242,7 @@ import { getSettings, saveSettings, ISettings } from '../api/settings';
          <table>
            <thead>
             <tr><th>User 👤</th><th>Rôle 💬</th><th>Site📍</th><th>Type</th><th>Référent 👨‍💼</th><th/></tr>
+
            </thead>
            <tbody>
             {sortedUsers.map(u => (
