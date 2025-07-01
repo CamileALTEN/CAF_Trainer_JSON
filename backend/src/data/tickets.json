@@ -40,5 +40,32 @@
       }
     ],
     "archived": true
+  },
+  {
+    "id": "1751361061780",
+    "username": "demo.nte@alten.com",
+    "managerId": "1747838393929",
+    "target": "manager",
+    "category": "Apprentissage ",
+    "priority": "low",
+    "title": "Compréhension process",
+    "message": "<p>Bonjour, </p><p>Je n'ai pas compris le jalon GMAO du process. </p><p>Est ce que je peux avoir une explication ou des exemples ?</p><p>Merci d'avance.</p>",
+    "status": "open",
+    "date": "2025-07-01T09:11:01.780Z",
+    "replies": [
+      {
+        "author": "camile.briard@alten.com",
+        "role": "manager",
+        "message": "Bonjour, ",
+        "date": "2025-07-01T09:11:19.958Z"
+      },
+      {
+        "author": "camile.briard@alten.com",
+        "role": "manager",
+        "message": "Oui pour t'expliquer",
+        "date": "2025-07-01T09:11:27.256Z"
+      }
+    ],
+    "archived": false
   }
 ]

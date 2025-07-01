@@ -595,7 +595,7 @@
         ],
         "cafTypes": [],
         "enabled": true,
-        "needValidation": false,
+        "needValidation": true,
         "outdatedInfo": null,
         "quiz": {
           "enabled": true,
@@ -642,7 +642,7 @@
         ],
         "cafTypes": [],
         "enabled": true,
-        "needValidation": false,
+        "needValidation": true,
         "outdatedInfo": null,
         "quiz": {
           "enabled": false,
@@ -686,7 +686,7 @@
         ],
         "cafTypes": [],
         "enabled": true,
-        "needValidation": false,
+        "needValidation": true,
         "outdatedInfo": null,
         "quiz": {
           "enabled": false,
@@ -1118,7 +1118,7 @@
             ],
             "cafTypes": [],
             "enabled": true,
-            "needValidation": false,
+            "needValidation": true,
             "outdatedInfo": null,
             "quiz": {
               "enabled": true,
@@ -1164,7 +1164,7 @@
                 ],
                 "cafTypes": [],
                 "enabled": true,
-                "needValidation": false,
+                "needValidation": true,
                 "outdatedInfo": null,
                 "quiz": {
                   "enabled": false,
@@ -1186,7 +1186,7 @@
                 ],
                 "cafTypes": [],
                 "enabled": true,
-                "needValidation": false,
+                "needValidation": true,
                 "outdatedInfo": {
                   "reason": "à faire",
                   "date": "2025-06-20T06:38:32.628Z",
@@ -1218,7 +1218,7 @@
                 ],
                 "cafTypes": [],
                 "enabled": true,
-                "needValidation": false,
+                "needValidation": true,
                 "outdatedInfo": {
                   "reason": "à faire",
                   "date": "2025-06-20T08:38:43.790199+02:00",
