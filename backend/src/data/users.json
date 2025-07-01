@@ -1,36 +1,5 @@
 [
   {
-    "id": "1746607838838",
-    "username": "eline.castiglione@alten.com",
-    "password": "$2b$08$S1UuW2Cv98yFwiT7HruPxOC/qxloCEgDmbQHKozx0ZOXwQrfpUypq",
-    "role": "caf",
-    "site": "Nantes",
-    "cafTypeId": "1",
-    "managerIds": [
-      "1747838393929"
-    ]
-  },
-  {
-    "id": "1746634331825",
-    "username": "dylan",
-    "password": "$2b$08$d9wiHryFBkzbJaLoJq9FWONXgLz.X1GChx4CYJyx5G3zpd12yPpKi",
-    "role": "manager",
-    "sites": [
-      "Nantes"
-    ]
-  },
-  {
-    "id": "1746634829314",
-    "username": "logan",
-    "password": "$2b$08$6Qoxb8fbAOIdAoSCA4znXe6Q/oRZhG4b3jQRhz9bLnXvrC/ie9f7y",
-    "role": "caf",
-    "site": "Nantes",
-    "cafTypeId": "1",
-    "managerIds": [
-      "1747838393929"
-    ]
-  },
-  {
     "id": "1747039012242",
     "username": "carla.ledeux@alten.com",
     "password": "$2b$08$nMIUWTHlZqltpvDseNmH.O7WZnvOdKxig8wJ5WAKAwPCMcVDgNa.K",
@@ -39,20 +8,8 @@
   {
     "id": "1747126661704",
     "username": "francois.monier@alten.com",
-    "password": "$2b$08$6mNSt/DFykkrOyeeW8/Oa.lpxMvjhcOfHh02W.8rlVIxH8d9GLAhG",
+    "password": "$2b$08$5nwJJnZ31kgtEE0KmaIy2ec5OrGTLtRV/jd6aK51Yw79E1e4RiG1W",
     "role": "admin"
-  },
-  {
-    "id": "1747816992426",
-    "username": "joris.jacob@alten.com",
-    "password": "$2b$08$jx1eTFqpRuWka0b3U0Rsx.T.x6VZeJ.ezsJqzckbwyNcyWzLH8x/.",
-    "role": "caf",
-    "site": "Montoir",
-    "cafTypeId": "1",
-    "managerIds": [
-      "1747914779153",
-      "1747838393929"
-    ]
   },
   {
     "id": "1747838393929",
@@ -64,57 +21,83 @@
     ]
   },
   {
-    "id": "1747914779153",
-    "username": "jonathan.candelier@alten.com",
-    "password": "$2b$08$sK71pwta3R0rEpgI5eP1H.Rzkcw9B4gYHFCOJOw/7fckjjskBCpJu",
+    "id": "1750684848029",
+    "username": "dylan.marchewka@alten.com",
+    "password": "$2b$08$1jBZbnuIckt1ot5Dn7egBezLN3AzLj9WEDm/k.ORlsMTHdXdxHKRe",
     "role": "manager",
     "sites": [
       "Nantes"
     ]
   },
   {
-    "id": "1748425265715",
-    "username": "nantes.NT@alten.com",
-    "password": "$2b$08$2gXy/vGhv87SWkayLneAPOq8cCUUbvooxNSpPGXZPHzgD4ML0fbua",
+    "id": "1750684993553",
+    "username": "logan.surriray@alten.com",
+    "password": "$2b$08$u03Yqmbj3liI4dgDmyjzu.j8opBVGnj24ZCN4myiHjWWtWX0e/AN2",
+    "role": "caf",
+    "site": "Nantes",
+    "cafTypeId": "4",
+    "managerIds": [
+      "1750684848029",
+      "1747838393929"
+    ]
+  },
+  {
+    "id": "1750685037346",
+    "username": "eline.castiglione@alten.com",
+    "password": "$2b$08$SZNEiqYnt4Fz.8LPw7Si9urxs59k/vpZpK8V6YFFRxstHOPv8MhrS",
+    "role": "caf",
+    "site": "Nantes",
+    "cafTypeId": "4",
+    "managerIds": [
+      "1747838393929",
+      "1750684848029"
+    ]
+  },
+  {
+    "id": "1750690220048",
+    "username": "nicolas.martinez2@alten.com",
+    "password": "$2b$08$hjn5ieQGhX4EfzmFMCeDOePf5X2//dLnL1y4REBqdFf6wUP1XT63S",
+    "role": "admin"
+  },
+  {
+    "id": "1750691928525",
+    "username": "demo.nte@alten.com",
+    "password": "$2b$08$1GW1zjtJRkCDvlwi7I0iw.xRGeXJFv2iuSu5CY66QpqoNgoAQt3uG",
     "role": "caf",
     "site": "Nantes",
     "cafTypeId": "1",
     "managerIds": [
-      "1747838393929"
+      "1747838393929",
+      "1750684848029",
+      "1750837909595"
     ]
   },
   {
-    "id": "1748425281829",
-    "username": "montoir.NZ@alten.com",
-    "password": "$2b$08$M5ic/74.EmJHQ1BT5t/3Ke/cJSuRMUX7NTumQGXvnI4tg8rDl6j1W",
+    "id": "1750691966044",
+    "username": "demo.mdb@alten.com",
+    "password": "$2b$08$PiZLI5uNc0G35LRwA6AZ2u9.LyFdhwYyRDYWbJXBYPgr1gq9d9gQC",
     "role": "caf",
     "site": "Montoir",
     "cafTypeId": "1",
     "managerIds": [
-      "1747838393929"
+      "1747838393929",
+      "1750837909595",
+      "1750684848029"
     ]
   },
   {
-    "id": "1750316295984",
-    "username": "landry.delalande@alten.com",
-    "password": "$2b$08$qcxwhxzEKqoSXWymaA6JVutR07f.kGneof1.otynGk1um46qopn1W",
-    "role": "caf",
-    "site": "Montoir",
-    "cafTypeId": "1750063191730",
-    "managerIds": [
-      "1747838393929"
-    ]
+    "id": "1750757699490",
+    "username": "guillaume.cowpplibony@alten.com",
+    "password": "$2b$08$jCCQ4Q1lhmqexXtHPa.6kOjzl577poDXG3xqin4./Zqfkzq7EuTFu",
+    "role": "admin"
   },
   {
-    "id": "1750338539359",
-    "username": "test.test@alten.com",
-    "password": "$2b$08$vAabEuGSq8yxT4ebknfCYevkRruBFPvUgg42iLZH91EdPEIYVrS8.",
-    "role": "caf",
-    "site": "Nantes",
-    "cafTypeId": "1",
-    "managerIds": [
-      "1747838393929"
-    ],
-    "deletedAt": "2025-06-19T13:09:12.661Z"
+    "id": "1750837909595",
+    "username": "sylvain.raimbault@alten.com",
+    "password": "$2b$08$JQMj71cE9/zgkVexER0eke3TdHdzk87wMc5zN1W5aJCJH1YZyy8Rm",
+    "role": "manager",
+    "sites": [
+      "Nantes"
+    ]
   }
 ]

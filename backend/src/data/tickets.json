@@ -1,121 +1,44 @@
 [
   {
-    "id": "1747919408709",
-    "username": "logan",
-    "managerId": "1746634331825",
-    "target": "both",
-    "title": "CAF Trainer bug",
-    "message": "<p>Je ne retrouve pas le lien pour acceder au site</p>",
+    "id": "1750753039317",
+    "username": "demo.nte@alten.com",
+    "managerId": "1747838393929",
+    "target": "manager",
+    "category": "Formation",
+    "priority": "low",
+    "title": "Compréhension VCAM",
+    "message": "<p>Bonjour,</p><p>Je n'ai pas compris l'étape VCAM du process. Puis-je avoir de l'aide ?</p><p>Démo NT</p>",
     "status": "closed",
-    "date": "2025-05-22T13:10:08.709Z",
-    "category": "Autre",
-    "priority": "normal",
+    "date": "2025-06-24T08:17:19.317Z",
     "replies": [
       {
-        "author": "camile.briard@alten.com",
+        "author": "dylan.marchewka@alten.com",
         "role": "manager",
-        "message": "ok",
-        "date": "2025-05-22T17:46:03.448Z"
+        "message": "Nooon",
+        "date": "2025-06-24T08:50:38.588Z"
       }
     ],
     "archived": true
   },
   {
-    "id": "1747926340182",
-    "username": "logan",
+    "id": "1750848271768",
+    "username": "demo.nte@alten.com",
     "managerId": "1747838393929",
     "target": "manager",
-    "title": "test",
-    "message": "test 123",
-    "status": "closed",
-    "date": "2025-05-22T15:05:40.182Z",
-    "category": "Autre",
+    "category": "a",
     "priority": "normal",
-    "replies": [],
-    "archived": true
-  },
-  {
-    "id": "1747926552130",
-    "username": "logan",
-    "managerId": "1747838393929",
-    "target": "manager",
-    "title": "Test 2",
-    "message": "<blockquote><p>azertyuiop, juezlohfz 5245636ee</p></blockquote><p></p><p></p>",
-    "status": "closed",
-    "date": "2025-05-22T15:09:12.130Z",
-    "category": "Autre",
-    "priority": "high",
-    "replies": [],
-    "archived": true
-  },
-  {
-    "id": "1747936013638",
-    "username": "logan",
-    "managerId": "1747838393929",
-    "target": "manager",
-    "category": "",
-    "priority": "high",
-    "title": "test1245",
-    "message": "<p>test1254</p>",
-    "status": "closed",
-    "date": "2025-05-22T17:46:53.638Z",
-    "replies": [],
-    "archived": true
-  },
-  {
-    "id": "1750179581620",
-    "username": "eline.castiglione@alten.com",
-    "managerId": "1747838393929",
-    "target": "manager",
-    "category": "ee",
-    "priority": "normal",
-    "title": "ee",
-    "message": "<p>eee</p>",
+    "title": "a",
+    "message": "<p>a</p>",
     "status": "open",
-    "date": "2025-06-17T16:59:41.620Z",
-    "replies": [],
+    "date": "2025-06-25T10:44:31.768Z",
+    "replies": [
+      {
+        "author": "camile.briard@alten.com",
+        "role": "manager",
+        "message": "a",
+        "date": "2025-06-25T10:45:18.681Z"
+      }
+    ],
     "archived": true
-  },
-  {
-    "id": "1750180779482",
-    "username": "logan",
-    "managerId": "1747838393929",
-    "target": "manager",
-    "category": "h",
-    "priority": "normal",
-    "title": "testtt",
-    "message": "<p><strong><mark>dd</mark></strong></p>",
-    "status": "open",
-    "date": "2025-06-17T17:19:39.482Z",
-    "replies": [],
-    "archived": true
-  },
-  {
-    "id": "1750322900009",
-    "username": "landry.delalande@alten.com",
-    "managerId": "1747838393929",
-    "target": "both",
-    "category": "Test démo",
-    "priority": "high",
-    "title": "Ticket Test",
-    "message": "<p>Ceci <strong>est</strong> <em>un </em><u>test</u>.</p><h1>On peut y mettre des titres</h1><h2>ou des plus petits</h2><h3>et encore plus</h3><p></p><blockquote><p>On peut ajouter des citations</p></blockquote><p></p><p>Mais aussi des liste</p><ul><li><p>Comme ici</p></li></ul><ol><li><p>Ou là</p></li></ol><p style=\"text-align: center\">On peut écrire au centre</p><p style=\"text-align: right\">ou a droite</p><p style=\"text-align: left\">On peut même ajouter une image (comme une capture d'écran par exemple)</p><img src=\"/images/1750322877762-b2rmeuk6nwt.png\" width=\"194px\" height=\"167px\">",
-    "status": "open",
-    "date": "2025-06-19T08:48:20.009Z",
-    "replies": [],
-    "archived": false
-  },
-  {
-    "id": "1750948450757",
-    "username": "logan",
-    "managerId": "1747838393929",
-    "target": "both",
-    "category": "test",
-    "priority": "normal",
-    "title": "test",
-    "message": "<p>test</p>",
-    "status": "open",
-    "date": "2025-06-26T14:34:10.757Z",
-    "replies": [],
-    "archived": false
   }
 ]

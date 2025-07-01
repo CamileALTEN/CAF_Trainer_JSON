@@ -1,296 +1,149 @@
 [
   {
-    "username": "logan",
+    "username": "logan.surriray@alten.com",
     "moduleId": "module-1",
-    "needValidation": [],
     "visited": [
-      "7926dfda-1785-401b-b8e6-ce25e7ebaceb",
       "823615c7-a15f-464f-bd9c-369efe9e5660",
-      "adbed355-edcb-45f5-86d1-b7079b24b923",
-      "item-1",
-      "de2e76e7-368f-4acf-ad07-cbbc804c4797",
       "ffe016dd-3970-45b1-a898-3e3651461058",
-      "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
-      "1fef12c5-1512-4be2-81a8-ba21dd036931",
-      "1fac3148-0d9e-4003-86e9-abbf34963b1d",
-      "b83a25cb-12ac-4e4c-ad6b-6a1a4e324a8a",
-      "7be21bb4-9a97-4d92-a850-bb9fe4ef6673",
-      "bb9398a0-26d8-4c72-8f46-05e56c94ce03"
+      "1746552185431",
+      "7926dfda-1785-401b-b8e6-ce25e7ebaceb",
+      "1fef12c5-1512-4be2-81a8-ba21dd036931"
     ],
     "started": [
-      "60f65965-ef9e-4541-8086-2569210ddab2",
       "4bf08127-d3a0-4e10-b095-9f5abb7d2887",
-      "0ef78fbe-7242-47c1-80e9-5399492ca837"
+      "item-1",
+      "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
+      "14468455-a676-4a55-9bcc-22ae3bad8966"
+    ],
+    "needValidation": [
+      "60f65965-ef9e-4541-8086-2569210ddab2"
     ]
   },
   {
-    "username": "nantes@alten.com",
+    "username": "eline.castiglione@alten.com",
     "moduleId": "module-1",
-    "needValidation": [],
-    "visited": [],
-    "started": [
+    "visited": [
       "item-1",
       "823615c7-a15f-464f-bd9c-369efe9e5660",
       "60f65965-ef9e-4541-8086-2569210ddab2",
-      "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
-      "14468455-a676-4a55-9bcc-22ae3bad8966",
       "1746552185431",
-      "ffe016dd-3970-45b1-a898-3e3651461058",
-      "7926dfda-1785-401b-b8e6-ce25e7ebaceb",
-      "1fef12c5-1512-4be2-81a8-ba21dd036931",
-      "c8aa9ab3-8d46-469c-847a-91f465f730e5",
       "412c45d2-63ba-48d3-a79a-b5681ba72604",
       "adbed355-edcb-45f5-86d1-b7079b24b923",
-      "e9637576-9917-4f30-b317-c155bd17757d",
-      "7be21bb4-9a97-4d92-a850-bb9fe4ef6673",
-      "de2e76e7-368f-4acf-ad07-cbbc804c4797",
-      "0ef78fbe-7242-47c1-80e9-5399492ca837",
-      "28430088-5437-4272-ab34-70edfab1f354",
-      "1fac3148-0d9e-4003-86e9-abbf34963b1d",
-      "b83a25cb-12ac-4e4c-ad6b-6a1a4e324a8a"
-    ]
+      "e9637576-9917-4f30-b317-c155bd17757d"
+    ],
+    "started": [
+      "4bf08127-d3a0-4e10-b095-9f5abb7d2887",
+      "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
+      "ffe016dd-3970-45b1-a898-3e3651461058",
+      "7be21bb4-9a97-4d92-a850-bb9fe4ef6673"
+    ],
+    "needValidation": []
   },
   {
-    "username": "nantes@alten.com",
-    "moduleId": "1746553317746",
-    "needValidation": [],
-    "visited": [],
+    "username": "demo.nte@alten.com",
+    "moduleId": "module-1",
+    "visited": [
+      "823615c7-a15f-464f-bd9c-369efe9e5660",
+      "ffe016dd-3970-45b1-a898-3e3651461058"
+    ],
     "started": [
+      "item-1",
+      "412c45d2-63ba-48d3-a79a-b5681ba72604",
+      "e9637576-9917-4f30-b317-c155bd17757d",
+      "7be21bb4-9a97-4d92-a850-bb9fe4ef6673"
+    ],
+    "needValidation": []
+  },
+  {
+    "username": "logan.surriray@alten.com",
+    "moduleId": "1746553317746",
+    "visited": [
+      "3a303ff7-5543-470f-8f04-6881d45951e1",
+      "a9fd258f-0319-4849-9b49-524357ada5ce",
       "607743e6-b7fa-46f2-aff4-097954ed01c2",
       "40df64ab-94ee-4527-81b0-2898f2de7618",
       "7d856688-6867-4ffd-a1f7-a8aa17a3b12c",
       "5a81047d-208e-4614-931f-11c4e29b4ce3",
       "1baabd86-0ccd-4b68-96f7-007a05b52666",
       "e5b02cce-d345-4a9a-b995-eb83ccb09ebd",
+      "4ed124fb-6fbb-4b27-8f4e-e074110fd8b7"
+    ],
+    "started": [
       "601f4248-2455-4b43-ac3a-d7d858699478",
-      "3a303ff7-5543-470f-8f04-6881d45951e1",
-      "a9fd258f-0319-4849-9b49-524357ada5ce",
       "a056e707-e0e1-44d5-a95c-2214d35f446b",
       "1c43b992-8963-48f3-b39c-8f0b8a7db48c",
-      "3868f553-a81d-4660-b61c-4e57084d4208",
       "7b9b9123-1d18-44fe-ac58-0e9cc148598a",
-      "ebf893bb-494d-4bce-8902-cff881e8e9e1",
-      "0661b482-8676-4e4d-a91f-9fc967d964ce",
-      "506d35b9-9718-4277-9958-6c5188e0e197",
-      "30d2e7b6-bc0c-4838-b893-a2d606038dbc",
-      "4ed124fb-6fbb-4b27-8f4e-e074110fd8b7",
-      "c1c9b73c-5353-4932-87ee-0377cfc03a08",
-      "30cf2249-0124-428c-933d-12153fc1c769",
-      "a99b1bdd-c95b-4e24-939b-2e9bd3a01225",
-      "556cdfea-2df9-4b08-b4d2-18010406579c",
-      "8bf004aa-beb3-4c5d-8cd3-8f5fcb6452bd",
-      "0b6fd1ac-6ece-4a72-8627-7cb95d0998dd",
-      "c4a1baf4-bb96-4798-9df9-32dd49cb08d8",
-      "fb9750b8-cde3-4b2c-9bb5-8ba06d47461b"
-    ]
+      "446d07af-006c-4b9d-adda-56562b1bd60d",
+      "8bf004aa-beb3-4c5d-8cd3-8f5fcb6452bd"
+    ],
+    "needValidation": []
   },
   {
-    "username": "montoir@alten.com",
-    "moduleId": "module-1",
-    "needValidation": [],
-    "visited": [],
-    "started": [
-      "item-1",
-      "823615c7-a15f-464f-bd9c-369efe9e5660",
-      "60f65965-ef9e-4541-8086-2569210ddab2",
-      "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
-      "14468455-a676-4a55-9bcc-22ae3bad8966",
-      "1746552185431",
-      "ffe016dd-3970-45b1-a898-3e3651461058",
-      "7926dfda-1785-401b-b8e6-ce25e7ebaceb",
-      "1fef12c5-1512-4be2-81a8-ba21dd036931",
-      "c8aa9ab3-8d46-469c-847a-91f465f730e5",
-      "412c45d2-63ba-48d3-a79a-b5681ba72604",
-      "adbed355-edcb-45f5-86d1-b7079b24b923",
-      "e9637576-9917-4f30-b317-c155bd17757d",
-      "7be21bb4-9a97-4d92-a850-bb9fe4ef6673",
-      "de2e76e7-368f-4acf-ad07-cbbc804c4797",
-      "0ef78fbe-7242-47c1-80e9-5399492ca837",
-      "28430088-5437-4272-ab34-70edfab1f354",
-      "1fac3148-0d9e-4003-86e9-abbf34963b1d",
-      "b83a25cb-12ac-4e4c-ad6b-6a1a4e324a8a"
-    ]
-  },
-  {
-    "username": "montoir@alten.com",
+    "username": "eline.castiglione@alten.com",
     "moduleId": "1746553317746",
-    "needValidation": [],
-    "visited": [],
-    "started": [
+    "visited": [
       "607743e6-b7fa-46f2-aff4-097954ed01c2",
       "40df64ab-94ee-4527-81b0-2898f2de7618",
       "7d856688-6867-4ffd-a1f7-a8aa17a3b12c",
       "5a81047d-208e-4614-931f-11c4e29b4ce3",
       "1baabd86-0ccd-4b68-96f7-007a05b52666",
-      "e5b02cce-d345-4a9a-b995-eb83ccb09ebd",
-      "601f4248-2455-4b43-ac3a-d7d858699478",
-      "3a303ff7-5543-470f-8f04-6881d45951e1",
-      "a9fd258f-0319-4849-9b49-524357ada5ce",
-      "a056e707-e0e1-44d5-a95c-2214d35f446b",
-      "1c43b992-8963-48f3-b39c-8f0b8a7db48c",
-      "3868f553-a81d-4660-b61c-4e57084d4208",
-      "7b9b9123-1d18-44fe-ac58-0e9cc148598a",
-      "ebf893bb-494d-4bce-8902-cff881e8e9e1",
+      "5829a873-7081-4170-b8f8-e3d79b8558df",
+      "85542009-f501-470f-83dc-4c4e4db0de84",
+      "52bd1b2f-5dd2-4f6f-971f-1a5e4b3a99a5",
+      "924e9790-1a0f-4490-8ce9-b3af2123baad",
       "0661b482-8676-4e4d-a91f-9fc967d964ce",
       "506d35b9-9718-4277-9958-6c5188e0e197",
       "30d2e7b6-bc0c-4838-b893-a2d606038dbc",
       "4ed124fb-6fbb-4b27-8f4e-e074110fd8b7",
-      "c1c9b73c-5353-4932-87ee-0377cfc03a08",
+      "8bf004aa-beb3-4c5d-8cd3-8f5fcb6452bd"
+    ],
+    "started": [
+      "e5b02cce-d345-4a9a-b995-eb83ccb09ebd",
       "30cf2249-0124-428c-933d-12153fc1c769",
-      "a99b1bdd-c95b-4e24-939b-2e9bd3a01225",
-      "556cdfea-2df9-4b08-b4d2-18010406579c",
-      "8bf004aa-beb3-4c5d-8cd3-8f5fcb6452bd",
-      "0b6fd1ac-6ece-4a72-8627-7cb95d0998dd",
-      "c4a1baf4-bb96-4798-9df9-32dd49cb08d8",
-      "fb9750b8-cde3-4b2c-9bb5-8ba06d47461b"
-    ]
+      "a99b1bdd-c95b-4e24-939b-2e9bd3a01225"
+    ],
+    "needValidation": []
   },
   {
-    "username": "montoir.NZ@alten.com",
-    "moduleId": "module-1",
-    "needValidation": [],
+    "username": "demo.nte@alten.com",
+    "moduleId": "1746553317746",
     "visited": [],
     "started": [
+      "3a303ff7-5543-470f-8f04-6881d45951e1",
+      "1baabd86-0ccd-4b68-96f7-007a05b52666"
+    ],
+    "needValidation": []
+  },
+  {
+    "username": "eline.castiglione@alten.com",
+    "moduleId": "1750750095616",
+    "visited": [],
+    "started": [
+      "b8b443cb-34cb-4df9-86c2-ee0eaaf09b91"
+    ],
+    "needValidation": []
+  },
+  {
+    "username": "demo.mdb@alten.com",
+    "moduleId": "module-1",
+    "visited": [],
+    "started": [
+      "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
+      "1746552185431",
+      "c8aa9ab3-8d46-469c-847a-91f465f730e5",
+      "0ef78fbe-7242-47c1-80e9-5399492ca837",
+      "28430088-5437-4272-ab34-70edfab1f354",
+      "7926dfda-1785-401b-b8e6-ce25e7ebaceb",
+      "4bf08127-d3a0-4e10-b095-9f5abb7d2887",
       "item-1",
       "823615c7-a15f-464f-bd9c-369efe9e5660",
-      "60f65965-ef9e-4541-8086-2569210ddab2",
-      "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
-      "14468455-a676-4a55-9bcc-22ae3bad8966",
-      "1746552185431",
       "ffe016dd-3970-45b1-a898-3e3651461058",
-      "7926dfda-1785-401b-b8e6-ce25e7ebaceb",
       "1fef12c5-1512-4be2-81a8-ba21dd036931",
-      "c8aa9ab3-8d46-469c-847a-91f465f730e5",
       "7ef3df4d-0861-42cb-880e-abca4e12e8d5",
       "4910213a-6050-44cd-98c7-05583929a2e9",
       "e9637576-9917-4f30-b317-c155bd17757d",
-      "ef2be627-7ab7-42fb-a5aa-bcea0cd04bfb",
-      "de2e76e7-368f-4acf-ad07-cbbc804c4797",
-      "0ef78fbe-7242-47c1-80e9-5399492ca837",
-      "28430088-5437-4272-ab34-70edfab1f354",
-      "1fac3148-0d9e-4003-86e9-abbf34963b1d",
-      "b83a25cb-12ac-4e4c-ad6b-6a1a4e324a8a"
-    ]
-  },
-  {
-    "username": "montoir.NZ@alten.com",
-    "moduleId": "1746553317746",
-    "needValidation": [],
-    "visited": [],
-    "started": [
-      "607743e6-b7fa-46f2-aff4-097954ed01c2",
-      "40df64ab-94ee-4527-81b0-2898f2de7618",
-      "7d856688-6867-4ffd-a1f7-a8aa17a3b12c",
-      "5a81047d-208e-4614-931f-11c4e29b4ce3",
-      "1baabd86-0ccd-4b68-96f7-007a05b52666",
-      "e5b02cce-d345-4a9a-b995-eb83ccb09ebd",
-      "601f4248-2455-4b43-ac3a-d7d858699478",
-      "3a303ff7-5543-470f-8f04-6881d45951e1",
-      "a9fd258f-0319-4849-9b49-524357ada5ce",
-      "a056e707-e0e1-44d5-a95c-2214d35f446b",
-      "1c43b992-8963-48f3-b39c-8f0b8a7db48c",
-      "3868f553-a81d-4660-b61c-4e57084d4208",
-      "f3d0be8c-14a1-4537-bbc1-00dab35fcfc1",
-      "818bf6d2-1330-4492-94da-f742f9156bbd",
-      "0661b482-8676-4e4d-a91f-9fc967d964ce",
-      "506d35b9-9718-4277-9958-6c5188e0e197",
-      "30d2e7b6-bc0c-4838-b893-a2d606038dbc",
-      "4ed124fb-6fbb-4b27-8f4e-e074110fd8b7",
-      "c1c9b73c-5353-4932-87ee-0377cfc03a08",
-      "97958f90-4973-46ac-846f-f746b20c1109",
-      "a99b1bdd-c95b-4e24-939b-2e9bd3a01225",
-      "556cdfea-2df9-4b08-b4d2-18010406579c",
-      "8bf004aa-beb3-4c5d-8cd3-8f5fcb6452bd"
-    ]
-  },
-  {
-    "username": "nantes.NT@alten.com",
-    "moduleId": "1746553317746",
-    "visited": [],
-    "started": [
-      "607743e6-b7fa-46f2-aff4-097954ed01c2",
-      "40df64ab-94ee-4527-81b0-2898f2de7618",
-      "7d856688-6867-4ffd-a1f7-a8aa17a3b12c",
-      "5a81047d-208e-4614-931f-11c4e29b4ce3",
-      "1baabd86-0ccd-4b68-96f7-007a05b52666",
-      "e5b02cce-d345-4a9a-b995-eb83ccb09ebd",
-      "601f4248-2455-4b43-ac3a-d7d858699478",
-      "3a303ff7-5543-470f-8f04-6881d45951e1",
-      "a9fd258f-0319-4849-9b49-524357ada5ce",
-      "a056e707-e0e1-44d5-a95c-2214d35f446b",
-      "1c43b992-8963-48f3-b39c-8f0b8a7db48c",
-      "3868f553-a81d-4660-b61c-4e57084d4208",
-      "7b9b9123-1d18-44fe-ac58-0e9cc148598a",
-      "ebf893bb-494d-4bce-8902-cff881e8e9e1",
-      "0661b482-8676-4e4d-a91f-9fc967d964ce",
-      "506d35b9-9718-4277-9958-6c5188e0e197",
-      "30d2e7b6-bc0c-4838-b893-a2d606038dbc",
-      "4ed124fb-6fbb-4b27-8f4e-e074110fd8b7",
-      "c1c9b73c-5353-4932-87ee-0377cfc03a08",
-      "30cf2249-0124-428c-933d-12153fc1c769",
-      "a99b1bdd-c95b-4e24-939b-2e9bd3a01225",
-      "556cdfea-2df9-4b08-b4d2-18010406579c",
-      "8bf004aa-beb3-4c5d-8cd3-8f5fcb6452bd",
-      "0b6fd1ac-6ece-4a72-8627-7cb95d0998dd",
-      "c4a1baf4-bb96-4798-9df9-32dd49cb08d8",
-      "fb9750b8-cde3-4b2c-9bb5-8ba06d47461b",
-      "85542009-f501-470f-83dc-4c4e4db0de84",
-      "5829a873-7081-4170-b8f8-e3d79b8558df",
-      "52bd1b2f-5dd2-4f6f-971f-1a5e4b3a99a5",
-      "924e9790-1a0f-4490-8ce9-b3af2123baad"
+      "de2e76e7-368f-4acf-ad07-cbbc804c4797"
     ],
-    "needValidation": []
-  },
-  {
-    "username": "logan",
-    "moduleId": "1746553317746",
-    "visited": [
-      "607743e6-b7fa-46f2-aff4-097954ed01c2"
-    ],
-    "started": [
-      "1baabd86-0ccd-4b68-96f7-007a05b52666",
-      "a9fd258f-0319-4849-9b49-524357ada5ce",
-      "40df64ab-94ee-4527-81b0-2898f2de7618",
-      "924e9790-1a0f-4490-8ce9-b3af2123baad",
-      "52bd1b2f-5dd2-4f6f-971f-1a5e4b3a99a5",
-      "7d856688-6867-4ffd-a1f7-a8aa17a3b12c",
-      "446d07af-006c-4b9d-adda-56562b1bd60d",
-      "77ea1067-85a1-4041-b589-cc63cf932d9d",
-      "3a303ff7-5543-470f-8f04-6881d45951e1"
-    ],
-    "needValidation": []
-  },
-  {
-    "username": "eline.castiglione@alten.com",
-    "moduleId": "module-1",
-    "visited": [
-      "8c97abf8-9d74-4ec8-a805-ef0971a7bdae",
-      "1746552185431"
-    ],
-    "started": [
-      "7926dfda-1785-401b-b8e6-ce25e7ebaceb",
-      "412c45d2-63ba-48d3-a79a-b5681ba72604"
-    ],
-    "needValidation": []
-  },
-  {
-    "username": "eline.castiglione@alten.com",
-    "moduleId": "1746553317746",
-    "visited": [],
-    "started": [
-      "607743e6-b7fa-46f2-aff4-097954ed01c2",
-      "7d856688-6867-4ffd-a1f7-a8aa17a3b12c"
-    ],
-    "needValidation": []
-  },
-  {
-    "username": "landry.delalande@alten.com",
-    "moduleId": "module-1",
-    "visited": [
-      "item-1",
-      "ffe016dd-3970-45b1-a898-3e3651461058"
-    ],
-    "started": [],
     "needValidation": []
   }
 ]

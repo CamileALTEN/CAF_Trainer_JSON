@@ -2,9 +2,9 @@
   {
     "text": "Mise à jour nécessaire du contenu des modules",
     "url": "https://docs.google.com.rproxy.goskope.com/spreadsheets/d/1CNAl7-GU3FVelXssNFr1NaVXGfrTPexl_iC3yDHPt_Y/edit?usp=sharing",
-    "frequency": 345600,
+    "frequency": 31104000,
     "active": false,
     "maxOutdated": 25,
-    "lastAck": "2025-06-26T13:36:15.580Z"
+    "lastAck": "2025-06-25T10:33:41.054Z"
   }
 ]
