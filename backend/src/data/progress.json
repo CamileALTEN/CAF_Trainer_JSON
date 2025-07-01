@@ -49,10 +49,12 @@
     "started": [
       "item-1",
       "412c45d2-63ba-48d3-a79a-b5681ba72604",
-      "e9637576-9917-4f30-b317-c155bd17757d",
-      "7be21bb4-9a97-4d92-a850-bb9fe4ef6673"
+      "e9637576-9917-4f30-b317-c155bd17757d"
     ],
-    "needValidation": []
+    "needValidation": [
+      "7be21bb4-9a97-4d92-a850-bb9fe4ef6673",
+      "60f65965-ef9e-4541-8086-2569210ddab2"
+    ]
   },
   {
     "username": "logan.surriray@alten.com",
@@ -107,12 +109,20 @@
   {
     "username": "demo.nte@alten.com",
     "moduleId": "1746553317746",
-    "visited": [],
-    "started": [
-      "3a303ff7-5543-470f-8f04-6881d45951e1",
-      "1baabd86-0ccd-4b68-96f7-007a05b52666"
+    "visited": [
+      "1baabd86-0ccd-4b68-96f7-007a05b52666",
+      "40df64ab-94ee-4527-81b0-2898f2de7618",
+      "7d856688-6867-4ffd-a1f7-a8aa17a3b12c",
+      "5a81047d-208e-4614-931f-11c4e29b4ce3",
+      "e5b02cce-d345-4a9a-b995-eb83ccb09ebd",
+      "607743e6-b7fa-46f2-aff4-097954ed01c2"
     ],
-    "needValidation": []
+    "started": [
+      "3a303ff7-5543-470f-8f04-6881d45951e1"
+    ],
+    "needValidation": [
+      "a9fd258f-0319-4849-9b49-524357ada5ce"
+    ]
   },
   {
     "username": "eline.castiglione@alten.com",

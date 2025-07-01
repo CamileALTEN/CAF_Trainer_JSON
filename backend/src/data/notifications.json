@@ -82,5 +82,26 @@
     "date": "2025-06-26T14:00:01.742Z",
     "category": "ticket",
     "message": "Mise à jour du ticket \"a\""
+  },
+  {
+    "id": "1751361061782",
+    "username": "demo.nte@alten.com",
+    "date": "2025-07-01T09:11:01.782Z",
+    "category": "ticket",
+    "message": "Nouveau ticket de demo.nte@alten.com intitulé \"Compréhension process\" :       <p>Bonjour, </p><p>Je n'ai pas compris le jalon GMAO du process. </p><p>Est ce que je peux avoir une explication ou des exemples ?</p><p>Merci d'avance.</p>."
+  },
+  {
+    "id": "1751361079960",
+    "username": "camile.briard@alten.com",
+    "date": "2025-07-01T09:11:19.960Z",
+    "category": "ticket",
+    "message": "Nouvelle réponse au ticket \"Compréhension process\""
+  },
+  {
+    "id": "1751361087257",
+    "username": "camile.briard@alten.com",
+    "date": "2025-07-01T09:11:27.257Z",
+    "category": "ticket",
+    "message": "Nouvelle réponse au ticket \"Compréhension process\""
   }
 ]
