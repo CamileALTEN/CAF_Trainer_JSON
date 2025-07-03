@@ -43,7 +43,7 @@ async function getParisTime() {
     try {
         const res = await fetch('https://worldtimeapi.org/api/timezone/Europe/Paris');
         const data = await res.json();
-        return data.datetime;
+        return new Date(data.datetime).toISOString();
     }
     catch {
         return new Date().toISOString();
