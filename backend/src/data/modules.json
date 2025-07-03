@@ -135,7 +135,11 @@
             "cafTypes": [],
             "enabled": true,
             "needValidation": false,
-            "outdatedInfo": null,
+            "outdatedInfo": {
+              "reason": "",
+              "date": "2025-07-03T09:57:14.135Z",
+              "user": ""
+            },
             "quiz": {
               "enabled": true,
               "questions": [
@@ -1062,7 +1066,7 @@
                 "id": "e5b02cce-d345-4a9a-b995-eb83ccb09ebd",
                 "title": "Skill Matrix",
                 "subtitle": "",
-                "content": "<h1>Contexte</h1><p>La Skill Matrix (SM) est un outil permettant d'évaluer les compétences des consultants en fonction de leur métier. En tant que CAF, la Skill Matrix associée est \"ME3S - JTMA\" avec le rôle de \"JTMA Mechanical Tooling Manager (CAF)\".</p><p></p><p>Plusieurs compétences sont évaluées selon les catégories suivantes :</p><ul><li><p>Produit (Équipement) ;</p></li><li><p>Méthodes et processus ;</p></li><li><p>Norme (Standard) ;</p></li><li><p>Logiciel (Outil) ;</p></li><li><p>Activité (Savoir-Faire) ;</p></li><li><p>Savoir être.</p></li></ul><p>Le CAF est attendu à un niveau pour chaque compétence (de 0 à 4). Si ce n'est pas le cas, un plan d'action est mis en place avec le TL pour faire monter en compétences le CAF.</p><p></p><p>Elle est disponible sur l'outil MUSE accessible depuis My Alten.</p><p></p><h1>Méthode</h1><p>La Skill Matrix doit être remplis ... mois après l'arrivée du CAF, puis être mise à jour régulièrement. Le CAF la complète en autonomie, puis en discute avec le TL, pour validation de l'auto-évaluation et du plan d'action à mettre en place.</p>",
+                "content": "<h1>Contexte</h1><p>La Skill Matrix (SM) est un outil permettant d'évaluer les compétences des consultants en fonction de leur métier. En tant que CAF, la Skill Matrix associée est \"ME3S - JTMA\" avec le rôle de \"JTMA Mechanical Tooling Manager (CAF)\".</p><p></p><p>Plusieurs compétences sont évaluées selon les catégories suivantes :</p><ul><li><p>Produit (Équipement) ;</p></li><li><p>Méthodes et processus ;</p></li><li><p>Norme (Standard) ;</p></li><li><p>Logiciel (Outil) ;</p></li><li><p>Activité (Savoir-Faire) ;</p></li><li><p>Savoir être.</p></li></ul><p>Le CAF est attendu à un niveau pour chaque compétence (de 0 à 4). Si ce n'est pas le cas, un plan d'action est mis en place avec le TL pour faire monter en compétences le CAF.</p><p></p><p>Elle est disponible sur l'outil MUSE accessible depuis My Alten.</p><p></p><h1>Méthode</h1><p>La Skill Matrix doit être remplis<mark> ...</mark> mois après l'arrivée du CAF, puis être mise à jour régulièrement. Le CAF la complète en autonomie, puis en discute avec le TL, pour validation de l'auto-évaluation et du plan d'action à mettre en place.</p>",
                 "links": [
                   {
                     "label": "Skill Matrix ME3S - JTMA",
@@ -1188,6 +1192,29 @@
                 "enabled": true,
                 "needValidation": true,
                 "outdatedInfo": null,
+                "quiz": {
+                  "enabled": false,
+                  "questions": []
+                },
+                "children": []
+              },
+              {
+                "id": "50b1f099-701a-4545-a1eb-8689293967fb",
+                "title": "Suivi Appel d'Offre",
+                "subtitle": "",
+                "content": "",
+                "links": [],
+                "images": [],
+                "videos": [],
+                "profiles": [],
+                "cafTypes": [],
+                "enabled": true,
+                "needValidation": false,
+                "outdatedInfo": {
+                  "reason": "à faire",
+                  "date": "2025-07-03T07:55:29.020Z",
+                  "user": "carla ledeux"
+                },
                 "quiz": {
                   "enabled": false,
                   "questions": []
