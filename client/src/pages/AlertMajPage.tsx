@@ -157,12 +157,17 @@ export default function AlertMajPage() {
     window.location.reload();
   };
 
-  const exportCsv = () => {
+  const exportCsv = async () => {
+    const allActions = await getAlertActions();
+    setActions(allActions);
     const rows = ['date,utilisateur,module,item,commentaire'];
-    actions.forEach(a => {
+    allActions.forEach(a => {
       a.items.forEach(id => {
         const info = itemMap[id];
-        if (info) rows.push(`${new Date(a.date).toLocaleString()},${a.user.replace(/,/g,' ')},${info.module.replace(/,/g,' ')},${info.title.replace(/,/g,' ')},${a.comment?.replace(/,/g,' ') ?? ''}`);
+        if (info)
+          rows.push(
+            `${new Date(a.date).toLocaleString()},${a.user.replace(/,/g, ' ')},${info.module.replace(/,/g, ' ')},${info.title.replace(/,/g, ' ')},${a.comment?.replace(/,/g, ' ') ?? ''}`
+          );
       });
     });
     const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
