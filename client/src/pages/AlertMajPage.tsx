@@ -162,13 +162,19 @@ export default function AlertMajPage() {
     setActions(allActions);
     const rows = ['date,utilisateur,module,item,commentaire'];
     allActions.forEach(a => {
-      a.items.forEach(id => {
-        const info = itemMap[id];
-        if (info)
-          rows.push(
-            `${new Date(a.date).toLocaleString()},${a.user.replace(/,/g, ' ')},${info.module.replace(/,/g, ' ')},${info.title.replace(/,/g, ' ')},${a.comment?.replace(/,/g, ' ') ?? ''}`
-          );
-      });
+      if (a.items.length === 0) {
+        rows.push(
+          `${new Date(a.date).toLocaleString()},${a.user.replace(/,/g, ' ')},,,${a.comment?.replace(/,/g, ' ') ?? ''}`
+        );
+      } else {
+        a.items.forEach(id => {
+          const info = itemMap[id];
+          if (info)
+            rows.push(
+              `${new Date(a.date).toLocaleString()},${a.user.replace(/,/g, ' ')},${info.module.replace(/,/g, ' ')},${info.title.replace(/,/g, ' ')},${a.comment?.replace(/,/g, ' ') ?? ''}`
+            );
+        });
+      }
     });
     const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
