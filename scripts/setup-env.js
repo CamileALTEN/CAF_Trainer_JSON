@@ -28,7 +28,7 @@ function saveEnv(file, env) {
   let base;
   if (type === 'R') {
     const letter = (await ask('Lettre du lecteur monté (ex: Z): ')).trim().toUpperCase();
-    base = `${letter}:\\CAF-Trainer\\backend`;
+    base = `${letter}:\\ME3S_JTMA\\Plateforme_CAF-Trainer\\CAF-Trainer\\backend`;
   } else {
     base = '';
   }
